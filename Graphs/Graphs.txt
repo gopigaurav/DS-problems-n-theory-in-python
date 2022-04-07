@@ -1,0 +1,336 @@
+# BFS
+
+graph = {
+  1 : [2,3],
+  6 : [4,5],
+  2 : [1,4,5],
+  3 : [1,5],
+  4 : [2,5,6],
+  5 : [2,3,4,6],
+}
+visited = [] # List for visited nodes.
+queue = []     #Initialize a queue
+
+def bfs(visited, graph, node): #function for BFS
+        if node not in graph:
+            print("invalid")
+            return
+        visited.append(node)
+        queue.append(node)
+        while queue:          
+            m = queue.pop(0) 
+            print (m) 
+            for neighbour in graph[m]:
+                if neighbour not in visited:
+                    visited.append(neighbour)
+                    queue.append(neighbour)
+
+# DFS 
+def dfs(graph, start, visted):
+    print(start)
+    visited.append(start)
+    for i in graph[start]:
+        if i not in visited:
+            dfs(graph, i, visited)
+            
+dfs(graph, 1, visited)
+#bfs(visited, graph,0)
+
+=============================== cycle detetcion in directed graph =========================
+
+class Solution:
+    # @param A : integer
+    # @param B : list of list of integers
+    # @return an integer
+    def __init__(self):
+        self.graph = {}
+        self.visited = []
+        self.instack = []
+        
+    def isCyclic(self, node):
+        self.visited[node] = True
+        self.instack[node] = True
+        for i in self.graph[node]:
+            if not self.visited[i] and self.isCyclic(i):
+                return True
+            elif self.instack[i]:
+                return True
+        self.instack[node] = False
+        return False
+        
+    def solve(self, A, B):
+        for i in range(1, A + 1):
+            self.graph[i] = []
+        for (src, dst) in B:
+            self.graph[src].append(dst)
+        
+        self.visited = [False] * (A + 1)
+        self.instack = [False] * (A + 1)
+        
+        for i in range(1, A + 1):
+            if not self.visited[i]:
+                if self.isCyclic(i):
+                    return 1
+        return 0
+
+input == 
+A = 5
+B = [[1, 4],
+  [2, 1],
+  [4, 3],
+  [4, 5],
+  [2, 3],
+  [2, 4],
+  [1, 5],
+  [5, 3],
+  [2, 5],
+  [5, 1],
+  [4, 2],
+  [3, 1],
+  [5, 4],
+  [3, 4],
+  [1, 3],
+  [4, 1],
+  [3, 5],
+  [3, 2],
+  [5, 2],
+]
+================================================== cycle detection in undirected graph================================
+
+# cycle detetction in undirected graph
+A = 5
+B = [[1, 4],
+  [2, 1],
+  [4, 3],
+  [4, 5],
+  [2, 3],
+  [2, 4],
+  [1, 5],
+  [5, 3],
+  [2, 5],
+  [5, 1],
+  [4, 2],
+  [3, 1],
+  [5, 4],
+  [3, 4],
+  [1, 3],
+  [4, 1],
+  [3, 5],
+  [3, 2],
+  [5, 2],
+]
+from collections import defaultdict
+class Solution:
+    # @param A : integer
+    # @param B : list of list of integers
+    # @return an integer
+    def dfs(self,node,parent,visited):
+        
+        visited[node]=True
+        
+        for i in self.graph[node]:
+            
+            if visited[i]==True and i!=parent:
+                return True
+                
+            elif visited[i]==False and self.dfs(i,node,visited)==True:
+                return True
+                
+            
+        return False
+        
+    def solve(self, v, a):
+        
+        self.graph=defaultdict(list)
+        visited={}
+        
+        for i in a:
+            self.graph[i[0]].append(i[1])
+            self.graph[i[1]].append(i[0])
+            visited[i[0]]=False
+            visited[i[1]]=False
+            
+        for i in visited.keys():
+            #print(i)
+            if visited[i]==False:
+                if self.dfs(i,-1,visited):
+                    return 1
+        return 0
+        
+    
+===========================================================================================================
+
+========================================= snakes ladder problem =======================================
+
+class Solution:
+    # @param A : list of list of integers
+    # @param B : list of list of integers
+    # @return an integer
+    def snakeLadder(self, A, B):
+        jump = {}
+        for a in A:
+            start, end = a
+            jump[start] = end
+            
+        for b in B:
+            start, end = b
+            jump[start] = end
+            
+        initial = 1
+        final = 100
+        queue = []
+        visited = set()
+        queue.append((initial, 0))
+        
+        while queue:
+            val, count = queue.pop(0)
+            if val in jump:
+                val = jump[val] 
+            
+            if val in visited:
+                continue
+            
+            if val == final:
+                return count
+                
+            visited.add(val)
+            for i in range(val, val+7):
+                if i not in visited and i <= 100:
+                    queue.append((i, count+1))
+                    
+        return -1
+            
+================================================= Region in Binary matrix ==================================================
+
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def solve(self, A):
+        max_count = 0
+        for i in range(len(A)):
+            for j in range(len(A[0])):
+                if A[i][j] == 1:
+                    local_sep_count = self.countCells(A,i,j)
+                    max_count = max(max_count, local_sep_count)
+        return max_count
+    
+    def countCells(self, A, row, col):
+        if any([row < 0, col< 0, row>=len(A), col>=len(A[0])]):
+            return 0
+        if A[row][col] == 0:
+            return 0
+        cell_count = 1
+        A[row][col] = 0
+        for r in range(row-1, row+2):
+            for c in range(col-1, col+2):
+                if (r!=row or c != col):
+                    cell_count += self.countCells(A, r, c)
+        return cell_count
+
+
+A = [  [0, 0, 1, 1, 0],
+        [1, 0, 1, 1, 0],
+        [0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 1],
+    ]
+test = Solution()
+print(test.solve(A))
+
+
+======================================================================================================
+================================== Min cost path =====================================================
+
+i/p  => 
+ A = 3
+ B = 3
+ C = ["RRR","DDD","UUU"]
+
+code = 
+import collections
+class Solution:
+    # @param A : integer
+    # @param B : integer
+    # @param C : list of strings
+    # @return an integer
+    def solve(self, A, B, C):
+        queue = collections.deque([])
+        queue.append((0,0,0))
+        #answer = 999
+        completed = [[False for i in range(B)] for j in range(A)]
+        
+        while(len(queue) != 0):
+            i,j,cost = queue.popleft()
+            if(completed[i][j] == True):
+                continue
+            completed[i][j] = True
+            if(i == A-1 and j == B-1):
+                return cost
+            
+            if(j+1<B and (i<A and j<B)):   
+                if(C[i][j] == 'R'):
+                    queue.appendleft(( i, j+1,cost))
+                else:
+                    queue.append(( i, j+1,cost+1))    
+                    
+            if(i+1<A and (i<A and j<B)):  
+                if(C[i][j] == 'D'):
+                    queue.appendleft(( i+1, j,cost))
+                else:
+                    queue.append(( i+1, j,cost+1))
+        
+            
+            if(j-1>=0 and (i<A and j<B)):
+                if(C[i][j] == 'L'):
+                    queue.appendleft(( i, j-1,cost))
+                else:
+                    queue.append(( i, j-1,cost+1))
+        
+            if(i-1>=0 and (i<A and j<B)):
+                
+                if(C[i][j] == 'U' ):
+                    queue.appendleft(( i-1, j,cost))
+                else:
+                    queue.append(( i-1, j,cost+1))
+            
+        
+            
+        return cost
+===============================================================================================================
+=========================== path in directed graph =========================================
+
+class Solution:
+    # @param A : integer
+    # @param B : list of list of integers
+    # @return an integer
+    def solve(self, A, edges):
+        
+        if len(edges) == 0:
+            return 0
+            
+        adj = {}
+        
+        for s,e in edges:
+            if s not in adj:
+                adj[s] = []
+            if e not in adj:
+                adj[e] = []
+            adj[s].append(e)
+            
+        visited = {}
+        
+        
+        q = [1]
+        visited[1] = True
+        while q:
+            node = q.pop()
+            if node == A:
+                return 1
+            for n in adj[node]:
+                if n not in visited:
+                    visited[n] = True
+                    q.append(n)
+            
+            
+        return 0 
+
+==================================================== Number of islands ================================
