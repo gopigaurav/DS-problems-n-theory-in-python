@@ -1,0 +1,412 @@
+# Function to display hashtable
+def display_hash(hashTable):
+	
+	for i in range(len(hashTable)):
+		print(i, end = " ")
+		
+		for j in hashTable[i]:
+			print("-->", end = " ")
+			print(j, end = " ")
+			
+		print()
+
+# Creating Hashtable as
+# a nested list.
+HashTable = [[] for _ in range(10)]
+
+# Hashing Function to return
+# key for every value.
+def Hashing(keyvalue):
+	return keyvalue % len(HashTable)
+
+
+# Insert Function to add
+# values to the hash table
+def insert(Hashtable, keyvalue, value):
+	
+	hash_key = Hashing(keyvalue)
+	Hashtable[hash_key].append(value)
+
+# Driver Code
+insert(HashTable, 10, 'Allahabad')
+insert(HashTable, 25, 'Mumbai')
+insert(HashTable, 20, 'Mathura')
+insert(HashTable, 9, 'Delhi')
+insert(HashTable, 21, 'Punjab')
+insert(HashTable, 21, 'Noida')
+
+display_hash (HashTable)
+
+
+output -- 
+
+0 --> Allahabad --> Mathura 
+1 --> Punjab --> Noida 
+2 
+3 
+4 
+5 --> Mumbai 
+6 
+7 
+8 
+9 --> Delhi 
+
+================================== Linear Probing ===================================================
+
+import numpy as np
+
+# Linear probing program in python
+class Hash_table() :
+    
+    def __init__(self,size) :
+        self.size = size
+        self.hashtable = np.array([None]*self.size)
+        
+    def hash(self,key) :
+        
+        # Hash function h(x) = x%10
+        index = key%10 
+        
+        if self.hashtable[index] == None :
+            return index
+        else :
+            
+            # Implementing linear probing
+            while self.hashtable[index] != None :
+                index = (index+1)%10
+                
+            return index
+        
+    def insert(self,key) :
+        
+        index = self.hash(key)
+        self.hashtable[index] = key
+        
+    def search(self,key) :
+        
+        index = key%10
+        
+        if self.hashtable[index] != key :
+            while self.hashtable[index] != key and self.hashtable[index] != None :
+                index = (index+1)%10
+                
+        if self.hashtable[index] == key :
+            return index
+        else :
+            return None
+    
+    def print_hashtable(self) :
+        
+        print("Hash table is :-\n\nindex \t value")
+        for x in range(len(self.hashtable)) :
+            print(x,"\t",self.hashtable[x])
+
+# Initializing hash table of size 10
+HT = Hash_table(10)
+
+# Inserting only 5 values to make λ <= 0.5
+HT.insert(10)
+HT.insert(90)
+HT.insert(25)
+HT.insert(5)
+HT.insert(35)
+
+HT.print_hashtable()
+
+index = HT.search(35)
+
+if index!= None :
+    print("\nGiven key is present at index",index)
+else :
+    print("\nGiven key is not present in the hash table")
+
+
+================================= Separate chaining -- in normal order ===================================
+
+import numpy as np
+
+#separate chaining in python
+class Node() :
+    
+    def __init__(self,value) :
+        self.value = value
+        self.next = None
+
+class Linked_List() :
+    
+    def __init__(self) :
+        self.head = None
+        
+    def insert(self,value) :
+        if not self.head :
+            self.head = Node(value)
+        else :
+            temp = self.head
+            while temp.next :
+                temp = temp.next
+            temp.next = Node(value)
+            
+    def search(self,value) :
+        temp = self.head
+        while temp :
+            if temp.value == value :
+                return True
+            temp = temp.next
+        return False
+    
+    def print_LL(self) :
+        temp = self.head
+        if not temp :
+            print(None)
+        while temp :
+            if temp.next :
+                print(temp.value,"--->",end="  ")
+            else :
+                print(temp.value)
+            temp = temp.next
+            
+            
+class Hash_table() :
+    def __init__(self,size) :
+        self.size = size
+        self.hashtable = np.array([None]*self.size)
+        for x in range(self.size) :
+            self.hashtable[x] = Linked_List()
+        
+    def hash(self,key) :
+        # Hash function is h(x) = x%10
+        return key%10
+    
+    def insert_key(self,key) :
+        index = self.hash(key)
+        self.hashtable[index].insert(key)
+        
+    def search_key(self,key) :
+        index = self.hash(key)
+        boolean = self.hashtable[index].search(key)
+        return boolean
+    
+    def print_HT(self) :
+        print("Hash table is :- \n")
+        print("Index \t\tValues\n")
+        for x in range(self.size) :
+            print(x,end="\t\t")
+            self.hashtable[x].print_LL()
+    
+HT = Hash_table(10)
+HT.insert_key(10)
+HT.insert_key(90)
+HT.insert_key(25)
+HT.insert_key(5)
+HT.insert_key(35)
+HT.insert_key(27)
+HT.insert_key(17)
+HT.insert_key(22)
+if HT.search_key(17) :
+    print("Given key is present\n")
+else :
+    print("Given key is not present\n")
+HT.print_HT()
+
+=============================================== Separate Chaining --- in Sorted Order ===================================
+
+import numpy as np
+
+#sorted separate chaining in python
+class Node() :
+    
+    def __init__(self,value) :
+        self.value = value
+        self.next = None
+
+class Linked_List() :
+    
+    def __init__(self) :
+        self.head = None
+        
+    def sorted_insert(self,value) :
+        if not self.head :
+            self.head = Node(value)
+        else :
+            temp = self.head
+            new_node = Node(value)
+            if temp.value >= new_node.value :
+                new_node.next = self.head
+                self.head = new_node
+            else :
+                while temp != None and temp.value < new_node.value :
+                    prev = temp
+                    temp = temp.next
+                new_node.next = temp
+                prev.next = new_node
+            
+    def search(self,value) :
+        temp = self.head
+        while temp :
+            if temp.value == value :
+                return True
+            temp = temp.next
+        return False
+    
+    def print_LL(self) :
+        temp = self.head
+        if not temp :
+            print(None)
+        while temp :
+            if temp.next :
+                print(temp.value,"--->",end="  ")
+            else :
+                print(temp.value)
+            temp = temp.next
+            
+            
+class Hash_table() :
+    def __init__(self,size) :
+        self.size = size
+        self.hashtable = np.array([None]*self.size)
+        for x in range(self.size) :
+            self.hashtable[x] = Linked_List()
+        
+    def hash(self,key) :
+        # Hash function is h(x) = x%10
+        return key%10
+    
+    def insert_key(self,key) :
+        index = self.hash(key)
+        self.hashtable[index].sorted_insert(key)
+        
+    def search_key(self,key) :
+        index = self.hash(key)
+        boolean = self.hashtable[index].search(key)
+        return boolean
+    
+    def print_HT(self) :
+        print("Hash table is :- \n")
+        print("Index \t\tValues\n")
+        for x in range(self.size) :
+            print(x,end="\t\t")
+            self.hashtable[x].print_LL()
+    
+HT = Hash_table(10)
+HT.insert_key(10)
+HT.insert_key(90)
+HT.insert_key(25)
+HT.insert_key(5)
+HT.insert_key(35)
+HT.insert_key(27)
+HT.insert_key(17)
+HT.insert_key(22)
+if HT.search_key(17) :
+    print("Given key is present\n")
+else :
+    print("Given key is not present\n")
+HT.print_HT()
+
+
+===================================== Longest common subsequence ================================================
+
+# Python program to find longest contiguous subsequence
+
+
+def findLongestConseqSubseq(arr, n):
+
+	s = set()
+	ans = 0
+
+	# Hash all the array elements
+	for ele in arr:
+		s.add(ele)
+
+	# check each possible sequence from the start
+	# then update optimal length
+	for i in range(n):
+
+		# if current element is the starting
+		# element of a sequence
+		if (arr[i]-1) not in s:
+
+			# Then check for next elements in the
+			# sequence
+			j = arr[i]
+			while(j in s):
+				j += 1
+
+			# update optimal length if this length
+			# is more
+			ans = max(ans, j-arr[i])
+	return ans
+
+
+# Driver code
+if __name__ == '__main__':
+	n = 7
+	arr = [1, 9, 3, 10, 4, 20, 2]
+	print ("Length of the Longest contiguous subsequence is ",findLongestConseqSubseq(arr, n))
+
+# Contributed by: Harshit Sidhwa
+
+0r === == = = =
+
+# Python program to find longest contiguous subsequence
+
+
+def findLongestConseqSubseq(arr, n):
+
+	s = set()
+	ans = 0
+	cnt = 0
+
+	# Hash all the array elements
+	for ele in arr:
+		s.add(ele)
+
+	# check each possible sequence from the start
+	# then update optimal length
+	for i in range(n):
+
+		# if current element is the starting
+		# element of a sequence
+		if (arr[i]-1) not in s:
+
+			# Then check for next elements in the
+			# sequence
+			j = arr[i]
+			print(j,"b")
+			while(j in s):
+				cnt += 1
+				j+=1
+				print(j,"in loop")
+			# update optimal length if this length
+			# is more
+			print(cnt)
+			ans = max(ans, cnt)
+			cnt = 0
+	return ans
+
+
+# Driver code
+if __name__ == '__main__':
+	n = 7
+	arr = [1, 9, 3, 10, 4, 20, 2]
+	print ("Length of the Longest contiguous subsequence is ",findLongestConseqSubseq(arr, n))
+
+# Contributed by: Harshit Sidhwa
+
+=======================================================================================================
+
+========================================== highest frequency char ===============================
+
+string= "mississippis"
+print(string)
+
+char_freq={}
+
+for i in string:
+    if i in char_freq:
+        char_freq[i]=char_freq[i]+1
+    else:
+        char_freq[i] = 1
+result= max(char_freq, key = char_freq.get)
+
+print("Most frequent character: ",result)
+==========================================================================================================
