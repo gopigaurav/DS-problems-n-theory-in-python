@@ -1,0 +1,217 @@
+import heapq
+
+# Min Heap - largest element at the end of the array at arr[0
+def findKthLargest(nums, k):
+    k = len(nums) - k 
+    heapq.heapify(nums) # O(N)
+    print(nums)
+    for i in range(k): # O(klog(N))
+        print(nums)
+        heapq.heappop(nums)
+        
+    print(nums)
+    print(nums[0])
+    return nums[0]
+
+============================================================================================================
+# Max Heap
+def findkthSmallest(nums, k):
+    nums = [-num for num in nums]
+    k = len(nums) - k 
+    heapq.heapify(nums)
+    for _ in range(k):  # Remove k-1 larger elements
+        heapq.heappop(nums)
+        print(nums)
+    return -nums[0]
+
+===========================================================================================================
+# Min Heap
+def findlarg(nums,k): # another approach
+    list = []
+    heapq.heapify(list)
+    for i in range(len(nums)):
+        heapq.heappush(list,nums[i])
+        print(list) 
+        if(len(list) > k):
+            heapq.heappop(list)
+    print(list)
+    return list[0]
+    return list # for k largest numbers
+
+========================= k numbers to x closest number to find the nums =================================================================
+# Max Heap
+def kSmallestNo(nums, k , x): # another apprach to find the kth smallest number(aditya verma)
+    num = []
+    heapq.heapify(num)
+    for i in range(len(nums)):
+        heapq.heappush(num, (-1 * abs(x-nums[i]), nums[i]))
+        if(len(num) > k):
+            heapq.heappop(num)
+    first_elts = [x[1] for x in num]
+    print(first_elts)
+    return first_elts
+
+=================================== Sort a Nearly or K sorted Array =========================================================================
+ 
+# A Python3 program to sort a
+# nearly sorted array.
+
+from heapq import heappop, heappush, heapify
+
+
+# A utility function to print
+# array elements
+def print_array(arr: list):
+	for elem in arr:
+		print(elem, end=' ')
+
+# Given an array of size n, where every
+# element is k away from its target
+# position, sorts the array in O(nLogk) time.
+
+
+def sort_k(arr: list, n: int, k: int):
+	"""
+	:param arr: input array
+	:param n: length of the array
+	:param k: max distance, which every
+	element is away from its target position.
+	:return: None
+	"""
+	# List of first k+1 items
+	heap = arr[:k + 1]
+
+	# using heapify to convert list
+	# into heap(or min heap)
+	heapify(heap)
+
+	# "rem_elmnts_index" is index for remaining
+	# elements in arr and "target_index" is
+	# target index of for current minimum element
+	# in Min Heap "heap".
+	target_index = 0
+	for rem_elmnts_index in range(k + 1, n):
+		arr[target_index] = heappop(heap)
+		heappush(heap, arr[rem_elmnts_index])
+		target_index += 1
+
+	while heap:
+		arr[target_index] = heappop(heap)
+		target_index += 1
+
+
+# Driver Code
+k = 3
+arr = [2, 6, 3, 12, 56, 8]
+n = len(arr)
+sort_k(arr, n, k)
+
+print('Following is sorted array')
+print_array(arr)
+
+# This code is contributed by
+# Veerat Beri(viratberi)
+
+======================================== Top K frequent Numbers ====================================================================
+def topfreNo(nums,k):
+    freq = {}
+    num = []
+    for item in nums:
+        if (item in freq):
+            freq[item] += 1
+        else:
+            freq[item] = 1
+    for key, value in freq.items():
+        heapq.heappush(num, (value, key))
+        if(len(num) > k):
+            heapq.heappop(num)
+    res = [x[1] for x in num]
+    return res
+num = [7,10,4,3,15]
+arr = [15,4,21,22,23,25,44,55]
+arrtfn = [1,1,1,3,3,2,2,4]
+print(topfreNo(arrtfn, 3))
+#print(kSmallestNo(arr, 4,22))
+#print(findlarg(num,3))
+print()
+#print(findKthLargest(num,3))
+#print(findkthSmallest(num,3))
+
+
+=====================================================================================================
+
+class heap:
+    
+    def maxheapify(self,array):
+        n=len(array)
+        for i in range(n//2-1,-1,-1):
+            self._maxheapify(array,n,i)
+            
+            
+    def _maxheapify(self,array,n,i):
+        l=2*i+1
+        r=2*i+2
+        if l<n and array[l]>array[i]:
+            largest=l
+        else:
+            largest=i
+        if r<n and array[r]>array[largest]:
+            largest=r
+        if (largest!=i):
+            array[largest],array[i]=array[i],array[largest]
+            self._maxheapify(array,n,largest)
+            
+            
+    def minheapify(self,array):
+        n = len(array)
+        for i in range(n//2-1,-1,-1):
+            self._minheapify(array,n,i)
+            
+            
+    def _minheapify(self,array,n,i):
+        l=2*i+1
+        r=2*i+2
+        if l<n and array[l]<array[i]:
+            smallest = l
+        else:
+            smallest = i
+        if r < n and array[r]<array[smallest]:
+            smallest = r
+        if (smallest != i):
+            array[smallest], array[i] = array[i], array[smallest]
+            self._minheapify(array, n, smallest)
+            
+            
+    def descending_heapsort(self,array):
+        n = len(array)
+        for i in range(n // 2 - 1, -1, -1):
+            self._minheapify(array, n, i)
+        for i in range(n - 1, 0, -1):
+            array[0], array[i] = array[i], array[0]
+            self._minheapify(array, i, 0)
+
+
+    def ascending_heapsort(self,array):
+        n=len(array)
+        for i in range(n//2-1,-1,-1):
+            self._maxheapify(array,n,i)
+        for i in range(n-1,0,-1):
+            array[0],array[i]=array[i],array[0]
+            self._maxheapify(array,i,0)
+
+b=[550,4520,3,2340,12]
+a=heap()
+
+a.maxheapify(b)
+print('Max Heapify -->',b)
+
+a.minheapify(b)
+print('Min Heapify -->',b)
+
+a.ascending_heapsort(b)
+print('Ascending Heap Sort -->',b)
+
+a.descending_heapsort(b)
+print('Descending Heap Sort -->',b)
+
+=========================================================================================================================

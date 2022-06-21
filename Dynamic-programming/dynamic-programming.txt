@@ -1,0 +1,895 @@
+# Longest common subsequence
+# https://www.interviewbit.com/blog/longest-common-substring/
+
+def LCS(s1,s2):
+    l1 = len(s1)
+    l2 = len(s2)
+    dp = [[None]*(l2+1) for _ in range(l1+1)]
+
+    # Initialise dp
+    # If length of any substring is 0 then length of LCS will be zero
+    # So dp[0][i] and dp[j][0] will be zero
+
+    for i in range(l1+1):
+        dp[i][0] = 0
+    for j in range(l2+1):
+        dp[0][j] = 0
+
+    # if s1[i] == s2[j] then increase by 1 else search in i-1 and j or i and j-1
+    for i in range(1,l1+1):
+        for j in range(1,l2+1):
+            if s1[i-1] == s2[j-1]:
+                dp[i][j] = 1 + dp[i-1][j-1]
+            else:
+                dp[i][j] = max(dp[i][j-1],dp[i-1][j])
+
+    # dp[l1][l2] contains the length of LCS of s1 and s2
+    return dp[l1][l2]
+
+
+# longest palindromic subsequence
+def LPS(s):
+    # Length of the Largest palindromic subsequence is equal to Longest Common Subsequence of string s and reversed(s)
+    srev = s[::-1]
+    return LCS(s,srev)
+
+if __name__ == '__main__':
+    s = 'agbdba'
+    length = LPS(s)
+    print(f'Length of the largest Palindromic Subsequence is {length}')
+
+==================================================================================================================================
+
+
+# longest palindromic substring
+
+	public static List<string> SubString(String str)
+    {
+    	var list = new List<string>();
+        for (int i = 0; i < str.Length; i++)
+        {
+            for (int j = 1; j <= str.Length - i; j++)
+            {
+                var temp = str.Substring(i, j);
+                if(temp==ReverseString(temp))
+                {
+                    list.Add(temp);
+                }
+            }
+        }
+        
+        return list;
+    }
+    public static string ReverseString(string s)
+    {
+        char[] arr = s.ToCharArray();
+        Array.Reverse(arr);
+        return new string(arr);
+    }
+
+================================================================================================
+
+# longest palindromic substring or subsequence
+# Longest common substring or subsequence
+def LCS(s1,s2):
+    l1 = len(s1)
+    l2 = len(s2)
+    mx = 0
+    # Initialise dp
+    # If length of any substring is 0 then length of LCS will be zero
+    # So dp[0][i] and dp[j][0] will be zero
+    dp = [[0 for k in range(l2+1)] for l in range(l1+1)]
+
+    # if s1[i] == s2[j] then increase by 1 else search in i-1 and j or i and j-1
+    for i in range(1,l1+1):
+        for j in range(1,l2+1):
+		# not required if statement
+            if (i == 0 or j == 0):
+                dp[i][j] = 0
+            if s1[i-1] == s2[j-1]:
+                dp[i][j] = 1 + dp[i-1][j-1]
+                mx = max(mx, dp[i][j])
+            else:
+                dp[i][j] = 0
+		# dp[i][j] = max(dp[i][j-1],dp[i-1][j])
+
+    # dp[l1][l2] contains the length of LCS of s1 and s2
+    return mx
+
+def LPS(s):
+    # Length of the Largest palindromic subsequence is equal to Longest Common Subsequence of string s and reversed(s)
+    srev = s[::-1]
+    #srev = ""
+    return LCS(s,srev)
+
+if __name__ == '__main__':
+    s = 'aabaade'
+    length = LPS(s)
+    print(f'Length of the largest Palindromic Subsequence is {length}')
+
+========================================================================================================
+Print the longest common substing
+https://www.interviewbit.com/blog/longest-common-substring/
+# https://www.techiedelight.com/longest-common-substring-problem/
+# Function to find the longest common substring of sequences `X[0…m-1]` and `Y[0…n-1]`
+def LCS(X, Y, m, n):
+ 
+    maxLength = 0           # stores the max length of LCS
+    endingIndex = m         # stores the ending index of LCS in `X`
+ 
+    # `lookup[i][j]` stores the length of LCS of substring `X[0…i-1]` and `Y[0…j-1]`
+    lookup = [[0 for x in range(n + 1)] for y in range(m + 1)]
+ 
+    # fill the lookup table in a bottom-up manner
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+ 
+            # if the current character of `X` and `Y` matches
+            if X[i - 1] == Y[j - 1]:
+                lookup[i][j] = lookup[i - 1][j - 1] + 1
+ 
+                # update the maximum length and ending index
+                if lookup[i][j] > maxLength:
+                    maxLength = lookup[i][j]
+                    endingIndex = i
+ 
+    # return longest common substring having length `maxLength`
+    return X[endingIndex - maxLength: endingIndex]
+ 
+ 
+if __name__ == '__main__':
+ 
+    X = 'ABC'
+    Y = 'BABA'
+ 
+    m = len(X)
+    n = len(Y) 
+ 
+    # Find longest common substring
+    print('The longest common substring is', LCS(X, Y, m, n)) # result AB
+
+==========================================================================================================================
+
+# minimum no of sqaures whose sum equals to given no
+https://www.geeksforgeeks.org/minimum-number-of-squares-whose-sum-equals-to-given-number-n/
+
+# A dynamic programming based Python
+# program to find minimum number of
+# squares whose sum is equal to a
+# given number
+from math import ceil, sqrt
+
+# Returns count of minimum squares
+# that sum to n
+def getMinSquares(n):
+
+	# Create a dynamic programming table
+	# to store sq and getMinSquares table
+	# for base case entries
+	dp = [0, 1, 2, 3]
+
+	# getMinSquares rest of the table
+	# using recursive formula
+	for i in range(4, n + 1):
+		
+		# max value is i as i can always
+		# be represented as 1 * 1 + 1 * 1 + ...
+		dp.append(i)
+
+		# Go through all smaller numbers
+		# to recursively find minimum
+		for x in range(1, int(ceil(sqrt(i))) + 1):
+			temp = x * x;
+			if temp > i:
+				break
+			else:
+				dp[i] = min(dp[i], 1 + dp[i-temp])
+
+	# Store result
+	return dp[n]
+
+# Driver code
+print(getMinSquares(6))
+
+# This code is contributed by nuclode
+
+
+=====================================================================================================================================
+
+knapsack 
+
+# We know we are always using the  current row or
+    # the previous row of the array/vector . Thereby we can
+    # improve it further by using a 2D array but with only
+    # 2 rows i%2 will be giving the index inside the bounds
+    # of 2d array K
+
+optimised use array[i%2][j]
+https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+
+
+=========================================================================================================
+
+MAXIMIZE CUT SEGMENTS 
+
+-- https://www.youtube.com/watch?v=QKx7d0MV2OQ
+-- https://www.geeksforgeeks.org/maximize-the-number-of-segments-of-length-p-q-and-r/
+
+# Python 3 program to
+# maximize the number
+# of segments of length
+# p, q and r
+
+# Function that returns
+# the maximum number
+# of segments possible
+
+
+def findMaximum(l, p, q, r):
+
+	# Array to store the cut
+	# at each length
+	# All values with -1
+	dp = [-1]*(l + 1)
+
+	# if length of rod is 0 then
+	# total cuts will be 0
+	# so, initialize the dp[0] with 0
+	dp[0] = 0
+
+	for i in range(l+1):
+
+		# if certain length is not
+		# possible
+		if (dp[i] == -1):
+			continue
+
+		# if a segment of p is possible
+		if (i + p <= l):
+			dp[i + p] = (max(dp[i + p],
+							dp[i] + 1))
+
+		# if a segment of q is possible
+		if (i + q <= l):
+			dp[i + q] = (max(dp[i + q],
+							dp[i] + 1))
+
+		# if a segment of r is possible
+		if (i + r <= l):
+			dp[i + r] = (max(dp[i + r],
+							dp[i] + 1))
+
+	# if no segment can be cut then return 0
+	if dp[l] == -1:
+		dp[l] = 0
+	# return value corresponding
+	# to length l
+	return dp[l]
+
+
+# Driver Code
+if __name__ == "__main__":
+	l = 11
+	p = 2
+	q = 3
+	r = 5
+
+	# Calling Function
+	ans = findMaximum(l, p, q, r)
+	print(ans)
+
+==============================================================================================================
+
+https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/
+neetcode problem
+
+# Dynamic Programming Approach of Finding LIS by reducing the problem to longest common Subsequence
+
+
+def lis(a):
+	n = len(a)
+	# Creating the sorted list
+	b = sorted(list(set(a)))
+	m = len(b)
+
+	# Creating dp table for storing the answers of sub problems
+	dp = [[-1 for i in range(m+1)] for j in range(n+1)]
+
+	# Finding Longest common Subsequence of the two arrays
+	for i in range(n+1):
+
+		for j in range(m+1):
+			if i == 0 or j == 0:
+				dp[i][j] = 0
+			elif a[i-1] == b[j-1]:
+				dp[i][j] = 1+dp[i-1][j-1]
+			else:
+				dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+	return dp[-1][-1]
+
+
+# Driver program to test above function
+arr = [10, 22, 9, 33, 21, 50, 41, 60]
+print("Length of lis is ", lis(arr))
+# This code is Contributed by Dheeraj Khatri
+
+or 
+
+# Dynamic programming Python implementation
+# of LIS problem
+
+# lis returns length of the longest
+# increasing subsequence in arr of size n
+
+
+def lis(arr):
+	n = len(arr)
+
+	# Declare the list (array) for LIS and
+	# initialize LIS values for all indexes
+	lis = [1]*n
+
+	# Compute optimized LIS values in bottom up manner
+	for i in range(1, n):
+		for j in range(0, i):
+			if arr[i] > arr[j] and lis[i] < lis[j] + 1:
+				lis[i] = lis[j]+1
+
+	# Initialize maximum to 0 to get
+	# the maximum of all LIS
+	maximum = 0
+
+	# Pick maximum of all LIS values
+	for i in range(n):
+		maximum = max(maximum, lis[i])
+
+	return maximum
+# end of lis function
+
+
+# Driver program to test above function
+arr = [10, 22, 9, 33, 21, 50, 41, 60]
+print ("Length of lis is", lis(arr))
+# This code is contributed by Nikhil Kumar Singh
+
+=======================================================================================================================
+
+
+
+# wild card pattern
+-- https://www.geeksforgeeks.org/dynamic-programming-wildcard-pattern-matching-linear-time-constant-space/
+-- https://www.youtube.com/watch?v=ZmlQ3vgAOMo&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=35
+
+-- code -- https://www.codingninjas.com/codestudio/problems/wildcard-pattern-matching_701650?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+
+-- https://www.codingninjas.com/codestudio/problems/wildcard-pattern-matching_701650?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+
+method - 1:
+def wildcardMatching(pattern, text):
+    # Write your code here.
+    n = len(pattern)
+    m = len(text)
+    dp = [[-1 for k in range(m+1)] for l in range(n+1)]
+    return solve(n-1, m-1, pattern, text, dp)
+
+def solve(i, j, pattern, text, dp):
+    if i<0 and j<0:
+        return True
+    if i < 0 and j >= 0:
+        return False
+    if j<0 and i>= 0:
+        for u in range(i,-1,-1):
+            if pattern[u] != "*":
+                return False
+        return True
+    if dp[i][j] != -1: return dp[i][j]
+    if (pattern[i] == text[j] or pattern[i] == "?"):
+        dp[i][j] = solve(i-1,j-1,pattern,text,dp)
+        return dp[i][j]
+    if (pattern[i] == "*"):
+        dp[i][j] = solve(i,j-1,pattern,text,dp) or solve(i-1,j,pattern,text,dp)
+        return dp[i][j]
+    dp[i][j] = False
+    return dp[i][j]
+
+
+method - 2:
+-- https://www.codingninjas.com/codestudio/problems/wildcard-pattern-matching_701650?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+
+================================================================================================================================
+
+-- max lenght chain
+
+--https://www.geeksforgeeks.org/maximum-length-chain-of-pairs-dp-20/
+--https://www.youtube.com/watch?v=x6_FP48roTQ
+
+code 1 - dp
+code 2 - greedy
+
+=============================================================================================================================
+
+== Maximum sum increasing subsequnce 
+
+-- https://www.youtube.com/watch?v=Y88xh18XcbE
+-- https://www.geeksforgeeks.org/maximum-sum-increasing-subsequence-dp-14/
+
+
+=============================================================================================================================
+
+-- min number of jumps
+
+-- https://www.youtube.com/watch?v=liTMFOhs6ZM
+-- https://www.geeksforgeeks.org/minimum-number-of-jumps-to-reach-end-of-a-given-array/
+
+=============================================================================================================================
+
+# max path sum matrix
+
+-- https://www.geeksforgeeks.org/maximum-path-sum-matrix/
+-- https://www.youtube.com/watch?v=OCz6rm9Nh1o
+
+===================================================================================================================
+
+# prefix sum array 
+
+-- https://www.geeksforgeeks.org/prefix-sum-array-implementation-applications-competitive-programming/
+
+=====================================================================================================================
+-- max score possible
+-- https://www.geeksforgeeks.org/maximum-score-possible-after-performing-given-operations-on-an-array/
+========================================================================================================================
+
+# shoretest common supersequence
+
+-- https://www.geeksforgeeks.org/shortest-common-supersequence/
+-- https://leetcode.com/problems/shortest-common-supersequence/submissions/
+
+class Solution(object):
+    def shortestCommonSupersequence(self, s1, s2):
+        
+        l1 = len(s1)
+        l2 = len(s2)
+        mx = 0
+        res = []
+        dp = [[0 for k in range(l2+1)] for l in range(l1+1)]
+        for i in range(1,l1+1):
+            for j in range(1,l2+1):
+                if s1[i-1] == s2[j-1]:
+                    dp[i][j] = 1 + dp[i-1][j-1]
+                    mx = max(mx, dp[i][j])
+                else:
+                    dp[i][j] = max(dp[i][j-1],dp[i-1][j])
+
+        while i > 0 and j > 0:
+            if s1[i-1] == s2[j-1]:
+                res.append(s1[i-1])
+                i-=1
+                j-=1
+            else:
+                if dp[i-1][j] > dp[i][j-1]:
+                    res.append(s1[i-1])
+                    i-=1
+                else:
+                    res.append(s2[j-1])
+                    j-=1
+            
+        while(i>0):
+            res.append(s1[i-1])
+            i-=1
+        while(j>0):
+            res.append(s2[j-1])
+            j-=1
+        res = res[::-1]
+        res = "".join(res)
+        return res
+
+==================================================================================================================================
+
+-- palindrome partitioning 1 and 2
+
+-- https://www.geeksforgeeks.org/palindrome-partitioning-dp-17/
+-- https://www.youtube.com/watch?v=szKVpQtBHh8&t=200s
+-- https://www.youtube.com/watch?v=WBgsABoClE0
+-- https://www.youtube.com/watch?v=3jvWodd7ht0
+
+-- refer this
+-- https://www.youtube.com/watch?v=wMoOpnihXJY
+
+# Python code for implementation of Naive Recursive
+# approach
+def isPalindrome(x):
+	return x == x[::-1]
+
+
+def minPalPartion(string, i, j):
+	if i >= j or isPalindrome(string[i:j + 1]):
+		return 0
+	ans = float('inf')
+	for k in range(i, j):
+		count = (
+			1 + minPalPartion(string, i, k)
+			+ minPalPartion(string, k + 1, j)
+		)
+		ans = min(ans, count)
+	return ans
+
+
+def main():
+	string = "ababbbabbababa"
+	print(
+	"Min cuts needed for Palindrome Partitioning is ",
+	minPalPartion(string, 0, len(string) - 1),
+	)
+
+if __name__ == "__main__":
+	main()
+
+# This code is contributed by itsvinayak
+
+
+--- palindrome 1
+-- https://www.youtube.com/watch?v=WBgsABoClE0
+-- https://leetcode.com/problems/palindrome-partitioning/submissions/
+-- https://leetcode.com/problems/palindrome-partitioning/
+
+
+
+
+-- palindrome 2
+-- https://www.youtube.com/watch?v=_H8V5hJUGd0&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=54
+-- https://leetcode.com/problems/palindrome-partitioning-ii/
+-- min cuts in palindrome partitioning
+
+
+=======================================================================================================================
+
+-- minimum number of insertion to make palindrome
+-- https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/submissions/
+-- geeksforgeeks.org/minimum-insertions-to-form-a-palindrome-dp-28/
+
+=========================================================================================================================
+
+
+-- min cost 
+-- https://www.geeksforgeeks.org/min-cost-path-dp-6/
+# minimum number of insertion == min number of deletions
+-- that is ==> len of string - Longest palindromic subsequence
+
+class Solution(object):
+    def minInsertions(self, s):
+        srev = s[::-1]
+        lcs = self.LCS(s,srev)
+        res = len(s) - lcs
+        return res
+
+    def LCS(self,s1,s2):
+        l1 = len(s1)
+        l2 = len(s2)
+        mx = 0
+        dp = [[0 for k in range(l2+1)] for l in range(l1+1)]
+
+        for i in range(1,l1+1):
+            for j in range(1,l2+1):
+            # not required if statement
+                if (i == 0 or j == 0):
+                    dp[i][j] = 0
+                if s1[i-1] == s2[j-1]:
+                    dp[i][j] = 1 + dp[i-1][j-1]
+                    mx = max(mx, dp[i][j])
+                else:
+                    dp[i][j] = max(dp[i][j-1],dp[i-1][j])
+
+        return mx
+
+===============================================================================================================================
+
+  # Burst baloons 
+
+-- https://www.youtube.com/watch?v=Yz4LlDSlkns
+-- https://leetcode.com/problems/burst-balloons/submissions/
+-- class Solution(object):
+    def maxCoins(self, nums):
+        def fopt(i, j, a,dp):
+            if i > j:
+                return 0
+            if dp[i][j] != -1:
+                return dp[i][j]
+            maxi = 0
+            for ind in range(i,j+1):
+                cost = a[i-1] * a[ind] * a[j+1] + f(i,ind-1,a,dp) + f(ind+1,j,a,dp)
+                maxi = max(maxi, cost)
+            dp[i][j] = maxi
+            return dp[i][j]
+            
+        n = len(nums)
+        # dp = [[-1 for k in range(n+1)] for l in range(n+1)]
+        
+        
+        
+        
+        
+        # tabulation
+        dp = [[0 for k in range(n+2)] for l in range(n+2)]
+        nums.append(1)
+        nums.insert(0,1)
+        
+        for i in range(n,0,-1):
+            for j in range(1,n+1):
+                if (i > j): continue 
+                maxi = 0
+                for ind in range(i,j+1):
+                    cost = nums[i-1] * nums[ind] * nums[j+1] + dp[i][ind-1] + dp[ind +1][j]
+                    maxi = max(maxi, cost)
+                dp[i][j] = maxi
+        return dp[1][n]
+        
+        # return fopt(1,n,nums, dp)
+
+
+===============================================================================================================
+
+-- Matrix chain multiplication (MCM)
+
+--https://www.youtube.com/watch?v=pDCXsbAw5Cg&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=50
+-- https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/
+
+-- tabulation
+# Dynamic Programming Python implementation of Matrix
+# Chain Multiplication. See the Cormen book for details
+# of the following algorithm
+import sys
+maxint=int(1e9+7)
+# Matrix Ai has dimension p[i-1] x p[i] for i = 1..n
+
+
+def MatrixChainOrder(p, n):
+	# For simplicity of the program,
+	# one extra row and one
+	# extra column are allocated in m[][].
+	# 0th row and 0th
+	# column of m[][] are not used
+	m = [[0 for x in range(n)] for x in range(n)]
+
+	# m[i, j] = Minimum number of scalar
+	# multiplications needed
+	# to compute the matrix A[i]A[i + 1]...A[j] =
+	# A[i..j] where
+	# dimension of A[i] is p[i-1] x p[i]
+
+	# cost is zero when multiplying one matrix.
+	for i in range(1, n):
+		m[i][i] = 0
+
+	# L is chain length.
+	for L in range(2, n):
+		for i in range(1, n-L + 1):
+			j = i + L-1
+			m[i][j] = maxint
+			for k in range(i, j):
+
+				# q = cost / scalar multiplications
+				q = m[i][k] + m[k + 1][j] + p[i-1]*p[k]*p[j]
+				if q < m[i][j]:
+					m[i][j] = q
+
+	return m[1][n-1]
+
+
+# Driver code
+arr = [1, 2, 3, 4]
+size = len(arr)
+
+print("Minimum number of multiplications is " +
+	str(MatrixChainOrder(arr, size)))
+# This Code is contributed by Bhavya Jain
+
+-- memoization
+
+# Python program using memoization
+import sys
+dp = [[-1 for i in range(100)] for j in range(100)]
+
+# Function for matrix chain multiplication
+def matrixChainMemoised(p, i, j):
+	if(i == j):
+		return 0
+	
+	if(dp[i][j] != -1):
+		return dp[i][j]
+	
+	dp[i][j] = sys.maxsize
+	
+	for k in range(i,j):
+		dp[i][j] = min(dp[i][j], matrixChainMemoised(p, i, k) + matrixChainMemoised(p, k + 1, j)+ p[i - 1] * p[k] * p[j])
+	
+	return dp[i][j]
+
+def MatrixChainOrder(p,n):
+	i = 1
+	j = n - 1
+	return matrixChainMemoised(p, i, j)
+
+# Driver Code
+arr = [1, 2, 3, 4]
+n = len(arr)
+print("Minimum number of multiplications is",MatrixChainOrder(arr, n))
+
+# This code is contributed by rag2127
+
+
+==========================================================================================================================================
+
+-- partition problem 
+-- https://www.geeksforgeeks.org/partition-problem-dp-18/
+
+===============================================================================================================================================
+
+min no of cuts 
+
+-- https://www.youtube.com/watch?v=xwomavsC86c&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=51
+
+===================================================================================================================
+
+max rectangle area of 1
+
+-- https://www.youtube.com/watch?v=tOylVCugy9k&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=56
+        
+=====================================================================================================================================================
+
+-- scrambled strings
+
+-- https://www.geeksforgeeks.org/check-if-a-string-is-a-scrambled-form-of-another-string/
+-- https://www.programiz.com/python-programming/online-compiler/
+-- https://leetcode.com/problems/scramble-string/
+-- https://leetcode.com/problems/scramble-string/discuss/29452/Python-dp-solutions-(with-and-without-memorization).
+
+# Python3 program to check if a
+# given string is a scrambled
+# form of another string
+def isScramble(S1: str, S2: str):
+	
+	# Strings of non-equal length
+	# cant' be scramble strings
+	if len(S1) != len(S2):
+		return False
+
+	n = len(S1)
+
+	# Empty strings are scramble strings
+	if not n:
+		return True
+
+	# Equal strings are scramble strings
+	if S1 == S2:
+		return True
+
+	# Check for the condition of anagram
+	if sorted(S1) != sorted(S2):
+		return False
+
+	for i in range(1, n):
+		
+		# Check if S2[0...i] is a scrambled
+		# string of S1[0...i] and if S2[i+1...n]
+		# is a scrambled string of S1[i+1...n]
+		if (isScramble(S1[:i], S2[:i]) and
+			isScramble(S1[i:], S2[i:])):
+			return True
+
+		# Check if S2[0...i] is a scrambled
+		# string of S1[n-i...n] and S2[i+1...n]
+		# is a scramble string of S1[0...n-i-1]
+		if (isScramble(S1[-i:], S2[:i]) and
+			isScramble(S1[:-i], S2[i:])):
+			return True
+
+	# If none of the above
+	# conditions are satisfied
+	return False
+
+# Driver Code
+if __name__ == "__main__":
+	
+	S1 = "coder"
+	S2 = "ocred"
+	
+	if (isScramble(S1, S2)):
+		print("Yes")
+	else:
+		print("No")
+
+# This code is contributed by sgshah2
+
+
+-- 
+
+# DP with memorization
+def __init__(self):
+    self.dic = {}
+    
+def isScramble(self, s1, s2):
+    if (s1, s2) in self.dic:
+        return self.dic[(s1, s2)]
+    if len(s1) != len(s2) or sorted(s1) != sorted(s2): # prunning
+        self.dic[(s1, s2)] = False
+        return False
+    if s1 == s2:
+        self.dic[(s1, s2)] = True
+        return True
+    for i in xrange(1, len(s1)):
+        if (self.isScramble(s1[:i], s2[:i]) and self.isScramble(s1[i:], s2[i:])) or \
+        (self.isScramble(s1[:i], s2[-i:]) and self.isScramble(s1[i:], s2[:-i])):
+            return True
+    self.dic[(s1, s2)] = False
+    return False
+
+
+=== 
+
+class Solution:
+    def isScramble(self, s1: str, s2: str) -> bool:
+        if len(s1)!=len(s2): return False
+        if s1==s2: return True
+        @lru_cache(None)
+        def solve(s1,s2):
+            n=len(s1)
+            if s1==s2: return True
+            if n<=1: return False
+            flag=False
+            for i in range(1,n):
+                cond1=solve(s1[:i],s2[:i]) and solve(s1[i:],s2[i:])
+                cond2=solve(s1[:i],s2[n-i:]) and solve(s1[i:],s2[:n-i])
+                if cond1 or cond2:
+                    flag=True
+                    break
+            return flag
+        return solve(s1,s2)
+
+
+-- example use in programiz
+
+s1 = "greatest"
+s2 = "rgeatest"
+i = 3            
+            
+# Check if S2[0...i] is a scrambled
+# string of S1[n-i...n] and S2[i+1...n]
+# is a scramble string of S1[0...n-i-1]
+
+
+#    s1 [n-i to n] and s2[0 to i] 
+print(s1[-i:],"to",s2[:i])
+#    s1[0 to n-i-1] to s2[i+1 to n]
+print(s1[:-i],"to",s2[i:])
+========================================================================================================================================
+
+        
+-- egg drop problem
+
+-- https://www.interviewbit.com/blog/egg-dropping-puzzle/
+-- https://medium.com/@parv51199/egg-drop-problem-using-dynamic-programming-e22f67a1a7c3
+-- https://leetcode.com/problems/super-egg-drop/
+-- https://www.geeksforgeeks.org/egg-dropping-puzzle-dp-11/
+
+
+
+INT_MAX = 32767
+def eggDrop(n, k):
+    eggFloor = [[0 for x in range(k + 1)] for x in range(n + 1)]
+ 
+    for i in range(1, n + 1):
+        eggFloor[i][1] = 1
+        eggFloor[i][0] = 0
+ 
+    for j in range(1, k + 1):
+        eggFloor[1][j] = j
+ 
+    for i in range(2, n + 1):
+        for j in range(2, k + 1):
+            eggFloor[i][j] = INT_MAX
+            for x in range(1, j + 1):
+                res = 1 + max(eggFloor[i - 1][x - 1], eggFloor[i][j - x])
+                if res < eggFloor[i][j]:
+                    eggFloor[i][j] = res
+ 
+    return eggFloor[n][k]

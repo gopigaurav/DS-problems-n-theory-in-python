@@ -1,0 +1,35 @@
+
+================================= Kunal kushwaha lecture ==========================================================
+
+1 => Skip a character in a string
+2 => skip a word in a string
+3=> skip "app" when not starts with apple
+
+-----------------------
+string = "baccad"
+
+# skip a charater in string
+def skipChar(n):
+    if(len(n) == 0):
+        return ""
+    char = n[0]
+    if(char == "a"):
+        return skipChar(n[1:])
+    else:
+        return char + skipChar(n[1:])
+        
+# skip a word in a string
+def skipWordss(n):
+    if(len(n) == 0):
+        return ""
+    # for skip app when not equal to apple use this
+    # if(n.startswith("app") and (not n.startswith("apple"))):
+    if(n.startswith("apple")):
+        return skipWordss(n[5:])
+    else:
+        return n[0] + skipWordss(n[1:])
+
+print(skipWordss("An apple a day"))
+#print(skipChar(string))
+
+---------------------------

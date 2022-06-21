@@ -1,0 +1,212 @@
+=== Nearest greater element to right ================================
+
+# Python program to print next greater element using stack
+
+# Stack Functions to be used by printNGE()
+
+
+def createStack():
+	stack = []
+	return stack
+
+
+def isEmpty(stack):
+	return len(stack) == 0
+
+
+def push(stack, x):
+	stack.append(x)
+
+
+def pop(stack):
+	if isEmpty(stack):
+		print("Error : stack underflow")
+	else:
+		return stack.pop()
+
+
+'''prints element and NGE pair for all elements of
+arr[] '''
+
+
+def printNGE(arr):
+	s = createStack()
+	element = 0
+	next = 0
+
+	# push the first element to stack
+	push(s, arr[0])
+
+	# iterate for rest of the elements
+	for i in range(1, len(arr), 1):
+		next = arr[i]
+
+		if isEmpty(s) == False:
+
+			# if stack is not empty, then pop an element from stack
+			element = pop(s)
+
+			'''If the popped element is smaller than next, then
+				a) print the pair
+				b) keep popping while elements are smaller and
+				stack is not empty '''
+			while element < next:
+				print(str(element) + " -- " + str(next))
+				if isEmpty(s) == True:
+					break
+				element = pop(s)
+
+			'''If element is greater than next, then push
+			the element back '''
+			if element > next:
+				push(s, element)
+
+		'''push next to stack so that we can find
+		next greater for it '''
+		push(s, next)
+
+	'''After iterating over the loop, the remaining
+	elements in stack do not have the next greater
+	element, so print -1 for them '''
+
+	while isEmpty(s) == False:
+		element = pop(s)
+		next = -1
+		print(str(element) + " -- " + str(next))
+
+
+# Driver code
+arr = [11, 13, 21, 3]
+printNGE(arr)
+
+# This code is contributed by Sunny Karira
+
+
+
+============================== Next greater element in circular array ============================
+
+
+# Function to find the Next Greater Element(NGE)
+def printNGE(a, n):
+    s = []
+    ans = [0] * n
+    for i in range(2 * n - 1, -1, -1):
+        while s and a[i % n] >= s[-1]:
+            s.pop()
+        if i < n:
+            if s:
+                ans[i] = s[-1]
+ 
+            else:
+                ans[i] = -1
+ 
+        s.append(a[i % n])
+ 
+    for i in range(n):
+        print(ans[i], end=" ")
+ 
+ 
+# Driver Code
+if __name__ == "__main__":
+    # Given array arr[]
+    arr = [8, 6, 7]
+ 
+    N = len(arr)
+ 
+    # Function call
+    printNGE(arr, N)
+================================================ Next Greater element without circular array ==================================================================
+
+def NextGreaterElement(arr):
+    ans = []
+    stack = []
+    n = len(arr)
+    s = len(stack)
+    for i in range(n-1, -1, -1):
+        print(i)
+        if len(stack) == 0:
+            ans.append(-1)
+        elif len(stack) > 0 and stack[s-1] > arr[i]:
+            ans.append(stack[s-1])
+        elif stack[s-1] <= arr[i]:
+            while len(stack) > 0 and stack[s-1] <= arr[i]:
+                stack.pop()
+            if len(stack) == 0:
+                ans.append(-1)
+            else:
+                ans.append(stack[s-1])
+        stack.append(arr[i])
+    print(ans[::-1])
+        
+        
+array = [3,2,1]
+print(NextGreaterElement(array))
+
+
+========================================================= Nearest Samller to left =====================================================================
+
+class Solution:
+    # @param A : list of integers
+    # @return a list of integers
+    def prevSmaller(self, A):
+        ans = []
+        stack = []
+        for i in range(0, len(A), 1): 
+            while (stack!=[] and stack[len(stack) - 1]>=A[i]):
+                stack.pop()
+            if stack == []:
+                ans.append(-1)
+            else:
+                ans.append(stack[- 1])
+            
+            stack.append(A[i])
+        
+        return ans
+
+============================================================= Largest area in histogram ===================================================
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def largestRectangleArea(self, A):
+        stack = []
+        n = len(A)
+        ret = 0
+        tp = -1
+        area_with_top = -1
+        i = 0
+        while i < n:
+            if len(stack) == 0 or A[i] >= A[stack[-1]]:
+                stack.append(i)
+                i += 1
+            else:
+                tp = stack.pop()
+                area_with_top = A[tp]*(i if len(stack) == 0 else i - stack[-1] - 1)
+                if ret < area_with_top:
+                    ret = area_with_top
+        while len(stack) != 0:
+            tp = stack.pop()
+            area_with_top = A[tp]*(i if len(stack) == 0 else i - stack[-1] - 1)
+            if ret < area_with_top:
+                ret = area_with_top
+                
+        return ret   
+
+=================================================================== Valid paranthesis s=================================
+
+class Solution(object):
+    def isValid(self, s):
+        stack = []
+        closeToOpen = { ")" : "(", "}": "{", "]" : "["}
+        
+        for i in s:
+            if i in closeToOpen:
+                if stack and stack[-1] == closeToOpen[i]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(i)
+        return True if not stack else False
+        
+=============================================================
