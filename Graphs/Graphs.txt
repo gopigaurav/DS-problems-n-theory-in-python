@@ -36,8 +36,79 @@ def dfs(graph, start, visted):
 dfs(graph, 1, visited)
 #bfs(visited, graph,0)
 
-=============================== cycle detetcion in directed graph =========================
 
+=============================== DFS ==================================================================
+
+# Python program to print DFS traversal for complete graph
+from collections import defaultdict
+
+# This class represents a directed graph using adjacency
+# list representation
+class Graph:
+
+	# Constructor
+	def __init__(self):
+
+		# default dictionary to store graph
+		self.graph = defaultdict(list)
+
+	# function to add an edge to graph
+	def addEdge(self,u,v):
+		self.graph[u].append(v)
+
+	# A function used by DFS
+	def DFSUtil(self, v, visited):
+
+		# Mark the current node as visited and print it
+		visited[v]= True
+		print v,
+		# or push the v into node
+
+		# Recur for all the vertices adjacent to
+		# this vertex
+		for i in self.graph[v]:
+			if visited[i] == False:
+				self.DFSUtil(i, visited)
+
+
+	# The function to do DFS traversal. It uses
+	# recursive DFSUtil()
+	def DFS(self):
+		V = len(self.graph) #total vertices
+
+		# Mark all the vertices as not visited
+		visited =[False]*(V)
+
+		# Call the recursive helper function to print
+		# DFS traversal starting from all vertices one
+		# by one
+		for i in range(V):
+			if visited[i] == False:
+				self.DFSUtil(i, visited)
+
+
+# Driver code
+# Create a graph given in the above diagram
+g = Graph()
+g.addEdge(0, 1)
+g.addEdge(0, 2)
+g.addEdge(1, 2)
+g.addEdge(2, 0)
+g.addEdge(2, 3)
+g.addEdge(3, 3)
+
+print "Following is Depth First Traversal"
+g.DFS()
+
+# This code is contributed by Neelam Yadav
+
+
+
+=============================== cycle detetcion in directed graph =========================
+-- 
+=> https://www.youtube.com/watch?v=dc5Pn-YEPVY&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=8
+=> https://practice.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1
+--
 class Solution:
     # @param A : integer
     # @param B : list of list of integers
@@ -97,6 +168,14 @@ B = [[1, 4],
 ]
 ================================================== cycle detection in undirected graph================================
 
+
+--
+=> https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
+=> https://www.youtube.com/watch?v=GLGsIZGLvA0&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=7
+
+
+
+--
 # cycle detetction in undirected graph
 A = 5
 B = [[1, 4],
@@ -201,6 +280,8 @@ class Solution:
         return -1
             
 ================================================= Region in Binary matrix ==================================================
+-- https://www.geeksforgeeks.org/given-sorted-dictionary-find-precedence-characters/
+
 
 class Solution:
     # @param A : list of list of integers
@@ -334,3 +415,328 @@ class Solution:
         return 0 
 
 ==================================================== Number of islands ================================
+
+-- https://www.geeksforgeeks.org/find-number-of-islands/
+-- https://practice.geeksforgeeks.org/problems/find-the-number-of-islands/1
+-- https://leetcode.com/problems/number-of-islands/submissions/
+
+
+# Program to count islands in boolean 2D matrix
+class Graph:
+
+	def __init__(self, row, col, graph):
+		self.ROW = row
+		self.COL = col
+		self.graph = graph
+
+	# A utility function to do DFS for a 2D
+	# boolean matrix. It only considers
+	# the 8 neighbours as adjacent vertices
+	def DFS(self, i, j):
+		if i < 0 or i >= len(self.graph) or j < 0 or j >= len(self.graph[0]) or self.graph[i][j] != 1:
+			return
+
+		# mark it as visited
+		self.graph[i][j] = -1
+
+		# Recur for 8 neighbours
+		self.DFS(i - 1, j - 1)
+		self.DFS(i - 1, j)
+		self.DFS(i - 1, j + 1)
+		self.DFS(i, j - 1)
+		self.DFS(i, j + 1)
+		self.DFS(i + 1, j - 1)
+		self.DFS(i + 1, j)
+		self.DFS(i + 1, j + 1)
+
+	# The main function that returns
+	# count of islands in a given boolean
+	# 2D matrix
+	def countIslands(self):
+		# Initialize count as 0 and traverse
+		# through the all cells of
+		# given matrix
+		count = 0
+		for i in range(self.ROW):
+			for j in range(self.COL):
+				# If a cell with value 1 is not visited yet,
+				# then new island found
+				if self.graph[i][j] == 1:
+					# Visit all cells in this island
+					# and increment island count
+					self.DFS(i, j)
+					count += 1
+
+		return count
+
+
+graph = [
+	[1, 1, 0, 0, 0],
+	[0, 1, 0, 0, 1],
+	[1, 0, 0, 1, 1],
+	[0, 0, 0, 0, 0],
+	[1, 0, 1, 0, 1]
+]
+
+
+row = len(graph)
+col = len(graph[0])
+
+g = Graph(row, col, graph)
+
+print("Number of islands is:", g.countIslands())
+
+# This code is contributed by Shivam Shrey
+
+========================================================================================================================
+
+-- corona spread 
+
+-- https://practice.geeksforgeeks.org/problems/269f61832b146dd5e6d89b4ca18cbd2a2654ebbe/1/#
+-- https://www.geeksforgeeks.org/maximum-time-required-for-all-patients-to-get-infected/
+class Solution:
+    def helpaterp(self, hospital):
+        r = len(hospital)
+        c = len(hospital[0])
+        time = 0
+        q = []
+        
+        for i in range(r):
+            for j in range(c):
+                if hospital[i][j] == 2:
+                    q.append((i,j))
+        
+        count = len(q)
+        while count > 0:
+            for i in range(count):
+                i , j = q.pop(0)
+                self.push_neighbours(i,j,q,r,c,hospital) # check if exists a neigbours and is 1 then push to queue
+            count = len(q)
+            if count > 0:
+                time+=1
+        for i in range(r):
+            for j in range(c):
+                if hospital[i][j] == 1:
+                    return -1
+                    
+        return time
+                
+        
+    def push_neighbours(self,i,j,q,r,c,grid):
+        x = [-1,1,0,0]
+        y = [0,0,-1,1]
+        for l in range(len(x)):
+            if (i + x[l]<0 or i+x[l] >= r or j+y[l] < 0 or j+y[l]>=c or grid[i+x[l]][j+y[l]] != 1 ):
+                continue
+            q.append((i+x[l],j+y[l]))
+            grid[i+x[l]][j+y[l]] = 2
+                    
+
+=======================================================================================================================
+
+-- Min cost path
+
+-- https://www.geeksforgeeks.org/min-cost-path-dp-6/
+-- https://practice.geeksforgeeks.org/problems/minimum-cost-path3833/1
+
+================================================================================================================================
+
+-- minimum number of swaps to sort an array
+
+-- https://www.youtube.com/watch?v=kFe_LRWuZjE
+-- https://www.geeksforgeeks.org/minimum-number-swaps-required-sort-array/
+
+===================================================================================================================================
+
+-- min steps to reach destination
+
+-- https://www.geeksforgeeks.org/minimum-steps-to-reach-a-destination/
+-- code in book b8(kashih mehindrata) 
+-- https://www.youtube.com/watch?v=RrWpucR--wU&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=23
+
+
+# python program to count number of
+# steps to reach a point
+import sys
+
+# Function to count number of steps
+# required to reach a destination
+	
+# source -> source vertex
+# step -> value of last step taken
+# dest -> destination vertex
+def steps(source, step, dest):
+	
+	#base cases
+	if (abs(source) > (dest)) :
+		return sys.maxsize
+	
+	if (source == dest):
+		return step
+
+	# at each point we can go
+	# either way
+
+	# if we go on positive side
+	pos = steps(source + step + 1,
+					step + 1, dest)
+
+	# if we go on negative side
+	neg = steps(source - step - 1,
+					step + 1, dest)
+
+	# minimum of both cases
+	return min(pos, neg)
+	
+
+# Driver Code
+dest = 11;
+print("No. of steps required",
+			" to reach " ,dest ,
+		" is " , steps(0, 0, dest));
+	
+
+# This code is contributed by Sam007.
+
+
+======================================================================================================================================
+
+-- find strings can chained from ciecle
+
+-- geeksforgeeks.org/given-array-strings-find-strings-can-chained-form-circle/
+-- https://www.youtube.com/watch?v=WY6Jsp3NxIk&t=98s
+
+===========================================================================================================================
+
+-- snakes and ladders
+
+-- https://www.geeksforgeeks.org/snake-ladder-problem-2/
+-- https://www.youtube.com/watch?v=6lH4nO3JfLk
+
+=====================================================================================================================================
+
+-- alien dictionary
+
+-- https://www.youtube.com/watch?v=h_4_Xb1bLgs&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=28
+-- https://practice.geeksforgeeks.org/problems/alien-dictionary/1
+-- als a video from neetcode
+
+======================================================================================================================================================
+
+-- word ladder 
+
+-- https://www.youtube.com/watch?v=h9iTnkgv05E&list=PLot-Xpze53ldBT_7QA8NVot219jFNr_GI&index=6
+-- https://practice.geeksforgeeks.org/problems/word-ladder/0/?category[]=BFS&page=1&query=category[]BFSpage1
+
+=============================================================================================================================================================
+
+-- Topological sort
+-- https://www.youtube.com/watch?v=eMVg3Gvnva4&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=9
+-- https://www.geeksforgeeks.org/topological-sorting/
+
+# Python program to print topological sorting of a DAG
+from collections import defaultdict
+
+# Class to represent a graph
+
+
+class Graph:
+	def __init__(self, vertices):
+		self.graph = defaultdict(list) # dictionary containing adjacency List
+		self.V = vertices # No. of vertices
+
+	# function to add an edge to graph
+	def addEdge(self, u, v):
+		self.graph[u].append(v)
+
+	# A recursive function used by topologicalSort
+	def topologicalSortUtil(self, v, visited, stack):
+
+		# Mark the current node as visited.
+		visited[v] = True
+
+		# Recur for all the vertices adjacent to this vertex
+		for i in self.graph[v]:
+			if visited[i] == False:
+				self.topologicalSortUtil(i, visited, stack)
+
+		# Push current vertex to stack which stores result
+		stack.append(v)
+
+	# The function to do Topological Sort. It uses recursive
+	# topologicalSortUtil()
+	def topologicalSort(self):
+		# Mark all the vertices as not visited
+		visited = [False]*self.V
+		stack = []
+
+		# Call the recursive helper function to store Topological
+		# Sort starting from all vertices one by one
+		for i in range(self.V):
+			if visited[i] == False:
+				self.topologicalSortUtil(i, visited, stack)
+
+		# Print contents of the stack
+		print(stack[::-1]) # return list in reverse order
+
+
+# Driver Code
+g = Graph(6)
+g.addEdge(5, 2)
+g.addEdge(5, 0)
+g.addEdge(4, 0)
+g.addEdge(4, 1)
+g.addEdge(2, 3)
+g.addEdge(3, 1)
+
+print ("Following is a Topological Sort of the given graph")
+
+# Function Call
+g.topologicalSort()
+
+# This code is contributed by Neelam Yadav
+
+
+===========================================================================================================================================================
+
+-- dijkstra algo
+-- https://www.google.com/search?q=dijkstra+algo&oq=dijkstra+algo&aqs=chrome..69i57.6343j0j15&sourceid=chrome&ie=UTF-8
+-- https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
+-- https://www.youtube.com/watch?v=0kiTAw4xvy4&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=10
+-- https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/?ref=lbp
+
+-- undirected unweighted graph
+-- https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/?ref=lbp
+-- https://www.youtube.com/watch?v=hwCWi7-bRfI&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=16
+
+-- print paths
+-- https://sites.google.com/site/rajboston1951/shortest-paths/8
+-- https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/?ref=lbp
+
+
+=====================================================================================================================================================
+
+-- bellmon ford
+-- https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
+-- https://www.youtube.com/watch?v=-dlGfzdfHvM&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=14
+-- https://www.youtube.com/watch?v=75yC1vbS8S8&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=28
+
+======================================================================================================================================================
+
+-- Floyd warshell
+-- https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/
+
+==================================================================================================================================================
+-- min spanning tree
+
+
+
+1). prims
+-- https://www.youtube.com/watch?v=xsM8i0jVF1w&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=19
+-- https://www.youtube.com/watch?v=HnD676J56ak&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=20
+-- https://www.youtube.com/watch?v=oNTsS8lGDHw&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=21
+
+-- https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/?ref=lbp
+
+2) kruskal
+-- https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
