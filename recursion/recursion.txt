@@ -1,10 +1,8 @@
 Count all possible paths form top left to bottom right 
-
--- https://www.geeksforgeeks.org/print-all-possible-paths-from-top-left-to-bottom-right-of-a-mxn-matrix/
 -- https://www.youtube.com/watch?v=sLuKQ9mZFz0
 -- https://practice.geeksforgeeks.org/problems/number-of-paths0926/1
 -- https://practice.geeksforgeeks.org/problems/game-of-death-in-a-circle1840/1/#
--- https://practice.geeksforgeeks.org/problems/josephus-problem/1
+
 
 
 # Returns count of possible paths
@@ -34,7 +32,7 @@ print(numberOfPaths(3, 3))
 
 -- https://www.youtube.com/watch?v=ULUNeD0N9yI&t=1133s
 -- https://www.geeksforgeeks.org/josephus-problem-set-1-a-on-solution/
-
+-- https://practice.geeksforgeeks.org/problems/josephus-problem/1
 
 =========================================================================================================================================
 
@@ -101,3 +99,4 @@ class Solution:
 
 -- print all possible paths
 -- https://www.youtube.com/watch?v=76sqTXhyufc
+-- https://www.geeksforgeeks.org/print-all-possible-paths-from-top-left-to-bottom-right-of-a-mxn-matrix/
