@@ -1,0 +1,103 @@
+Count all possible paths form top left to bottom right 
+
+-- https://www.geeksforgeeks.org/print-all-possible-paths-from-top-left-to-bottom-right-of-a-mxn-matrix/
+-- https://www.youtube.com/watch?v=sLuKQ9mZFz0
+-- https://practice.geeksforgeeks.org/problems/number-of-paths0926/1
+-- https://practice.geeksforgeeks.org/problems/game-of-death-in-a-circle1840/1/#
+-- https://practice.geeksforgeeks.org/problems/josephus-problem/1
+
+
+# Returns count of possible paths
+# to reach cell at row number m and
+# column number n from the topmost
+# leftmost cell (cell at 1, 1)
+def numberOfPaths(p, q):
+     
+    # Create a 1D array to store
+    # results of subproblems
+    dp = [1 for i in range(q)]
+    for i in range(p - 1):
+        for j in range(1, q):
+            dp[j] += dp[j - 1]
+    return dp[q - 1]
+ 
+# Driver Code
+print(numberOfPaths(3, 3))
+ 
+# This code is contributed
+# by Ankit Yadav
+
+
+===========================================================================================================================================
+
+-- Josephus problem
+
+-- https://www.youtube.com/watch?v=ULUNeD0N9yI&t=1133s
+-- https://www.geeksforgeeks.org/josephus-problem-set-1-a-on-solution/
+
+
+=========================================================================================================================================
+
+-- Pascals triangle
+
+-- https://www.youtube.com/watch?v=Q1lj9B33Euc
+-- https://www.geeksforgeeks.org/pascal-triangle/
+-- https://www.interviewbit.com/problems/pascal-triangle/
+
+=========================================================================================================================================================
+
+-- tower of hanoi
+
+-- https://www.geeksforgeeks.org/c-program-for-tower-of-hanoi/
+-- youtube.com/watch?v=l45md3RYX7c
+
+
+
+# Recursive Python function to solve tower of hanoi
+ 
+def TowerOfHanoi(n , from_rod, to_rod, aux_rod):
+    if n == 0:
+        return
+    TowerOfHanoi(n-1, from_rod, aux_rod, to_rod)
+    print("Move disk",n,"from rod",from_rod,"to rod",to_rod)
+    TowerOfHanoi(n-1, aux_rod, to_rod, from_rod)
+         
+# Driver code
+n = 4
+TowerOfHanoi(n, 'A', 'C', 'B')
+
+
+===================================================================================================================================================
+
+-- Special Keyboard
+
+-- https://www.youtube.com/watch?v=c_y7H7qZJRU
+-- https://practice.geeksforgeeks.org/problems/special-keyboard3018/1/
+-- https://www.geeksforgeeks.org/how-to-print-maximum-number-of-a-using-given-four-keys/
+
+
+class Solution:
+    def optimalKeys(self, n):
+        # code here
+        if n <=6:
+            return n
+        dp = [0] * (n+1)
+        for i in range(1,7):
+            dp[i] = i
+        for i in range(7,n+1):
+            for j in range(i-3, 0,-1): # reverse
+                cur = dp[j] * (i-j-1)
+                dp[i] = max(dp[i],cur)
+        return dp[n]
+
+======================================================================================================================================================
+
+-- flood fill algo
+
+-- https://practice.geeksforgeeks.org/problems/flood-fill-algorithm1856/1/#
+-- https://www.geeksforgeeks.org/flood-fill-algorithm-implement-fill-paint/
+
+==========================================================================================================================================================
+
+-- print all possible paths
+-- https://www.youtube.com/watch?v=76sqTXhyufc

@@ -1,0 +1,11 @@
+
+-- print all paths from left top to right bottom
+
+-- https://www.youtube.com/watch?v=76sqTXhyufc
+-- https://www.geeksforgeeks.org/print-all-possible-paths-from-top-left-to-bottom-right-of-a-mxn-matrix/
+
+
+================================================================================================================================================
+
+-- lexicographically permuations 
+

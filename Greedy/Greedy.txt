@@ -1,0 +1,227 @@
+-- Job sequencing
+
+-- https://www.youtube.com/watch?v=LjPx4wQaRIs
+-- https://www.geeksforgeeks.org/job-sequencing-problem/
+-- https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1
+
+# Program to find the maximum profit
+# job sequence from a given array
+# of jobs with deadlines and profits
+
+# function to schedule the jobs take 2
+# arguments array and no of jobs to schedule
+
+
+def printJobScheduling(arr, t):
+
+	# length of array
+	n = len(arr)
+
+	# Sort all jobs according to
+	# decreasing order of profit
+	for i in range(n):
+		for j in range(n - 1 - i):
+			if arr[j][2] < arr[j + 1][2]:
+				arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+	# To keep track of free time slots
+	result = [False] * t
+
+	# To store result (Sequence of jobs)
+	job = ['-1'] * t
+
+	# Iterate through all given jobs
+	for i in range(len(arr)):
+
+		# Find a free slot for this job
+		# (Note that we start from the
+		# last possible slot)
+		for j in range(min(t - 1, arr[i][1] - 1), -1, -1):
+
+			# Free slot found
+			if result[j] is False:
+				result[j] = True
+				job[j] = arr[i][0]
+				break
+
+	# print the sequence
+	print(job)
+
+
+# Driver COde
+arr = [['a', 2, 100], # Job Array
+	['b', 1, 19],
+	['c', 2, 27],
+	['d', 1, 25],
+	['e', 3, 15]]
+
+
+print("Following is maximum profit sequence of jobs")
+
+# Function Call
+printJobScheduling(arr, 3)
+
+# This code is contributed
+# by Anubhav Raj Singh
+
+
+==============================================================================================================================
+
+
+-- N meetings in rooms
+-- https://www.interviewbit.com/courses/programming/greedy-algorithm
+-- (refer this ) https://www.geeksforgeeks.org/find-maximum-meetings-in-one-room/
+-- https://www.youtube.com/watch?v=II6ziNnub1Q&t=24s
+-- https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1
+
+=====================================================================================================================================
+
+-- Remove Minimum coins such that absolute difference between any two piles is less than K
+
+-- https://www.geeksforgeeks.org/remove-minimum-coins-such-that-absolute-difference-between-any-two-piles-is-less-than-k/
+-- https://www.youtube.com/watch?v=fn8N2vGyunw
+-- https://practice.geeksforgeeks.org/problems/coin-piles5152/1/#
+
+==============================================================================================================================================
+
+-- Maximise the number of toys that can be purchased with amount K
+
+
+-- https://www.geeksforgeeks.org/maximise-the-number-of-toys-that-can-be-purchased-with-amount-k/
+-- https://practice.geeksforgeeks.org/problems/maximize-toys0331/1/
+
+
+======================================================================================================================================
+
+-- largest num with given num of digits
+
+-- https://www.geeksforgeeks.org/find-the-largest-number-with-given-number-of-digits-and-sum-of-digits/
+
+
+=====================================================================================================================================================
+
+-- maximize the heights
+
+-- https://www.youtube.com/watch?v=Av7vSnPSCtw
+-- https://www.geeksforgeeks.org/minimize-the-maximum-difference-between-the-heights/
+-- https://practice.geeksforgeeks.org/problems/minimize-the-heights-i/1#
+
+===========================================================================================================================================================\
+
+-- Fractional knapsack
+
+-- https://www.geeksforgeeks.org/fractional-knapsack-problem/
+-- https://www.youtube.com/watch?v=F_DDzYnxO14
+-- https://practice.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1/
+
+
+def fractionalknapsack( W,Items,n):
+    for i in range(len(Items)):
+        temp = Items[i][0]/Items[i][1]
+        Items[i].append(temp)
+    Items.sort(key=lambda x:x[2],reverse=True)
+    print(Items)
+    curWeight = 0 # cur weight added to the knapsack
+    finalValue = 0 # cur value in knapsack
+            
+    for i in range(len(Items)):
+        if(curWeight + Items[i][1] <= W):
+            curWeight += Items[i][1]
+            finalValue += Items[i][0]
+        else:
+            remainingWeight = W - curWeight
+            print(remainingWeight)
+            finalValue += Items[i][2] * remainingWeight
+            break
+    return finalValue
+    
+    
+N = 3
+W = 50
+Items = [[60,10],[100,20],[120,30]]
+print(fractionalknapsack(W,Items,N))
+
+=============================================================================================================================================
+
+-- Police and thieves
+
+-- https://www.geeksforgeeks.org/policemen-catch-thieves/
+-- https://www.youtube.com/watch?v=6nynhhiK3jc
+
+========================================================================================================================================================
+
+-- Min taps to open 
+
+-- https://www.youtube.com/watch?v=Pk128gC_sdw (refer this)
+-- (only ofr understanding) https://www.geeksforgeeks.org/minimum-sprinkers-required-to-be-turned-on-to-water-the-plants/
+
+=======================================================================================================================================================
+
+-- Page fault in LRU
+
+-- https://practice.geeksforgeeks.org/problems/page-faults-in-lru5603/1
+-- https://www.youtube.com/watch?v=U8K1cpdMN4I
+-- https://www.geeksforgeeks.org/program-for-least-recently-used-lru-page-replacement-algorithm/
+
+class Solution:
+    def pageFaults(self, N, C, pages):
+        s = []
+        pageFaults = 0
+        # pageHits = 0
+         
+        for i in pages:
+         
+            # If i is not present in currentPages list
+            if i not in s:
+         
+                # Check if the list can hold equal pages
+                if(len(s) == C):
+                    s.remove(s[0])
+                    s.append(i)
+         
+                else:
+                    s.append(i)
+         
+                # Increment Page faults
+                pageFaults +=1
+         
+            # If page is already there in
+            # currentPages i.e in Main
+            else:
+                 
+                # Remove previous index of current page
+                s.remove(i)
+         
+                # Now append it, at last index
+                s.append(i)
+        return pageFaults
+
+=======================================================================================================================================
+
+-- Minimize the sum of product
+
+-- def minValue(self, a, b, n):
+        a.sort()
+        b.sort(reverse=True)
+        res = 0
+        for i in range(n):
+            res += a[i]*b[i]
+        return res
+
+-- https://practice.geeksforgeeks.org/problems/minimize-the-sum-of-product1525/1
+
+========================================================================================================================
+
+-- Huffman coding
+
+-- https://www.youtube.com/watch?v=co4_ahEDCho
+-- https://practice.geeksforgeeks.org/problems/huffman-decoding-1/1
+-- https://www.geeksforgeeks.org/huffman-coding-greedy-algo-3/
+-- https://www.geeksforgeeks.org/huffman-coding-greedy-algo-3/
+-- https://www.geeksforgeeks.org/huffman-decoding/
+
+
+==================================================================================================================================
+
+-- Activity seection
+-- https://www.youtube.com/watch?v=DHr-Mn_vzs0
