@@ -245,3 +245,13 @@ if __name__ == "__main__":
 
 -- https://www.geeksforgeeks.org/boggle-find-possible-words-board-characters/
 -- https://www.youtube.com/results?search_query=word+boggle
+
+
+=============================================================================================================================================================\
+
+
+-- Largest no in k swaps
+
+--https://www.youtube.com/watch?v=ZnfqHvAt9bE
+-- https://www.geeksforgeeks.org/find-maximum-number-possible-by-doing-at-most-k-swaps/
+
