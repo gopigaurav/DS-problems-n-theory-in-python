@@ -263,3 +263,17 @@ if __name__ == "__main__":
 -- https://practice.geeksforgeeks.org/problems/combination-sum-1587115620/1#
 -- https://www.geeksforgeeks.org/combinational-sum/
 -- https://www.youtube.com/watch?v=OyZFFqQtu98&t=41s
+
+===================================================================================================================================
+
+-- print all palindrome partitioning
+
+-- https://www.geeksforgeeks.org/given-a-string-print-all-possible-palindromic-partition/
+
+==========================================================================================================================
+
+
+-- N queens
+-- https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/
+-- https://practice.geeksforgeeks.org/problems/n-queen-problem0315/1
+
