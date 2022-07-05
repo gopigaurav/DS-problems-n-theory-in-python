@@ -368,3 +368,12 @@ solveNQ()
 # This code is contributed by SHUBHAMSINGH10
 
 
+
+============================================================================================
+
+-- sudoku 
+
+-- https://www.geeksforgeeks.org/sudoku-backtracking-7/
+-- https://www.youtube.com/watch?v=FWAIf_EVUKE&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=15
+-- https://leetcode.com/problems/restore-ip-addresses/
+
