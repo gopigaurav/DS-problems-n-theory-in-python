@@ -120,6 +120,11 @@ class Solution:
 
 ========================================================================================================================
 
--- 
+-- Balanced Binary Tree
+
+-- https://www.interviewbit.com/problems/balanced-binary-tree/
+-- https://www.geeksforgeeks.org/how-to-determine-if-a-binary-tree-is-balanced/
+-- https://www.youtube.com/watch?v=5q42f32rvLs&list=PLNxqWc8Uj2LRbsOlBiPJZAyZpaUwdDepd&index=9
+-- https://practice.geeksforgeeks.org/problems/check-for-balanced-tree/1/#
 
 
