@@ -130,6 +130,34 @@ class Solution:
 
 =================================================================================================================================================================
 
--- 
+-- Diameter of BT
+
+-- https://www.geeksforgeeks.org/diameter-of-a-binary-tree/
+-- https://practice.geeksforgeeks.org/problems/diameter-of-binary-tree/1
+
+-- refer this
+-- https://leetcode.com/problems/diameter-of-binary-tree/submissions/
+
+--
+
+class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        def height(root):
+            nonlocal diameter
+            if not root:
+                return 0
+            
+            left = height(root.left)
+            right = height(root.right)
+            diameter = max(diameter, left + right)
+            return max(left, right) + 1
+        
+        diameter = 0
+        height(root)
+        return diameter
+
+=======================================================================================================================================
+
+
 
 
