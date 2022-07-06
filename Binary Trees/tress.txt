@@ -280,3 +280,45 @@ lass Solution:
             self.traverse(root.right)
 
 
+
+=========================================================================================================================================
+
+-- Preorder iterative
+-- https://www.interviewbit.com/problems/preorder-traversal/
+-- https://www.geeksforgeeks.org/iterative-preorder-traversal/
+-- 
+
+class Solution:
+    def preorderTraversal(self, root):
+        self.values = []
+        #self.traverse(root)
+        #return self.values
+        return self.iterative(root)
+        
+    def iterative(self,root):
+        if not root: return []
+        stack = []
+        res = []
+        stack.append(root)
+        
+        while stack:
+            temp = stack.pop()
+            res.append(temp.val)
+            if temp.right:
+                stack.append(temp.right)
+            if temp.left:
+                stack.append(temp.left)
+        return res
+        
+        
+
+    def traverse(self, root):
+        if root is None:
+            return
+
+        self.values.append(root.val)
+        self.traverse(root.left)
+        self.traverse(root.right)
+
+
+
