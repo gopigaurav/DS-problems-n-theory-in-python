@@ -158,6 +158,78 @@ class Solution:
 
 =======================================================================================================================================
 
+-- check if Binary tree is identical
+
+-- https://practice.geeksforgeeks.org/problems/determine-if-two-trees-are-identical/1/
+-- https://www.geeksforgeeks.org/write-c-code-to-determine-if-two-trees-are-identical/
+--
+class Solution:
+    #Function to check if two trees are identical.
+    def isIdentical(self,root1, root2):
+        if not root1 and not root2: return True
+        if not root2 or not root1: return False
+        if root1.data != root2.data: return False
+        return (self.isIdentical(root1.left,root2.left) and self.isIdentical(root1.right,root2.right))
 
 
+================================================================================================================================
 
+-- Min depth of BT
+
+-- https://www.geeksforgeeks.org/find-minimum-depth-of-a-binary-tree/
+-- https://www.interviewbit.com/problems/min-depth-of-binary-tree/
+
+
+class Solution:
+    def minDepth(self, root):
+        if root.left is None and root.right is None:
+            return 1
+            
+        if root.right is None:
+            return 1 + self.minDepth(root.left)
+            
+        if root.left is None:
+            return 1 + self.minDepth(root.right)
+            
+        return min(self.minDepth(root.left), self.minDepth(root.right)) +1
+
+
+-- 
+def minimumDepth(root, level):
+    if (root == None):
+        return level;
+ 
+    level += 1;
+     
+    return min(minimumDepth(root.left, level),
+                        minimumDepth(root.right, level))
+=============================================================================================================================================
+
+ 
+
+
+-- Check for subtree
+
+-- https://practice.geeksforgeeks.org/problems/check-if-subtree/1/
+-- https://www.geeksforgeeks.org/check-if-a-binary-tree-is-subtree-of-another-binary-tree/
+
+class Solution:
+    def isSubTree(self, root, S):
+        q = []
+        q.append(root)
+        
+        
+        def isIdentical(A,B):
+            if not A and not B: return True
+            if not A or not B: return False
+            if A.data != B.data: return False
+            return (isIdentical(A.left, B.left) and isIdentical(A.right, B.right))
+            
+        while q:
+            temp = q.pop(0)
+            if(temp.data == S.data):
+                if isIdentical(temp,S):
+                    return True
+            if temp.left: q.append(temp.left)
+            if temp.right: q.append(temp.right)
+        return False
