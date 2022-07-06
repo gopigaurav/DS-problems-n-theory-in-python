@@ -233,3 +233,50 @@ class Solution:
             if temp.left: q.append(temp.left)
             if temp.right: q.append(temp.right)
         return False
+
+=======================================================================================================================================================
+
+-- Inorder traversal
+
+-- https://www.interviewbit.com/problems/inorder-traversal/
+-- https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
+
+-- iterative and  recursive
+
+
+lass Solution:
+    def inorderTraversal(self, root):
+        self.values = []
+        #self.traverse(root)
+        #return self.values
+        
+        return self.iterative(root)
+        
+    def iterative(self,root):
+        res = []
+        stack = []
+        cur = root
+        while True:
+            if cur is not None:
+                stack.append(cur)
+                cur = cur.left
+            elif stack:
+                cur = stack.pop()
+                res.append(cur.val)
+                cur = cur.right
+            else:
+                break
+        return res
+        
+    def traverse(self, root):
+        if root.left is None and root.right is None:
+            self.values.append(root.val)
+            return
+        
+        if root.left:    
+            self.traverse(root.left)
+        self.values.append(root.val)
+        if root.right:
+            self.traverse(root.right)
+
+
