@@ -399,5 +399,126 @@ class Solution:
 ==================================================================================================================
 
 
+-- Construct Bt from Preorder and Inorder
+
+-- https://www.geeksforgeeks.org/construct-tree-from-given-inorder-and-preorder-traversal/
+-- https://www.youtube.com/watch?v=aZNaLrVebKQ&t=770s
+-- https://practice.geeksforgeeks.org/problems/construct-tree-1/1/
+
+
+--
+class Solution:
+    def buildtree(self, inorder, preorder, n):
+        if not inorder: return None
+        temp = preorder[0]
+        root_index = inorder.index(temp)
+        left_nodes = inorder[:root_index]
+        right_nodes = inorder[root_index+1:]
+        m,n = len(left_nodes),len(right_nodes)
+        root = Node(temp)
+        root.left = self.buildtree(left_nodes,preorder[1:m+1],n)
+        root.right = self.buildtree(right_nodes,preorder[m+1:],n)
+        return root
+
+
+===================================================================================================================
+
+-- Connect all nodes at same level
+
+-- https://www.geeksforgeeks.org/connect-nodes-at-same-level/
+-- https://www.youtube.com/watch?v=OLvzM1ZcbtQ
+
+
+# Iterative program to connect all the adjacent nodes at the same level in a binary tree
+class newnode:
+  def __init__(self, data):
+    self.data = data
+    self.left = self.right = self.nextRight = None
+
+# setting right pointer to next right node
+
+#       10 ----------> NULL
+#       / \
+#     8 --->2 --------> NULL
+#     /
+#     3 ----------------> NULL
+def connect(root):
+
+  # Base condition
+  if root is None:
+    return
+  
+  # Create an empty queue like level order traversal
+  queue = []
+  queue.append(root)
+  while len(queue) != 0:
+  
+    # size indicates no. of nodes at current level
+    size = len(queue)
+    
+    # for keeping track of previous node
+    prev = newnode(None)
+    for i in range(size):
+      temp = queue.pop(0)
+      if temp.left:
+        queue.append(temp.left)
+      if temp.right:
+        queue.append(temp.right)
+      if prev != None:
+        prev.nextRight = temp
+        prev = temp
+    prev.nextRight = None
+
+# Driver Code
+if __name__ == '__main__':
+
+  # Constructed binary tree is
+  # 10
+  #   / \
+  # 8   2
+  # /
+  # 3
+  root = newnode(10)
+  root.left = newnode(8)
+  root.right = newnode(2)
+  root.left.left = newnode(3)
+
+  # Populates nextRight pointer in all nodes
+  connect(root)
+
+  # Let us check the values of nextRight pointers
+  print("Following are populated nextRight",
+    "pointers in the tree (-1 is printed",
+    "if there is no nextRight)")
+  print("nextRight of", root.data, "is ", end="")
+  if root.nextRight:
+    print(root.nextRight.data)
+  else:
+    print(-1)
+  print("nextRight of", root.left.data, "is ", end="")
+  if root.left.nextRight:
+    print(root.left.nextRight.data)
+  else:
+    print(-1)
+  print("nextRight of", root.right.data, "is ", end="")
+  if root.right.nextRight:
+    print(root.right.nextRight.data)
+  else:
+    print(-1)
+  print("nextRight of", root.left.left.data, "is ", end="")
+  if root.left.left.nextRight:
+    print(root.left.left.nextRight.data)
+  else:
+    print(-1)
+    
+# This code is contributed by Vivek Maddeshiya
+
+==============================================================================================================================================================
+
+-- lowest common ancestor in BT
+
+-- https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
+
+        
 
 
