@@ -540,6 +540,83 @@ class Solution:
 -- Boundary traversal
 
 -- https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/
+-- https://practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1/#
+
+
+=======================================================================================================================================================
+
+
+
+-- sum tree
+
+-- https://practice.geeksforgeeks.org/problems/sum-tree/1/#
+-- https://www.youtube.com/watch?v=-1SIodPrhss
+-- https://www.geeksforgeeks.org/check-if-a-given-binary-tree-is-sumtree/
+
+# Python3 program to check if
+# Binary tree is sum tree or not
+
+# A binary tree node has data,
+# left child and right child
+class node:
+
+  def __init__(self, x):
+
+    self.data = x
+    self.left = None
+    self.right = None
+
+
+def isLeaf(node):
+
+  if(node == None):
+    return 0
+  if(node.left == None and node.right == None):
+    return 1
+  return 0
+
+
+# returns data if SumTree property holds for the given
+# tree else return -1
+def isSumTree(node):
+  if(node == None):
+    return 0
+  
+  ls = isSumTree(node.left)
+  if(ls == -1):     #To stop for further traversal of tree if found not sumTree
+    return -1
+    
+  rs = isSumTree(node.right)
+  if(rs == -1):     #To stop for further traversal of tree if found not sumTree
+    return -1
+  
+  
+  if(isLeaf(node) or ls + rs == node.data):
+    return ls + rs + node.data
+  else:
+    return -1
+
+# Driver code
+if __name__ == '__main__':
+
+  root = node(26)
+  root.left = node(10)
+  root.right = node(3)
+  root.left.left = node(4)
+  root.left.right = node(6)
+  root.right.right = node(3)
+
+  if(isSumTree(root)):
+    print("The given tree is a SumTree ")
+  else:
+    print("The given tree is not a SumTree ")
+
+# This code is contributed by Mugunthan
+
+================================================================================================================
+
+
+
 
         
 
