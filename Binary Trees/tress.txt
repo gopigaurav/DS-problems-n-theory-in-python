@@ -518,6 +518,28 @@ if __name__ == '__main__':
 -- lowest common ancestor in BT
 
 -- https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
+-- https://practice.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-binary-tree/1/
+-- https://www.youtube.com/watch?v=_-QHfMDde90
+
+class Solution:
+    #Function to return the lowest common ancestor in a Binary Tree.
+    def lca(self,root, n1, n2):
+        if not root: return None
+        if root.data == n1 or root.data == n2:
+            return root
+        lh = self.lca(root.left,n1,n2)
+        rh = self.lca(root.right,n1,n2)
+        
+        if lh and rh: return root
+        if lh: return lh
+        if rh: return rh
+        return None
+
+========================================================================================================================================================
+
+-- Boundary traversal
+
+-- https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/
 
         
 
