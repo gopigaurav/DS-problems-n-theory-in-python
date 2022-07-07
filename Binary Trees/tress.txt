@@ -615,8 +615,29 @@ if __name__ == '__main__':
 
 ================================================================================================================
 
+-- BT to Doubly linked list
+-- https://www.geeksforgeeks.org/in-place-convert-a-given-binary-tree-to-doubly-linked-list/
+-- https://practice.geeksforgeeks.org/problems/binary-tree-to-dll/1/#
 
+class Solution:
+    head = None
+    tail = None
+    def bToDLL(self,root):
+        if not root: return
+        self.bToDLL(root.left)
+        if not self.head: self.head = root
+        else:
+            root.left = self.tail
+            self.tail.right = root
+        self.tail = root
+        self.bToDLL(root.right)
+        return self.head
 
+============================================================================================================================
+
+-- Find the max path sum between two leaves of BT
+
+-- https://www.geeksforgeeks.org/find-maximum-path-sum-two-leaves-binary-tree/
 
         
 
