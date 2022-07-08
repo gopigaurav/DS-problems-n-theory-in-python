@@ -271,4 +271,63 @@ class Solution:
             return True
         s.add(root.data)
         self.util(root.right, target,s)
+
+
+
+
+
+
+===================================================================================================================================================
+
+-- remove Bst key outside the range
+
+-- https://practice.geeksforgeeks.org/problems/remove-bst-keys-outside-given-range/1#
+-- https://www.geeksforgeeks.org/remove-bst-keys-outside-the-given-range/
+-- https://www.youtube.com/watch?v=u1JaaFIRS1A
+
+class Solution {
+    public:
+    Node* removekeys(Node* root, int l, int r) {
+        
+        if (root==NULL)
+          return NULL;
+          
+        root->left=removekeys(root->left,l,r);
+        root->right=removekeys(root->right,l,r);
+        
+        if (root->data>=l and root->data<=r)
+        {
+            return root;
+        }
+        else if (root->data<l )
+        {
+            return root->right;
+        }
+        else
+        {
+            return root->left;
+        }
+        
+    }
+};
+
+
+class Solution:
+    def removekeys(self, root, l, r):
+        if not root:
+            return None
+        root.left = self.removekeys(root.left,l,r)
+        root.right = self.removekeys(root.right,l,r)
+        
+        if root.data <= r and root.data >= l:
+            return root
+        if root.data > r:
+            return root.left
+        if root.data < r:
+            return root.right
+
+======================================================================================================================================================
+
+
+-- 
             
