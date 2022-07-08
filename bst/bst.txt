@@ -4,6 +4,8 @@
 -- https://www.geeksforgeeks.org/fix-two-swapped-nodes-of-bst/
 -- https://practice.geeksforgeeks.org/problems/fixed-two-nodes-of-a-bst/1/#
 
+
+
 class Solution:
     prev = None
     first = None
@@ -27,4 +29,195 @@ class Solution:
         self.prev = root
         self.sol(root.right)
         
+
+
+===============================================================================================================================================
+
+-- Merge 2 bsts
+
+-- https://www.geeksforgeeks.org/merge-two-bsts-with-limited-extra-space/
+-- https://www.youtube.com/watch?v=pCn1Q__CnKs
+-- https://practice.geeksforgeeks.org/problems/merge-two-bst-s/1/
+
+# Class to create a new Tree Node
+class newNode:
+	def __init__(self, data: int):
+		self.data = data
+		self.left = None
+		self.right = None
+
+def inorder(root: newNode):
+
+	if root:
+		inorder(root.left)
+		print(root.data, end=" ")
+		inorder(root.right)
+
+def merge(root1: newNode, root2: newNode):
+
+	# s1 is stack to hold nodes of first BST
+	s1 = []
+	
+	# Current node of first BST
+	current1 = root1
+	
+	# s2 is stack to hold nodes of first BST
+	s2 = []
+	
+	# Current node of second BST
+	current2 = root2
+
+	# If first BST is empty then the output is the
+	# inorder traversal of the second BST
+	if not root1:
+		return inorder(root2)
+
+	# If the second BST is empty then the output is the
+	# inorder traversal of the first BST
+	if not root2:
+		return inorder(root1)
+
+	# Run the loop while there are nodes not yet printed.
+	# The nodes may be in stack(explored, but not printed)
+	# or may be not yet explored
+	while current1 or s1 or current2 or s2:
+
+		# Following steps follow iterative Inorder Traversal
+		if current1 or current2:
+		
+			# Reach the leftmost node of both BSTs and push ancestors of
+			# leftmost nodes to stack s1 and s2 respectively
+			if current1:
+				s1.append(current1)
+				current1 = current1.left
+
+			if current2:
+				s2.append(current2)
+				current2 = current2.left
+
+		else:
+
+			# If we reach a NULL node and either of the stacks is empty,
+			# then one tree is exhausted, print the other tree
+
+			if not s1:
+				while s2:
+					current2 = s2.pop()
+					current2.left = None
+					inorder(current2)
+					return
+			if not s2:
+				while s1:
+					current1 = s1.pop()
+					current1.left = None
+					inorder(current1)
+					return
+
+			# Pop an element from both stacks and compare the
+			# popped elements
+			current1 = s1.pop()
+			current2 = s2.pop()
+
+			# If element of first tree is smaller, then print it
+			# and push the right subtree. If the element is larger,
+			# then we push it back to the corresponding stack.
+			if current1.data < current2.data:
+				print(current1.data, end=" ")
+				current1 = current1.right
+				s2.append(current2)
+				current2 = None
+
+			else:
+				print(current2.data, end=" ")
+				current2 = current2.right
+				s1.append(current1)
+				current1 = None
+
+# Driver code
+
+def main():
+
+	# Let us create the following tree as first tree
+	#	 3
+	#	 / \
+	# 1 5
+
+	root1 = newNode(3)
+	root1.left = newNode(1)
+	root1.right = newNode(5)
+
+	# Let us create the following tree as second tree
+	#	 4
+	#	 / \
+	# 2 6
+	#
+
+	root2 = newNode(4)
+	root2.left = newNode(2)
+	root2.right = newNode(6)
+
+	merge(root1, root2)
+
+
+if __name__ == "__main__":
+	main()
+
+# This code is contributed by Koushik Reddy Bukkasamudram
+
+=====================================================================================================================================================
+
+-- Check if given array is valid preorder or not
+
+-- https://www.geeksforgeeks.org/check-if-a-given-array-can-represent-preorder-traversal-of-binary-search-tree/
+-- https://www.interviewbit.com/problems/valid-bst-from-preorder/
+
+
+
+# Python program for an efficient solution to check if
+# a given array can represent Preorder traversal of
+# a Binary Search Tree
+
+INT_MIN = -2**32
+
+def canRepresentBST(pre):
+
+	# Create an empty stack
+	s = []
+
+	# Initialize current root as minimum possible value
+	root = INT_MIN
+
+	# Traverse given array
+	for value in pre:
+		#NOTE:value is equal to pre[i] according to the
+		#given algo
+	
+		# If we find a node who is on the right side
+		# and smaller than root, return False
+		if value < root :
+			return False
+	
+		# If value(pre[i]) is in right subtree of stack top,
+		# Keep removing items smaller than value
+		# and make the last removed items as new root
+		while(len(s) > 0 and s[-1] < value) :
+			root = s.pop()
+		
+		# At this point either stack is empty or value
+		# is smaller than root, push value
+		s.append(value)
+
+	return True
+
+# Driver Program
+pre1 = [40 , 30 , 35 , 80 , 100]
+print ("true" if canRepresentBST(pre1) == True else "false")
+pre2 = [40 , 30 , 35 , 20 , 80 , 100]
+print ("true" if canRepresentBST(pre2) == True else "false")
+
+# This code is contributed by Nikhil Kumar Singh(nickzuck_007)
+
+
+======================================================================================================================================================
+
 
