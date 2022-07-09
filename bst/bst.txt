@@ -506,6 +506,50 @@ preOrder(root)
 -- https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
 -- https://practice.geeksforgeeks.org/problems/check-for-bst/1/
 
+-- 
+def isBSTUtil(root, prev):
+    
+    # traverse the tree in inorder fashion 
+    # and keep track of prev node
+    if (root != None):
+        if (isBSTUtil(root.left, prev) == True):
+            return False
+
+        # Allows only distinct valued nodes 
+        if (prev != None and
+            root.data <= prev.data):
+            return False
+
+        prev = root
+        return isBSTUtil(root.right, prev)
+
+--
+
+def isBST(self, node):
+        
+        if (node == None):
+            return 1
+             
+        ''' false if left is > than node '''
+        if (node.left != None and node.left.data > node.data):
+            return 0
+         
+        ''' false if right is < than node '''
+        if (node.right != None and node.right.data < node.data):
+            return 0
+         
+        ''' false if, recursively, the left or right is not a BST '''
+        if (not self.isBST(node.left) or not self.isBST(node.right)):
+            return 0
+         
+        ''' passing all that, it's a BST '''
+        return 1
+        #code here
+
+--
+==============================================================================================================================================
+
+
 
 
 
