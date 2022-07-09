@@ -2,8 +2,22 @@
 Heap is a compete binary tree which satisfies Heap property
 
 
+Types :-
+==> Max Heap
+==> Min Heap
 
+
+-- Insert and delete
 -- https://www.youtube.com/watch?v=ywx-Onrdx4U&list=PLUcsbZa0qzu3yNzzAxgvSgRobdUUJvz7p&index=31
+
+============================================================================================================================================
+
+-- Binary Heap ( Using Heapq )
+from heapq import heappush, heappop, heapify 
+
+-- https://www.geeksforgeeks.org/binary-heap/
+
+========================================================================================================================================
 
 import heapq
 
