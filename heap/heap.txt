@@ -16,7 +16,14 @@ Types :-
 from heapq import heappush, heappop, heapify 
 
 -- https://www.geeksforgeeks.org/binary-heap/
+-- https://www.geeksforgeeks.org/time-complexity-of-building-a-heap/
+-- https://www.geeksforgeeks.org/heap-sort/?ref=gcse
 
+=======================================================================================================================================================
+
+-- Heapify and Heap sort
+
+-- https://www.youtube.com/watch?v=UVW0NfG_YWA&list=PLUcsbZa0qzu3yNzzAxgvSgRobdUUJvz7p&index=32
 ========================================================================================================================================
 
 import heapq
@@ -161,6 +168,9 @@ print()
 
 =====================================================================================================
 
+
+-- Max heapify and min heapify and heapsort
+
 class heap:
     
     def maxheapify(self,array):
@@ -236,3 +246,60 @@ a.descending_heapsort(b)
 print('Descending Heap Sort -->',b)
 
 =========================================================================================================================
+
+
+
+-- Find median from data stream
+
+-- https://leetcode.com/problems/find-median-from-data-stream/submissions/
+-- https://www.geeksforgeeks.org/median-of-stream-of-running-integers-using-stl/
+-- https://www.youtube.com/watch?v=itmhHWaHupI&t=1273s
+
+
+
+#from heapq import * 
+
+
+class MedianFinder:
+    def __init__(self):
+        self.small = []  # the smaller half of the list, max heap (invert min-heap)
+        self.large = []  # the larger half of the list, min heap
+
+    def addNum(self, num):
+        heapq.heappush(self.small, -1* num) # first add num to small array that is max heap
+        
+        # make sure every num in small is <= every element in large
+        if self.small and self.large and (-1* self.small[0] > self.large[0]):
+            val = -1 * heapq.heappop(self.small) # pop from small
+            heapq.heappush(self.large,val) # push the val to large if element in small is greater than large
+            
+        # uneven size
+        if len(self.small) > len(self.large) + 1: # if small is greater len than large with 2 and greater then pop from small and push it to large
+            val = -1 * heapq.heappop(self.small) # pop from small
+            heapq.heappush(self.large,val)
+            
+        
+        if len(self.large) > len(self.small) + 1: # vice versa for above "if"
+            val = heapq.heappop(self.large) # pop from large
+            heapq.heappush(self.small,-1 * val) # push it to small
+
+    def findMedian(self):
+        # odd length
+        if len(self.small) > len(self.large):
+            return (-1 * self.small[0])
+        
+        if len(self.large) > len(self.small):
+            return self.large[0]
+        
+        return ((-1 * self.small[0] + self.large[0])/2)
+            
+
+
+
+
+
+===================================================================================================================================================
+
+-- Operations on Binary Min Heaps
+
+        
