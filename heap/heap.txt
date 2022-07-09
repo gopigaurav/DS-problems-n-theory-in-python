@@ -43,6 +43,8 @@ def findKthLargest(nums, k):
 
 ============================================================================================================
 # Max Heap
+-- find kth smallest num
+
 def findkthSmallest(nums, k):
     nums = [-num for num in nums]
     k = len(nums) - k 
@@ -54,6 +56,8 @@ def findkthSmallest(nums, k):
 
 ===========================================================================================================
 # Min Heap
+
+-- find kth largest num 
 def findlarg(nums,k): # another approach
     list = []
     heapq.heapify(list)
@@ -471,6 +475,60 @@ class Solution:
 ===================================================================================================================================
 
 -- Merge k sorted linked lists
+-- https://www.interviewbit.com/problems/merge-k-sorted-lists/
+-- https://www.youtube.com/watch?v=q5a5OiGbT6Q
+
+
+
+
+
+
+======================================================================================================================================
+
+-- kth largest element in a stream
+
+--https://www.geeksforgeeks.org/kth-largest-element-in-a-stream/
+
+# Python program for the above approach
+from queue import PriorityQueue
+
+def kthLargest(k, arr, n):
+	ans = [0]*n
+
+	# Creating a min-heap using priority queue
+	pq = PriorityQueue()
+
+	# Iterating through each element
+	for i in range(n):
+		# If size of priority
+		# queue is less than k
+		if (pq.qsize() < k):
+			pq.put(arr[i])
+		else:
+			if (arr[i] > pq.queue[0]):
+				pq.get()
+				pq.put(arr[i])
+
+	# If size is less than k
+		if (pq.qsize() < k):
+			ans[i] = -1
+		else:
+			ans[i] = pq.queue[0]
+
+	return ans
+
+
+# Driver Code
+n = 6
+arr = [1, 2, 3, 4, 5, 6]
+k = 4
+
+# Function call
+v = kthLargest(k, arr, n)
+print(*v)
+
+# This code is contributed by Lovely Jain
+
 
 
 
