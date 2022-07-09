@@ -434,6 +434,44 @@ for i in range(n):
 =============================================================================================================================================
 
 
+-- Merge k sorted arrays
+
+-- https://www.geeksforgeeks.org/merge-k-sorted-arrays/
+-- https://www.youtube.com/watch?v=aVR6mn0Ag2I
+-- https://www.interviewbit.com/problems/merge-k-sorted-arrays/
+
+
+
+-- 
+import heapq
+class Solution:
+    # @param A : list of list of integers
+    # @return a list of integers
+    def solve(self, A):
+        final_list = []
+        #making heap that contains tuple of (A[list_ind][element_ind],list_ind,element_ind)
+        #where list_ind is the row and element_ind is the ind of element in its own list. 
+        heap = [(mylst[0], i, 0) for i, mylst in enumerate(A)]
+        heapq.heapify(heap)
+
+        while heap:
+            val, list_ind, element_ind = heapq.heappop(heap)
+            #heap will pop the least element in the heap
+            final_list.append(val)
+            # if condition for edge case where popped element is the last element of its own list.
+            if element_ind < len(A[list_ind]) - 1:
+                #pushing the next element from the popped element list.
+                next_tuple = (A[list_ind][element_ind + 1],
+                            list_ind,
+                            element_ind + 1)
+                heapq.heappush(heap, next_tuple)
+        return final_list
+
+
+===================================================================================================================================
+
+-- Merge k sorted linked lists
+
 
 
 
