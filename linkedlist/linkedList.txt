@@ -116,7 +116,57 @@ class Solution:
 (codehelp by babber)
 
 -- https://practice.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-lists/1
--- https://www.geeksforgeeks.org/add-two-numbers-represented-by-linked-lists/ 
+-- https://www.geeksforgeeks.org/add-two-numbers-represented-by-linked-lists/
+
+--
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+'''
+class Solution:
+    #Function to add two numbers represented by linked list.
+    def addTwoLists(self, first, second):
+        root1 = first
+        root2 = second
+        answer = Node(0)
+        
+        def reverse(root):
+            prev = None
+            cur = root
+            nex = None
+            while cur:
+                nex = cur.next
+                cur.next = prev
+                prev = cur
+                cur = nex
+            root = prev
+            return root
+        revRoot1 = reverse(root1)
+        revRoot2 = reverse(root2)
+        carry = 0
+        
+        while revRoot1 or revRoot2 or carry:
+            v1 = revRoot1.data if revRoot1 else 0
+            v2 = revRoot2.data if revRoot2 else 0
+            
+            val = v1 + v2 +  carry
+            carry = val // 10
+            val = val % 10
+            answer.next = Node(val)
+            answer = answer.next
+            revRoot1 = revRoot1.next if revRoot1 else None
+            revRoot2 = revRoot2.next if revRoot2 else None
+        dummy = Node(0)
+        dummy.next = reverse(answer.next)
+        return dummy.next
+
+===================================================================================================================================
+
+
+ 
 
 
 
