@@ -1,0 +1,39 @@
+-- Merge Two sorted lists
+
+-- https://www.interviewbit.com/problems/merge-two-sorted-lists/hints/
+-- https://www.geeksforgeeks.org/merge-two-sorted-linked-lists/
+
+--
+ # Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    # @param A : head node of linked list
+    # @param B : head node of linked list
+    # @return the head node in the linked list
+    def mergeTwoLists(self, A, B):
+        root1 = A
+        root2 = B
+        res = ListNode(0)
+        dummy = res
+        while (root1 is not None) and (root2 is not None):
+            if root1.val < root2.val:
+                dummy.next = ListNode(root1.val)
+                root1 = root1.next
+                dummy = dummy.next
+            else:
+                dummy.next = ListNode(root2.val)
+                root2 = root2.next
+                dummy = dummy.next
+        if root1 is not None :
+            dummy.next = root1
+        elif root2 is not None:
+            dummy.next = root2
+        return res.next
+
+
+=====================================================================================================================================================
+
