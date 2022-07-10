@@ -37,3 +37,25 @@ class Solution:
 
 =====================================================================================================================================================
 
+-- Reverse a ll
+-- https://www.interviewbit.com/problems/reverse-linked-list/
+-- https://www.geeksforgeeks.org/reverse-a-linked-list/
+
+
+-- 
+
+class Solution:
+    # @param A : head node of linked list
+    # @return the head node in the linked list
+    def reverseList(self, A):
+        prev = None
+        cur = A
+        nex = None
+        while cur:
+           nex = cur.next
+           cur.next = prev
+           prev = cur
+           cur = nex
+        head = prev
+        return head   
+
