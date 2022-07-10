@@ -59,3 +59,25 @@ class Solution:
         head = prev
         return head   
 
+===============================================================================================================================================================
+
+-- delete without head pointer
+-- https://practice.geeksforgeeks.org/problems/delete-without-head-pointer/1
+-- https://www.geeksforgeeks.org/delete-a-node-from-linked-list-without-head-pointer/
+
+
+
+-- 
+class Solution:
+    #Function to delete a node without any reference to head pointer.
+    def deleteNode(self,curr_node):
+        delpos = curr_node
+        delpos.data = delpos.next.data
+        delpos.next = delpos.next.next
+        
+
+=================================================================================================================================================================
+
+
+
+
