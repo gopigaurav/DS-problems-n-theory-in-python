@@ -369,3 +369,59 @@ ll.printlist(start)
 # This code is contributed by Prerna Saini
 
 ==================================================================================================================================================================
+
+
+-- detect and remove loop
+
+-- https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/
+-- https://practice.geeksforgeeks.org/problems/remove-loop-in-linked-list/1/#
+
+
+--
+class Solution:
+    #Function to remove a loop in the linked list.
+    def removeLoop(self, head):
+        # code here
+        # remove the loop without losing any nodes
+        fp = head
+        sp = head
+        while sp and sp.next:
+            fp = fp.next
+            sp = sp.next.next
+            if fp == sp:
+                self.removeloop(fp, head)
+                return 1
+        return 0
+    def removeloop(self, loop_node, head):
+        p1 = loop_node
+        p2 = loop_node
+        k = 1
+        # find lenght of cycle with k
+        while p1.next != p2:
+            p1 = p1.next
+            k+=1
+        p1 = head
+        p2 = head
+        
+        # p1 points to start head and p2 k distance from head
+        
+        for i in range(k):
+            p2 = p2.next
+        
+        # p1 and p2 point at the start of the loop
+        while p1 != p2:
+            p1 = p1.next
+            p2 = p2.next
+        
+        # now p1 and p2 are equal
+        
+        while p1.next != p2:
+            p1 = p1.next
+        
+        # now pi points to the end node of the loop
+        
+        # so p1.next = None
+        p1.next = None
+
+============================================================================================================================================
+
