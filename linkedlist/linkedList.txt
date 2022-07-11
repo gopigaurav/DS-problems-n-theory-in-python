@@ -490,7 +490,7 @@ class Solution:
 
 -- https://practice.geeksforgeeks.org/problems/intersection-point-in-y-shapped-linked-lists/1
 -- https://www.geeksforgeeks.org/write-a-function-to-get-the-intersection-point-of-two-linked-lists/
-
+-- https://www.youtube.com/watch?v=u4FWXfgS8jw
 
 --
 def intersetPoint(head1,head2):
@@ -505,5 +505,165 @@ def intersetPoint(head1,head2):
     
     return a.data
 --
+
+==============================================================================================================================================================================
+
+-- Rotate linkedlist 
+
+-- https://www.geeksforgeeks.org/rotate-a-linked-list/
+-- https://practice.geeksforgeeks.org/problems/rotate-a-linked-list/1/
+
+
+-- 
+class Solution:
+    
+    #Function to rotate a linked list.
+    def rotate(self, head, k):
+        h = head
+        tail = head
+        while h.next:
+            h = h.next
+        tail = h
+        h = head
+        for i in range(k-1):
+            h = h.next
+        tail.next = head
+        head = h.next
+        h.next = None
+        return head
+
+--
+
+
+=======================================================================================================================================================================================
+
+-- reverse linked list in k group
+-- https://www.geeksforgeeks.org/reverse-a-list-in-groups-of-given-size/
+-- https://practice.geeksforgeeks.org/problems/reverse-a-linked-list-in-groups-of-given-size/1
+-- https://www.youtube.com/watch?v=Of0HPkk3JgI
+
+--
+class Solution:
+    # here remaining elements are also rotated
+    def reverse(self,head, k):
+        
+        if not head or k == 1: return head
+        dummy = Node(0)
+        dummy.next = head
+
+        prev = dummy
+        curr = dummy
+        next = dummy
+        count = 0
+        toLoop = 0
+        i = 0
+     
+        # Calculating the length of linked list
+        while curr:
+            curr = curr.next
+            count += 1
+     
+        # Iterating till next is not none
+        while next:
+            curr = prev.next  # Curr position after every reversed group
+            next = curr.next  # Next will always next to curr
+            # toLoop will set to count - 1 in case of remaining element
+            toLoop = count > k and k or count - 1
+            for i in range(1, toLoop):
+                    # 4 steps as discussed above
+                curr.next = next.next
+                next.next = prev.next
+                prev.next = next
+                next = curr.next
+            # Setting prev to curr
+            prev = curr
+            # Update count
+            count -= k
+     
+         # dummy -> next will be our new head for output linked list
+        return dummy.next
+        
+    # here remaining elements r left same
+    def reverse(self,head, k):
+        
+        if not head or k == 1: return head
+        dummy = Node(0)
+        dummy.next = head
+
+        cur = dummy
+        pre = dummy
+        nex = dummy
+        
+        count = 0
+        
+        while cur.next:
+            cur = cur.next
+            count +=1
+        
+        while count >= k:
+            cur = pre.next
+            nex = cur.next
+            for i in range(1,k):
+                cur.next = nex.next
+                nex.next = pre.next
+                pre.next = nex
+                nex = cur.next
+            pre = cur
+            count -= k 
+        return dummy.next
+
+============================================================================================================================================================
+
+-- Flatten linkedlists
+
+-- https://practice.geeksforgeeks.org/problems/flattening-a-linked-list/1/
+-- https://www.youtube.com/watch?v=ysytSSXpAI0&list=RDCMUCJskGeByzRRSvmOyZOz61ig&start_radio=1&rv=ysytSSXpAI0&t=0
+-- https://www.geeksforgeeks.org/flattening-a-linked-list/
+
+--
+
+def flatten(root):
+    # Base Case
+        if(root == None or root.next == None):
+            return root
+        # recur for list on next
+ 
+        root.next = flatten(root.next)
+ 
+        # now merge
+        root = merge(root, root.next)
+ 
+        # return the root
+        # it will be in turn merged with its left
+        return root
+        
+def merge(a, b):
+        # if first linked list is empty then second
+        # is the answer
+        if(a == None):
+            return b
+         
+        # if second linked list is empty then first
+        # is the result
+        if(b == None):
+            return a
+ 
+        # compare the data members of the two linked lists
+        # and put the larger one in the result
+        result = None
+ 
+        if (a.data < b.data):
+            result = a
+            result.bottom = merge(a.bottom,b)
+        else:
+            result = b
+            result.bottom = merge(a,b.bottom)
+ 
+        result.next = None
+        return result
+
+--
+
+==================================================================================================================
 
 
