@@ -188,6 +188,77 @@ class Solution:
  
 =====================================================================================================================================================
 
+-- Palindrome linked list
+-- https://leetcode.com/problems/palindrome-linked-list/submissions/
+-- https://practice.geeksforgeeks.org/problems/check-if-linked-list-is-pallindrome/1/
+-- https://www.youtube.com/watch?v=70tx7KcMROc&list=PL9gnSGHSqcnr_DxHsP7AW9ftq0AtAyYqJ&index=45
+
+--
+def isPalindrome(self, head):
+        
+        # get mid element function
+        def getMid(head):
+            fp = head
+            sp = head
+            while sp and sp.next!= None:
+                fp = fp.next
+                sp = sp.next.next
+            return fp
+        
+        def reverse(second_half):
+            prev = None
+            current = second_half
+            next = None
+              
+            while current != None:
+                next = current.next
+                current.next = prev
+                prev = current
+                current = next
+            return prev
+            
+        # get the mid element 
+        mid = getMid(head)
+        headSecond = reverse(mid)
+        
+        while head and headSecond and head!= headSecond:
+            if head.data != headSecond.data:
+                return 0
+            head = head.next
+            headSecond = headSecond.next
+        return 1
+
+--
+
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        fast = head
+        slow = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        mid = slow
+        prev = None  
+
+        while mid:
+            next_node = mid.next
+            mid.next = prev
+            prev = mid
+            mid = next_node
+
+        tail = prev
+
+        while head and tail and tail != head:
+            if tail.val != head.val:
+                return False
+            head = head.next
+            tail = tail.next
+
+        return True
+
+-- 
 
 
 
