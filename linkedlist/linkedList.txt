@@ -425,3 +425,67 @@ class Solution:
 
 ============================================================================================================================================
 
+
+-- sort linked lists
+
+-- https://practice.geeksforgeeks.org/problems/sort-a-linked-list/1/#
+-- https://leetcode.com/problems/sort-list/discuss/?currentPage=1&orderBy=most_votes&query=&tag=python
+-- https://leetcode.com/problems/sort-list/discuss/46710/Clean-python-code
+-- (refer this) https://leetcode.com/problems/sort-list/discuss/892537/Python-by-merge-sort-w-Comment
+-- https://www.geeksforgeeks.org/merge-sort-for-linked-list/
+
+
+
+--
+
+class Solution:
+    #Function to sort the given linked list using Merge Sort.
+    def mergeSort(self, head):
+        if head == None or head.next == None:
+            return head
+        mid = self.findMiddle(head)
+        left = self.mergeSort(head)
+        right = self.mergeSort(mid)
+        
+        return self.merSort(left,right)
+        
+    def findMiddle(self,head):
+        if (head == None):
+            return head
+        fp = head
+        sp = head
+        prev = None
+        while sp and sp.next:
+            prev = fp
+            fp = fp.next
+            sp = sp.next.next
+        prev.next = None
+        return fp
+            
+    def merSort(self,l1,l2):
+        res = Node(0)
+        dummy = res
+        while (l1 is not None) and (l2 is not None):
+            if l1.data < l2.data:
+                dummy.next = Node(l1.data)
+                l1 = l1.next
+                dummy = dummy.next
+            else:
+                dummy.next = Node(l2.data)
+                l2 = l2.next
+                dummy = dummy.next
+        if l1 is not None :
+            dummy.next = l1
+        elif l2 is not None:
+            dummy.next = l2
+        return res.next
+        
+
+--
+
+
+===================================================================================================================================================
+
+-- 
+
+
