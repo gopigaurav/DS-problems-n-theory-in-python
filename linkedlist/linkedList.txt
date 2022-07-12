@@ -1,3 +1,4 @@
+
 -- Merge Two sorted lists
 
 -- https://www.interviewbit.com/problems/merge-two-sorted-lists/hints/
@@ -675,3 +676,7 @@ def merge(a, b):
 
 =====================================================================================================================================
 
+-- Partitioning linked ists
+
+-- https://www.geeksforgeeks.org/partitioning-a-linked-list-around-a-given-value-and-keeping-the-original-order/
+-- 
