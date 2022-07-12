@@ -452,5 +452,40 @@ if __name__ == "__main__":
 
 ========================================================================================================================================================================
 
+-- Stock span problem
+
+-- https://www.geeksforgeeks.org/the-stock-span-problem/
+-- https://practice.geeksforgeeks.org/problems/stock-span-problem-1587115621/1
+-- https://www.youtube.com/watch?v=p9T-fE1g1pU
+
+-- 
+
+def calculateSpan(self,arr,n):
+        s = []     
+        ans = []
+        for i in range(0,n):
+             
+            while(s != [] and a[s[-1]] <= a[i]):
+                s.pop()
+             
+            if(s == []):
+                ans.append(i+1)
+             
+            else:
+                top = s[-1]
+                ans.append(i - top)
+            s.append(i)
+     
+        return ans
+            
+
+
+--
+
+=====================================================================================================================================================================================
+
+-- celebrity problem
+
+-- https://www.geeksforgeeks.org/the-celebrity-problem/
 
 
