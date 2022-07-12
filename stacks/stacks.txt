@@ -116,6 +116,8 @@ if __name__ == "__main__":
     # Function call
     printNGE(arr, N)
 ================================================ Next Greater element without circular array ==================================================================
+-- https://practice.geeksforgeeks.org/problems/next-larger-element-1587115620/1/
+-- https://www.geeksforgeeks.org/next-greater-element/
 
 def NextGreaterElement(arr):
     ans = []
@@ -141,6 +143,31 @@ def NextGreaterElement(arr):
         
 array = [3,2,1]
 print(NextGreaterElement(array))
+
+--
+
+class Solution:
+    def nextLargerElement(self,arr,n):
+        stack =[]
+        res = []
+        
+        for i in range(n-1,-1,-1):
+            if not stack:
+                res.append(-1)
+            elif len(stack) > 0 and arr[i] < stack[-1]:
+                res.append(stack[-1]) # dont pop it instead appedn the tp of stack element in the res
+            elif arr[i] >= stack[-1]:
+                while len(stack) > 0 and stack[-1] <= arr[i]:
+                    stack.pop()
+                if not stack:
+                    res.append(-1)
+                else:
+                    res.append(stack[-1]) # dont pop it instead appedn the tp of stack element in the res
+            stack.append(arr[i])
+        
+        return res[::-1]
+
+--
 
 
 ========================================================= Nearest Samller to left =====================================================================
@@ -334,5 +361,96 @@ obj.infixToPostfix(exp)
 -- Reduce the string
 
 -- https://www.geeksforgeeks.org/reduce-the-string-by-removing-k-consecutive-identical-characters/
+
+
+--
+# Python3 implementation of the approach
+
+# Pair class to store character and freq
+class Pair:
+	def __init__(self,c ,ctr):
+		self.c= c
+		self.ctr = ctr
+
+class Solution:
+	
+	# Function to find the reduced string
+	def reduced_String(self , k , s):
+		
+		#Base Case
+		if (k == 1):
+			return ""
+
+		# Creating a stack of type Pair
+		st = []
+	
+		# iterate through given string
+		for i in range(len(s)):
+			
+			# if stack is empty then simply add the
+			# character with count 1 else check if
+			# character is same as top of stack
+			if (len(st) == 0):
+				st.append((Pair(s[i] , 1)))
+				continue
+				
+			
+			# if character at top of stack is same as
+			# current character increase the number of
+			# repetitions in the top of stack by 1
+			if (st[-1].c == s[i]):
+				
+				pair = st.pop()
+				pair.ctr +=1
+				
+				if (pair.ctr == k):
+					continue
+				
+				else:
+					st.append(pair)
+	
+			
+			else:
+				
+				# if character at top of stack is not
+				# same as current character push the
+				# character along with count 1 into the
+				# top of stack
+				st.append((Pair(s[i] , 1)))
+	
+	
+		# Iterate through the stack
+		# Use string(int,char) in order to replicate the
+		# character multiple times and convert into string
+		# then add in front of output string
+		ans = ""
+		while(len(st) > 0):
+			
+			c = st[-1].c
+			cnt = st[-1].ctr
+			
+			while(cnt >0):
+				ans = c + ans
+				cnt -= 1
+			
+			st.pop()
+		
+		return (ans)
+
+# Driver code
+if __name__ == "__main__":
+	
+	k = 2
+	s = "geeksforgeeks"
+	obj = Solution()
+	print(obj.reduced_String(k,s))
+
+	# This code is contributed by chantya17.
+
+
+--
+
+========================================================================================================================================================================
+
 
 
