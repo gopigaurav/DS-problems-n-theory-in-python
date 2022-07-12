@@ -193,6 +193,8 @@ class Solution:
         return ret   
 
 =================================================================== Valid paranthesis=================================
+-- https://practice.geeksforgeeks.org/problems/valid-expression1025/1/
+-- https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/
 
 class Solution(object):
     def isValid(self, s):
