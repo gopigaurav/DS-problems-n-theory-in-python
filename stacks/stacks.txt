@@ -791,3 +791,45 @@ class Solution:
         return ans
 
 --
+
+
+=========================================================================================================================================================================================================
+
+-- sliding window maximum
+
+-- https://www.youtube.com/watch?v=xFJXtB5vSmM
+-- https://www.youtube.com/watch?v=DfljaUwZsOk&t=4s
+-- https://practice.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k3101/1
+
+
+-- 
+
+class Solution:
+    
+    #Function to find maximum of each subarray of size k.
+    def max_of_subarrays(self,arr,n,k):
+        l = 0
+        r = 0
+        deque = []
+        ans = []
+        
+        while r < len(arr):
+            while deque and arr[deque[-1]] < arr[r]:
+                deque.pop()
+            deque.append(r)
+            if l > deque[0]:
+                deque.pop(0)
+            if r+1 >= k:
+                ans.append(arr[deque.pop(0)])
+                l+=1
+            r+=1
+            
+        return ans
+                
+
+--
+
+
+=====================================================================================================================================================================================================================
+
+ --- LRU cache
