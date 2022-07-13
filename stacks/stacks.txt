@@ -492,4 +492,107 @@ def calculateSpan(self,arr,n):
 
 
 
+=============================================================================================================================================================================================
+
+-- Longest valid parenthesis
+
+-- https://www.youtube.com/watch?v=G53_EUjUYcQ
+-- https://practice.geeksforgeeks.org/problems/3b47f0ad00f953dd514235ddec54e39fdc297dda/1/
+
+-- method 1
+class Solution:
+    def findMaxLen(ob, S):
+        stack = [-1]
+        maximum = 0
+        
+        for i in range(len(S)):
+            if S[i] == '(':
+                stack.append(i)
+            else:
+                if len(stack) > 0:
+                    stack.pop()
+                    
+                if len(stack) > 0:
+                    maximum = max(maximum, abs(stack[-1]-i))
+                else:
+                    stack.append(i)
+        return maximum
+                    
+
+--
+
+-- methid 2
+
+# Python3 program to implement the above approach
+
+# Function to return the length of
+# the longest valid substring
+
+
+def solve(s, n):
+
+	# Variables for left and right counter.
+	# maxlength to store the maximum length found so far
+	left = 0
+	right = 0
+	maxlength = 0
+
+	# Iterating the string from left to right
+	for i in range(n):
+
+		# If "(" is encountered,
+		# then left counter is incremented
+		# else right counter is incremented
+		if (s[i] == '('):
+			left += 1
+		else:
+			right += 1
+
+		# Whenever left is equal to right, it signifies
+		# that the subsequence is valid and
+		if (left == right):
+			maxlength = max(maxlength, 2 * right)
+
+		# Resetting the counters when the subsequence
+		# becomes invalid
+		elif (right > left):
+			left = right = 0
+
+	left = right = 0
+
+	# Iterating the string from right to left
+	for i in range(n - 1, -1, -1):
+
+		# If "(" is encountered,
+		# then left counter is incremented
+		# else right counter is incremented
+		if (s[i] == '('):
+			left += 1
+		else:
+			right += 1
+
+		# Whenever left is equal to right, it signifies
+		# that the subsequence is valid and
+		if (left == right):
+			maxlength = max(maxlength, 2 * left)
+
+		# Resetting the counters when the subsequence
+		# becomes invalid
+		elif (left > right):
+			left = right = 0
+	return maxlength
+
+
+# Driver code
+# Function call
+print(solve("((()()()()(((())", 16))
+
+# This code is contributed by shubhamsingh10
+
+=================================================================================================================
+
+
+-- 
+
+
 
