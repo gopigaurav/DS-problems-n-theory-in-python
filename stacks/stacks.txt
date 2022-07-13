@@ -763,3 +763,31 @@ class Solution:
 --
 
 ==========================================================================================================================================================================================
+
+
+-- first non repeating character
+-- https://www.interviewbit.com/problems/first-non-repeating-character-in-a-stream-of-characters/
+-- https://practice.geeksforgeeks.org/problems/first-non-repeating-character-in-a-stream1216/1
+
+
+--
+
+class Solution:
+    # @param A : string
+    # @return a strings
+    def solve(self, a):
+        v=[0]*26
+        q=[]
+        ans=''
+        for i in a:
+            q.append(i)
+            v[ord(i)-ord('a')] + = 1
+            while(q and v[ord(q[0])-ord('a')]>1):
+                q.pop(0)
+            if(q):
+                ans+=q[0]
+            else:
+                ans+='#'
+        return ans
+
+--
