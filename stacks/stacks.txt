@@ -633,7 +633,7 @@ print(solve("((()()()()(((())", 16))
 
 -- https://practice.geeksforgeeks.org/problems/maximum-of-minimum-for-every-window-size3453/1/
 -- https://www.geeksforgeeks.org/find-the-maximum-of-minimums-for-every-window-size-in-a-given-array/
-
+-- https://www.youtube.com/watch?v=CK8PIAF-m2E
 
 class Solution:
     
@@ -657,9 +657,7 @@ class Solution:
      
             s.append(i)
             
-        while (len(s) != 0):
-            s.pop()
-            
+        s = []
             
         # Next smallest to right
         for i in range(n - 1, -1, -1):
@@ -705,6 +703,63 @@ class Solution:
 
 =========================================================================================================================================================
 
+-- Remove k digits
+
+-- https://www.youtube.com/watch?v=cFabMOnJaq0
+-- https://practice.geeksforgeeks.org/problems/build-the-smallest2841/1/
 
 
+--
 
+class Solution:
+
+    def buildLowestNumber(self, S,N):
+        ans = []
+        stack = []
+        for i in range(len(S)):
+            while N > 0 and stack and stack[-1] > S[i]:
+                stack.pop()
+                N -=1
+            stack.append(S[i])
+        
+        stack = stack[:len(stack) - N]
+        res = "".join(stack)
+        return str(int(res)) if res else "0"
+
+
+--
+
+
+====================================================================================================================================================================================================
+
+-- 132 pattern 
+
+-- https://www.youtube.com/watch?v=h5-QRLkmrIY
+-- https://www.geeksforgeeks.org/check-if-a-triplet-of-buildings-can-be-selected-such-that-the-third-building-is-taller-than-the-first-building-and-smaller-than-the-second-building/
+-- https://practice.geeksforgeeks.org/problems/355f731797ea1acbd5ab698b19eb1c3c469aa837/1/
+
+--
+class Solution:
+	def recreationalSpot(self, arr, n):
+	    preMin = [0] * n
+	    preMin[0] = arr[0] # for i
+	    
+	    for i in range(1,n):
+	        preMin[i] = min(preMin[i-1], arr[i])
+	    
+	    stack =[]
+	    
+	    for j in range(n-1,-1,-1):
+	       if arr[j] > preMin[j]:   # for k
+	            while stack and stack[-1] <= preMin[j]:
+	                del stack[-1]
+	                
+	            if stack and arr[j] > stack[-1]: # for j
+	                return True
+	            stack.append(arr[j])
+	        
+	    return False
+
+--
+
+==========================================================================================================================================================================================
