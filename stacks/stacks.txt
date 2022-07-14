@@ -955,7 +955,7 @@ class LRUCache:
 -- https://leetcode.com/problems/implement-queue-using-stacks/submissions/
 -- https://practice.geeksforgeeks.org/problems/queue-using-two-stacks/1#
 -- https://leetcode.com/problems/implement-queue-using-stacks/discuss/433607/Python-Two-Stacks
-
+-- https://www.youtube.com/watch?v=mDcP7tLuBhc&t=416s
 
 -- look at the edges casses
 
@@ -979,3 +979,81 @@ def Pop(stack1,stack2):
 -- 
 
 
+
+===========================================================================================================================================================
+
+-- Implement stack using queues
+
+-- https://practice.geeksforgeeks.org/problems/stack-using-two-queues/1
+-- https://www.youtube.com/watch?v=mDcP7tLuBhc&t=416s
+
+
+
+-- 
+
+def push(x):
+    
+    # global declaration
+    global queue_1
+    global queue_2
+    
+    if not queue_1:
+        queue_1.append(x)
+    else:
+        while queue_1:
+            queue_2.append(queue_1.pop(0))
+        queue_1.append(x)
+        while queue_2:
+            queue_1.append(queue_2.pop(0))
+        
+        
+    
+    # code here
+
+
+#Function to pop an element from stack using two queues.     
+def pop():
+    
+    # global declaration
+    global queue_1
+    global queue_2
+    
+    if not queue_1: return -1
+    return queue_1.pop(0)
+    
+--
+
+
+
+=========================================================================================================================================================
+
+
+-- Circular tour
+
+-- (refer this important) https://www.youtube.com/watch?v=sxOr8sA4X9w
+-- https://practice.geeksforgeeks.org/problems/circular-tour/1
+
+
+-- 
+
+class Solution:
+    
+    #Function to find starting point where the truck can start to get through
+    #the complete circle without exhausting its petrol in between.
+    def tour(self,lis, n):
+        # (refer this important) https://www.youtube.com/watch?v=sxOr8sA4X9w
+        start = 0
+
+        ft = 0  
+        fs = 0
+        for i in range(n):
+            ft += lis[i][0] - lis[i][1]
+            if ft < 0:
+                start = i+1
+                fs += ft
+                ft = 0
+        if ft+fs >= 0:
+            return start
+        return -1
+
+--
