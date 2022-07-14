@@ -948,6 +948,34 @@ class LRUCache:
 --
 
 
+==============================================================================================================================================
 
+-- Implement queue from stack
+
+-- https://leetcode.com/problems/implement-queue-using-stacks/submissions/
+-- https://practice.geeksforgeeks.org/problems/queue-using-two-stacks/1#
+-- https://leetcode.com/problems/implement-queue-using-stacks/discuss/433607/Python-Two-Stacks
+
+
+-- look at the edges casses
+
+
+--
+def Push(x,stack1,stack2):
+    stack1.append(x)
+
+#Function to pop an element from queue by using 2 stacks.
+def Pop(stack1,stack2):
+    if not stack1: return -1  # edge cases
+    while stack1:
+        stack2.append(stack1.pop())
+    temp = stack2.pop()
+    while stack2:
+        stack1.append(stack2.pop())
+    return temp
+        
+
+-- 
+-- 
 
 
