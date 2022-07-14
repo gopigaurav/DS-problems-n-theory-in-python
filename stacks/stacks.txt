@@ -838,7 +838,7 @@ class Solution:
 -- https://www.youtube.com/watch?v=7ABFKPK2hD4&t=435s
 -- https://leetcode.com/problems/lru-cache/
 -- https://www.youtube.com/watch?v=xDEuM5qa0zg
-
+-- https://github.com/neetcode-gh/leetcode/blob/main/146-LRU-Cache.py
 
 
 --
