@@ -550,3 +550,152 @@ printIntersection(arr1, arr2, n1, n2)
 ======================================================================================================================================
 
 -- Longest subarray with sum divisible by K
+
+-- https://www.geeksforgeeks.org/longest-subarray-sum-divisible-k/
+-- https://practice.geeksforgeeks.org/problems/longest-subarray-with-sum-divisible-by-k1259/1/
+-- https://www.youtube.com/watch?v=hviDtcBVpho&t=192s
+
+--
+
+class Solution:
+	def longSubarrWthSumDivByK (self,arr,  n, k) : 
+		um = {}
+		su = 0
+		ans = 0
+		um[0] = -1 # important coz insert rem = 0 at index -1 in dictionary
+		for i in range(n):
+		    su += arr[i]   # calculate sum
+		    rem = su % k   # remainder calculated
+		    if rem < 0: # for negative nums
+		        rem = rem + k
+		    if rem not in um:
+		        um[rem] = i
+		    else:
+		        ans = max(ans, i-um[rem])
+	    return ans
+		        
+
+--
+
+========================================================================================================================================================
+
+--  subarray sum equal k or Number of subarrays having sum exactly equal to k
+
+-- https://practice.geeksforgeeks.org/problems/subarrays-with-sum-k/1/
+-- https://www.geeksforgeeks.org/number-subarrays-sum-exactly-equal-k/\
+-- https://www.youtube.com/watch?v=r1cwGocurtA
+
+--
+class Solution:
+    def findSubArraySum(self, arr, N, k):
+        preSum = {0 : 1} # instead of using presum array use just one variable
+        res = 0
+        cursum = 0
+        for i in range(N):
+            cursum += arr[i]
+            diff = cursum - k
+            
+            if  diff in preSum:
+                res += preSum[diff]
+            
+            if cursum in preSum:
+                preSum[cursum] += 1
+            else:
+                preSum[cursum] = 1
+            
+        return res
+--
+
+
+==========================================================================================================================================================================
+
+-- print all anagrams
+
+-- https://practice.geeksforgeeks.org/problems/print-anagrams-together/1#
+-- https://www.geeksforgeeks.org/given-a-sequence-of-words-print-all-anagrams-together/
+
+
+-- 
+
+from collections import defaultdict
+class Solution:
+    def Anagrams(self, words, n):
+        res = []
+        groupedWords = defaultdict(list)
+ 
+        # Put all anagram words together in a dictionary
+        # where key is sorted word
+        for word in words:
+            groupedWords["".join(sorted(word))].append(word)
+     
+        # Print all anagrams together
+        for group in groupedWords.values():
+            res.append(group)
+        return res
+        #code here
+
+--
+
+==================================================================================================================================
+
+-- Valid sudoku
+
+
+-- https://leetcode.com/problems/valid-sudoku/
+-- https://www.youtube.com/watch?v=TjFXEUCMqI8
+-- https://www.interviewbit.com/problems/valid-sudoku/
+-- https://practice.geeksforgeeks.org/problems/is-sudoku-valid4820/1/
+-- https://www.geeksforgeeks.org/check-if-given-sudoku-solution-is-valid-or-not/
+
+
+-- 
+
+from collections import defaultdict
+class Solution:
+    # @param A : tuple of strings
+    # @return an integer
+    def isValidSudoku(self, mat):
+        cols = defaultdict(set)
+        rows = defaultdict(set)
+        squares = defaultdict(set)
+        
+        for r in range(9):
+            for c in range(9):
+                if mat[r][c] == ".":
+                    continue
+                    
+                if (mat[r][c] in rows[r] or mat[r][c] in cols[c] or mat[r][c] in squares[(r//3,c//3)]):
+                    return 0
+                rows[r].add(mat[r][c])
+                cols[c].add(mat[r][c])
+                squares[(r//3,c//3)].add(mat[r][c])
+        return 1
+
+--
+
+--
+
+from collections import defaultdict
+class Solution:
+    def isValid(self, mat):
+        # code here
+        cols = defaultdict(set)
+        rows = defaultdict(set)
+        squares = defaultdict(set)
+        
+        for r in range(len(mat)):
+            for c in range(len(mat[0])):
+                if mat[r][c] == 0:
+                    continue
+                if (mat[r][c] in rows[r] or mat[r][c] in cols[c] or mat[r][c] in squares[(r//3,c//3)]):
+                    return 0
+                rows[r].add(mat[r][c])
+                cols[c].add(mat[r][c])
+                squares[(r//3,c//3)].add(mat[r][c])
+        return 1
+
+--
+
+
+
+=========================================================================================================================================================================
