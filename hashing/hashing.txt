@@ -306,7 +306,29 @@ HT.print_HT()
 ===================================== Longest common subsequence ================================================
 
 # Python program to find longest contiguous subsequence
+-- https://www.geeksforgeeks.org/longest-consecutive-subsequence/
+-- https://practice.geeksforgeeks.org/problems/longest-consecutive-subsequence2449/1
 
+-- method2
+
+--
+def findLongestConseqSubseq(self,arr, N):
+        Longestcount = 0
+        dic = {}
+        for i in range(N):
+            dic[arr[i]] = dic.get(arr[i], 0) + 1
+        for i in range(N):
+            if (arr[i]-1) not in dic:
+                curNum = arr[i]
+                count = 1
+                while curNum+1 in dic:
+                    curNum +=1
+                    count += 1
+                Longestcount = max(Longestcount, count)
+                
+        return Longestcount
+
+--
 
 def findLongestConseqSubseq(arr, n):
 
