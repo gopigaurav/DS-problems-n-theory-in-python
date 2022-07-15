@@ -432,3 +432,121 @@ result= max(char_freq, key = char_freq.get)
 
 print("Most frequent character: ",result)
 ==========================================================================================================
+
+
+-- find k numbers with most occurences in array
+
+-- https://www.geeksforgeeks.org/find-k-numbers-occurrences-given-array/
+
+
+--
+
+# Python3 implementation to find k numbers
+# with most occurrences in the given array
+
+# function to print the k numbers with
+# most occurrences
+
+
+def pr_N_mostFrequentNumber(arr, n, k):
+
+	um = {}
+	for i in range(n):
+		if arr[i] in um:
+			um[arr[i]] += 1
+		else:
+			um[arr[i]] = 1
+	a = [0] * (len(um))
+	j = 0
+	for i in um:
+		a[j] = [i, um[i]]
+		j += 1
+	a = sorted(a, key=lambda x: x[0],
+			reverse=True)
+	a = sorted(a, key=lambda x: x[1],
+			reverse=True)
+
+	# display the top k numbers
+	print(k, "numbers with most occurrences are:")
+	for i in range(k):
+		print(a[i][0], end=" ")
+
+
+# Driver code
+if __name__ == "__main__":
+	arr = [3, 1, 4, 4, 5, 2, 6, 1]
+	n = 8
+	k = 2
+	pr_N_mostFrequentNumber(arr, n, k)
+
+# This code is contributed by
+# Shubham Singh(SHUBHAMSINGH10)
+
+--
+
+
+====================================================================================================================================
+
+
+-- find union and intersection of unsorted array
+
+-- https://www.geeksforgeeks.org/find-union-and-intersection-of-two-unsorted-arrays/
+
+
+--
+# Python program to find union and intersection
+# using sets
+
+
+def printUnion(arr1, arr2, n1, n2):
+	hs = set()
+
+	# Insert the elements of arr1[] to set hs
+	for i in range(0, n1):
+		hs.add(arr1[i])
+
+	# Insert the elements of arr1[] to set hs
+	for i in range(0, n2):
+		hs.add(arr2[i])
+	print("Union:")
+	for i in hs:
+		print(i, end=" ")
+	print("\n")
+
+	# Prints intersection of arr1[0..n1-1] and
+	# arr2[0..n2-1]
+
+
+def printIntersection(arr1, arr2, n1, n2):
+	hs = set()
+
+	# Insert the elements of arr1[] to set S
+	for i in range(0, n1):
+		hs.add(arr1[i])
+	print("Intersection:")
+	for i in range(0, n2):
+
+		# If element is present in set then
+		# push it to vector V
+		if arr2[i] in hs:
+			print(arr2[i], end=" ")
+
+
+# Driver Program
+arr1 = [7, 1, 5, 2, 3, 6]
+arr2 = [3, 8, 6, 20, 7]
+n1 = len(arr1)
+n2 = len(arr2)
+
+# Function call
+printUnion(arr1, arr2, n1, n2)
+printIntersection(arr1, arr2, n1, n2)
+
+# This article is contributed by Kumar Suman .
+
+--
+
+
+======================================================================================================================================
+
+-- Longest subarray with sum divisible by K
