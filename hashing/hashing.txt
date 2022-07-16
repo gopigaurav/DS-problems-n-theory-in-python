@@ -787,3 +787,5 @@ find3Numbers(A, arr_size, sum)
 ================================================================================================================================================
 
 -- Check if an array can be divided into pairs whose sum is divisible by k
+
+-- https://www.geeksforgeeks.org/check-if-an-array-can-be-divided-into-pairs-whose-sum-is-divisible-by-k/
