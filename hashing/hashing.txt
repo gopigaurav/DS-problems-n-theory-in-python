@@ -701,3 +701,53 @@ class Solution:
 =========================================================================================================================================================================
 
 
+-- Longest substring withut repeating characters
+
+-- (refer this - method 1) https://www.interviewbit.com/problems/longest-substring-without-repeat/hints/
+-- https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/
+-- https://practice.geeksforgeeks.org/problems/longest-distinct-characters-in-string5848/1
+
+--
+class Solution:
+    # @param A : string
+    # @return an integer
+    # method - 1 using sliding window
+    # use the method 1 with O(n)
+    def lengthOfLongestSubstring(self, A):
+        left = 0
+        s = set() # either use set or hashmap
+        res = 0
+        for r in range(len(A)):
+            while A[r] in s:
+                s.remove(A[left])
+                left+=1
+            s.add(A[r]) 
+            res = max(res, r-left+1)
+        return res
+        
+        
+        
+    # method - 2 only using hashmaps 
+    # hashmap with { char, index }
+    def lengthOfLongestSubstring2(self, arr):
+        fre = {}
+        ans = 0
+        start = 0
+        for end in range(len(arr)):
+            if arr[end] in fre:
+                # If we have seen the number, move the start pointer
+            # to position after the last occurrence
+                start = max(start, fre[arr[end]] + 1)
+            fre[arr[end]] = end
+            ans = max(ans, end-start+1)
+        return ans
+    
+
+--
+
+==============================================================================================================================================
+
+-- Find a triplet that sum to a given val ( 3 Sum)
+
+-- https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
+
