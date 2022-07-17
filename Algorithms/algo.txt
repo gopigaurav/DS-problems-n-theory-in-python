@@ -7,3 +7,11 @@ in Book b8
 
 ===================================================================================================================================================
 
+-- Kadanes algo(Maximum subarray)
+
+-- https://www.youtube.com/watch?v=w_KEocd__20
+-- https://leetcode.com/problems/maximum-subarray/
+-- https://www.interviewbit.com/blog/maximum-subarray-sum/
+
+--
+

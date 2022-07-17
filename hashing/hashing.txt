@@ -918,7 +918,7 @@ from collections import defaultdict
 class Solution:
     
     def countKdivPairs(self, nums, n, k):
-        m = defaultdict(lambda:0)
+        m = defaultdict(lambda:0) # important
         ans = 0
         for i in range(len(nums)):
             rem = nums[i]%k
