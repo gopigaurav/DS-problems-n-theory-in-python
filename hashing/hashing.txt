@@ -756,6 +756,40 @@ class Solution:
 
 -- Method 1 in b6 (Neetcode)
 
+-- https://practice.geeksforgeeks.org/problems/triplet-sum-in-array-1587115621/1
+
+
+
+class Solution:
+     
+    #Function to find if there exists a triplet in the 
+    #array A[] which sums up to X.
+    def find3Numbers(self,A, n, X):
+        # use 3 sum by neetcode
+        res = []
+        A.sort()
+        for i in range(n):
+            if i > 0 and A[i] == A[i - 1]:
+                continue
+            left = i+1
+            right = n-1
+            while left < right:
+                if i > 0 and A[i] == A[i-1]:
+                    continue
+                curSum = A[i] + A[left] + A[right]
+                if curSum < X:
+                    left+=1
+                elif curSum > X:
+                    right-=1
+                else:
+                    res.extend([A[i], A[left], A[right]])
+                    left+=1
+                    while A[left] == A[left-1] and left < right:
+                        left+=1
+        return res
+                    
+--
+
 -- Method -2 
 
 
