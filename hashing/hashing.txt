@@ -754,7 +754,10 @@ class Solution:
 -- https://leetcode.com/problems/3sum/description/
 
 
---
+-- Method 1 in b6 (Neetcode)
+
+-- Method -2 
+
 
 # Python3 program to find a triplet using Hashing
 # returns true if there is triplet with sum equal
