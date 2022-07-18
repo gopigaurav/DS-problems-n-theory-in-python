@@ -1,0 +1,126 @@
+-- Max sum subarray of size k 
+-- https://practice.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1
+-- https://www.geeksforgeeks.org/find-maximum-minimum-sum-subarray-size-k/
+
+
+-- class Solution:
+    def maximumSumSubarray (self,k,arr,N):
+        l,r=0,0
+        csum = 0
+        maxsum = 0
+        while r < len(arr):
+            csum += arr[r]
+            if r-l+1 < k:
+                r+= 1
+            elif r-l+1 == k:
+                maxsum = max(maxsum, csum)
+                csum = csum - arr[l]
+                l+=1
+                r+=1
+                
+            # not needed extra elif
+            elif r-l+1 > k:
+                csum -= arr[l]
+                l+=1
+            
+        return maxsum
+
+
+=============================================================================================================================================
+
+-- smallest subarray with sum k
+
+-- https://www.geeksforgeeks.org/smallest-subarray-with-sum-k-from-an-array/
+-- https://www.youtube.com/watch?v=XzwUBIkR9pA&t=36s
+
+
+--
+# Python3 program to implement
+# the above approach
+from collections import defaultdict
+import sys
+
+# Function to find the length of the
+# smallest subarray with sum K
+def subArraylen(arr, n, K):
+
+mp = defaultdict(lambda : 0)
+currPrefixSum = 0
+result = sys.maxsize
+for i in range(n):
+	currPrefixSum += arr[i]
+	if(currPrefixSum == K):
+	currLen = i + 1
+	result = min(result, currLen)
+	requirePrefixSum = currPrefixSum - K
+	
+	if(requirePrefixSum in mp.keys()):
+	foundIdx = mp[requirePrefixSum]
+	currIdx = i
+	result = min(result, currIdx - foundIdx)
+	
+	mp[currPrefixSum] = i
+return result
+	
+	
+# Driver Code
+if __name__ == "__main__":
+arr = [-8, -8, -3, 8]
+n = len(arr)
+
+K = 5
+
+ln = subArraylen(arr, n, K)
+
+# Function call
+if(ln == sys.maxsize):
+	print("-1")
+else:
+	print(ln)
+
+# This code is contributed by Shivam Singh
+
+--
+
+
+===================================================================================================================================================
+
+-- Minimum window sliding
+
+-- https://www.youtube.com/watch?v=jSto0O4AJbM&t=630s
+
+
+--
+from collections import defaultdict
+class Solution(object):
+    def minWindow(self, s, t):
+        if t == "": return ""
+        mpt = {}
+        mps = {}
+        for c in t:
+            mpt[c] = mpt.get(c,0) + 1
+        have = 0
+        need = len(mpt)
+        res, resLen = [-1, -1], float("infinity")
+        l = 0
+        for r in range(len(s)):
+            c = s[r]
+            mps[c] = 1 + mps.get(c,0)
+            if c in mpt and mps[c] == mpt[c]:
+                have += 1
+            while have == need:
+                # update our result
+                if (r - l + 1) < resLen:
+                    res = [l, r]
+                    resLen = (r - l + 1)
+                # pop from the left of our window
+                mps[s[l]] -= 1
+                if s[l] in mpt and mps[s[l]] < mpt[s[l]]:
+                    have -= 1
+                l += 1
+        l, r = res
+        return s[l:r+1] if resLen != float("infinity") else ""
+            
+--
+
+==============================================================================================================================================================

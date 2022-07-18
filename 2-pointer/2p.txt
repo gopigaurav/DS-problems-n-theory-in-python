@@ -3,6 +3,7 @@
 -- valid palindrome
 
 -- https://leetcode.com/problems/valid-palindrome/
+-- https://www.google.com/search?q=isalnum&oq=isalnum&aqs=chrome..69i57.2643j0j15&sourceid=chrome&ie=UTF-8
 
 --
 class Solution(object):
