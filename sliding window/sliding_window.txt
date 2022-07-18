@@ -143,3 +143,70 @@ class Solution(object):
 --
 
 ==============================================================================================================================================================
+
+-- Longest substring without repeating chracters
+
+
+-- https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/
+-- https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+
+--
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        ch = {}
+        res = 0
+        l = 0
+        for r in range(len(s)):
+            while s[r] in ch:
+                if s[l] in ch:
+                    ch[s[l]]-=1
+                del ch[s[l]]
+                l+=1
+            ch[s[r]] = ch.get(s[r],0)+1
+            res = max(res,r-l+1)
+        return res
+
+
+--
+
+
+==========================================================================================================================================================================
+
+-- sliding window maximum
+
+-- using queue
+-- https://leetcode.com/problems/sliding-window-maximum/submissions/
+-- https://www.youtube.com/watch?v=xFJXtB5vSmM
+-- https://practice.geeksforgeeks.org/problems/deee0e8cf9910e7219f663c18d6d640ea0b87f87/1
+
+
+-- 
+
+class Solution(object):
+    def maxSlidingWindow(self, nums, k):
+        res = []
+        q = []
+        l=0
+        r = 0
+        while r < (len(nums)):
+            while q and q[-1] < nums[r]:
+                q.pop()
+            q.append(nums[r])
+            if r-l+1 < k:
+                r+=1
+            elif r-l+1 == k: 
+                res.append(q[0])
+                if q[0] == nums[l]:
+                    q.pop(0)
+                l+=1
+                r+=1
+        return res
+                
+                
+                
+                
+--
+
+============================================================================================================================================================================
