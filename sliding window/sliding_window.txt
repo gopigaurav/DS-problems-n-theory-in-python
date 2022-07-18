@@ -331,8 +331,8 @@ class Solution(object):
 
 -- valid palindrome
 
---
-
+-- https://leetcode.com/problems/valid-palindrome/submissions/
+-- https://neetcode.io/
 
 
 --
