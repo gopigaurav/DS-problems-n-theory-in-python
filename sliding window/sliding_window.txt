@@ -28,10 +28,29 @@
 
 =============================================================================================================================================
 
--- smallest subarray with sum k
+-- smallest subarray with sum k (also hashmap)
 
 -- https://www.geeksforgeeks.org/smallest-subarray-with-sum-k-from-an-array/
 -- https://www.youtube.com/watch?v=XzwUBIkR9pA&t=36s
+-- https://leetcode.com/problems/minimum-size-subarray-sum/
+-- https://leetcode.com/problems/minimum-size-subarray-sum/submissions/
+
+--
+
+class Solution(object):
+    def minSubArrayLen(self, s, nums):
+        total = left = right = 0
+        res = len(nums) + 1
+        while right < len(nums):
+            total += nums[right]
+            while total >= s:
+                res = min(res, right-left+1)
+                total -= nums[left]
+                left += 1
+            right += 1
+        return res if res <= len(nums) else 0
+--
+
 
 
 --
