@@ -210,3 +210,97 @@ class Solution(object):
 --
 
 ============================================================================================================================================================================
+
+
+-- trapping rain water
+
+-- https://leetcode.com/problems/trapping-rain-water/
+-- https://www.youtube.com/watch?v=ZI2z5pq0TqA&t=55s
+
+
+
+--
+
+class Solution:
+    def trap1(self,height):
+        
+        if len(height)<= 2:
+            return 0
+        
+        ans = 0
+        
+        #using two pointers i and j on indices 1 and n-1
+        i = 1
+        j = len(height) - 1
+        
+        #initialising leftmax to the leftmost bar and rightmax to the rightmost bar
+        lmax = height[0]
+        rmax = height[-1]
+        
+        while i <=j:
+            # check lmax and rmax for current i, j positions
+            if height[i] > lmax:
+                lmax = height[i]
+            if height[j] > rmax:
+                rmax = height[j]
+            
+            #fill water upto lmax level for index i and move i to the right
+            if lmax <= rmax:
+                ans += lmax - height[i]
+                i += 1
+				
+            #fill water upto rmax level for index j and move j to the left
+            else:
+                ans += rmax - height[j]
+                j -= 1
+                
+        return ans
+        
+        
+    # method - 2
+    def trap(self, bars):
+        if not bars or len(bars) < 3:
+            return 0
+        volume = 0
+        left, right = 0, len(bars) - 1
+        l_max, r_max = bars[left], bars[right]
+        while left < right:
+            if l_max <= r_max:
+                volume += l_max - bars[left]
+                left += 1
+            else:
+                volume += r_max - bars[right]
+                right -= 1
+            l_max, r_max = max(bars[left], l_max), max(bars[right], r_max)
+        return volume
+
+
+	# method - 3
+
+
+def trap(self, height: List[int]) -> int: 
+        if not height: return 0
+        
+        l, r = 0, len(height) - 1
+        leftMax, rightMax = height[l], height[r]
+        res = 0
+        while l < r:
+            if leftMax < rightMax:
+                l += 1
+                leftMax = max(leftMax, height[l])
+                res += leftMax - height[l]
+            else:
+                r -= 1
+                rightMax = max(rightMax, height[r])
+                res += rightMax - height[r]
+        return res
+
+
+
+
+
+--
+
+
+================================================================================================================================================
+
