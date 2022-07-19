@@ -111,3 +111,62 @@ def productExceptSelf(self, nums):
 -- Encode and decode
 
 -- https://medium.com/@miniChang8/leetcode-encode-and-decode-strings-4dde7e0efa1c
+
+
+--
+
+class Solution:
+    """
+    @param: strs: a list of strings
+    @return: encodes a list of strings to a single string.
+    """
+    def encode(self, strs):
+        res = ""
+        for s in strs:
+            res += str(len(s)) + "#" + s
+        return res
+
+    """
+    @param: str: A string
+    @return: dcodes a single string to a list of strings
+    """
+    def decode(self, str):
+        res, i = [], 0
+
+        while i < len(str):
+            j = i
+            while str[j] != "#":
+                j += 1
+            length = int(str[i:j])
+            res.append(str[j + 1 : j + 1 + length])
+            i = j + 1 + length
+        return res
+
+--
+
+
+===================================================================================================================================================================
+
+-- valid sudoku
+
+-- https://leetcode.com/problems/valid-sudoku/
+
+
+--
+class Solution(object):
+    def isValidSudoku(self, mat):
+        cols = defaultdict(set)
+        rows = defaultdict(set)
+        squares = defaultdict(set)
+        
+        for r in range(9):
+            for c in range(9):
+                if mat[r][c] == ".":
+                    continue
+                if (mat[r][c] in rows[r] or mat[r][c] in cols[c] or mat[r][c] in squares[(r//3,c//3)]):
+                    return 0
+                rows[r].add(mat[r][c])
+                cols[c].add(mat[r][c])
+                squares[(r//3,c//3)].add(mat[r][c])
+        return 1
+--
