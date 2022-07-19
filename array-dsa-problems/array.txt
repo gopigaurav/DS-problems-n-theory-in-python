@@ -80,3 +80,34 @@ def wave(self, A):
         for i in range(0, len(A) - 1, 2):
             A[i], A[i + 1] = A[i + 1], A[i]
         return A
+
+
+
+=========================================================================================================================================================
+
+
+-- Product of array except itself
+
+-- https://leetcode.com/problems/product-of-array-except-self/submissions/
+
+--
+def productExceptSelf(self, nums):
+        res = [1] * len(nums)
+        prefix = 1
+        for i in range(len(nums)):
+            res[i] = prefix
+            prefix *= nums[i]
+        postfix = 1
+        for i in range(len(nums)-1,-1,-1):
+            res[i] *= postfix
+            postfix *= nums[i]
+        return res
+        
+--
+
+
+============================================================================================================================================================
+
+-- Encode and decode
+
+-- https://medium.com/@miniChang8/leetcode-encode-and-decode-strings-4dde7e0efa1c
