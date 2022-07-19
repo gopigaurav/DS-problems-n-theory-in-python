@@ -170,3 +170,37 @@ class Solution(object):
                 squares[(r//3,c//3)].add(mat[r][c])
         return 1
 --
+
+
+==============================================================================================================================================================================
+
+-- top k frequent elements
+
+-- https://leetcode.com/problems/top-k-frequent-elements/submissions/
+-- https://www.geeksforgeeks.org/find-k-numbers-occurrences-given-array/
+
+--
+from collections import defaultdict
+class Solution:
+    def topKFrequent(self, arr, k):
+        um = defaultdict(lambda:0)
+        res = []
+        for i in range(len(arr)):
+            if arr[i] in um:
+                um[arr[i]] += 1
+            else:
+                um[arr[i]] = 1
+        a = [0] * (len(um))
+        j = 0
+        for i in um:
+            a[j] = [i, um[i]]
+            j += 1
+        a = sorted(a, key=lambda x: x[0],
+                   reverse=True)
+        a = sorted(a, key=lambda x: x[1],
+                   reverse=True)
+        for i in range(k):
+            res.append(a[i][0])
+        return res
+        
+--
