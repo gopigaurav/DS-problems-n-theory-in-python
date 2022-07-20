@@ -241,3 +241,24 @@ if __name__ == "__main__":
 
 
 =================================================================================================================================================================================
+
+-- contains duplicate (use Set)
+
+-- https://leetcode.com/problems/contains-duplicate/submissions/
+
+
+--
+class Solution(object):
+    def containsDuplicate(self, nums):
+        s = set()
+        for i in range(len(nums)):
+            if nums[i] in s:
+                return True
+            s.add(nums[i])
+        return False
+--
+======================================================================================================================================================================
+
+-- valid anagrams
+
+-- https://leetcode.com/problems/valid-anagram/
