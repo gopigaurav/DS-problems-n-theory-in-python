@@ -262,3 +262,25 @@ class Solution(object):
 -- valid anagrams
 
 -- https://leetcode.com/problems/valid-anagram/
+
+
+--
+class Solution(object):
+    def isAnagram(self, s, t):
+        if len(s) != len(t):
+            return False
+        frs = {}
+        frt = {}
+        for i in range(len(s)):
+            frs[s[i]] = frs.get(s[i], 0) + 1
+            frt[t[i]] = frt.get(t[i], 0) + 1
+        for count in frs:
+            if frs[count] != frt.get(count,0) or count not in frt:
+                return False
+        return True
+--
+
+
+===============================================================================================================================================================================================
+
+-- 
