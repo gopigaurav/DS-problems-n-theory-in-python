@@ -232,7 +232,53 @@ class Solution:
 
 ==============================================================================================================================================================
 
+-- non overlapping intervals count
+
+
+-- https://leetcode.com/problems/non-overlapping-intervals/
+
+--
+class Solution:
+    def eraseOverlapIntervals(self, intervals): 
+        intervals.sort()
+        res = 0
+        prevEnd = intervals[0][1]
+        for start, end in intervals[1:]:
+            # start of ith is greater than previous end
+            if start >= prevEnd:
+                prevEnd = end
+            else:
+                res += 1
+                # overlapping intervals then increase count
+                prevEnd = min(end, prevEnd)
+        return res
+--
+
+====================================================================================================================================================================
+
+-- meeting rooms
+
+
 -- 
+class Solution:
+    """
+    @param intervals: an array of meeting time intervals
+    @return: if a person could attend all meetings
+    """
+    def canAttendMeetings(self, intervals):
+        intervals.sort(key = lambda i : i.start)
+
+        for i in range(1, len(intervals)):
+            i1 = intervals[i - 1]
+            i2 = intervals[i]
+
+            if i1.end > i2.start:
+                return False
+        return True  
+--
+
+
+
  
 
 
