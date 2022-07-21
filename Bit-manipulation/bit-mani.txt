@@ -107,4 +107,13 @@ class Solution(object):
 
 =================================================================================================================================================================
 
--- 
+-- add two numbers without operator
+
+-- https://leetcode.com/problems/sum-of-two-integers/discuss/489210/Read-this-if-you-want-to-learn-about-masks
+
+
+
+--
+
+ 
+
