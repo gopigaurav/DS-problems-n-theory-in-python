@@ -199,6 +199,40 @@ class Solution:
 ======================================================================================================================================================================================================
 
 -- Merge Intervals
+
+-- https://leetcode.com/problems/merge-intervals/
+
+
+--
+
+class Solution:
+    def merge(self, intervals):
+        
+        # sort the start of the intervals
+        intervals.sort(key = lambda x : x[0])
+        
+        # at start store the first val in the output
+        output = [intervals[0]]
+        
+        for start, end in intervals:
+            lastEnd = output[-1][1]
+            
+            # if new start is less than or equal to previous lastend
+            # means there is a overlap
+            if start <= lastEnd: 
+                # merge
+                # and extend the end interval
+                output[-1][1] = max(lastEnd, end)
+            else:
+                output.append([start, end])
+        return output
+
+
+--
+
+==============================================================================================================================================================
+
+-- 
  
 
 
