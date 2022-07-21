@@ -58,3 +58,53 @@ class Solution:
 -- Reverse Bits
 
 -- https://leetcode.com/problems/reverse-bits/
+
+
+--
+
+class Solution:
+    # @param n, an integer
+    # @return an integer
+    def reverseBits(self, n):
+        res = 0
+        
+        for i in range(32):
+            bit = (n >> i) & 1
+            res = res | (bit << (31-i))
+        return res
+
+--
+
+===============================================================================================================================================================
+
+-- Missing Number
+
+while the numbers are from 0 to N
+
+-- https://leetcode.com/problems/missing-number/submissions/
+
+
+--
+
+class Solution(object):
+    def missingNumber(self, arr):
+        res = 0
+        i = 0
+        while i < len(arr):
+            correctPos = arr[i]
+            
+            if arr[i] < len(arr) and arr[i] != arr[correctPos]:
+                arr[i], arr[correctPos] = arr[correctPos], arr[i]
+            else:
+                i+=1
+        for i in range(len(arr)):
+            if arr[i] != i:
+                return i
+        return len(arr)
+                
+            
+--- 
+
+=================================================================================================================================================================
+
+-- 
