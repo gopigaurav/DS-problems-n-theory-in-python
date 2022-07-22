@@ -78,3 +78,43 @@ class Solution:
 
 -- https://leetcode.com/problems/relative-sort-array/submissions/
 -- https://practice.geeksforgeeks.org/problems/relative-sorting4323/1
+-- https://www.geeksforgeeks.org/sort-array-according-order-defined-another-array/
+
+
+
+--
+class Solution(object):
+    def relativeSortArray(self, A1, A2):
+        N = len(A1)
+        um = {}
+        for i in range(N):
+            um[A1[i]] = um.get(A1[i],0) + 1
+            
+        index = 0
+        for i in range(len(A2)):
+            if A2[i] in um:
+                count = um[A2[i]]
+                while count:
+                    A1[index] = A2[i]
+                    count -= 1
+                    index += 1
+                um.pop(A2[i])
+        
+        if um:
+            for i in sorted(um.keys()):
+                count = um[i]
+                while count:
+                    A1[index] = i
+                    count -= 1
+                    index += 1
+                #um.pop(num)
+        return A1
+
+--
+
+========================================================================================================================================================================
+
+-- Count inversions in an array
+
+
+-- https://www.geeksforgeeks.org/counting-inversions/
