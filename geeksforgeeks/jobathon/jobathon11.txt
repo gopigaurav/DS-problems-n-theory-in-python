@@ -1,0 +1,67 @@
+Link for jobathon 11 -- https://www.youtube.com/watch?v=HlpxIQm-ivM
+
+==== Book No. 11 ====
+
+-- Even sum array (sliding window)
+
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-11-hiring-challenge/problems/
+
+-- 
+class Solution:
+    def solve(self,N,arr):
+        for i in range(N-1):
+            if arr[i] + arr[i+1] != 0: return "NO"
+        return "YES"
+-- 
+
+
+
+==================================================================================================================================
+
+-- Rectangles and squares (Greedy)
+
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-11-hiring-challenge/problems/
+
+-- Actaully wrong question
+
+
+==================================================================================================================================================
+
+-- Navigate Island Country
+
+
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-11-hiring-challenge/problems/
+-- (check the code once)
+
+--
+from typing import List
+class Solution:
+    def minimumCost(self, N, M, X , A, B) -> int:
+        heliCost = A[0] + A[N-1] + X
+        vis = [0] * (N+1)
+        adj = { i:[] for i in range(N) }
+        st = set()
+        
+        # becoz to start from 0 do i-1
+        for i in B:
+            adj[i[0] - 1].append(i[1] - 1)
+            adj[i[1] - 1].append(i[0] - 1)
+        st.add((0,0))
+        dis = [1e18] * (N)
+        dis[0] = 0
+        while st:
+            temp = st.pop()
+            dist = temp[0]
+            node = temp[1]
+            if (vis[node] == 1): 
+                continue
+            vis[node] = 1
+            for it in adj[node]:
+                if dist + A[node] + A[it] < dis[it]:
+                    dis[it] = dist + A[node] + A[it]
+                    st.add((dis[it],it))
+        
+        cost = min(heliCost, dis[-1])
+        
+        return cost
+--
