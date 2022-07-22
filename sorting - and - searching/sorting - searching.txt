@@ -1,0 +1,75 @@
+-- Maximum index
+
+-- https://www.geeksforgeeks.org/given-an-array-arr-find-the-maximum-j-i-such-that-arrj-arri/
+
+
+--
+# For a given array arr[],
+# returns the maximum j – i such that
+# arr[j] > arr[i] */
+def maxIndexDiff(arr, n):
+	
+	leftMin = [0]*n
+	leftMin[0] = arr[0]
+	for i in range(1,n):
+		leftMin[i] = min(leftMin[i-1], arr[i])
+		
+	# leftMin[i] = min arr[0...i]
+	maxDist = - 2**32
+	i = n-1
+	j = n-1
+	
+	while(i>=0 and j>=0):
+		
+		if(arr[j] >= leftMin[i]):
+			maxDist = max(maxDist, j-i)
+			i-=1
+		else:
+			j-=1
+			
+	return maxDist
+
+# Driver Code
+arr = [34,8,10,3,2,80,30,33,1]
+n = len(arr)
+maxDiff = maxIndexDiff(arr, n)
+print(maxDiff)
+
+# This code is contributed by Shubham Singh
+
+--
+
+
+========================================================================================================================================================
+
+-- Minimum Number of platforms 
+
+-- https://www.geeksforgeeks.org/minimum-number-platforms-required-railwaybus-station/
+-- https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1
+
+
+--
+class Solution:    
+    #Function to find the minimum number of platforms required at the
+    #railway station such that no train waits.
+    def minimumPlatform(self,n,start,end):
+        start.sort()
+        end.sort()
+        res, count = 0, 0
+        s, e = 0, 0
+        
+        # if  i of start < e of end the increment s and count
+        # else decrement count and increment e
+        while s < len(start):
+            if start[s] <= end[e]:
+                s += 1
+                count += 1
+            else:
+                e += 1
+                count -= 1
+            res = max(res, count)
+        return res
+--
+
+
+=============================================================================================================================================================
