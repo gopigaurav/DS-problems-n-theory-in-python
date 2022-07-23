@@ -299,5 +299,31 @@ class Solution:
 
 =========================================================================================================================================================================================================
 
--- 
+-- count the number of possible triangles
+
+-- https://practice.geeksforgeeks.org/problems/count-possible-triangles-1587115620/1
+-- https://www.geeksforgeeks.org/find-number-of-triangles-possible/
+
+
+--
+class Solution:
+    #Function to count the number of possible triangles.
+    def findNumberOfTriangles(self, arr, n):
+        arr.sort()
+        ans = 0
+        # check for conditions ==> a + b > c , b + c > a, a + c > a  
+        for c in range(n-1, 1, -1):
+            b = c - 1
+            a = 0 
+            while a < b:
+                if arr[a] + arr[b] > arr[c]:
+                    ans += b - a
+                    b -= 1
+                else:
+                    a+=1
+        return ans
+--
+
+
+
 
