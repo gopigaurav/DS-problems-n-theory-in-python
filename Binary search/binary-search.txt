@@ -1,0 +1,56 @@
+-- Allocate Pages (imp) or same as Book allocation
+
+
+-- https://www.geeksforgeeks.org/allocate-minimum-number-pages/
+-- https://practice.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
+
+--
+ class Solution:
+    
+    #Function to find minimum number of pages.
+    def findPages(self,A, N, M):
+        def sol(arr, n, m, cmin):
+            k = 1
+            csum = 0
+            
+            for i in range(n):
+                if cmin < arr[i]:
+                    return False
+                if csum + arr[i] > cmin:
+                    k += 1
+                    csum = arr[i]
+                    
+                    if k > m:
+                        return False
+                else:
+                    csum += arr[i]
+                    
+            return True
+                    
+            
+            
+            
+        if M > N:
+            return -1
+        start = 0
+        end = 0
+        for i in range(N):
+            end += A[i]
+            start = max(start, A[i])
+        
+        res = 0
+        while start <= end:
+            mid = ( start + end )// 2
+            
+            if sol(A, N, M, mid):
+                res = mid
+                end = mid - 1
+            else:
+                start = mid + 1
+        return res
+--
+
+
+==================================================================================================================================
+
+-- 
