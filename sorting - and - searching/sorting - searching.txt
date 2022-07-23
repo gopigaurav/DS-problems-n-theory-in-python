@@ -212,8 +212,49 @@ class Solution:
 
 =============================================================================================================================================
 
+-- 3 sum 
+
+-- https://practice.geeksforgeeks.org/problems/triplet-sum-in-array-1587115621/1
+
+
+--
+class Solution:
+     
+    #Function to find if there exists a triplet in the 
+    #array A[] which sums up to X.
+    def find3Numbers(self,nums, n, X):
+        res = []
+        nums.sort()
+        
+        for i, a in enumerate(nums):
+            if i > 0 and a == nums[i - 1]:
+                continue
+            
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                threeSum = a + nums[l] + nums[r]
+                if threeSum > X:
+                    r -= 1
+                elif threeSum < X:
+                    l += 1
+                    
+                # if number is equal to 0 or the given value
+                else:
+                    res.append([a, nums[l], nums[r]])
+                    l += 1
+                    # check for duplicate elements
+                    # if there are duplicate elements them increment from left
+                    while nums[l] == nums[l - 1] and l < r:
+                        l += 1
+        return res
+--
+
+
+
+
+==================================================================================================================================================================
 -- count number of triplets in an array having sum in range
 
 -- https://www.geeksforgeeks.org/count-number-of-triplets-in-an-array-having-sum-in-the-range-a-b/
-
+-- 
 
