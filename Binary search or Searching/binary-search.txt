@@ -345,7 +345,7 @@ class Solution(object):
 
 ================================================================================================================================================================
 
--- find in mountain array
+-- find in mountain array (search in mountain array)
 
 -- https://leetcode.com/problems/find-in-mountain-array/submissions/
 -- https://leetcode.com/problems/find-in-mountain-array/discuss/2289715/Pythonor-Order-Agnostic-Binary-Searchor-Peak-index-in-a-mountain-array
