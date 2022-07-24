@@ -103,4 +103,52 @@ class Solution:
 
 ================================================================================================================================================================================
 
--- 
+-- The painters partition problem
+
+-- https://practice.geeksforgeeks.org/problems/the-painters-partition-problem1535/1
+-- https://www.geeksforgeeks.org/painters-partition-problem/
+
+
+--
+class Solution:
+    def minTime (self, A, n, k):
+        def sol(arr, n, m, cmin):
+            k = 1
+            csum = 0
+            
+            for i in range(n):
+                if cmin < arr[i]:
+                    return False
+                if csum + arr[i] > cmin:
+                    k += 1
+                    csum = arr[i]
+                    
+                    if k > m:
+                        return False
+                else:
+                    csum += arr[i]
+                    
+            return True
+                    
+            
+            
+        # no need or can be taken 
+        # if k > n:
+        #    return -1
+        start = 0
+        end = 0
+        for i in range(n):
+            end += A[i]
+            start = max(start, A[i])
+        
+        res = 0
+        while start <= end:
+            mid = ( start + end )// 2
+            
+            if sol(A, n, k, mid):
+                res = mid
+                end = mid - 1
+            else:
+                start = mid + 1
+        return res
+--
