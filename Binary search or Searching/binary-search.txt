@@ -305,10 +305,10 @@ class Solution(object):
 
 ==============================================================================================================================================================
 
--- Peak element or index
+-- Peak element or index in array (same as peak element in mountain array)
 
 -- https://leetcode.com/problems/find-peak-element/
-
+-- https://leetcode.com/problems/peak-index-in-a-mountain-array/submissions/
 
 --
 class Solution(object):
@@ -325,8 +325,35 @@ class Solution(object):
          
 --
 
+
+-- method - 2
+
+--
+class Solution(object):
+    def peakIndexInMountainArray(self, arr):
+        start = 0
+        end = len(arr) - 1
+        while(start<=end):
+            mid = start + ((end-start)/2)
+            if(arr[mid - 1] < arr[mid] > arr[mid + 1]):
+                return mid
+            elif(arr[mid] < arr[mid + 1]):
+                start = mid + 1
+            else:
+                end = mid-1
+--
+
 ================================================================================================================================================================
 
--- 
+-- find in mountain array
 
+-- https://leetcode.com/problems/find-in-mountain-array/submissions/
+-- https://leetcode.com/problems/find-in-mountain-array/discuss/2289715/Pythonor-Order-Agnostic-Binary-Searchor-Peak-index-in-a-mountain-array
+
+
+--
+
+--
+
+==========================================================================================================================================================================
 
