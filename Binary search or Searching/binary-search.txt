@@ -288,3 +288,45 @@ class Solution(object):
 -- https://leetcode.com/problems/find-pivot-index/
 
 
+--
+class Solution(object):
+    def pivotIndex(self, nums):
+	if len(nums) == 1: return 0
+	left, right = 0, sum(nums)
+
+	for i in range(0, len(nums)):
+		right -= nums[i]
+		if left == right:
+			return i
+		left += nums[i]
+	return -1
+	
+--
+
+==============================================================================================================================================================
+
+-- Peak element or index
+
+-- https://leetcode.com/problems/find-peak-element/
+
+
+--
+class Solution(object):
+    def findPeakElement(self, arr):
+        start = 0
+        end = len(arr) - 1
+        while(start<end):
+            mid = int(start + ((end-start)/2))
+            if(arr[mid] > arr[mid + 1]):
+                end = mid
+            else:
+                start = mid+1
+        return start
+         
+--
+
+================================================================================================================================================================
+
+-- 
+
+
