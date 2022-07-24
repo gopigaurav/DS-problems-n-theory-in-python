@@ -490,3 +490,32 @@ class Solution:
 --
 
 =====================================================================================================================================================================================
+
+-- Search and insert position of k in a sorted array
+
+-- https://practice.geeksforgeeks.org/problems/search-insert-position-of-k-in-a-sorted-array/1
+-- https://www.geeksforgeeks.org/search-insert-position-of-k-in-a-sorted-array/
+
+
+--
+
+class Solution:
+    def searchInsertK(self, arr, N, k):
+        
+        start = 0
+        end = N-1
+        
+        while (start <= end):
+            mid = (start+end)//2
+            
+            if arr[mid] == k:
+                return mid
+            elif arr[mid] < k:
+                start = mid + 1
+            else:
+                end = mid - 1
+        return end+1
+
+--
+
+==============================================================================================================================================================================================
