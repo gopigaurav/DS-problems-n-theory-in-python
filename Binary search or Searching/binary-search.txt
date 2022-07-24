@@ -227,3 +227,33 @@ class Solution:
 -- Search an element in a sorted and rotated array
 
 -- https://www.geeksforgeeks.org/search-an-element-in-a-sorted-and-pivoted-array/
+
+-- https://practice.geeksforgeeks.org/problems/search-in-a-rotated-array4618/1
+
+
+--
+method - 2 => recursion
+
+==
+class Solution:
+    def search(self, arr : list, l : int, h : int, key : int):
+        if l > h:
+            return -1
+        mid = (l+h)//2
+        
+        if arr[mid] == key:
+            return mid
+        
+        if arr[l] <= arr[mid]:
+            if key>=arr[l] and key<= arr[mid]:
+                return self.search(arr, l, mid-1, key)
+            return self.search(arr, mid+1, h, key)
+        if key >= arr[mid] and key <= arr[h]:
+            return self.search(arr, mid+1, h, key)
+        return self.search(arr, l, mid-1, key)
+==
+
+
+============================================================================================================================================================
+
+-- 
