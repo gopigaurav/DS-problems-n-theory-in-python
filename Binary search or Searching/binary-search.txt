@@ -439,10 +439,10 @@ class Solution(object):
 -- Value to be subtracted from array elements to make sum of all elements equals K
 
 -- https://www.geeksforgeeks.org/value-to-be-subtracted-from-array-elements-to-make-sum-of-all-elements-equals-k/
--- 
+-- https://practice.geeksforgeeks.org/problems/ffd66b6a0bf7cefb9987fa455974b6ea5695709e/1
+
 
 --
-
 
 --
 
