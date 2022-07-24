@@ -193,4 +193,37 @@ findMissing(a, b, n, m)
 
 ==================================================================================================================================================================================
 
--- 
+-- square root
+
+-- https://www.geeksforgeeks.org/square-root-of-an-integer/
+
+
+
+--
+class Solution:
+    def countSquares(self, x):
+        if x == 0 or x == 1:
+            return 0
+        start = 1
+        end = x
+        
+        while start <= end:
+            mid = (start+end)//2
+            
+            if mid*mid == x:
+                return mid
+            if mid*mid < x:
+                start = mid+1
+                ans = mid
+            else:
+                end = mid - 1
+        return ans
+                
+--
+
+
+==============================================================================================================================================================
+
+-- Search an element in a sorted and rotated array
+
+-- https://www.geeksforgeeks.org/search-an-element-in-a-sorted-and-pivoted-array/
