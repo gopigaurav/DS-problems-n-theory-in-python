@@ -352,7 +352,49 @@ class Solution(object):
 
 
 --
-
+class Solution(object):
+    def findInMountainArray(self, target, mountain_arr):
+        start = 0
+        end = mountain_arr.length() -1 
+        while(start<end):
+            mid = int(start + ((end-start)/2))
+            if(mountain_arr.get(mid) > mountain_arr.get(mid + 1)):
+                end = mid
+            else:
+                start = mid+1
+        
+        # start is peak element
+        
+        lt = self.BinarySearch(mountain_arr, 0, start-1, target, asc=True)
+        rt = self.BinarySearch(mountain_arr, start, mountain_arr.length()-1, target, asc=False)
+        print(lt,rt)
+        if(lt >= 0 and rt >= 0):
+            return min(lt,rt)
+        elif(lt >= 0):
+            return lt
+        elif(rt >= 0):
+            return rt
+        else:
+            return -1
+    
+    def BinarySearch(self,arr, start, end, target, asc):
+        left = start
+        right = end
+        while left <= right:
+            mid = left + (right - left) // 2
+            if target == arr.get(mid):
+                return mid
+            if asc:
+                if target < arr.get(mid):
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            else:
+                if target > arr.get(mid):
+                    right = mid - 1
+                else:
+                    left = mid + 1
+        return -1
 --
 
 ==========================================================================================================================================================================
