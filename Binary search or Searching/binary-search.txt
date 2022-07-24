@@ -260,7 +260,31 @@ class Solution:
 
 -- https://www.geeksforgeeks.org/find-bitonic-point-given-bitonic-sequence/
 -- https://leetcode.com/problems/peak-index-in-a-mountain-array/
--- https://leetcode.com/problems/find-in-mountain-array/discuss/2289715/Pythonor-Order-Agnostic-Binary-Searchor-Peak-index-in-a-mountain-array
 
 
+-- 
+
+class Solution(object):
+    def peakIndexInMountainArray(self, arr):
+        start = 0
+        end = len(arr) - 1
+        while(start<=end):
+            mid = start + ((end-start)/2)
+            if(arr[mid - 1] < arr[mid] > arr[mid + 1]):
+                return mid
+            elif(arr[mid] < arr[mid + 1]):
+                start = mid + 1
+            else:
+                end = mid-1
+        
+        
 --
+
+
+==============================================================================================================================================================
+
+-- Pivot index
+
+-- https://leetcode.com/problems/find-pivot-index/
+
+
