@@ -209,5 +209,59 @@ class Solution:
 =====================================================================================================================================================================================
 
 
+-- Next Smallest palindrome
+
+-- https://chaudhary1337.com/next-smallest-palindrome-solution-explained-in-detail/
+-- https://www.geeksforgeeks.org/given-a-number-find-next-smallest-palindrome-larger-than-this-number/
+-- https://practice.geeksforgeeks.org/problems/next-higher-palindromic-number-using-the-same-set-of-digits5859/1
+-- https://www.youtube.com/watch?v=3COJ95juomM
+
+--
+class Solution:
+    def isPalindrome(self, num):
+        return num == num[::-1]
+    def compare(self, x, y):
+        for i in zip(x, y):
+            if int(x) > int(y): return 1
+            elif int(y) > int(x): return -1
+            else:
+                continue
+        return 0
+    def nextPalin(self,N):
+        if self.isPalindrome(N):
+            N = str(int(N) + 1)
+        
+        # odd
+        if len(N) & 1:
+            # extract mid, left, right
+            mid = len(N)//2
+            left = N[:mid]
+            right = N[mid + 1:]
+            
+            if left[:: -1] > right:
+                return left + right + N[mid]
+            else:
+                left = left + N[mid]
+                left = str(int(left) + 1)
+                return left + left[::-1][1:]
+        
+        
+        # even => no extraction of mid
+        else:
+            mid = len(N)// 2
+            left = N[:mid]
+            right = N[mid:]
+            
+            if self.compare(left[::-1], right) == -1:
+                left = self.add_1(left)
+                return left + left[::-1]
+            else:
+                return left + left[::-1]
+--
+
+===================================================================================================================
+
+-- Converting Roman Numerals to Decimal lying between 1 to 3999
+
 
 
