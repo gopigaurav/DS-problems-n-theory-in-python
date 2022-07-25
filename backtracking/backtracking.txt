@@ -259,10 +259,51 @@ if __name__ == "__main__":
 ===========================================================================================================================
 
 -- combination sum 1
-
+-- https://leetcode.com/problems/combination-sum/submissions/
 -- https://practice.geeksforgeeks.org/problems/combination-sum-1587115620/1#
 -- https://www.geeksforgeeks.org/combinational-sum/
 -- https://www.youtube.com/watch?v=OyZFFqQtu98&t=41s
+
+-- method 1 
+class Solution(object):
+    def combinationSum(self, A, B):
+        res = []
+        def sol(ind, target, arr, res, a):
+            if ind == len(a):
+                if target == 0:
+                    res.append(list(arr))
+                return
+            if(a[ind] <= target):
+                arr.append(a[ind])
+                sol(ind, (target - a[ind]), arr, res, a)
+                arr.remove(a[ind])
+            sol(ind+1, target, arr, res, a)
+        
+        sol(0, B, [], res, A)
+        return res
+--
+
+-- method - 2
+def combinationalSum(self,A, B):
+        
+        ans = []
+        n = len(A)
+        res =[]
+        A = sorted(list(set(A)))
+        def findNumbers(ans, arr, temp, su, index):
+            if(su == 0):
+                ans.append(list(temp))
+                return
+            for i in range(index, len(arr)):
+                if(su - arr[i]) >= 0:
+                    temp.append(arr[i])
+                    findNumbers(ans, arr, temp, su-arr[i], i)
+                    temp.remove(arr[i])
+        findNumbers(ans, A, [], B, 0)
+        return ans
+
+--
+
 
 ===================================================================================================================================
 
