@@ -2,6 +2,9 @@ KMP algo
 
 -- https://www.youtube.com/watch?v=JoF0Z7nVSrA&t=1532s
 -- https://www.geeksforgeeks.org/kmp-algorithm-for-pattern-searching/
+-- https://practice.geeksforgeeks.org/problems/longest-prefix-suffix2527/1
+-- https://leetcode.com/problems/implement-strstr/submissions/
+
 
 in Book b8
 
@@ -123,7 +126,7 @@ class Solution1:
 
 -- https://www.youtube.com/watch?v=JoF0Z7nVSrA&t=1532s
 -- https://practice.geeksforgeeks.org/problems/longest-prefix-suffix2527/1
-
+-- https://leetcode.com/problems/implement-strstr/submissions/
 
 --
 class Solution:
@@ -166,3 +169,7 @@ class Solution:
         return res
 
 --
+
+=====================================================================================================================================
+
+-- 
