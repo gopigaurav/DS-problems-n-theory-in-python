@@ -104,10 +104,13 @@ else:
 
 ===================================================================================================================================================
 
--- Minimum window sliding
+-- Minimum window sliding (Find the smallest window in a string containing all characters of another string)
 
+-- https://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/
 -- https://www.youtube.com/watch?v=jSto0O4AJbM&t=630s
 -- https://leetcode.com/problems/minimum-window-substring/submissions/
+-- https://practice.geeksforgeeks.org/problems/smallest-window-in-a-string-containing-all-the-characters-of-another-string-1587115621/1
+
 
 --
 from collections import defaultdict
