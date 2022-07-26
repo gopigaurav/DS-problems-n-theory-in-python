@@ -809,3 +809,8 @@ printLevelOrder(root)
 
 ===========================================================================================
 
+
+-- Print all paths in Binary tree
+
+-- https://practice.geeksforgeeks.org/problems/root-to-leaf-paths/1
+-- https://www.techiedelight.com/print-all-paths-from-root-to-leaf-nodes-binary-tree/
