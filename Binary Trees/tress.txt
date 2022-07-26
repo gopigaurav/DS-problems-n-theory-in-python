@@ -814,3 +814,37 @@ printLevelOrder(root)
 
 -- https://practice.geeksforgeeks.org/problems/root-to-leaf-paths/1
 -- https://www.techiedelight.com/print-all-paths-from-root-to-leaf-nodes-binary-tree/
+
+
+--
+def Paths(root):
+    ans = []
+    def sol(node, ans, path):
+        if node is None:
+            return
+ 
+        # include the current node to the path
+        path.append(node.data)
+     
+        # if a leaf node is found, print the path
+        if node.left is None and node.right is None:
+            ans.append(list(path))
+            #path.pop()
+            #return
+     
+        # recur for the left and right subtree
+        sol(node.left,ans, path)
+        sol(node.right,ans, path)
+     
+        # backtrack: remove the current node after the left, and right subtree are done
+        path.pop()
+ 
+        
+    arr = []
+    sol(root, ans, arr)
+    return ans
+--
+
+=====================================================================================================================================
+
+-- 
