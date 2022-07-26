@@ -263,5 +263,68 @@ class Solution:
 
 -- Converting Roman Numerals to Decimal lying between 1 to 3999
 
+-- https://practice.geeksforgeeks.org/problems/roman-number-to-integer3201/1
+-- https://www.geeksforgeeks.org/converting-roman-numerals-decimal-lying-1-3999/
+
+--
+def romanToInt(s):
+		translations = {
+			"I": 1,
+			"V": 5,
+			"X": 10,
+			"L": 50,
+			"C": 100,
+			"D": 500,
+			"M": 1000
+		}
+		number = 0
+		s = s.replace("IV", "IIII").replace("IX", "VIIII")
+		s = s.replace("XL", "XXXX").replace("XC", "LXXXX")
+		s = s.replace("CD", "CCCC").replace("CM", "DCCCC")
+		for char in s:
+			number += translations[char]
+		print(number)
+		
+romanToInt('MCMIV')
+--
 
 
+===================================================================================================================================
+
+
+-- Longest common prefix 
+
+
+-- https://practice.geeksforgeeks.org/problems/longest-common-prefix-in-an-array5129/1
+-- https://www.geeksforgeeks.org/longest-common-prefix-using-word-by-word-matching/
+
+
+--
+class Solution:
+    def longestCommonPrefix(self, arr, n):
+        def sol(s1, s2):
+            res = ""
+            
+            n1 = len(s1)
+            n2 = len(s2)
+            
+            for i in range(min(n1,n2)):
+                # break statement terminates the loop
+                if s1[i] != s2[i]:
+                    break
+                res += s1[i]
+                
+            return res
+            
+        
+        prefix = arr[0]
+        
+        for i in range(n):
+            prefix = sol(prefix, arr[i])
+        
+        return prefix if prefix else -1
+--
+
+=============================================================================================================================================
+
+-- 
