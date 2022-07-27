@@ -700,10 +700,16 @@ g.topologicalSort()
 ===========================================================================================================================================================
 
 -- dijkstra algo
+
+-- (Use this) https://www.codingninjas.com/codestudio/problems/dijkstra-s-shortest-path_920469?leftPanelTab=1&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
+-- https://practice.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
+
+
 -- https://www.google.com/search?q=dijkstra+algo&oq=dijkstra+algo&aqs=chrome..69i57.6343j0j15&sourceid=chrome&ie=UTF-8
 -- https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
 -- https://www.youtube.com/watch?v=0kiTAw4xvy4&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=10
 -- https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/?ref=lbp
+-- https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/?ref=gcse
 
 -- undirected unweighted graph
 -- https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/?ref=lbp
@@ -712,6 +718,144 @@ g.topologicalSort()
 -- print paths
 -- https://sites.google.com/site/rajboston1951/shortest-paths/8
 -- https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/?ref=lbp
+
+-- weighted undirected array
+-- https://www.youtube.com/watch?v=dVUR3Rm6biE
+
+
+
+--
+using queue and set
+--
+-- queue
+from collections import deque, defaultdict
+
+def dijkstra1(vec, vertices, edges, source):
+    # Write your code here.
+    graph = defaultdict(list)
+    for s, d, w in vec:
+        graph[s].append((d, w))
+        graph[d].append((s, w))
+
+    distance = [2147483647] * vertices
+    q = deque([source])
+    distance[source] = 0
+    res = []
+    while q:
+        curr = q.popleft()
+        for node, weight in graph[curr]:
+            if distance[curr] + weight < distance[node]:
+                distance[node] = distance[curr] + weight
+                q.append(node)
+                print(q)
+
+    return distance
+
+-- set
+def dijkstra(vec, vertices, edges, source):
+    # Write your code here.
+    graph = defaultdict(list)
+    for s, d, w in vec:
+        graph[s].append((d, w))
+        graph[d].append((s, w))
+
+    distance = [2147483647] * vertices
+    s = set([source])
+    distance[source] = 0
+    res = []
+    while s:
+        curr = s.pop()
+        for node, weight in graph[curr]:
+            if distance[curr] + weight < distance[node]:
+                distance[node] = distance[curr] + weight
+                s.add(node)
+
+    return distance
+--
+
+--
+using matrix
+
+
+
+class Graph():
+
+	def __init__(self, vertices):
+		self.V = vertices
+		self.graph = [[0 for column in range(vertices)]
+					for row in range(vertices)]
+
+	def printSolution(self, dist):
+		print("Vertex \tDistance from Source")
+		for node in range(self.V):
+			print(node, "\t", dist[node])
+
+	# A utility function to find the vertex with
+	# minimum distance value, from the set of vertices
+	# not yet included in shortest path tree
+	def minDistance(self, dist, sptSet):
+
+		# Initialize minimum distance for next node
+		min = float("inf")
+
+		# Search not nearest vertex not in the
+		# shortest path tree
+		for u in range(self.V):
+			if dist[u] < min and sptSet[u] == False:
+				min = dist[u]
+				min_index = u
+
+		return min_index
+
+	# Function that implements Dijkstra's single source
+	# shortest path algorithm for a graph represented
+	# using adjacency matrix representation
+	def dijkstra(self, src):
+
+		dist = [float("inf")] * self.V
+		dist[src] = 0
+		sptSet = [False] * self.V
+
+		for _ in range(self.V):
+
+			# Pick the minimum distance vertex from
+			# the set of vertices not yet processed.
+			# x is always equal to src in first iteration
+			x = self.minDistance(dist, sptSet)
+
+			# Put the minimum distance vertex in the
+			# shortest path tree
+			sptSet[x] = True
+
+			# Update dist value of the adjacent vertices
+			# of the picked vertex only if the current
+			# distance is greater than new distance and
+			# the vertex in not in the shortest path tree
+			for y in range(self.V):  
+			    # becoz here dist is infinity
+			    # if there is edge then the value is more than 0
+				if (self.graph[x][y] > 0 and sptSet[y] == False and dist[y] > dist[x] + self.graph[x][y]):
+				        
+						dist[y] = dist[x] + self.graph[x][y]
+						
+		self.printSolution(dist)
+
+# Driver program
+g = Graph(9)
+g.graph = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
+		[4, 0, 8, 0, 0, 0, 0, 11, 0],
+		[0, 8, 0, 7, 0, 4, 0, 0, 2],
+		[0, 0, 7, 0, 9, 14, 0, 0, 0],
+		[0, 0, 0, 9, 0, 10, 0, 0, 0],
+		[0, 0, 4, 14, 10, 0, 2, 0, 0],
+		[0, 0, 0, 0, 0, 2, 0, 1, 6],
+		[8, 11, 0, 0, 0, 0, 1, 0, 7],
+		[0, 0, 2, 0, 0, 0, 6, 7, 0]
+		];
+
+g.dijkstra(0);
+
+--
 
 
 =====================================================================================================================================================
