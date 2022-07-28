@@ -62,6 +62,8 @@ class Solution(object):
         res = sol(nums, [], ans)
         return ans
 
+
+
 # method - 2
 class Solution2(object):
     def subsets(self, nums):
