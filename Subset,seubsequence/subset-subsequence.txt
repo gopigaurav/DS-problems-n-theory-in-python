@@ -44,10 +44,8 @@ print(skipWordss("An apple a day"))
 -- https://www.geeksforgeeks.org/print-subsequences-string/
 
 --
-
 Input : abc
 Output : a, b, c, ab, bc, ac, abc
-
 --
 --
 class Solution(object):
