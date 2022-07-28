@@ -40,3 +40,45 @@ print(skipWordss("An apple a day"))
 -- print all subsequences of a string
 
 -- https://www.geeksforgeeks.org/print-subsequences-string/
+-- https://leetcode.com/problems/subsets/submissions/
+-- https://www.geeksforgeeks.org/print-subsequences-string/
+
+--
+
+Input : abc
+Output : a, b, c, ab, bc, ac, abc
+
+--
+
+
+--
+class Solution(object):
+    def subsets(self, nums):
+        def sol(inpu, outpu, ans):
+            if len(inpu) == 0:
+                ans.append(outpu)
+                return 
+            ch =  inpu[0]
+            sol(inpu[1:], outpu + [ch], ans)
+            sol(inpu[1:], outpu, ans)
+            
+        ans = []
+        res = sol(nums, [], ans)
+        return ans
+
+# method - 2
+class Solution2(object):
+    def subsets(self, nums):
+        ret = []
+        self.dfs(nums, [], ret)
+        return ret
+    
+    def dfs(self, nums, path, ret):
+        ret.append(path)
+        for i in range(len(nums)):
+            self.dfs(nums[i+1:], path+[nums[i]], ret)
+--
+
+=========================================================================================================================================
+
+-- 
