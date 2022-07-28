@@ -751,7 +751,7 @@ def dijkstra1(vec, vertices, edges, source):
 
     return distance
 
--- set
+-- set (use this)
 def dijkstra(vec, vertices, edges, source):
     # Write your code here.
     graph = defaultdict(list)
