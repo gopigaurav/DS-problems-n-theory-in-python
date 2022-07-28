@@ -47,7 +47,9 @@ print(skipWordss("An apple a day"))
 Input : abc
 Output : a, b, c, ab, bc, ac, abc
 --
---
+
+
+-- method 1
 class Solution(object):
     def subsets(self, nums):
         def sol(inpu, outpu, ans):
