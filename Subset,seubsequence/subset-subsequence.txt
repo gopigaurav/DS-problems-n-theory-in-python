@@ -49,8 +49,6 @@ Input : abc
 Output : a, b, c, ab, bc, ac, abc
 
 --
-
-
 --
 class Solution(object):
     def subsets(self, nums):
