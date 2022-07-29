@@ -848,4 +848,40 @@ def Paths(root):
 
 =====================================================================================================================================
 
--- 
+-- Maximum sum leaf to root path
+
+-- https://www.youtube.com/watch?v=bDRD0cYCdn4
+-- https://www.geeksforgeeks.org/find-the-maximum-sum-path-in-a-binary-tree/
+-- https://practice.geeksforgeeks.org/problems/maximum-sum-leaf-to-root-path/1
+
+--
+class Solution:
+    def maxPathSum(self, root):
+        if not root:
+	    # important 
+            return 0
+        def sol(root):
+            if not root:
+                return 0
+            
+            if not root.left and not root.right:
+                return root.data
+            
+            ls = sol(root.left) + root.data
+            # just to get max node in BT
+            # ls = sol(root.left)
+            # rs = sol(root.right)
+            # return maxx(ls, rs)
+            rs = sol(root.right) + root.data
+            return max(ls,rs)
+        res = sol(root)
+        return res
+--
+
+
+-- method - 2
+
+--
+
+
+--
