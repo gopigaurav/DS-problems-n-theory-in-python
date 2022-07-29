@@ -89,8 +89,6 @@ print ("Symmetric" if isSymmetric(root) == True else "Not symmetric")
 
 -- Zig Zag traversal
 
-
-
 -- https://www.geeksforgeeks.org/zigzag-tree-traversal/
 -- https://www.youtube.com/watch?v=iJT9JrrFQ44&list=PLNxqWc8Uj2LRbsOlBiPJZAyZpaUwdDepd&index=6
 -- https://practice.geeksforgeeks.org/problems/zigzag-tree-traversal/1/#
@@ -203,6 +201,8 @@ def minimumDepth(root, level):
      
     return min(minimumDepth(root.left, level),
                         minimumDepth(root.right, level))
+
+
 =============================================================================================================================================
 
 
@@ -545,7 +545,6 @@ class Solution:
 =======================================================================================================================================================
 
 
-
 -- sum tree
 
 -- https://practice.geeksforgeeks.org/problems/sum-tree/1/#
@@ -634,7 +633,7 @@ class Solution:
 
 ============================================================================================================================
 
--- Find the max path sum between two leaves of BT
+-- Find the max path sum between two leaves of BT (only between two leafs)
 
 -- https://www.geeksforgeeks.org/find-maximum-path-sum-two-leaves-binary-tree/
 
@@ -854,6 +853,7 @@ def Paths(root):
 -- https://www.geeksforgeeks.org/find-the-maximum-sum-path-in-a-binary-tree/
 -- https://practice.geeksforgeeks.org/problems/maximum-sum-leaf-to-root-path/1
 
+
 --
 class Solution:
     def maxPathSum(self, root):
@@ -920,4 +920,6 @@ def maxPathSum2(self, root):
 
 ========================================================================================================================
 
--- 
+-- Maximum path sum from any node (start and end from any node)
+
+-- https://www.youtube.com/watch?v=WszrfSwMz58
