@@ -882,6 +882,42 @@ class Solution:
 -- method - 2
 
 --
-
-
+def maxPathSum2(self, root):
+        def solve(Node, curr_sum):
+            if (Node == None):
+                return
+          
+            # Update current sum to hold sum of nodes on path
+            # from root to this node
+            curr_sum = curr_sum + Node.data
+          
+            # If this is a leaf node and path to this node has
+            # maximum sum so far, then make this node target_leaf
+            if (Node.left == None and Node.right == None): 
+                if (curr_sum > max_sum_ref) :
+                    max_sum_ref = curr_sum
+                    target_leaf_ref = Node
+                  
+            # If this is not a leaf node, then recur down
+            # to find the target_leaf
+            solve(Node.left, curr_sum)
+            solve(Node.right, curr_sum)
+        
+        
+        if (Node == None):
+            return 0
+  
+        target_leaf_ref = None
+        max_sum_ref = 0
+      
+        solve(Node, 0)
+          
+        # print the path from root to the target leaf
+        # printPath(Node, target_leaf_ref);
+      
+        return max_sum_ref;
 --
+
+========================================================================================================================
+
+-- 
