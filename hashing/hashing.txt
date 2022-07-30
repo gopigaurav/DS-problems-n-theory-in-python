@@ -51,6 +51,60 @@ output --
 8 
 9 --> Delhi 
 
+=========== Important ================= CountPairs of similar rectangles possible from a given array ===================================================
+
+
+-- https://www.geeksforgeeks.org/count-pairs-of-similar-rectangles-possible-from-a-given-array/
+
+
+--
+# Python 3 Program for the hashmap Approach
+from collections import defaultdict
+
+# Get the count of all pairs of similar rectangles
+def getCount(rows, columns, sides):
+
+	# Initialize the result value and
+	# map to store the ratio to the rectangles
+	ans = 0
+	umap = defaultdict(int)
+
+	# Calculate the rectangular ratio and save them
+	for i in range(rows):
+
+		ratio = sides[i][0] / sides[i][1]
+		umap[ratio] += 1
+
+	# Calculate pairs of similar rectangles from its common ratio
+	for x in umap:
+
+		value = umap[x]
+		if (value > 1):
+			ans += (value * (value - 1)) / 2
+
+	return ans
+
+# Driver code
+if __name__ == "__main__":
+
+	sides = [[4, 8], [10, 20], [15, 30], [3, 6]]
+	rows = 4
+	columns = 2
+	print(int(getCount(rows, columns, sides)))
+
+	# This code is contributed by ukasp.
+
+--
+
+
+
+
+
+
+
+
+
+
 ================================== Linear Probing ===================================================
 
 import numpy as np
