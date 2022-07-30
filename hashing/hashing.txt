@@ -80,7 +80,7 @@ def getCount(rows, columns, sides):
 
 		value = umap[x]
 		if (value > 1):
-			ans += (value * (value - 1)) / 2
+			ans += (value * (value - 1)) / 2  ########################################### important
 
 	return ans
 

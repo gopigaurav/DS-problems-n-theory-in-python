@@ -1,0 +1,31 @@
+
+
+-- chack for valid bst ---> O(n)
+
+-- https://leetcode.com/problems/validate-binary-search-tree/submissions/
+-- https://practice.geeksforgeeks.org/problems/check-for-bst/1
+-- https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+
+
+--
+class Solution(object):
+    def isValidBST(self, node):
+        min = float("-inf")
+        max = float("inf")
+        return self.sol(node, min, max)
+        
+        
+        
+    def sol(self, root, min, max):
+        # if no root return then its bst
+	# go from top to bottom
+        if not root:
+            return True
+            
+        # the root.data should be in range min and max ==> min < root.data <max
+        if max < root.val or root.val < min:
+            return False
+        
+        return (self.sol(root.left, min, root.val - 1) and self.sol(root.right, root.val+1, max))
+
+--
