@@ -29,3 +29,13 @@ class Solution(object):
         return (self.sol(root.left, min, root.val - 1) and self.sol(root.right, root.val+1, max))
 
 --
+
+========================================================================================================================================
+
+-- Maximum subtree sum in Binary tree which is also BST
+
+-- https://www.codingninjas.com/codestudio/problems/maximum-sum-bst-in-binary-tree_2099910?leftPanelTab=2      ==> O(N**2)
+-- https://ide.geeksforgeeks.org/7PZVra4RYp
+-- https://www.youtube.com/watch?v=Zz7R9I9j2kI
+-- https://www.geeksforgeeks.org/maximum-sub-tree-sum-in-a-binary-tree-such-that-the-sub-tree-is-also-a-bst/
+-- https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/submissions/
