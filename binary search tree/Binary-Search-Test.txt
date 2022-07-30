@@ -30,7 +30,7 @@ class Solution(object):
 
 --
 
-========================================================================================================================================
+==================================== IMPORTANT ====================================================================================================
 
 -- Maximum subtree sum in Binary tree which is also BST
 
@@ -39,3 +39,62 @@ class Solution(object):
 -- https://www.youtube.com/watch?v=Zz7R9I9j2kI
 -- https://www.geeksforgeeks.org/maximum-sub-tree-sum-in-a-binary-tree-such-that-the-sub-tree-is-also-a-bst/
 -- https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/submissions/
+
+
+-- 
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+INT_MIN = float("-inf")
+INT_MAX = float("inf")
+
+class Info:
+    def __init__(self, rmini, lmaxi, bst, s):
+        self.sum = s
+        self.max = lmaxi
+        self.min = rmini
+        self.bst = bst
+        
+class Solution(object):
+    maxsum = 0
+    def maxSumBST(self, root):
+        self.maxsum = 0
+        self.sol(root)
+        return self.maxsum
+        
+    def sol(self, root):
+        if not root:
+            return Info(INT_MAX, INT_MIN, True, 0)
+        
+        if not root.left and not root.right:
+            if self.maxsum < root.val:
+                self.maxsum = root.val
+            return Info(root.val, root.val, True, root.val)
+        
+        l = self.sol(root.left)
+        r = self.sol(root.right)
+        
+        np = Info(None, None, None, l.sum + r.sum + root.val)
+        #np.sum = (l.sum + r.sum + root.val)
+        
+        if root.val > l.max and root.val < r.min and l.bst and r.bst:                         
+            np.bst = True
+            #np.min = min(root.val,min(l.min, r.min)) 
+            #np.max = max(root.val,max(r.max, l.max))
+            if self.maxsum < np.sum:
+                self.maxsum = np.sum
+        else: 
+            np.bst = False
+            
+        np.min = min(root.val, min(l.min, r.min)) 
+        np.max = max(root.val, max(r.max, l.max))
+        return np
+        
+        
+--
+
+
+=====================================================================================================================================
