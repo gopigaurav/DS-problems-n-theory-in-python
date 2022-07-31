@@ -1140,15 +1140,69 @@ cost is minimum among all the spanning trees. There also can be many minimum spa
 
 -- https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/?ref=lbp
 -- https://practice.geeksforgeeks.org/problems/minimum-spanning-tree/1
+-- https://takeuforward.org/data-structure/minimum-spanning-tree-mst-using-prims-algo/
+-- https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/discuss/831786/minimum-weight-spanning-tree-prims-algorithm
 
 
 --
+
 --
 
 
 
 2) kruskal
 -- https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+
+
+
+
+--
+#Krushkal's Algorithm
+import heapq
+class Solution:
+   
+   #Function to find sum of weights of edges of the Minimum Spanning Tree.
+   def spanningTree(self, V, adj):
+       
+       #code here
+       #Krushkal Algorithm
+       p=[0]*V
+       rank=[0]*V
+       for i in range(V):
+           p[i]=i
+       def par(node):
+           if node==p[node]:
+               return node
+           p[node]=par(p[node])
+           return  p[node]
+       def union(u,v):
+           a=par(u)
+           b=par(v)
+           if rank[a]<rank[b]:
+               p[a]=b
+           elif rank[b]<rank[a]:
+               p[b]=a
+           else:
+               p[b]=a
+               rank[b]+=1
+       q=[]        
+       for u in range(V):
+           for v,w in adj[u]:
+               q.append([u,v,w])
+       q=sorted(q,key=lambda x:x[2])
+       cost=0
+       for u,v,w in q:
+           if par(u) != par(v):
+               cost+=w
+               union(u,v)
+       return cost
+
+
+--
+
+
+
+
 
 --
 # Python program for Kruskal's algorithm to find
