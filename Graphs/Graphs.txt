@@ -893,6 +893,26 @@ class Solution:
 -- https://www.youtube.com/watch?v=-dlGfzdfHvM&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=14
 -- https://www.youtube.com/watch?v=75yC1vbS8S8&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=28
 
+
+
+-- bellmon ford in weighted directed graph (Negative weight cycle)
+-- https://practice.geeksforgeeks.org/problems/negative-weight-cycle3504/1
+
+--
+class Solution:
+	def isNegativeWeightCycle(self, n, edges):
+        dist = [float("inf")] * (n)
+        dist[0] = 0
+        
+        for _ in range(n-1):
+            for u, v, w in edges:
+                if dist[u] != float("Inf") and dist[u] + w < dist[v]:
+                    dist[v] = dist[u] + w
+        
+        for u, v, w in edges:
+            if dist[u] != float("Inf") and dist[u] + w < dist[v]:
+                return 1
+        return 0
 --
 
 
