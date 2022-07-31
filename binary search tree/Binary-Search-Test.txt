@@ -107,4 +107,42 @@ class Solution(object):
  then return the size of the whole tree.
 
 
--- (refer this)  https://www.youtube.com/watch?v=X0oXMdtUDwo
+
+-- (refer this) https://www.youtube.com/watch?v=X0oXMdtUDwo
+
+-- https://www.geeksforgeeks.org/largest-bst-binary-tree-set-2/
+-- https://practice.geeksforgeeks.org/problems/largest-bst/1
+-- https://www.codingninjas.com/codestudio/problems/largest-bst-subtree_893103?leftPanelTab=1
+
+--
+class NodeValue:
+    def __init__(self, minNode, maxNode, maxSize):
+        self.minNode = minNode
+        self.maxNode = maxNode
+        self.maxSize = maxSize
+class Solution:
+    # Return the size of the largest sub-tree which is also a BST
+    #maxSize = 0
+    INT_MIN = float("-inf")
+    INT_MAX = float("inf")
+    def largestBst(self, root):
+        # return self.sol(root).maxSize
+        temp = self.sol(root)
+        return temp.maxSize
+    
+    def sol(self,root):
+        if not root:
+            return NodeValue(self.INT_MAX, self.INT_MIN, 0)
+            
+        l = self.sol(root.left)
+        r = self.sol(root.right)
+        
+        if l.maxNode < root.data and r.minNode > root.data:
+            # if BST
+		# here left.minNode will always be less and max for right
+            return NodeValue(min(root.data, l.minNode), max(root.data, r.maxNode), (l.maxSize + r.maxSize + 1))
+            
+        # if not bst
+        return NodeValue(self.INT_MIN, self.INT_MAX, max(l.maxSize, r.maxSize))
+
+--
