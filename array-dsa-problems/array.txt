@@ -284,3 +284,44 @@ class Solution(object):
 
 
 ===============================================================================================================================================================================================
+
+
+-- Farthest smaller number in the right side  ( oppsoite to NSR )
+
+
+-- https://www.geeksforgeeks.org/find-the-farthest-smaller-number-in-the-right-side/
+-- https://practice.geeksforgeeks.org/contest/interview-series-61/problems/#
+
+
+--
+from typing import List
+
+
+class Solution:
+    def farNumber(self, n : int, a : List[int]) -> List[int]:
+        suffix_min = [0 for i in range(n)]
+        suffix_min[n - 1] = a[n - 1]
+        for i in range(n - 2, -1, -1):
+            suffix_min[i] = min(suffix_min[i + 1], a[i])
+        res = []
+        for i in range(n):
+            low = i + 1
+            high = n - 1
+            ans = -1
+     
+            while (low <= high):
+                mid = (low + high) // 2
+     
+                # If current element in the suffix_min
+                # is less than a[i] then move right
+                if (suffix_min[mid] < a[i]):
+                    ans = mid
+                    low = mid + 1
+                else:
+                    high = mid - 1
+     
+            # Print the required answer
+            res.append(ans)
+        return res
+--
+
