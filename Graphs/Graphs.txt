@@ -1030,7 +1030,7 @@ class Solution:
 
 ==================================================================================================================================================
 -- min spanning tree
-
+-- (Refer this)   https://www.hackerearth.com/practice/algorithms/graphs/minimum-spanning-tree/tutorial/ 
 
 
 1). prims
@@ -1039,6 +1039,17 @@ class Solution:
 -- https://www.youtube.com/watch?v=oNTsS8lGDHw&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=21
 
 -- https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/?ref=lbp
+-- 
+
+--
+--
+
+
 
 2) kruskal
 -- https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+
+
+
+
+========================================================================================================================================================
