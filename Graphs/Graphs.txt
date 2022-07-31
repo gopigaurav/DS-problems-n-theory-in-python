@@ -1033,13 +1033,26 @@ class Solution:
 -- (Refer this)   https://www.hackerearth.com/practice/algorithms/graphs/minimum-spanning-tree/tutorial/ 
 
 
+--
+
+What is a Minimum Spanning Tree?
+
+
+The cost of the spanning tree is the sum of the weights of all the edges in the tree.
+ There can be many spanning trees. Minimum spanning tree is the spanning tree where the 
+cost is minimum among all the spanning trees. There also can be many minimum spanning trees.
+
+
+--
+
+
+
 1). prims
 -- https://www.youtube.com/watch?v=xsM8i0jVF1w&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=19
 -- https://www.youtube.com/watch?v=HnD676J56ak&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=20
 -- https://www.youtube.com/watch?v=oNTsS8lGDHw&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=21
 
 -- https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/?ref=lbp
--- 
 
 --
 --
