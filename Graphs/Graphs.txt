@@ -1038,7 +1038,7 @@ class Solution:
 -- Union find
 
 -- https://www.geeksforgeeks.org/union-find/
-
+-- https://practice.geeksforgeeks.org/problems/union-find/1
 
 --
 # Python Program for union-find algorithm to detect cycle in a undirected graph
