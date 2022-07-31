@@ -1029,8 +1029,9 @@ class Solution:
 -- https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/
 
 ==================================================================================================================================================
--- min spanning tree
+-- min spanning tree (n-1 edges of minimum spanning tree)
 -- (Refer this)   https://www.hackerearth.com/practice/algorithms/graphs/minimum-spanning-tree/tutorial/ 
+
 
 
 --
