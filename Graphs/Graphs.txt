@@ -1136,8 +1136,11 @@ cost is minimum among all the spanning trees. There also can be many minimum spa
 -- https://www.youtube.com/watch?v=xsM8i0jVF1w&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=19
 -- https://www.youtube.com/watch?v=HnD676J56ak&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=20
 -- https://www.youtube.com/watch?v=oNTsS8lGDHw&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=21
+-- https://pythonwife.com/kruskal-and-prims-algorithm-in-python/
 
 -- https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/?ref=lbp
+-- https://practice.geeksforgeeks.org/problems/minimum-spanning-tree/1
+
 
 --
 --
