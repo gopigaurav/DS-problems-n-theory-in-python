@@ -1353,10 +1353,75 @@ g.KruskalMST()
 ========================================================================================================================================================
 
 
--- Connected Componets
+-- Connected Componets (also refer the code for ==> number of provences)
 
 -- Given an undirected graph, print all connected components line by line. For example consider the following graph.
 
+
+--
+# Python program to print connected
+# components in an undirected graph
+
+
+class Graph:
+
+	# init function to declare class variables
+	def __init__(self, V):
+		self.V = V
+		self.adj = [[] for i in range(V)]
+
+	def DFSUtil(self, temp, v, visited):
+
+		# Mark the current vertex as visited
+		visited[v] = True
+
+		# Store the vertex to list
+		temp.append(v)
+
+		# Repeat for all vertices adjacent
+		# to this vertex v
+		for i in self.adj[v]:
+			if visited[i] == False:
+
+				# Update the list
+				temp = self.DFSUtil(temp, i, visited)
+		return temp
+
+	# method to add an undirected edge
+	def addEdge(self, v, w):
+		self.adj[v].append(w)
+		self.adj[w].append(v)
+
+	# Method to retrieve connected components
+	# in an undirected graph
+	def connectedComponents(self):
+		visited = []
+		cc = []
+		for i in range(self.V):
+			visited.append(False)
+		for v in range(self.V):
+			if visited[v] == False:
+				temp = []
+				cc.append(self.DFSUtil(temp, v, visited))
+		return cc
+
+
+# Driver Code
+if __name__ == "__main__":
+
+	# Create a graph given in the above diagram
+	# 5 vertices numbered from 0 to 4
+	g = Graph(5)
+	g.addEdge(1, 0)
+	g.addEdge(2, 3)
+	g.addEdge(3, 4)
+	cc = g.connectedComponents()
+	print("Following are connected components")
+	print(cc)
+
+# This code is contributed by Abhishek Valsan
+
+--
 
 
 -- Two types of algo to find and print SCC
@@ -1371,7 +1436,73 @@ g.KruskalMST()
 
 -- Kosarajus Algo for strongly connected components
 
--- 
+-- A directed graph is strongly connected if there is a path between all pairs of vertices. 
+A strongly connected component (SCC) of a directed graph is a maximal strongly connected subgraph.
+ For example, there arel 3 SCCs in the following graph.
+
+==
+-- https://practice.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/1
+-- https://www.geeksforgeeks.org/strongly-connected-components/
+==
+
+--
+
+from collections import defaultdict
+class Solution:
+    # components
+    res = []
+    #Function to find number of strongly connected components in the graph.
+    def kosaraju(self, V, adjacency):
+        # dfs and stack for the first time
+        vis = [False] * V
+        stack = []
+        adj = defaultdict(list)
+        for i in range(V):
+            for nodes in adjacency[i]:
+                adj[i].append(nodes)
+                
+        def dfs(node, vis, adjc, stack, sec):
+            if sec:
+                self.res.append(node)
+            vis[node] = True
+            
+            for i in adjc[node]:
+                if not vis[i]:
+                    dfs(i, vis, adjc, stack, sec)
+            if not sec:      
+                stack.append(node)
+                
+        # reverse the edges
+        def getTranspose(adjc):
+            g = defaultdict(list)
+            for i in adjc:
+			    for j in adjc[i]:
+			        
+			        g[j].append(i)
+            return g
+            
+            
+            
+        # first loop
+        for i in range(V):
+            if not vis[i]:
+                dfs(i, vis, adj, stack, False)
+                
+    
+        # reverse the edges ==> get the tranpose
+        g = getTranspose(adj)
+        vis = [False] * V
+        count = 0
+        while stack:
+            temp = stack.pop()
+            if vis[temp] == False:
+                dfs(temp, vis, g, stack, True)
+                count += 1
+                
+        
+        return count   
+--
+
 
 
 =====================================================================================================================================================
@@ -1534,8 +1665,8 @@ def convert(a):
 	adjList = defaultdict(list)
 	for i in range(len(a)):
 		for j in range(len(a[i])):
-					if a[i][j]== 1:
-						adjList[i].append(j)
+			if a[i][j]== 1:
+				adjList[i].append(j)
 	return adjList
 
 # driver code
@@ -1606,5 +1737,70 @@ class Solution:
 --
 
 ===================================================================================================================================================
+-- transpose a graph
+
+
+-- https://www.geeksforgeeks.org/transpose-graph/#:~:text=We%20traverse%20the%20adjacency%20list,v%20of%20the%20new%20graph.
+
+
+--
+# Python3 program to find transpose of a graph.
+
+# function to add an edge from vertex
+# source to vertex dest
+def addEdge(adj, src, dest):
+	adj[src].append(dest)
+
+# function to print adjacency list
+# of a graph
+def displayGraph(adj, v):
+	for i in range(v):
+		print(i, "--> ", end = "")
+		for j in range(len(adj[i])):
+			print(adj[i][j], end = " ")
+		print()
+
+# function to get Transpose of a graph
+# taking adjacency list of given graph
+# and that of Transpose graph
+def transposeGraph(adj, transpose, v):
+	
+	# traverse the adjacency list of given
+	# graph and for each edge (u, v) add
+	# an edge (v, u) in the transpose graph's
+	# adjacency list
+	for i in range(v):
+		for j in range(len(adj[i])):
+			addEdge(transpose, adj[i][j], i)
+
+# Driver Code
+if __name__ == '__main__':
+
+	v = 5
+	adj = [[] for i in range(v)]
+	addEdge(adj, 0, 1)
+	addEdge(adj, 0, 4)
+	addEdge(adj, 0, 3)
+	addEdge(adj, 2, 0)
+	addEdge(adj, 3, 2)
+	addEdge(adj, 4, 1)
+	addEdge(adj, 4, 3)
+
+	# Finding transpose of graph represented
+	# by adjacency list adj[]
+	transpose = [[]for i in range(v)]
+	transposeGraph(adj, transpose, v)
+
+	# displaying adjacency list of
+	# transpose graph i.e. b
+	displayGraph(transpose, v)
+
+# This code is contributed by PranchalK
+
+--
+
+
+===================================================================================================================
+
 
 
