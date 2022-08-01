@@ -1556,4 +1556,55 @@ for i in AdjList:
 
 ==========================================================================================================================================================
 
+-- Number of provices (Connected components) ==> O(V**2)
+
+
+-- https://github.com/Prince-1501/Hello_world-Competiitve-Programming/blob/master/Leetcode/Graph/Number%20of%20Provinces.cpp
+-- https://www.youtube.com/watch?v=W3YyfjxKcA0
+-- https://practice.geeksforgeeks.org/problems/number-of-provinces/1
+-- https://www.geeksforgeeks.org/connected-components-in-an-undirected-graph/
+-- https://www.geeksforgeeks.org/convert-adjacency-list-to-adjacency-matrix-representation-of-a-graph/
+
+
+
+--
+class Solution:
+    globalset = []
+    def numProvinces(self, adj, V):
+        def dfs(s, n, isConnected, visited):
+            visited[s] = True;
+            #s = 1
+            
+            # 0 1 2 3 4  -- index
+            # 1 2 3 4 5  -- city name
+            # 1 1 0 1 0  -- connection
+            
+            '''
+            # for the adjacent nodes
+            adj = []
+            for i in range(n):
+                x =  isConnected[s][i]  # x = connection
+                if(x == 1):
+                    adj.append(i)
+            '''
+            
+            # run dfs only for the ones that has edges
+            for i in range(n):
+                if not visited[i] and isConnected[s][i] == 1:
+                    dfs(i, n, isConnected, visited)
+        
+        n = len(adj)
+        visited = [False] * V
+        count = 0
+        
+        for i in range(n):
+            if not visited[i]:
+                count += 1
+                dfs(i, len(adj), adj, visited)
+        
+        return count
+--
+
+===================================================================================================================================================
+
 
