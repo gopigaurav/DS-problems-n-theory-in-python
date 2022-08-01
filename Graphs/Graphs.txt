@@ -1800,7 +1800,40 @@ if __name__ == '__main__':
 --
 
 
-===================================================================================================================
+============================================================================================================================================================================
+
+-- Number of operations to make network connected
+
+-- https://leetcode.com/problems/number-of-operations-to-make-network-connected/submissions/
+-- https://leetcode.com/problems/number-of-operations-to-make-network-connected/discuss/477806/Python-Union-Find
 
 
+--
+from collections import defaultdict
+class Solution(object):
+    def makeConnected(self, n, connections):
+        # important edges cases
+        if len(connections) < n-1: # this is a edge condi. to connect n components we need min n-1 cables. 
+            return -1
+        g = defaultdict(list)
+        for i in connections:
+            g[i[0]].append(i[1])
+            g[i[1]].append(i[0])
+        
+        def dfs(node, vis, g):
+            vis[node] = True
+            for i in g[node]:
+                if not vis[i]:
+                    dfs(i, vis, g)
 
+        vis = [False] * n
+        count =0
+        for node in range(n):
+            if not vis[node]:
+                count += 1 
+                dfs(node, vis, g)
+                
+        return count - 1
+--
+
+============================================================================================================================================================
