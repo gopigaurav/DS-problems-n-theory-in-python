@@ -1847,5 +1847,61 @@ is an edge removing which increases number of disconnected components.
 
 
 -- two arrays used 
+
 => time array
 => lowest time array
+
+
+--
+from collections import defaultdict
+class Solution(object):
+    res = []
+    def criticalConnections(self, n, connections):
+        g = defaultdict(list)
+        for i in connections:
+            g[i[0]].append(i[1])
+            g[i[1]].append(i[0])
+        print(g)
+        vis = [False] * n
+        low = [float("inf")] * n
+        time = 0
+        tin = [float("inf")] * n
+            
+        def dfs(parent, node, low, tin, vis, g, time):
+            vis[node] = True
+            time = time + 1
+            low[node] = time
+            tin[node] = time
+            
+            for i in g[node]:  
+                if i == parent: continue
+                if not vis[i]:
+                    # apply dfs for adjacents
+                    dfs(node, i, low, tin, vis, g, time)
+                    
+                    # after returning to the node
+                    # minimum between himself and the adjacent
+                    
+                    low[node] = min(low[node], low[i])
+                    
+                    # formulae for the bridge
+                    # if low[adj] > time insertion of himself then its a bridge
+                    if (low[i] > tin[node]):
+                        print([i, node])
+                        self.res.append([i,node])
+                
+                
+                # if visited then min of himself and adjacent of time of insertion
+                else:
+                    low[node] = min(low[node], tin[i])
+                     
+        for i in range(n):
+            if not vis[i]:
+                dfs(-1, i, low, tin, vis, g, time)
+        print(self.res)
+        return self.res
+            
+--
+
+
+======================================================================================================================================================================
