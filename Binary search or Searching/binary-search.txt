@@ -519,3 +519,40 @@ class Solution:
 --
 
 ==============================================================================================================================================================================================
+
+-- Farthest smallest number ( opp. to NSR )
+
+-- https://practice.geeksforgeeks.org/contest/interview-series-61/problems/#
+
+
+--
+    def farNumber(self, n : int, a : List[int]) -> List[int]:
+        suffix_min = [0 for i in range(n)]
+        suffix_min[n - 1] = a[n - 1]
+        
+        # find the suffix array from right
+        for i in range(n - 2, -1, -1):
+            suffix_min[i] = min(suffix_min[i + 1], a[i])
+        res = []
+        
+        # Binary Search to find the min that is farthest that is the last occurances of the number 
+        for i in range(n):
+            low = i + 1
+            high = n - 1
+            ans = -1
+     
+            while (low <= high):
+                mid = (low + high) // 2
+     
+                # If current element in the suffix_min
+                # is less than a[i] then move right
+                if (suffix_min[mid] < a[i]):
+                    ans = mid
+                    low = mid + 1
+                else:
+                    high = mid - 1
+     
+            # Print the required answer
+            res.append(ans)
+        return res
+--
