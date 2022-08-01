@@ -39,6 +39,32 @@ dfs(graph, 1, visited)
 
 =============================== DFS ==================================================================
 
+-- method -1 
+
+
+--
+from collections import defaultdict
+class Solution:
+    res = []
+    #Function to return a list containing the DFS traversal of the graph.
+    def dfsOfGraph(self, V, adj):
+        vis = []
+        def dfs(node, vis, adj):
+            vis.append(node)
+            self.res.append(node)
+            for i in adj[node]:
+                if i not in vis:
+                    dfs(i, vis, adj)
+                    
+        
+        dfs(0, vis, adj)
+        #print(self.res)
+        return self.res
+--
+
+
+-- method - 2
+
 # Python program to print DFS traversal for complete graph
 from collections import defaultdict
 
@@ -1144,7 +1170,8 @@ cost is minimum among all the spanning trees. There also can be many minimum spa
 -- https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/discuss/831786/minimum-weight-spanning-tree-prims-algorithm
 
 
---
+-- prims algo code
+
 
 --
 
@@ -1155,8 +1182,8 @@ cost is minimum among all the spanning trees. There also can be many minimum spa
 
 
 
+-- kruskals algo with heap
 
---
 #Krushkal's Algorithm
 import heapq
 class Solution:
@@ -1204,7 +1231,7 @@ class Solution:
 
 
 
---
+-- Kruskals algo
 # Python program for Kruskal's algorithm to find
 # Minimum Spanning Tree of a given connected,
 # undirected and weighted graph
@@ -1326,6 +1353,71 @@ g.KruskalMST()
 ========================================================================================================================================================
 
 
+-- Connected Componets
+
+-- Given an undirected graph, print all connected components line by line. For example consider the following graph.
+
+
+
+-- Two types of algo to find and print SCC
+ 
+1 ==> Kosaraju’s algorithm for strongly connected components. 
+2 ==> Tarjan’s Algorithm to find Strongly Connected Components
+
+
+
+
+
+
 -- Kosarajus Algo for strongly connected components
 
 -- 
+
+
+=====================================================================================================================================================
+
+
+-- DFS
+
+-- Min time to collect all apples
+
+-- https://leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/submissions/
+
+
+
+--
+class Solution(object):
+    def minTime(self, n, edges, hasApple):
+        if len(edges) == 0 or n <= 0: return 0
+        all_has_apple = False
+        status = [-1] * len(hasApple)
+        for i in range(len(hasApple)):
+            status[i] = 1 if hasApple[i] else 0
+            all_has_apple = all_has_apple and hasApple[i]
+        graph = {}
+        for f, t in edges:
+            if f not in graph: graph[f] = []
+            if t not in graph: graph[t] = []
+            graph[f].append(t)
+            graph[t].append(f)
+        has, time = self.dfs(graph, 0, status)
+        return time
+
+    def dfs(self, graph, start, status):
+        if status[start] == 1: has, time = True, 0
+        else: has, time = False, 0
+        if start not in graph:
+            return has, time
+        status[start] = -1
+        for node in graph[start]:
+            if status[node] >= 0:
+                cur_has, cur_time = self.dfs(graph, node, status)
+                if cur_has:
+                    time += cur_time + 2
+                has = has or cur_has
+        return has, time
+        
+--
+
+========================================================================================================================================================================================
+

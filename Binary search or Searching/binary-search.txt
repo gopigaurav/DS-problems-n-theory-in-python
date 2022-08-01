@@ -522,6 +522,7 @@ class Solution:
 
 -- Farthest smallest number ( opp. to NSR )
 
+-- https://www.geeksforgeeks.org/find-the-farthest-smaller-number-in-the-right-side/
 -- https://practice.geeksforgeeks.org/contest/interview-series-61/problems/#
 
 
