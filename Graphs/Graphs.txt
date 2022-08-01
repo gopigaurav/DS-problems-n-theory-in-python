@@ -1353,9 +1353,10 @@ g.KruskalMST()
 ========================================================================================================================================================
 
 
--- Connected Componets (also refer the code for ==> number of provences)
+-- Connected Componets (also refer the code for ==> number of provences)   =>  O(V+E)
 
--- Given an undirected graph, print all connected components line by line. For example consider the following graph.
+-- Given an undirected graph, print all connected components line by line.
+ For example consider the following graph.
 
 
 --
@@ -1434,7 +1435,7 @@ if __name__ == "__main__":
 
 
 
--- Kosarajus Algo for strongly connected components
+-- Kosarajus Algo for strongly connected components O(V+E)
 
 -- A directed graph is strongly connected if there is a path between all pairs of vertices. 
 A strongly connected component (SCC) of a directed graph is a maximal strongly connected subgraph.
@@ -1837,3 +1838,9 @@ class Solution(object):
 --
 
 ============================================================================================================================================================
+
+-- Bridges in graph
+
+-- An edge in an undirected connected graph is a bridge if removing it disconnects 
+the graph. For a disconnected undirected graph, definition is similar, a bridge 
+is an edge removing which increases number of disconnected components. 
