@@ -1353,8 +1353,8 @@ class Graph:
 		# non-decreasing order of their
 		# weight. If we are not allowed to change the
 		# given graph, we can create a copy of graph
-		self.graph = sorted(self.graph,
-							key=lambda item: item[2])
+
+		self.graph = sorted(self.graph,key=lambda item: item[2])
 
 		parent = []
 		rank = []
