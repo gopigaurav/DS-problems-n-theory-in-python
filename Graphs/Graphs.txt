@@ -1002,8 +1002,8 @@ class Graph:
 		# is a cycle.
 
 		for u, v, w in self.graph:
-				if dist[u] != float("Inf") and dist[u] + w < dist[v]:
-						print("Graph contains negative weight cycle")
+			if dist[u] != float("Inf") and dist[u] + w < dist[v]:
+					print("Graph contains negative weight cycle")
 						return
 						
 		# print all distance
@@ -1284,7 +1284,6 @@ class Solution:
                union(u,v)
        return cost
 
-
 --
 
 
@@ -1370,6 +1369,7 @@ class Graph:
 
 			# Step 2: Pick the smallest edge and increment
 			# the index for next iteration
+
 			u, v, w = self.graph[i]
 			i = i + 1
 			x = self.find(parent, u)
@@ -1379,10 +1379,12 @@ class Graph:
 			# cause cycle, include it in result
 			# and increment the indexof result
 			# for next edge
+
 			if x != y:
 				e = e + 1
 				result.append([u, v, w])
 				self.union(parent, rank, x, y)
+
 			# Else discard the edge
 
 		minimumCost = 0
