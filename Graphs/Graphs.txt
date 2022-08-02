@@ -1175,6 +1175,66 @@ cost is minimum among all the spanning trees. There also can be many minimum spa
 
 --
 
+#User function Template for python3
+from collections import defaultdict
+import heapq
+class Solution:
+    
+    #Function to find sum of weights of edges of the Minimum Spanning Tree.
+    def spanningTree(self, V, adjlist):
+        g = defaultdict(list)
+        
+        ################################# IMP #########################################3
+        
+        for i in range(V):
+            for j in adjlist[i]:
+                g[i].append((j[0], j[1]))
+                #g[j[0]].append((i, j[1]))
+                
+                
+        parent = [None] * V
+        # or distance array u can use
+        key = [float("inf")] * V
+        mstSet = [False] * V
+        key[0] = 0
+        parent[0] = -1
+        
+        # distance and node ==> distance first
+        heap = [[0,0]]
+        
+        for count in range(V - 1):
+            mini = float("inf")
+            
+            # to find the minimum key
+            '''
+            for i in range(V):
+                if not mstSet[i] and key[i] < mini:
+                    mini = key[i]
+                    u = i
+            '''
+                    
+            
+            # either use heap
+            # min ditance will be extracted first
+            # store node in u
+            u = heapq.heappop(heap)[1]
+            mstSet[u] = True
+            
+            # u has minimum distance node  
+            
+            for adj in g[u]:
+                # adjacent node
+                v = adj[0]
+                # weight 
+                weight = adj[1]
+                if not mstSet[v] and weight < key[v]:
+                    parent[v] = u
+                    key[v] = weight
+                    heapq.heappush(heap, [key[v], v])
+        return sum(key)
+
+--
+
 
 
 2) kruskal
