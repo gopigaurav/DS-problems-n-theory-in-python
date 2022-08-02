@@ -831,6 +831,29 @@ def dijkstra(vec, vertices, edges, source):
     return distance
 --
 
+-- using heap
+# using min heap
+    def dijkstra(vec, V, adj, S):
+        # Write your code here.
+        graph = defaultdict(list)
+        for i in range(V):
+            for nodes in adj[i]:
+                graph[i].append((nodes[0],nodes[1]))
+    
+        distance = [float("inf")] * V
+        q = [(0, S)]
+        distance[S] = 0
+        res = []
+        while q:
+            w, curr = heapq.heappop(q)
+            for node, weight in graph[curr]:
+                if distance[curr] + weight < distance[node]:
+                    distance[node] = distance[curr] + weight
+                    heapq.heappush(q, (distance[node], node))
+    
+        return distance
+--
+
 --
 using matrix
 
@@ -1890,7 +1913,7 @@ class Solution(object):
                     dfs(i, vis, g)
 
         vis = [False] * n
-        count =0
+        count = 0
         for node in range(n):
             if not vis[node]:
                 count += 1 
@@ -2104,4 +2127,8 @@ class Solution:
 
 =========================================================================================================================================================================================
 
--- 
+-- Cheapest flights with within k stops
+
+-- https://leetcode.com/problems/cheapest-flights-within-k-stops/
+
+--
