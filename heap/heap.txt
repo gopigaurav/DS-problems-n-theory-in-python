@@ -81,6 +81,26 @@ def findlarg(nums,k): # another approach
     return list[0]
     return list # for k largest numbers
 
+
+-- even for 2 column arrays
+
+--
+nums = [[1,2], [5,2], [3,6], [7, 10]]
+import heapq
+def findKthLargest(nums, k):
+    heap = []
+    for num in nums:
+        heapq.heappush(heap,num)
+        #print(num, heap)
+        print(num, heap[0])
+        if len(heap) > k:
+            heapq.heappop(heap)
+    print(heap)
+    return heap[0]
+    
+print(findKthLargest(nums, 2))
+--
+
 ========================= k numbers to x closest number to find the nums =================================================================
 # Max Heap
 def kSmallestNo(nums, k , x): # another apprach to find the kth smallest number(aditya verma)
