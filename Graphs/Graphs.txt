@@ -1909,7 +1909,45 @@ class Solution(object):
 
 ======================================================================================================================================================================
 
+-- Longest cycle in a graph
 
+-- https://www.youtube.com/watch?v=vc_kz2M-jw4
+-- https://leetcode.com/problems/longest-cycle-in-a-graph/submissions/
+
+
+--
+
+class Solution(object):
+    ans = -1    
+    def longestCycle(self, edges: List[int]) -> int:
+        n = len(edges)
+        vis = [False] * n
+        dis = [0] * n 
+        extra = [False] * n # extra array for directed graph
+        def dfs(node, dis, vis, edges, distance, extra):
+            if node != -1:
+                if not vis[node]: 
+                    vis[node] = True
+                    extra[node] = True
+                    dis[node] = distance
+                    dfs(edges[node], dis, vis, edges, distance + 1, extra)
+                
+                # already visited then
+                elif extra[node]:
+                    self.ans = max(self.ans, distance - dis[node])
+                extra[node] = False
+                          
+        # run dfs for the entire edge list
+        for i in range(n):
+            if not vis[i]:
+                dfs(i, dis, vis, edges, 0, extra)
+        
+        return self.ans
+       
+--
+
+
+================================================================================================================================================================================
 -- Disjoint set
 
 -- 
