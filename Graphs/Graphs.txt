@@ -1947,7 +1947,99 @@ class Solution(object):
 --
 
 
+============================================================================================================================================================================================
+
+-- Find the coleset node to given two nodes
+
+-- https://leetcode.com/problems/find-closest-node-to-given-two-nodes/submissions/
+-- https://www.youtube.com/watch?v=S0jZu7H7nQ0
+
+
+---
+class Solution:
+    def dfs(self, node, dis, vis, distance, edges):
+        if node != -1 and not vis[node]:
+            vis[node] = True
+            dis[node] = distance
+            self.dfs(edges[node], dis, vis, distance + 1, edges)
+            
+    def closestMeetingNode(self, edges: List[int], node1: int, node2: int) -> int:
+        dist_node2 = [-1] * len(edges)  # distance array for node1
+        dist_node1 = [-1] * len(edges)  # distance array for node2
+        vis = [False] * len(edges)
+        
+        # dfs for only two nodes
+        self.dfs(node1, dist_node1, vis, 0, edges)
+        
+        # initialize visited array again
+        vis = [False] * len(edges)
+        self.dfs(node2, dist_node2, vis, 0, edges)
+        
+        print(dist_node1, dist_node2)
+        # we have two distance arrays
+        # extract the max of two arrays in that answer is min value
+        
+        ans = len(edges)
+        res = -1
+        for i in range(len(edges)):
+            # only perform the action if the nodes can be visited by the nodes by -1 then dont perform operation
+            if dist_node1[i] != -1 and dist_node2[i] != -1:
+                if max(dist_node1[i], dist_node2[i]) < ans:
+                    ans = max(dist_node1[i], dist_node2[i])
+                    res = i
+        return res
+       
+
+--
 ================================================================================================================================================================================
--- Disjoint set
+-- Disjoint set (Union find)
+
+-- https://www.geeksforgeeks.org/union-find/
+-- https://practice.geeksforgeeks.org/problems/union-find/1
+-- https://www.youtube.com/watch?v=3gbO7FDYNFQ&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=22
+
+--
+class Solution:
+    
+    def findPar(self, par, node):
+        # if node equal to himself
+        
+        # eg 7 => 6 => 5 => 3 and goes back
+        if node == par[node]:
+            return node
+        par[node] = self.findPar(par, par[node]) # this is path compression
+        return  par[node] 
+        
+    
+    #Function to merge two nodes a and b.
+    
+    # Both functions has parent array and rank array 
+    # initially parent array is ==> [0, 1, 2, ...n] parent of nodes at first has the same nodes
+    
+    # initially ranks of nodes are 1 or 0 either one [1, 1, 1, .... till n]
+    def union_(self,a,b,par,rank):
+        a = self.findPar(par, a)
+        b = self.findPar(par, b)
+        
+        if rank[a] > rank[b]:
+            par[b] = a
+        elif rank[b] > rank[a]:
+            par[a] = b
+        else:
+            par[a] = b
+            rank[b] += 1
+        
+        
+        
+    #Function to check whether 2 nodes are connected or not.
+    def isConnected(self,x,y,par,rank):
+        if self.findPar(par, x) == self.findPar(par, y):
+            return 1
+        return 0
+
+--
+
+
+=========================================================================================================================================================================================
 
 -- 
