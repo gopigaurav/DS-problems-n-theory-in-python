@@ -520,6 +520,7 @@ print("Number of islands is:", g.countIslands())
 
 -- https://practice.geeksforgeeks.org/problems/269f61832b146dd5e6d89b4ca18cbd2a2654ebbe/1/#
 -- https://www.geeksforgeeks.org/maximum-time-required-for-all-patients-to-get-infected/
+
 class Solution:
     def helpaterp(self, hospital):
         r = len(hospital)
@@ -2186,6 +2187,7 @@ class Solution(object):
 
 -- copy paste the whole code in programiz
 -- https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
+-- https://practice.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
 
 
 --
