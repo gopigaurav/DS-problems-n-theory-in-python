@@ -535,7 +535,7 @@ class Solution:
         
         count = len(q)
         while count > 0:
-            for i in range(count):
+            for _ in range(count):
                 i , j = q.pop(0)
                 self.push_neighbours(i,j,q,r,c,hospital) # check if exists a neigbours and is 1 then push to queue
             count = len(q)
@@ -558,6 +558,53 @@ class Solution:
             q.append((i+x[l],j+y[l]))
             grid[i+x[l]][j+y[l]] = 2
                     
+
+=============================================================================================================================================================================
+
+-- Rotten oranges ( same as corona spread )
+
+-- https://leetcode.com/problems/rotting-oranges/submissions/
+-- https://neetcode.io/
+
+
+--
+
+class Solution(object):
+    def orangesRotting(self, grid):
+        # BFS
+        r = len(grid)
+        c = len(grid[0])
+        time = 0
+        count = 0
+        q = []
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 2:
+                    q.append((i, j))
+                    
+        while q:
+            for _ in range(len(q)):
+                i, j = q.pop(0)
+                self.checkNei(i, j, grid, r, c, q)
+            if q:
+                time+=1
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    return -1 
+        return time
+    
+    def checkNei(self, i, j, grid, r, c, q):
+        x = [-1,1,0,0]
+        y = [0,0,-1,1]
+        for l in range(len(x)):
+            if (i + x[l]<0 or i+x[l] >= r or j+y[l] < 0 or j+y[l]>=c or grid[i+x[l]][j+y[l]] != 1 ):
+                continue
+            q.append((i +x[l], j+y[l]))
+            grid[i + x[l]][j+y[l]] = 2
+
+--
+
 
 =======================================================================================================================
 
@@ -2373,7 +2420,7 @@ print(test.dijkstra1(9,arr,7))
 
 
 -- https://leetcode.com/problems/swim-in-rising-water/submissions/
--- 
+-- https://neetcode.io/
 
 
 --
