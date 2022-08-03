@@ -726,7 +726,6 @@ class Solution:
             if visited[i] == False:
                 self.dfs(visited, adj, stack, i)
         res = stack[::-1]
-        
         return res
     
     def dfs(self, vis, adj, stack, i):
