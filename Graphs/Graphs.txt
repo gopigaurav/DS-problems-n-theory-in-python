@@ -2750,4 +2750,52 @@ g.shortestPath(s)
 
 ==================================================================================================================================
 
--- 
+-- Courses Schedule - II
+
+-- https://leetcode.com/problems/course-schedule-ii/submissions/
+-- https://www.youtube.com/watch?v=Akt3glAwyfY
+
+--
+# https://www.youtube.com/watch?v=Akt3glAwyfY
+class Solution(object):
+    def findOrder(self, numCourses, prerequisites):
+    # topological sort
+    # eg for the edge [1,0] complete 0 first to complete 1
+    # if there is cycle then return empty array
+    # tc => O(V+E) 
+    
+    # steps =>
+    # build adjacency list
+    # run dfs on graph
+    # topological sort method
+    # also check for cycle by hashset
+        pre = { c: [] for c in range(numCourses)}
+        for crs, nes in prerequisites:
+            pre[crs].append(nes)
+            
+        vis = set()
+        cycle = set()
+        res = []
+        
+        def dfs(node):
+            if node in cycle:
+                return False
+            if node in vis:
+                return True
+            
+            cycle.add(node)
+            for i in pre[node]:
+                # if cycle return False
+                if dfs(i) == False:
+                    return False
+            cycle.remove(node)
+            vis.add(node)
+            # comming back append in res
+            res.append(node)
+            return True
+        
+        for i in range(numCourses):
+            if dfs(i) == False:
+                return []
+        return res
+--
