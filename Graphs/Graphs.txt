@@ -2799,3 +2799,126 @@ class Solution(object):
                 return []
         return res
 --
+
+
+=======================================================================================================================================
+
+
+-- Course Schedule - I (Same code as Couses scedule II)
+
+-- https://leetcode.com/problems/course-schedule/submissions/
+-- https://neetcode.io/
+
+--
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        pre = { c: [] for c in range(numCourses)}
+        for crs, nes in prerequisites:
+            pre[crs].append(nes)
+            
+        vis = set()
+        cycle = set()
+        res = []
+        
+        def dfs(node):
+		# check for cycle
+            if node in cycle:
+                return False
+            if node in vis:
+                return True
+
+            cycle.add(node)
+            for i in pre[node]:
+                # if cycle return False
+                if dfs(i) == False:
+                    return False
+            cycle.remove(node)
+            vis.add(node)
+            # comming back append in res
+            res.append(node)
+            return True
+        
+        for i in range(numCourses):
+            if dfs(i) == False:
+                return []
+        return True
+--
+
+===========================================================================================================================================================
+
+-- Min Cost to connect all paths
+
+-- https://leetcode.com/problems/network-delay-time/submissions/
+
+
+--
+from collections import defaultdict
+class Solution(object):
+    def networkDelayTime(self, times, n, src):
+        g = defaultdict(list)
+        for u, v, w in times:
+            g[u].append((v, w))
+            #g[v].append((u, w))
+        dist = [float("inf")] * (n + 1)
+        q = [src]
+        dist[src] = 0
+        maximum = dist[src]
+        while q:
+            curr = q.pop(0)
+            for node, weight in g[curr]:
+                if dist[curr] + weight < dist[node]:
+                    dist[node] = dist[curr] + weight
+                    
+                    q.append(node)
+        for i in range(1, n+1):
+            if dist[i] == float("inf"):
+                return -1
+            else:
+                maximum = max(maximum, dist[i])
+        return maximum
+    
+    
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        edges = collections.defaultdict(list)
+        for u, v, w in times:
+            edges[u].append((v, w))
+
+        minHeap = [(0, k)]
+        visit = set()
+        t = 0
+        while minHeap:
+            w1, n1 = heapq.heappop(minHeap)
+            if n1 in visit:
+                continue
+            visit.add(n1)
+            t = max(t, w1)
+
+            for n2, w2 in edges[n1]:
+                if n2 not in visit:
+                    heapq.heappush(minHeap, (w1 + w2, n2))
+        return t if len(visit) == n else -1
+
+        # O(E * logV)
+        
+        
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:        
+        adj_list = defaultdict(list)
+        
+        for x,y,w in times:
+            adj_list[x].append((w, y))
+        
+        visited=set()
+        heap = [(0, k)]
+        while heap:
+            travel_time, node = heapq.heappop(heap)
+            visited.add(node)
+            
+            if len(visited)==n:
+                return travel_time
+            
+            for time, adjacent_node in adj_list[node]:
+                if adjacent_node not in visited:
+                    heapq.heappush(heap, (travel_time+time, adjacent_node))
+                
+        return -1
+--
