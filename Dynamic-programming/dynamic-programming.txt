@@ -331,6 +331,8 @@ neetcode problem
 
 # Dynamic Programming Approach of Finding LIS by reducing the problem to longest common Subsequence
 
+-- https://www.youtube.com/watch?v=IFfYfonAFGc
+-- https://leetcode.com/problems/longest-increasing-subsequence/
 
 def lis(a):
 	n = len(a)
@@ -367,29 +369,23 @@ or
 # lis returns length of the longest
 # increasing subsequence in arr of size n
 
+-- https://www.interviewbit.com/problems/longest-increasing-subsequence/
+-- Refer this
 
-def lis(arr):
-	n = len(arr)
+-- https://leetcode.com/problems/longest-increasing-subsequence/submissions/
 
-	# Declare the list (array) for LIS and
-	# initialize LIS values for all indexes
-	lis = [1]*n
+class Solution(object):
+    def lengthOfLIS(self, A):
+        DP = [1]*len(A)
+        for i in range(len(A)):
+            #compair from 0 to i again and check if a[previous] < a[i] then 1+dp[j]
+            for j in range(i):
+                if A[j] < A[i]:
+                    DP[i] = max(DP[i], DP[j]+1)
+        return max(DP)
 
-	# Compute optimized LIS values in bottom up manner
-	for i in range(1, n):
-		for j in range(0, i):
-			if arr[i] > arr[j] and lis[i] < lis[j] + 1:
-				lis[i] = lis[j]+1
 
-	# Initialize maximum to 0 to get
-	# the maximum of all LIS
-	maximum = 0
-
-	# Pick maximum of all LIS values
-	for i in range(n):
-		maximum = max(maximum, lis[i])
-
-	return maximum
+        
 # end of lis function
 
 
