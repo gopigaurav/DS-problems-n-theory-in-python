@@ -1129,3 +1129,72 @@ class Solution(object):
 
 
 ==========================================================================================================================================
+
+
+-- Longest repeating subsequence
+
+-- https://www.interviewbit.com/problems/repeating-subsequence/
+-- https://www.geeksforgeeks.org/longest-repeating-subsequence/
+
+
+--
+# Python 3 program to find the longest repeating
+# subsequence
+
+
+# This function mainly returns LCS(str, str)
+# with a condition that same characters at
+# same index are not considered.
+def findLongestRepeatingSubSeq( str):
+
+	n = len(str)
+
+	# Create and initialize DP table
+	dp=[[0 for i in range(n+1)] for j in range(n+1)]
+
+	# Fill dp table (similar to LCS loops)
+	for i in range(1,n+1):
+		for j in range(1,n+1):
+			# If characters match and indexes are
+			# not same
+			if (str[i-1] == str[j-1] and i != j):
+				dp[i][j] = 1 + dp[i-1][j-1]		
+						
+			# If characters do not match
+			else:
+				dp[i][j] = max(dp[i][j-1], dp[i-1][j])
+		
+	
+	return dp[n][n]
+
+
+# Driver Program
+if __name__=='__main__':
+	str = "aabb"
+	print("The length of the largest subsequence that repeats itself is : "
+		,findLongestRepeatingSubSeq(str))
+
+# this code is contributed by ash264
+
+--
+
+--
+class Solution:
+    # @param A : string
+    # @return an integer
+    def anytwo(self, A):
+        n = len(A)
+        dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
+        #dp = [[0] *(n+1)] * (n+1)
+        
+        for i in range(1, n+1):
+            for j in range(1, n+1):
+                if A[i-1] == A[j-1] and i != j:
+                    dp[i][j] = 1 + dp[i-1][j-1]
+                else:
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        return 1 if dp[n][n] > 1 else 0
+--
+
+===================================================================================================================================================
+
