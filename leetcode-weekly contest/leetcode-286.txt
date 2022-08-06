@@ -1,0 +1,88 @@
+-- https://www.youtube.com/watch?v=A98psR_mIMQ&t=1004s
+
+
+
+2216. Minimum Deletions to Make Array Beautiful
+
+-- https://leetcode.com/contest/weekly-contest-286/problems/minimum-deletions-to-make-array-beautiful/
+
+You are given a 0-indexed integer array nums. The array nums is beautiful if:
+
+nums.length is even.
+nums[i] != nums[i + 1] for all i % 2 == 0.
+Note that an empty array is considered beautiful.
+
+You can delete any number of elements from nums. 
+When you delete an element, all the elements to the right 
+of the deleted element will be shifted one unit to the left 
+to fill the gap created and all the elements to the left of the 
+deleted element will remain unchanged.
+
+--
+class Solution(object):
+    def minDeletion(self, nums):
+        dele = 0
+        for i in range(len(nums) - 1):
+            shiftIndex = i - dele
+            if nums[i] == nums[i + 1] and shiftIndex % 2 == 0:
+                dele+=1
+            
+        if ((len(nums)-dele) % 2 == 1):
+            dele += 1
+        return dele
+--
+
+
+==========================================================================================================================================
+
+-- Find the diff of two Arrays
+
+-- https://leetcode.com/contest/weekly-contest-286/problems/find-the-difference-of-two-arrays/
+
+--
+Given two 0-indexed integer arrays nums1 and nums2, return a list answer of size 2 where:
+
+answer[0] is a list of all distinct integers in nums1 which are not present in nums2.
+answer[1] is a list of all distinct integers in nums2 which are not present in nums1.
+Note that the integers in the lists may be returned in any order.
+
+--
+
+
+--
+class Solution(object):
+    def findDifference(self, nums1, nums2):
+        s1 = set(nums1)
+        s2 = set(nums2)
+        ans = [[],[]]
+        
+        for i in s1:
+            if i not in s2:
+                ans[0].append(i)
+        for i in s2:
+            if i not in s1:
+                ans[1].append(i)
+                
+        return ans
+--
+
+=========================================================================================================================================================
+
+-- Find the Palindrome with fixed length
+
+-- https://leetcode.com/contest/weekly-contest-286/problems/find-palindrome-with-fixed-length/
+
+
+--
+Given an integer array queries and a positive integer intLength,
+ return an array answer where answer[i] is either the queries[i]th 
+smallest positive palindrome of length intLength or -1 if no such palindrome exists.
+
+A palindrome is a number that reads the same backwards and forwards.
+ Palindromes cannot have leading zeros.
+--
+
+
+--
+
+

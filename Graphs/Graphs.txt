@@ -2848,8 +2848,10 @@ class Solution(object):
 
 -- Min Cost to connect all paths
 
+-- https://leetcode.com/problems/network-delay-time/discuss/187713/Python-concise-queue-and-heap-solutions
+-- https://leetcode.com/problems/network-delay-time/discuss/471164/Python-DFS-BFS-Dijkstra-Bellman-Ford-SPFA-Floyd-Warshall
 -- https://leetcode.com/problems/network-delay-time/submissions/
-
+-- https://neetcode.io/
 
 --
 from collections import defaultdict
@@ -2922,3 +2924,9 @@ class Solution(object):
                 
         return -1
 --
+
+===================================================================================================================================================================
+
+-- Min cost to connect all paths
+
+-- 
