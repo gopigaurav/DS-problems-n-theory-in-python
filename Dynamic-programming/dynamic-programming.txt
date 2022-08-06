@@ -394,6 +394,40 @@ arr = [10, 22, 9, 33, 21, 50, 41, 60]
 print ("Length of lis is", lis(arr))
 # This code is contributed by Nikhil Kumar Singh
 
+
+-- Binary Search O(n*lonn)
+
+-- https://leetcode.com/problems/longest-increasing-subsequence/submissions/
+
+--
+def lengthOfLIS(self, A):
+        res = [A[0]]
+        for i in range(1, len(A)):
+            if A[i] > res[-1]:
+                res.append(A[i])
+            elif A[i] < res[-1]:
+                print(res)
+                res[self.searchInsert(res, A[i])]  = A[i]
+        print(res)
+        return len(res)
+                
+            
+            
+    def searchInsert(self, arr, target):
+        start = 0
+        end = len(arr) - 1
+        res = -1
+        while(start<=end):
+            mid = start + ((end-start)/2)
+            if(arr[mid] == target):
+                return mid
+            elif(arr[mid] < target):
+                start = mid+1
+            else:
+                end = mid-1
+        return start
+--
+
 =======================================================================================================================
 
 
