@@ -1,5 +1,5 @@
 -- https://www.youtube.com/watch?v=A98psR_mIMQ&t=1004s
-
+-- for dp reference
 
 
 2216. Minimum Deletions to Make Array Beautiful
@@ -68,7 +68,7 @@ class Solution(object):
 
 =========================================================================================================================================================
 
--- Find the Palindrome with fixed length
+-- 2217 - Find the Palindrome with fixed length
 
 -- https://leetcode.com/contest/weekly-contest-286/problems/find-palindrome-with-fixed-length/
 
@@ -84,5 +84,92 @@ A palindrome is a number that reads the same backwards and forwards.
 
 
 --
+class Solution(object):
+    def kthPalindrome(self, queries, intLength):
+        
+        # querie[i]th palindrome which is intlength digits
+        # if length is odd
+        # if length is even 
+        
+        pw = (intLength/2 -1) if (intLength % 2 == 0) else (intLength/2)
+        res = []
+        
+        start = pow(10, pw)
+        
+        for q in queries:
+            ans = str(start + q - 1)
+            rev = ans[::-1]
+            
+            if intLength % 2 == 0:
+                ans = ans + rev
+            else:
+                # if odd then remove first one and add from 1 to end
+                ans = ans + rev[1:]
+            
+            if len(ans) == intLength:res.append(ans)
+            else:
+                res.append(-1)
+        return res
+--
+
+===============================================================================================================================================================
+
+-- 2218. Maximum Value of K Coins From Piles
 
 
+-- https://leetcode.com/contest/weekly-contest-286/problems/maximum-value-of-k-coins-from-piles/
+
+There are n piles of coins on a table. Each pile consists
+ of a positive number of coins of assorted denominations.
+
+In one move, you can choose any coin on top of any pile, 
+remove it, and add it to your wallet.
+
+Given a list piles, where piles[i] is a list of integers 
+denoting the composition of the ith pile from top to bottom, 
+and a positive integer k, return the maximum total value of coins
+ you can have in your wallet if you choose exactly k coins optimally.
+
+--
+
+
+--
+class Solution(object):
+    def maxValueOfCoins(self, piles, k):
+        
+        # from n piles pick atmost k coins which pick min(k, len(piles[i]))
+        # piles can be picked one by one not separately
+        
+        # https://www.youtube.com/watch?v=A98psR_mIMQ&t=1004s
+        # pick and not pick startery using recursion and dp
+        
+        # f(ind + 1, k - (i+1))
+        #               remaining number of guys
+        
+        # ans = sum(o to i) + f(ind + 1, k-(i+1))
+        dp = [[-1]* (k+1)] * (len(piles))
+        return self.f(0, k, piles, dp)
+        
+    def f(self, ind, k, piles, dp):
+        if ind == len(piles) or k == 0:
+            return 0
+        
+        if dp[ind][k] != -1:
+            return dp[ind][k]
+        
+        best = self.f(ind+1, k, piles, dp) # not picking
+        
+        pilesSum = 0
+        loopTill = len(piles[ind])
+        for i in range(min(loopTill, k)):
+            pilesSum += piles[ind][i]
+             # picking element and sending the remaining elements
+            best = max(best, pilesSum + self.f(ind+1, k-(i+1), piles, dp))
+            
+        dp[ind][k] = best
+        return dp[ind][k]
+--
+
+======================================================================================================================================
+
+-- 
