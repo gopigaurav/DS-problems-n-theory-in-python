@@ -1,5 +1,4 @@
 ## Longest common substring
-
 --
 
 class Solution:
@@ -431,7 +430,48 @@ def lengthOfLIS(self, A):
 
 =======================================================================================================================
 
+-- Edit distance
 
+-- 
+Given two strings A and B, find the minimum number of steps required to convert 
+A to B. (each operation is counted as 1 step.)
+
+You have the following 3 operations permitted on a word:
+
+Insert a character
+Delete a character
+Replace a character
+
+--
+
+-- https://www.interviewbit.com/problems/edit-distance/
+-- https://neetcode.io/
+-- https://www.youtube.com/watch?v=fJaKO8FbDdo
+
+
+-- Using 2 ID array
+--
+def minDistance1(self, A, B):
+        # using 2d array
+        # prev = [0, 1, 2, 3, ... len(A)+1]
+        # curr = [5] that is length of A
+        prev, curr = range(len(A)+1), [len(A)]
+        for i, bi in enumerate(B):
+            curr = [i+1]
+            for j, aj in enumerate(A):
+                if aj == bi:
+                    val = prev[j]
+                else:
+                    # min of insert , delete, replace
+                    val = min(prev[j], prev[j+1], curr[j])+1
+                curr.append(val)
+            #print(prev, curr)
+            prev = curr
+        #print([prev])
+        return curr[-1]
+--
+
+=========================================================================================================================================
 
 # wild card pattern
 -- https://www.geeksforgeeks.org/dynamic-programming-wildcard-pattern-matching-linear-time-constant-space/
