@@ -1,3 +1,40 @@
+-- 0-1 knapsack
+
+-- https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+-- https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+
+
+--
+class Solution:
+    
+    #Function to return max value that can be put in knapsack of capacity W.
+    def knapSack(self,W, wt, val, n):
+       
+        dp = [[0 for i in range(W + 1)] for j in range(n + 1)]  # Making the dp array
+
+        for i in range(1, n+1):  # taking first i elements
+            for j in range(1, W+1):  
+                if wt[i-1] <= j:
+                    dp[i][j] = max(val[i-1] + dp[i-1][j -wt[i-1]],dp[i-1][j])
+                else:
+                    dp[i][j] = dp[i-1][j]
+        return dp[n][W]
+    
+    def knapSack(self, W, wt, val, n):
+        dp = [0 for i in range(W+1)]  # Making the dp array
+ 
+        for i in range(1, n+1):  # taking first i elements
+            for w in range(W, 0, -1):  # starting from back,so that we also have data of
+                                    # previous computation when taking i-1 items
+                if wt[i-1] <= w:
+                    # finding the maximum value
+                    dp[w] = max(dp[w], dp[w-wt[i-1]]+val[i-1])
+     
+        return dp[W] 
+--
+
+
+============================================================================================================
 ## Longest common substring
 --
 
@@ -469,6 +506,28 @@ def minDistance1(self, A, B):
             prev = curr
         #print([prev])
         return curr[-1]
+--
+
+or
+
+--
+def minDistance1(self, A, B):
+        # using 2d array
+        n = len(A)
+        prev = range(n+1)
+	cur = [0] * (m+1)
+        for i in range(1, n+1):
+            curr = [i+1]
+            for j in range(1, m+1):
+                if A[i-1] == B[j-1]:
+                    cur[j] = prev[j-1]
+                else:
+                    # min of insert , delete, replace
+                    val = min(prev[j], prev[j-1], curr[j-1])+1
+            #print(prev, curr)
+            prev = curr
+        #print([prev])
+        return prev[m]
 --
 
 =========================================================================================================================================
