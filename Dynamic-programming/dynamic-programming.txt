@@ -395,9 +395,10 @@ print ("Length of lis is", lis(arr))
 # This code is contributed by Nikhil Kumar Singh
 
 
--- Binary Search O(n*lonn)
+-- Binary Search O(n*logn)
 
 -- https://leetcode.com/problems/longest-increasing-subsequence/submissions/
+-- https://www.youtube.com/watch?v=on2hvxBXJH4
 
 --
 def lengthOfLIS(self, A):
