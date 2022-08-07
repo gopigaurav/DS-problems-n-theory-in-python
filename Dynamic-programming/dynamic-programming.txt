@@ -1131,7 +1131,7 @@ class Solution(object):
 ==========================================================================================================================================
 
 
--- Longest repeating subsequence
+-- Longest repeating subsequence (interviewbit)
 
 -- https://www.interviewbit.com/problems/repeating-subsequence/
 -- https://www.geeksforgeeks.org/longest-repeating-subsequence/
@@ -1197,4 +1197,67 @@ class Solution:
 --
 
 ===================================================================================================================================================
+
+
+-- Distinct Subsequences
+
+-- https://www.interviewbit.com/problems/distinct-subsequences/
+-- https://leetcode.com/problems/distinct-subsequences/submissions/
+-- https://www.youtube.com/watch?v=aV-OEO-eNJQ
+
+--
+
+class Solution:
+    # @param A : string
+    # @param B : string
+    # @return an integer
+
+	# refer this 
+    def numDistinct(self, A, B):
+        m = len(A)
+        n = len(B)
+        dp=[[0 for i in range(m+1)] for j in range(n+1)]
+        
+        for i in range(m+1):
+            dp[0][i] = 1
+        
+        for i in range(1, n+1):
+            for j in range(1, m+1):
+                if A[j-1] == B[i-1]:
+                    dp[i][j] = dp[i-1][j-1] + dp[i][j-1]
+                else:
+                    dp[i][j] = dp[i][j-1]
+        return dp[n][m] 
+                
+
+
+    def numDistinct1(self, A, B):
+        # recursive approach for the upper dp Solution
+        
+        n = len(A)
+        m = len(B)
+        i = 0 # index for A
+        j = 0  # index for B
+        dp=[[0 for i in range(m+1)] for j in range(n+1)]
+        
+        def sol(A, B, n, m, i, j):
+            if i == n: # A ="" and B is not empty
+                return 0
+            if j == m: # here B = "" and A is not empty
+                return 1
+            if A[i] == B[j]:
+                # consider i+1 and j+1  + not consider i + 1
+                return dp[i][j] = sol(A, B, n, m, i+1, j+1) +
+                                    sol(A, B, n, m, i+1, j)
+            
+            # then just move i
+            else:
+                return dp[i][j] = sol(A, B, n, m, i+1, j)
+        
+        return sol(A, B, n, m, i, j)
+
+--
+
+
+======================================================================================================================================
 
