@@ -1318,3 +1318,79 @@ class Solution:
 
 ======================================================================================================================================
 
+-- Regular expression
+
+-- https://leetcode.com/problems/regular-expression-matching/
+-- https://leetcode.com/problems/wildcard-matching/discuss/256025/Python-DP-with-illustration
+-- https://www.interviewbit.com/problems/regular-expression-ii/hints/
+
+
+--
+
+class Solution:
+    def regex_helper(self,A,B,m,n):
+        if m < 0 and n < 0: return 1
+        if m < 0 and n >= 0: return 0
+        if m >= 0 and n < 0: return 0
+        if B[n] != '.' and B[n] != '*':
+            if A[m] != B[n]:
+                return 0
+            else:
+                return self.regex_helper(A,B,m-1,n-1)
+        elif B[n] == '.':
+            # consider A[m] and B[n] matched
+            return self.regex_helper(A,B,m-1,n-1)
+        elif B[n] == '*':
+            if n <= 0: return 0
+            if B[n-1] == '.': 
+                return 1
+            else:
+                if A[m] != B[n-1]:
+                    return self.regex_helper(A,B,m,n-2)
+                while A[m] == B[n-1]:
+                    if m == 0: return 1
+                    m -= 1
+                return self.regex_helper(A,B,m,n-2)
+
+    # @param s : string
+    # @param p : string
+    # @return an integer
+    def isMatch(self, s, p):
+        return self.regex_helper(s,p,len(s)-1,len(p)-1)
+
+--
+
+--
+def isMatch(self, text, pattern):
+        n = len(pattern)
+        m = len(text)
+        dp = [[-1 for k in range(m+1)] for l in range(n+1)]
+        # go from right to left
+        # from n-1 to 0
+
+        def solve(i, j, pattern, text, dp):
+            if i<0 and j<0:
+                return True
+            if i < 0 and j >= 0:
+                return False
+            if j<0 and i>= 0:
+                for u in range(i,-1,-1):
+                    if pattern[u] != "*":
+                        return False
+                return True
+            if dp[i][j] != -1: return dp[i][j]
+            if (pattern[i] == text[j] or pattern[i] == "."):
+                #then shrink the string
+                dp[i][j] = solve(i-1,j-1,pattern,text,dp)
+                return dp[i][j]
+            if (pattern[i] == "*"):
+                dp[i][j] = solve(i,j-1,pattern,text,dp) or solve(i-1,j,pattern,text,dp)
+                return dp[i][j]
+            dp[i][j] = False
+            return dp[i][j]
+        
+        return 1 if solve(n-1, m-1, pattern, text, dp) == True else 0
+--
+===========================================================================================================================================================
+
+-- 
