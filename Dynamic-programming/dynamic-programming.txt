@@ -1461,4 +1461,55 @@ def isMatch(self, text, pattern):
 --
 ===========================================================================================================================================================
 
--- 
+-- Interleaving Strings
+
+-- https://www.geeksforgeeks.org/find-if-a-string-is-interleaved-of-two-other-strings-dp-33/
+
+--
+class Solution(object):
+    def isInterleave1(self, s1, s2, s3):
+        # recursive approach
+        if len(s1) + len(s2) != len(s3):
+            return False
+        n = len(s1)
+        m = len(s2)
+        l = len(s3)
+        dp = [[-1]*(m+1)]*(n+1)
+        
+        def sol(s1, s2, s3, n, m, l):
+            if l == 0:
+                return 1
+            
+            if dp[n][m] != -1:
+                return dp[n][m]
+            goStringOne = 0
+            goStringTwo = 0
+            if n-1 >= 0 and s1[n-1] == s3[l-1]:
+                goStringOne = sol(s1, s2, s3, n-1, m, l-1)
+            if m -1 >= 0 and s2[m-1] == s3[l-1]:
+                goStringTwo = sol(s1, s2, s3, n, m-1, l-1)
+            
+            dp[n][m] = goStringOne or goStringTwo
+            return dp[n][m]
+        
+        return sol(s1, s2, s3, n, m, l)
+    
+	# refer this
+    def isInterleave(self, s1, s2, s3):
+        r, c, l= len(s1), len(s2), len(s3)
+        if r+c != l:
+            return False
+        dp = [[True for _ in xrange(c+1)] for _ in xrange(r+1)]
+        
+        for i in xrange(1, r+1):
+            dp[i][0] = dp[i-1][0] and s1[i-1] == s3[i-1]
+        for j in xrange(1, c+1):
+            dp[0][j] = dp[0][j-1] and s2[j-1] == s3[j-1]
+            
+        a = True
+        b = True
+        for i in xrange(1, r+1):
+            for j in xrange(1, c+1):
+                dp[i][j] = (dp[i-1][j] and s1[i-1] == s3[i-1+j]) or (dp[i][j-1] and s2[j-1] == s3[i-1+j])
+        return dp[-1][-1]
+--
