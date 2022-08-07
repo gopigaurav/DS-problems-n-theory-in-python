@@ -1713,4 +1713,37 @@ class Solution(object):
 
 ==========================================================================================================================================
 
+-- Tushars birthday party
+
+-- https://www.interviewbit.com/problems/tushars-birthday-party/
+-- https://www.youtube.com/watch?v=ij0R4p5CjMw&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=15
+
+--
+class Solution:
+    # @param A : tuple of integers
+    # @param B : tuple of integers
+    # @param C : tuple of integers
+    # @return an integer
+    def solve(self, A, B, C):
+        
+        # take max of friends capacity as dp length
+        # take 1d array
+        dp = [float("inf")] * (max(A)+1)
+        dp[0] = 0 # coz colorie of 0 takes cost 0
+        n = max(A)
+        # i => colorie
+        # j = cost
+        
+        for i in range(1, n+1):
+            for j in range(0, len(B)):
+                if B[j] <= i:
+                    dp[i] = min(dp[i], C[j] + dp[i-B[j]])
+                
+        ans = 0
+        for i in range(len(A)):
+            ans += dp[A[i]]
+        return ans
+            
 -- 
+
+============================================================================================================================================
