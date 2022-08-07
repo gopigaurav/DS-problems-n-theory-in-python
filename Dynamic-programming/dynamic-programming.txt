@@ -1564,4 +1564,153 @@ class Solution:
 
 ================================================================================================================
 
+-- shortest common supersequence and also printing
+
+-- https://www.interviewbit.com/problems/shortest-common-superstring/hints/
+-- https://www.geeksforgeeks.org/print-shortest-common-supersequence/#:~:text=Given%20two%20strings%20X%20and,print%20any%20one%20of%20them.&text=Recommended%3A%20Please%20try%20your%20approach,moving%20on%20to%20the%20solution.
+-- https://leetcode.com/problems/find-the-shortest-superstring/
+
+
 --
+class Solution:
+    # @param A : list of strings
+    # @return an integer
+    res = 0
+    def solve(self, arr):
+        
+        n = len(arr)
+        def LCS(s1,s2):
+            l1 = len(s1)
+            l2 = len(s2)
+            dp = [[None]*(l2+1) for _ in range(l1+1)]
+
+            # Initialise dp
+            # If length of any substring is 0 then length of LCS will be zero
+            # So dp[0][i] and dp[j][0] will be zero
+
+            for i in range(l1+1):
+                dp[i][0] = 0
+            for j in range(l2+1):
+                dp[0][j] = 0
+
+            # if s1[i] == s2[j] then increase by 1 else search in i-1 and j or i and j-1
+            for i in range(1,l1+1):
+                for j in range(1,l2+1):
+                    if s1[i-1] == s2[j-1]:
+                        dp[i][j] = 1 + dp[i-1][j-1]
+                    else:
+                        dp[i][j] = max(dp[i][j-1],dp[i-1][j])
+
+            # dp[l1][l2] contains the length of LCS of s1 and s2
+            lcs = ""
+            i = len(s1)
+            j = len(s2)
+            while i > 0 and j > 0:
+
+                # If current character in X[] and Y are same, then
+                # current character is part of LCS
+                if s1[i-1] == s2[j-1]:
+                    lcs += s1[i-1]
+                    i -= 1
+                    j -= 1
+
+                # If not same, then find the larger of two and
+                # go in the direction of larger value
+                elif dp[i-1][j] > dp[i][j-1]:
+                    lcs += s1[i-1]
+                    i -= 1
+
+                else:
+                    lcs += s2[j-1]
+                    j -= 1
+                    
+            while i > 0:
+                lcs += s1[i-1]
+                i-=1
+            while j > 0:
+                lcs += s2[i-1]
+                j-=1
+            self.res = max(self.res,len(lcs))
+            return lcs[::-1]
+        res = 0
+        if len(arr) < 2:
+            return max(self.res, len(arr[0]))
+        previous = arr[0]
+        for i in range(0, n):
+            previous = LCS(previous, arr[i])
+        return self.res
+        
+--
+
+====================================================================================================================
+
+-- Subset sum
+
+
+-- https://www.geeksforgeeks.org/subset-sum-problem-dp-25/
+-- https://www.interviewbit.com/problems/subset-sum-problem/hints/
+-- https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
+--
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        n = len(A)
+        #dp = [[None] * (B+1)] * (n+1)
+        dp = [[None]*(B+1) for _ in range(n+1)]
+        dp[0][0] = True
+        
+        for i in range(1, n+1):
+            dp[i][0] = True
+        for j in range(1, B+1):
+            dp[0][j] = False
+        for i in range(1, n+1):
+            for j in range(1, B+1):
+                if A[i-1] <= j:
+                    dp[i][j] = dp[i-1][j] or dp[i-1][j - A[i-1]]
+                else:
+                    dp[i][j] = dp[i-1][j]
+        return 1 if dp[n][B] else 0
+                    
+--
+============================================================================================================================
+
+-- Partition Equal subset sum
+
+-- https://leetcode.com/problems/partition-equal-subset-sum/submissions/
+-- 
+
+--
+class Solution(object):
+    def canPartition(self, nums):
+        csum = 0
+        for i in range(len(nums)):
+            csum += nums[i]
+        if csum % 2:
+            return False
+        
+        return self.solve(nums, (csum // 2))
+    def solve(self, A, B):
+        n = len(A)
+        #dp = [[None] * (B+1)] * (n+1)
+        dp = [[None]*(B+1) for _ in range(n+1)]
+        dp[0][0] = True
+        
+        for i in range(1, n+1):
+            dp[i][0] = True
+        for j in range(1, B+1):
+            dp[0][j] = False
+        for i in range(1, n+1):
+            for j in range(1, B+1):
+                if A[i-1] <= j:
+                    dp[i][j] = dp[i-1][j] or dp[i-1][j - A[i-1]]
+                else:
+                    dp[i][j] = dp[i-1][j]
+        return 1 if dp[n][B] else 0
+--
+
+==========================================================================================================================================
+
+-- 

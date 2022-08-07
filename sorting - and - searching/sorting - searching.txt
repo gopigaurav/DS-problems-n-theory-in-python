@@ -368,3 +368,32 @@ class Solution:
 --
 
 ========================================================================================================================================================================================================
+-- Longest common prefix in array
+
+-- class Solution:
+    def longestCommonPrefix(self, arr, n):
+        def sol(s1, s2):
+            res = ""
+            
+            n1 = len(s1)
+            n2 = len(s2)
+            
+            for i in range(min(n1,n2)):
+                # break statement terminates the loop
+                if s1[i] != s2[i]:
+                    break
+                res += s1[i]
+                
+            return res
+            
+        
+        prefix = arr[0]
+        
+        for i in range(n):
+            prefix = sol(prefix, arr[i])
+        
+        return prefix if prefix else -1
+--
+
+===================================================================================================================================================
+
