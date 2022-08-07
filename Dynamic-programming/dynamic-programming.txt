@@ -979,7 +979,7 @@ if __name__ == "__main__":
 
 -- 
 
-# DP with memorization
+# DP with memorization refer this
 def __init__(self):
     self.dic = {}
     
@@ -992,7 +992,9 @@ def isScramble(self, s1, s2):
     if s1 == s2:
         self.dic[(s1, s2)] = True
         return True
-    for i in xrange(1, len(s1)):
+
+	# due to partition go from 1 to n
+    for i in range(1, len(s1)):
         if (self.isScramble(s1[:i], s2[:i]) and self.isScramble(s1[i:], s2[i:])) or \
         (self.isScramble(s1[:i], s2[-i:]) and self.isScramble(s1[i:], s2[:-i])):
             return True
