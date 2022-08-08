@@ -2969,4 +2969,33 @@ class Solution:
 
 ===============================================================================================================================================================================
 
+-- Number of islands
+
+-- https://leetcode.com/problems/number-of-islands/submissions/
+
+--
+class Solution:
+    def numIslands(self,grid):
+        row = len(grid)
+        col = len(grid[0])
+        count = 0
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == "1":
+                    self.dFS(i,j,row,col,grid)
+                    count+=1
+        return count
+                
+    def dFS(self,i,j,row,col,grid):
+        if i < 0 or j < 0 or i >= row or j>= col or grid[i][j] != "1":
+            return
+        grid[i][j] = -1
+        self.dFS(i - 1, j, row, col, grid)
+        self.dFS(i, j - 1, row, col, grid)
+        self.dFS(i, j + 1, row, col, grid)
+        self.dFS(i + 1, j, row, col, grid)
+--
+
+===========================================================================================================================================================================
+
 -- 
