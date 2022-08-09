@@ -1,5 +1,7 @@
 === Nearest greater element to right ================================
 
+-- NGR
+
 # Python program to print next greater element using stack
 
 # Stack Functions to be used by printNGE()

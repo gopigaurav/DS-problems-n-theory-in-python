@@ -2007,6 +2007,72 @@ class Solution(object):
 
 =====================================================================================================================================================================
 
+-- Minimum absolute diff
+
+-- https://leetcode.com/problems/minimum-absolute-difference/
+
+--
+class Solution:
+    def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
+        arr.sort()
+        c=abs(arr[0]-arr[1])
+        for i in range(len(arr)-1):
+            c=min(c,abs(arr[i]-arr[i+1]))
+        l=0
+        z=[]
+        while l<len(arr)-1:
+            if abs(arr[l]-arr[l+1])==c:
+                z.append([arr[l],arr[l+1]])
+            l+=1
+        return z
+--
+
+
+============================================================================================================================================================
+
+-- Minimum diff subsets
+
+
+-- https://www.interviewbit.com/problems/minimum-difference-subsets/
+
+--
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    def solve(self, A):
+        # S1 - S2 = min
+        # S1 + S2 = max
+        # min = 0 and max = sum(A)
+        
+        n = len(A)
+        B = 0
+        for i in range(n):
+            B += A[i] 
+            
+        #dp = [[None] * (B+1)] * (n+1)
+        dp = [[False]*(B+1) for _ in range(n+1)]
+        dp[0][0] = True
+        
+        for i in range(1, n+1):
+            dp[i][0] = True
+        for j in range(1, B+1):
+            dp[0][j] = False
+        for i in range(1, n+1):
+            for j in range(1, B+1):
+                if A[i-1] <= j:
+                    dp[i][j] = dp[i-1][j] or dp[i-1][j - A[i-1]]
+                else:
+                    dp[i][j] = dp[i-1][j]
+                    
+                    
+        # only take the last whole row
+        mini = float("inf")
+        for i in range((B//2)+1):
+            if dp[n][i] == True:
+                mini = max(mini, B-(2*i))
+        return mini
+--
+
+=========================================================================================================================================\\
+
 -- 
-
-
