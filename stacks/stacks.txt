@@ -86,7 +86,7 @@ printNGE(arr)
 
 
 ============================== Next greater element in circular array ============================
-
+-- NGE
 
 # Function to find the Next Greater Element(NGE)
 def printNGE(a, n):
