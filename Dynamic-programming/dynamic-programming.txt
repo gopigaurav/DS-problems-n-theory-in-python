@@ -2075,4 +2075,72 @@ class Solution:
 
 =========================================================================================================================================\\
 
+-- Ugly number
+
+-- https://leetcode.com/problems/ugly-number-ii/submissions/
+-- https://www.youtube.com/watch?v=X5SuOsIWCoI&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=11
+
+-- 
+class Solution(object):
+    def nthUglyNumber(self, n):
+        
+        dp = [None] * n
+        
+        dp[0] = 1
+        # take three pointer for 2 3 and 5
+        p1, p2, p3 = 0, 0, 0
+        for i in range(1, n):
+            twomul = dp[p1] * 2
+            threemul = dp[p2] * 3
+            fivemul = dp[p3] * 5
+            
+            dp[i] = min(twomul, min(threemul, fivemul))
+            if dp[i] == twomul: p1 += 1
+            if dp[i] == threemul: p2 += 1
+            if dp[i] == fivemul: p3 += 1
+        
+        return dp[n-1]
+--
+
+=============================================================================================================================================
+
+-- Minimum Number of removals
+
+
+-- https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/submissions/
+-- https://www.youtube.com/watch?v=nW4Kx41G7XE&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=13
+
+--
+def minimumMountainRemovals(self, nums):
+		n = len(nums)
+		len1 = [1]
+		left = [nums[0]]
+		for i in range(1,n):
+			if nums[i] > left[-1]:
+				left.append(nums[i])
+				len1.append(len1[-1]+1)
+			else:
+				left[bisect_left(left,nums[i])] = nums[i]
+				len1.append(len1[-1])
+
+
+		len2 = [1]
+		ans = 0
+		right = [nums[-1]]
+		for i in range(n-2,-1,-1):
+			if nums[i] > right[-1]:
+				right.append(nums[i])
+				len2.append(len2[-1]+1)
+			else:
+				right[bisect_left(right,nums[i])] = nums[i]
+				len2.append(len2[-1])
+			if len1[i]>1 and len2[n-1-i]>1:
+				ans = max(ans,len1[i]+len2[n-1-i]-1)
+
+		return n-ans
+
+--
+
+==========================================================================================================================================================
+
 -- 

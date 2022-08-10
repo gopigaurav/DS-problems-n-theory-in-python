@@ -346,5 +346,31 @@ class Solution:
 -- Jump game 2
 
 
+-- https://leetcode.com/problems/jump-game-ii/submissions/
 -- https://www.youtube.com/watch?v=wLPdkLM_BWo
--- https://leetcode.com/problems/jump-game-ii/
+
+
+--
+class Solution(object):
+    def jump(self, nums):
+        # greedy approach
+        # https://www.youtube.com/watch?v=wLPdkLM_BWo
+        # take 3 variables
+        
+        farthest = 0
+        current = 0
+        jumps = 0
+        
+        for i in range(len(nums) -1):
+            farthest = max(farthest, nums[i] + i)
+            
+            if i == current:
+                current = farthest
+                jumps += 1
+            
+        
+        return jumps
+        
+--
+
+======================================================================================================================================================
