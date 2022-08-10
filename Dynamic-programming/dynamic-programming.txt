@@ -861,6 +861,81 @@ class Solution:
 -- min cuts in palindrome partitioning
 
 
+--
+
+class Solution(object):
+    def minCut1(self, s):
+        # front partitioning
+        # if i == n : return 0
+        n = len(s)
+        dp = [-1] * (n+1)
+        return self.sol(0, s, n, dp) - 1
+    
+    def sol(self, i, s, n, dp):
+        if i == n: return 0
+        if dp[i] != -1: return dp[i]
+        minCost = float("inf")
+        
+        
+        for j in range(i, n):
+            # from i to j check for palindrome if yes and add 1 and recursion for rest of the palindrome
+            temp = s[i:j+1]
+            if temp[:] == temp[::-1]:
+                # from j+1 to end
+                cost = 1 + self.sol(j+1, s, n, dp)
+                minCost = min(minCost, cost)
+        dp[i] = minCost
+        return dp[i]
+                
+        
+        
+    def isPalindrome(self, i, j, s):
+        temp = s[i:j+1]
+        if s[i:j+1] != temp[::-1]:
+            return False
+        return True
+    
+    
+    # Tabulation approach that is bottom up
+    def minCut2(self, s):
+        cut = [x for x in range(-1,len(s))]
+        for i in range(0,len(s)):
+            for j in range(i,len(s)):
+                if s[i:j] == s[j:i:-1]:
+                    cut[j+1] = min(cut[j+1],cut[i]+1)
+        return cut[-1]
+    
+    
+    def minCut(self, s):
+        
+        n = len(s)
+        if n == 1:
+            return 0
+        dp = [0 for _ in range(n+1)]
+        
+        dp[n] = 0 # base case
+        
+        # i from n-1 to 0
+        minCost = float("inf")
+        for i in range(n-1, -1, -1):    
+            minCost = float("inf")
+            for j in range(i, n):
+                
+            # from i to j check for palindrome if yes and add 1 and recursion for rest of the palindrome
+            # palindrome functions might give u TLE here 
+            
+                temp = s[i:j+1]
+		# be careful in next step
+                if temp[:] == temp[::-1]:
+                    # from j+1 to end
+                    cost = 1 + dp[j+1]
+                    minCost = min(minCost, cost)
+            dp[i] = minCost
+        return dp[0] - 1
+
+-- 
+
+
 =======================================================================================================================
 
 -- minimum number of insertion to make palindrome
