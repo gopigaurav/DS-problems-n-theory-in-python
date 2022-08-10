@@ -943,6 +943,30 @@ class Solution(object):
 
 --
 
+class Solution(object):
+    def minInsertions(self, s):
+        srev = s[::-1]
+        lcs = self.LCS(s,srev)
+        res = len(s) - lcs
+        return res
+    def LCS(self,s1,s2):
+        l1 = len(s1)
+        l2 = len(s2)
+        mx = 0
+        dp = [[0 for k in range(l2+1)] for l in range(l1+1)]
+
+        for i in range(1,l1+1):
+            for j in range(1,l2+1):
+            # not required if statement
+                if (i == 0 or j == 0):
+                    dp[i][j] = 0
+                if s1[i-1] == s2[j-1]:
+                    dp[i][j] = 1 + dp[i-1][j-1]
+                    mx = max(mx, dp[i][j])
+                else:
+                    dp[i][j] = max(dp[i][j-1],dp[i-1][j])
+
+        return mx
 --
 
 =========================================================================================================================
