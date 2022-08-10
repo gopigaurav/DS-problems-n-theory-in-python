@@ -343,6 +343,8 @@ class Solution:
 
 ==========================================================================================================================================
 
--- Jump game
+-- Jump game 2
 
--- 
+
+-- https://www.youtube.com/watch?v=wLPdkLM_BWo
+-- https://leetcode.com/problems/jump-game-ii/
