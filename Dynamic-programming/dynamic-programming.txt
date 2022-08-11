@@ -2359,7 +2359,7 @@ def numDecodings(self, s):
 
 =================================================================================================================================================================
 
--- Consecutive ones not allowed
+-- Consecutive ones not allowed (Recursion)
 
 -- https://leetcode.com/discuss/general-discussion/1287402/count-number-of-binary-strings-without-consecutive-1s
 -- https://practice.geeksforgeeks.org/problems/consecutive-1s-not-allowed1912/1
@@ -2388,4 +2388,6 @@ class Solution:
 
 ============================================================================================================================================================================
 
--- 
+-- Davis Staircase
+
+--
