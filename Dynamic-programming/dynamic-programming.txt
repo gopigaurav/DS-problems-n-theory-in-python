@@ -2362,6 +2362,30 @@ def numDecodings(self, s):
 -- Consecutive ones not allowed
 
 -- https://leetcode.com/discuss/general-discussion/1287402/count-number-of-binary-strings-without-consecutive-1s
+-- https://practice.geeksforgeeks.org/problems/consecutive-1s-not-allowed1912/1
+-- https://www.youtube.com/watch?v=b06vLtjwZuE&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=18
 
+
+-- 
+#User function Template for python3
+class Solution:
+
+	def countStrings(self,n):
+    	zeroend = 1 # "0"
+    	oneend = 1  # "1"
+    	sum = zeroend + oneend
+    	if n == 1: return sum
+    	i = 2
+    	while i <= n:
+    	    oneend = zeroend % (1000000007)
+    	    zeroend = sum % (1000000007)
+    	    
+    	    sum = zeroend + oneend % (1000000007)
+    	    i+=1
+    	return sum % (1000000007)
+--
+
+
+============================================================================================================================================================================
 
 -- 
