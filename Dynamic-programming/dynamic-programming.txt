@@ -2427,4 +2427,47 @@ def sol(n):
 --
 ========================================================================================================================================================================================
 
--- 
+-- Unique paths (similar to Number of paths from top left to bottom right)
+
+ 
+-- https://leetcode.com/problems/unique-paths/
+-- https://www.youtube.com/watch?v=sLuKQ9mZFz0&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=19
+-- https://practice.geeksforgeeks.org/problems/count-all-possible-paths-from-top-left-to-bottom-right3011/1
+-- https://leetcode.com/problems/unique-paths/discuss/2363008/Python-oror-Detailed-Explanation-oror-Easy-Understand-oror-DP-oror-MATH
+-- https://leetcode.com/problems/unique-paths/discuss/474165/3-Python-sol-sharing-With-explanation
+
+
+--
+class Solution:
+	def numberOfPath1s(self, p, q):
+        # Create a 1D array to store
+        # results of subproblems
+        dp = [[1] * (q) for _ in range(p)] 
+        for i in range(1, p):
+            for j in range(1, q):
+                dp[i][j] = dp[i][j - 1] + dp[i-1][j]
+        return dp[p-1][q - 1] % 1000000007
+        
+    def numberOfPaths(self, p, q):
+     
+        # Create a 1D array to store
+        # results of subproblems
+        dp = [1 for i in range(q)]
+        for i in range(p - 1):
+            for j in range(1, q):
+                dp[j] += dp[j - 1]
+        return dp[q - 1] % 1000000007
+
+
+class Solution(object):
+    # given row and col
+    def uniquePaths(self, p, q):
+        # recursion and dp
+        # q => number of columns
+        # p => number of rows
+        dp = [1 for i in range(q)]
+        for i in range(p - 1):
+            for j in range(1, q):
+                dp[j] += dp[j - 1]
+        return dp[q - 1]
+--
