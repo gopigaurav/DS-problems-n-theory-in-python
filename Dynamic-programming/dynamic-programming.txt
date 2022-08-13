@@ -2628,4 +2628,75 @@ class Solution:
 
 ==================================================================================================================================================================================
 
+-- Dungeon Game
+
+-- https://leetcode.com/problems/dungeon-game/submissions/
+-- https://www.youtube.com/watch?v=LbC0ejgACkE
+
+
+--
+class Solution(object):
+    # O(m*n) space
+    def calculateMinimumHP1(self, dungeon):
+        if not dungeon:
+            return 
+        r, c = len(dungeon), len(dungeon[0])
+        dp = [[0 for _ in xrange(c)] for _ in xrange(r)]
+        dp[-1][-1] = max(1, 1-dungeon[-1][-1])
+        for i in xrange(c-2, -1, -1):
+            dp[-1][i] = max(1, dp[-1][i+1]-dungeon[-1][i])
+        for i in xrange(r-2, -1, -1):
+            dp[i][-1] = max(1, dp[i+1][-1]-dungeon[i][-1])
+        for i in xrange(r-2, -1, -1):
+            for j in xrange(c-2, -1, -1):
+                dp[i][j] = max(1, min(dp[i+1][j], dp[i][j+1])-dungeon[i][j])
+        return dp[0][0]
+
+    # O(n) space
+    def calculateMinimumHP2(self, dungeon):
+        if not dungeon:
+            return 
+        r, c = len(dungeon), len(dungeon[0])
+        dp = [0 for _ in xrange(c)]
+        dp[-1] = max(1, 1-dungeon[-1][-1])
+        for i in xrange(c-2, -1, -1):
+            dp[i] = max(1, dp[i+1]-dungeon[-1][i])
+        for i in xrange(r-2, -1, -1):
+            dp[-1] = max(1, dp[-1]-dungeon[i][-1])
+            for j in xrange(c-2, -1, -1):
+                dp[j] = max(1, min(dp[j], dp[j+1])-dungeon[i][j])
+        return dp[0]
+    
+    
+    def calculateMinimumHP(self, dungeon):
+        
+        rows, columns = len(dungeon), len(dungeon[0])
+        hp = [[0]*columns for i in range(rows)]
+        
+        
+        # We will start at endpoint:
+        hp[-1][-1] = max(1, 1-dungeon[-1][-1]) # in example we will need 6 HP to cover -5 loss
+        
+        # Completing the border lines. Excluding endpoint everywhere
+        # for rows
+        for i in range(rows-2, -1,-1):
+            hp[i][-1] = max(1, hp[i+1][-1] - dungeon[i][-1])  
+        for j in range(columns-2, -1, -1): 
+            hp[-1][j] = max(1, hp[-1][j+1] - dungeon[-1][j])
+        
+        # print(hp) to see our HealthPoint table
+        
+		
+        # Next we complete the remaining table
+        # 1 is the bare minimum for the knight to survive
+        for i in range(rows-2, -1, -1):
+            for j in range(columns-2, -1, -1):                
+                hp[i][j] = max(1, min(hp[i+1][j], hp[i][j+1]) - dungeon[i][j])
+        
+        return hp[0][0]
+        
+--
+
+=====================================================================================================================================================================================
+
 -- 
