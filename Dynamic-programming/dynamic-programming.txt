@@ -764,6 +764,7 @@ def minPathSum(self, grid):
 
 -- Minimum path sum matrix (Similar to max path sum in matrix)
 
+-- https://leetcode.com/problems/minimum-path-sum/submissions/
 -- https://leetcode.com/problems/minimum-path-sum/discuss/23466/Simple-python-dp-70ms
 -- https://www.youtube.com/watch?v=OCz6rm9Nh1o
 
