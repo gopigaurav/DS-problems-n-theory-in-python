@@ -417,3 +417,17 @@ class Solution(object):
 --
 
 ========================================================================================================================================
+
+-- Minimum Number of Buckets Required to Collect Rainwater from Houses
+
+-- https://leetcode.com/contest/biweekly-contest-66/problems/minimum-number-of-buckets-required-to-collect-rainwater-from-houses/
+-- https://www.youtube.com/watch?v=k_xxtsRC-hk
+
+
+
+
+
+
+
+
+

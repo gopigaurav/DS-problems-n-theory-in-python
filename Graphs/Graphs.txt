@@ -2998,4 +2998,46 @@ class Solution:
 
 ===========================================================================================================================================================================
 
--- 
+-- Longest Increasing Path in Matrix
+
+
+-- https://leetcode.com/problems/longest-increasing-path-in-a-matrix/submissions/
+-- https://www.youtube.com/watch?v=wCc_nd-GiEc&t=966s
+
+--
+class Solution(object):
+    def longestIncreasingPath(self, g):
+        row = len(g)
+        col = len(g[0])
+        dp = {} # (r, w)
+        
+        # prevVal - previous value
+        def dfs(r, c, prevVal):
+            if (r < 0 or c == col or c < 0 or
+            r == row or g[r][c] <= prevVal):
+                return 0
+            
+            if (r,c) in dp:
+                return dp[(r,c)]
+            
+            res = 1
+            res = max(res, 1 + dfs(r+1, c, g[r][c]))
+            res = max(res, 1 + dfs(r-1, c, g[r][c]))
+            res = max(res, 1 + dfs(r, c-1, g[r][c]))
+            res = max(res, 1 + dfs(r, c+1, g[r][c]))
+            
+            dp[(r,c)] = res
+            return res
+                
+        
+        
+        for i in range(row):
+            for j in range(col):
+                dfs(i, j, -1)
+        return max(dp.values())
+        
+--
+
+==============================================================================================================================================================================
+
+--

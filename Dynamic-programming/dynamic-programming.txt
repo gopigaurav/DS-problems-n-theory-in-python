@@ -2703,3 +2703,43 @@ class Solution(object):
 
 -- https://leetcode.com/problems/minimum-cost-homecoming-of-a-robot-in-a-grid/submissions/
 -- https://www.youtube.com/watch?v=k_xxtsRC-hk
+
+
+
+--
+class Solution(object):
+    def minCost(self, startPos, homePos, rowCosts, colCosts):
+        # go from x1,y1 to x2, y2
+        
+        x1 = min(homePos[0], startPos[0])
+        y1 = min(homePos[1], startPos[1])
+        x2 = max(homePos[0], startPos[0])
+        y2 = max(homePos[1], startPos[1])
+        
+        total = 0
+        # considering position +1 from the robots position
+        
+        
+        # for row
+        if x1 == startPos[0]:
+            for i in range(x1+1, x2+1):
+                total += rowCosts[i]
+        else:
+            for i in range(x1, x2):
+                total += rowCosts[i]
+                
+        
+        # for column
+        if y1 == startPos[1]:
+            for i in range(y1+1, y2+1):
+                total += colCosts[i]
+        else:
+            for i in range(y1, y2):
+                total += colCosts[i]
+                
+        return total
+--
+
+========================================================================================================================================
+
+-- 
