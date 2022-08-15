@@ -2768,7 +2768,52 @@ class Solution:
 
 
 -- https://www.youtube.com/watch?v=54P4sONSm40&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=22
--- 
+-- https://leetcode.com/problems/climbing-stairs/submissions/
+
+
+--
+
+class Solution(object):
+    def climbStairs1(self, n):
+        # ca reach the nth step from n -1 and n-2 step      
+        
+        dp = [0] * (n+1)
+        dp[0] = 1
+        dp[1] = 1
+        
+        for i in range(2, n+1):
+            dp[i] = dp[i-1] + dp[i-2]
+        return dp[n]
+    
+    # optimised with two variables
+    def climbStairs(self, n):     
+        if n==1: return 1
+        if n==2: return 2
+        first = 1
+        second = 2
+        csum = 0
+        for i in range(3, n+1):
+            csum = first + second
+            first = second
+            second = csum
+        return csum
+    
+    def climbStairs2(self, n):
+        dp = [0] * (n+1)
+        def sol(n):
+            if n == 0: return 1
+            if n == 1: return 1
+            if not dp[n]: return dp[n]
+
+            return (dp[n-1] + dp[n-2])
+        
+        return sol(n)
+            
+--
+
+===================================================================================================================================================
+
+-- Best time to buy and sel stocks
 
 
 
