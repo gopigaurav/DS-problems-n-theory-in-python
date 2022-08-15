@@ -401,3 +401,38 @@ class Solution:
 
 
 ===========================================================================================================================================================================
+
+
+-- Maximum points You can obtain from cards
+
+-- https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/
+
+
+--
+class Solution(object):
+    def maxScore(self, arr, K):
+        # sliding window
+        # similar to minimum sliding window
+        n = len(arr)
+        i = 0
+        j = 0
+        k = n- K
+        if n == K:
+            return sum(arr)
+        minSum = float("inf")
+        csum = 0
+        while(j < n):
+            csum += arr[j]
+            if (j-i+1) < k:
+                j+=1
+            elif (j-i+1) == k:
+                minSum = min(minSum, csum)
+                csum -= arr[i]
+                i+=1
+                j+=1
+        return (sum(arr) - minSum) 
+--
+
+===========================================================================================================================================
+
+--
