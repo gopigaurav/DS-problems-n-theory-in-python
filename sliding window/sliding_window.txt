@@ -406,7 +406,7 @@ class Solution:
 -- Maximum points You can obtain from cards
 
 -- https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/
-
+-- https://www.youtube.com/watch?v=GIO9YRFmMXA&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=22
 
 --
 class Solution(object):
@@ -435,4 +435,4 @@ class Solution(object):
 
 ===========================================================================================================================================
 
---
+-- 
