@@ -2860,8 +2860,58 @@ class Solution(object):
 
 ==================================================================================================================================================================
 
+-- Delete Operation for Two Strings (Similar to Longest common subsequence)
+
+-- https://www.youtube.com/watch?v=rscLHdeMKXw&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=23
+-- https://leetcode.com/problems/delete-operation-for-two-strings/
+
 --
+class Solution(object):
+    def minDistance(self, s1, s2):
+        l1 = len(s1)
+        l2 = len(s2)
+        dp = [[None]*(l2+1) for _ in range(l1+1)]
+        for i in range(l1+1):
+            dp[i][0] = 0
+        for j in range(l2+1):
+            dp[0][j] = 0
 
-
+        for i in range(1,l1+1):
+            for j in range(1,l2+1):
+                if s1[i-1] == s2[j-1]:
+                    dp[i][j] = 1 + dp[i-1][j-1]
+                else:
+                    dp[i][j] = max(dp[i][j-1],dp[i-1][j])
+        
+        a = l1 - dp[l1][l2]
+        b = l2 - dp[l1][l2]
+        
+        return a+b
+--
 =============================================================================================================================================================
 
+
+-- Triangle 120
+
+
+-- https://www.youtube.com/watch?v=1IL5sxfoA-I&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=24
+-- https://leetcode.com/problems/triangle/submissions/
+
+
+--
+class Solution(object):
+    def minimumTotal(self, a):
+        n = len(a)
+        dp = [0] *n
+        
+        for i in range(n):
+            dp[i] = a[-1][i]
+        
+        for i in range(n-2, -1, -1):
+            for j in range(len(a[i])):
+                dp[j] = min(dp[j], dp[j+1]) + a[i][j]
+                
+        return dp[0]
+--
+
+======================================================================================================================================================================
