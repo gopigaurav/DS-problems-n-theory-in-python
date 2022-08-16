@@ -2815,5 +2815,25 @@ class Solution(object):
 
 -- Best time to buy and sel stocks
 
--- 
+-- https://leetcode.com/problems/maximum-subarray/submissions/
+-- https://www.youtube.com/watch?v=54P4sONSm40&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=22
+
+--
+class Solution(object):
+    def maxProfit(self, a):
+        buy = a[0]
+        sell = 0
+        
+        for i in range(1, len(a)):
+            if a[i] < buy:
+                buy = a[i]
+            sell = max(sell, a[i] - buy)
+        return sell
+        
+--
+
+
+=============================================================================================================================================================
+
+-- House Robber
 
