@@ -2837,3 +2837,31 @@ class Solution(object):
 
 -- House Robber
 
+-- https://leetcode.com/problems/house-robber/
+-- https://www.youtube.com/watch?v=54P4sONSm40&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=22
+
+
+--
+class Solution(object):
+    def rob(self, nums):
+        n = len(nums)
+        if n == 1:
+            return nums[0]
+        dp = [0] * n
+        dp[0] = nums[0]
+        dp[1] = max(nums[1], nums[0])
+        
+        for i in range(2, n):
+            dp[i] = max(dp[i-2] + nums[i], dp[i-1])
+            
+        return dp[n-1]
+        
+--
+
+==================================================================================================================================================================
+
+--
+
+
+=============================================================================================================================================================
+
