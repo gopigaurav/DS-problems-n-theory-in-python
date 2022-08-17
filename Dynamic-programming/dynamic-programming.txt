@@ -2919,7 +2919,7 @@ class Solution(object):
 -- Combination Sum 4
 
 -- https://leetcode.com/problems/combination-sum-iv/
-
+-- https://www.youtube.com/watch?v=90z1w8XSWIU&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=25
 
 -- 
 Given an array of distinct integers nums and a 
@@ -2930,8 +2930,15 @@ The test cases are generated so that the answer can fit in a 32-bit
  integer.
 --
 
+# count for 3
+count += CS(2) + Cs(1) + Cs(0)
+
 --
 
 --
 
 =============================================================================================================================================================================
+
+-- 
+
+
