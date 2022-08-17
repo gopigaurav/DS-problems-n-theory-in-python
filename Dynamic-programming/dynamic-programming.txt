@@ -2986,9 +2986,36 @@ class Solution(object):
 -- https://leetcode.com/problems/russian-doll-envelopes/
 
 ======================================================================================================================================================
+
 -- Wiggle subsequence (Using two Variables)
 
 -- https://www.youtube.com/watch?v=D8m8eWP8w4E&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=28
--- 
+-- https://leetcode.com/problems/wiggle-subsequence/submissions/
 
+
+--
+
+class Solution(object):
+    def wiggleMaxLength(self, a):
+        
+        # using two pointers
+        # https://www.youtube.com/watch?v=D8m8eWP8w4E&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=28
+        
+        if len(a) < 2: return 1  
+        inc=1
+        dec=1
+        
+        for i in range(1, len(a)):
+            if a[i] > a[i-1]:
+                inc = dec + 1
+            elif a[i] < a[i-1]:
+                dec = inc + 1
+        
+        return max(inc, dec)
+--
+
+
+=======================================================================================================================================================================================
+
+-- 
 
