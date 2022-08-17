@@ -2939,6 +2939,45 @@ count += CS(2) + Cs(1) + Cs(0)
 
 =============================================================================================================================================================================
 
--- 
+-- Longest Incrasing path in a Matrix
+
+
+-- https://www.youtube.com/watch?v=wv_GA9077Dc&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=26
+-- https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+
+-- Method - 1
+class Solution(object):
+    def longestIncreasingPath(self, g):
+        row = len(g)
+        col = len(g[0])
+        dp = {} # (r, w)
+        
+        # prevVal - previous value
+        def dfs(r, c, prevVal):
+            if (r < 0 or c == col or c < 0 or
+            r == row or g[r][c] <= prevVal):
+                return 0
+            
+            if (r,c) in dp:
+                return dp[(r,c)]
+            
+            res = 1
+            res = max(res, 1 + dfs(r+1, c, g[r][c]))
+            res = max(res, 1 + dfs(r-1, c, g[r][c]))
+            res = max(res, 1 + dfs(r, c-1, g[r][c]))
+            res = max(res, 1 + dfs(r, c+1, g[r][c]))
+            
+            dp[(r,c)] = res
+            return res
+                
+        
+        
+        for i in range(row):
+            for j in range(col):
+                dfs(i, j, -1)
+        return max(dp.values())
+--
+
+
 
 
