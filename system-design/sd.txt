@@ -1,0 +1,3 @@
+Stock market exchange 
+
+-- https://whimsical.com/system-design-stock-trading-platforms-scaler-J4jsLowyxtaQnZYqxkrLWN
