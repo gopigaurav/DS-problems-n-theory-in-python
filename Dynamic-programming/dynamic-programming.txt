@@ -3066,6 +3066,25 @@ class Solution(object):
 
 
 --
+# https://www.youtube.com/watch?v=LeXxsRtxPY0&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=35
 
+class Solution(object):
+    def maxScoreSightseeingPair(self, a):
+        
+        # max(a[i] + i + a[j] -j)
+        # 1 => maximize a[i] +  i 
+        # 2 => maximize a[j] - j     
+        
+        n = len(a)
+        maximize = a[0] + 0
+        ans = float('-inf')
+        for j in range(1, n):
+            ans = max(ans, maximize + a[j] - j)
+            maximize = max(maximize, a[j] + j)
+        return ans
 --
+
+===============================================================================================================================================================================================
+
+-- 
 
