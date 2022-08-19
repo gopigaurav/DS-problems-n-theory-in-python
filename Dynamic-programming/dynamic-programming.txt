@@ -3177,8 +3177,11 @@ class Solution:
 
 -- Stone Game IV
 
---  https://leetcode.com/problems/stone-game-iv/submissions/
+-- https://leetcode.com/problems/stone-game-iv/submissions/
 -- https://www.youtube.com/watch?v=zYwZr-UxQMk&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=37
+-- https://leetcode.com/problems/stone-game-iv/discuss/1708107/Python3-DP
+-- https://leetcode.com/problems/stone-game-iv/discuss/730695/Python3-bottom-up-dp
+
 
 --
 
