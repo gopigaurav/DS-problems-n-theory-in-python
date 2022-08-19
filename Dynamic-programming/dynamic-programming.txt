@@ -3086,5 +3086,90 @@ class Solution(object):
 
 ===============================================================================================================================================================================================
 
--- 
+-- Maximum sum of non adjacent nodes
+
+-- https://practice.geeksforgeeks.org/problems/maximum-sum-of-non-adjacent-nodes/1
+-- https://www.youtube.com/watch?v=DBxCv9NpPYM&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=36
+
+--
+from collections import defaultdict
+'''
+# Node Class:
+class Node:
+    def __init__(self,val):
+        self.data = val
+        self.left = None
+        self.right = None
+'''
+
+class Solution:
+    #Function to return the maximum sum of non-adjacent nodes.
+    # https://www.youtube.com/watch?v=DBxCv9NpPYM&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=36
+    m = defaultdict(list)
+    def getMaxSum(self,root):
+        # first either take or live the root
+        # taken => fn(rt.l.l)
+            # taken => fn(rt.l.l)
+            # taken => fn(rt.l.r)
+            # taken => fn(rt.r.l)
+            # taken => fn(rt.r.r)
+        
+        # not taken => fn(rt.l)
+            # not taken => fn(rt.r)
+        
+        # take max(taken, not taken)
+        
+        # with node
+        
+        
+        if not root: return 0
+        if self.m.get(root, 0): return self.m[root]
+        withnode = root.data
+        if root.left:
+            withnode += self.getMaxSum(root.left.left)
+            withnode += self.getMaxSum(root.left.right)
+        
+        if root.right:
+            withnode += self.getMaxSum(root.right.left)
+            withnode += self.getMaxSum(root.right.right)
+        
+        ## without node
+        withoutnode = self.getMaxSum(root.left) + self.getMaxSum(root.right)
+        
+        self.m[root] = max(withoutnode, withnode)
+        return self.m[root]
+        
+    # without dp
+    def getMaxSum1(self,root):
+        # first either take or live the root
+        # taken => fn(rt.l.l)
+            # taken => fn(rt.l.l)
+            # taken => fn(rt.l.r)
+            # taken => fn(rt.r.l)
+            # taken => fn(rt.r.r)
+        
+        # not taken => fn(rt.l)
+            # not taken => fn(rt.r)
+        
+        # take max(taken, not taken)
+        
+        # with node
+        
+        
+        if not root: return 0
+        withnode = root.data
+        if root.left:
+            withnode += self.getMaxSum(root.left.left)
+            withnode += self.getMaxSum(root.left.right)
+        
+        if root.right:
+            withnode += self.getMaxSum(root.right.left)
+            withnode += self.getMaxSum(root.right.right)
+        
+        ## without node
+        withoutnode = self.getMaxSum(root.left) + self.getMaxSum(root.right)
+        
+        ans = max(withoutnode, withnode)
+        return ans
+--
 
