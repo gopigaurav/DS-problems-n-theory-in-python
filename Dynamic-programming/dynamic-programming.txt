@@ -3173,3 +3173,38 @@ class Solution:
         return ans
 --
 
+============================================================================================================================================================================
+
+-- Stone Game IV
+
+--  https://leetcode.com/problems/stone-game-iv/submissions/
+-- https://www.youtube.com/watch?v=zYwZr-UxQMk&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=37
+
+--
+
+# https://www.youtube.com/watch?v=zYwZr-UxQMk&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=37
+class Solution(object):
+    def winnerSquareGame(self, a):
+        """
+        :type n: int
+        :rtype: bool
+        """ 
+        # alice will always starts the game
+        dp = [-1]*(a+1)
+        def sol(n, dp):
+            if not n: return 0
+            if dp[n] != -1:
+                return dp[n]
+            for i in range(1, int(sqrt(n))+1):
+                if not sol(n-i*i, dp):
+                    dp[n] = 1
+                    return dp[n]
+            dp[n] = 0
+            return dp[n]
+        return sol(a, dp)
+
+--
+
+============================================================================================================================================================================
+
+-- 
