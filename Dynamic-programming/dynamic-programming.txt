@@ -807,7 +807,7 @@ class Solution(object):
 -- Unique paths 2
 
 -- https://leetcode.com/problems/unique-paths-ii/submissions/
-
+-- (IMP) https://www.youtube.com/watch?v=qJxJq-DulsE&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=41
 
 --  method 1
 class Solution(object):    
