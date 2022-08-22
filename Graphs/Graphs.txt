@@ -3043,4 +3043,44 @@ class Solution(object):
 -- (Floyd warshell) Find city with smallest number of neighbours at threshold distance 
 
 
+-- https://www.youtube.com/watch?v=s33lKd8ZOkI&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=40
+-- https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/submissions/
+
+
+--
+class Solution(object):
+    def findTheCity(self, n, edges, distanceThreshold):
+        dist = [[float("inf") for _ in range(n)] for _ in range(n)]
+        
+        # make the diagonal distance as 0
+        for i in range(n):
+            dist[i][i] = 0
+        
+        for v in edges:
+            dist[v[0]][v[1]] = v[2]
+            dist[v[1]][v[0]] = v[2]
+            
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    if dist[i][k] != float("inf") and dist[k][j] != float("inf") and (dist[i][k] + dist[k][j] < dist[i][j]):
+                        dist[i][j] = dist[i][k] + dist[k][j]
+        
+        citycount = float("inf")
+        ans = 0
+        for i in range(n):
+            count =0
+            for j in range(n):
+                if i!=j and dist[i][j] <= distanceThreshold:
+                    count += 1
+        
+            if count <= citycount:
+                ans = i
+                citycount = count
+        return ans
+            
+--
+
+====================================================================================================================================================================================
+
 -- 
