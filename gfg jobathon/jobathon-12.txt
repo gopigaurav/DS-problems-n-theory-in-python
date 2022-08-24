@@ -103,9 +103,33 @@ else:
 ========================================================================================================================================================
 -- Subarray Counting
 
--- https://practice.geeksforgeeks.org/contest/job-a-thon-12-hiring-challenge/instructions/
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-12-hiring-challenge/problems/#
 
+-- Find the unique gcd arrays in subarrays
 
 --
 
+import math
+from typing import List
+
+class Solution:
+    def solve(self, n, A):
+        # craete the subarray
+        cnt = 0 
+        # ranging from i to j
+        for i in range(n):
+            s = set()
+            gcd = 0
+            for j in range(i, n):
+                gcd = math.gcd(gcd, A[i])
+                if gcd in s:
+                    break
+		s.add(gcd)
+                cnt += 1
+        return cnt
 --
+
+===============================================================================================================================================================================
+
+
+-- 
