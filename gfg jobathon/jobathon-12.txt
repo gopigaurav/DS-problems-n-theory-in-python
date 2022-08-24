@@ -22,16 +22,83 @@ class Solution:
 --
 =================================================================================================================================
 
+-- gcd of two numbers
+
+
+-- method - 1 (Eucledian formula)
+
+time Complexity: O(min(a,b))
+Auxiliary Space: O(1)
+
+s
+# function to return gcd of a and b
+
+# Taking the matrix as globally
+dp = [[-1 for i in range(1001)] for j in range(1001)]
+
+def gcd(a,b):
+	
+	# Everything divides 0
+	if (a == 0):
+		return b
+	if (b == 0):
+		return a
+
+	# base case
+	if (a == b):
+		return a
+	
+	if(dp[a][b] != -1):
+		return dp[a][b]
+		
+	# a is greater
+	if (a > b):
+		dp[a][b] = gcd(a-b, b)
+	else:
+		dp[a][b] = gcd(a, b-a)
+		
+	return dp[a][b]
+
+# Driver program to test above function
+a = 98
+b = 56
+if(gcd(a, b)):
+	print('GCD of', a, 'and', b, 'is', gcd(a, b))
+else:
+	print('not found')
+
+# This code is contributed by Samim Hossain Mondal.
 
 
 
 
 
+-- 
+-- method - 2
+Time Complexity: O(log(min(a,b))
+
+Auxiliary Space: O(log(min(a,b))
+
+# Recursive function to return gcd of a and b
+def gcd(a,b):
+	
+	# Everything divides 0
+	if (b == 0):
+		return a
+	return gcd(b, a%b)
+
+# Driver program to test above function
+a = 98
+b = 56
+if(gcd(a, b)):
+	print('GCD of', a, 'and', b, 'is', gcd(a, b))
+else:
+	print('not found')
+
+# This code is contributed by Danish Raza
 
 
-
-
-
+--
 
 ========================================================================================================================================================
 -- Subarray Counting
