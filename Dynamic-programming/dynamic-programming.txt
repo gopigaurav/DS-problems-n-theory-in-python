@@ -804,7 +804,7 @@ class Solution(object):
 
 ========================================================================================================================
 
--- Unique paths 2
+-- Unique paths 2 (Similar to speacial matrix)
 
 -- https://leetcode.com/problems/unique-paths-ii/submissions/
 -- (IMP) https://www.youtube.com/watch?v=qJxJq-DulsE&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=41
