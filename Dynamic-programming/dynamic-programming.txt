@@ -3407,9 +3407,73 @@ print(uniquePathsWithObstacles(A))
 
 --
 
-=========================================================================================================================================================================================
+============================ VERY IMPORTANT =============================================================================================================================================================
 
 -- Ones and Zeros
 
 -- https://www.youtube.com/watch?v=PSYnD_yz-l8&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=43
 -- https://leetcode.com/problems/ones-and-zeroes/submissions/
+
+
+--
+class Solution(object):
+    # top down approach
+    def findMaxFormTopDown(self, strs, nm, nn):
+        dp = [[[-1 for _ in range(len(strs)+1)] for _ in range(nn+1)] for _ in range(nm+1)]
+        
+        def count(st):
+            cou = 0
+            for i in st:
+                if int(i) & 1:
+                    cou+=1
+            return cou
+                
+        def sol(strs, m, n, index):
+            if index == len(strs):
+                return 0
+            if dp[m][n][index] != -1:
+                return dp[m][n][index]
+            countones = count(strs[index])
+            countzeros = len(strs[index]) - countones
+            
+            if m-countzeros >= 0 and n-countones >= 0:
+                 
+                dp[m][n][index] = max(1 + sol(strs, m-countzeros, n-countones, index+1), sol(strs, m, n, index+1))
+                return dp[m][n][index]
+            
+            dp[m][n][index] = sol(strs, m, n, index+1)
+            return dp[m][n][index]
+        
+        return sol(strs, nm, nn, 0)
+    
+    
+    
+    # bottom up approach
+    
+    def findMaxForm(self, strs, m, n):
+        dp = [[[0 for _ in range(n+1)] for _ in range(m+1)] for _ in range(len(strs)+1)]
+        
+        # here we use 3 for loops becoz m n and index are changing
+        
+        def count(st):
+            cou = 0
+            for i in st:
+                if int(i) & 1:
+                    cou+=1
+            return cou
+        
+        for i in range(1, len(strs)+1):
+            countones = count(strs[i-1])
+            countzeros = len(strs[i-1]) - countones
+            for j in range(m+1):
+                for k in range(n+1):
+                    if j-countzeros >= 0 and k-countones >= 0:
+                        dp[i][j][k] = max(1 + dp[i-1][j-countzeros][k-countones], dp[i-1][j][k])
+                    else:
+                        dp[i][j][k] = dp[i-1][j][k]
+        return dp[-1][-1][-1]
+--
+
+=============================================================================================================================================
+
+-- 
