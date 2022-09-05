@@ -3551,3 +3551,30 @@ print (count(n))
 ==================================================================================================================================================
 
 -- check if there is a valid partition for the array
+
+-- https://www.youtube.com/watch?v=eiBz5W3g6Vk&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=46
+-- 
+
+
+
+--
+class Solution(object):
+    def validPartition(self, arr):
+        
+        def sol(nums, i):
+            # case 1 : check for two same numbers
+            
+            if i+1 < len(nums) and nums[i] == nums[i+1]:
+                if sol(nums, i+2): return True
+                
+                # case 2 : check for 3 similar elements
+                if i+2 < len(nums) and  nums[i] == nums[i+2]:
+                    if sol(nums, i+3): return True
+                    
+            # case 3 : check for consecutive numbers
+            if i+2 < len(nums) and nums[i+1] == nums[i]+1 and nums[i+2] == nums[i] + 2:
+                if sol(nums, i+3): return True
+            return False
+        return sol(arr, 0)
+        
+--
