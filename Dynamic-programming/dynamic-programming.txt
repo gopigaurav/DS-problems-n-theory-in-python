@@ -905,7 +905,6 @@ print(uniquePathsWithObstacles(A))
 
 --
 
-
 ==================================================================================================================================================
 # prefix sum array 
 
@@ -3401,10 +3400,16 @@ print(uniquePathsWithObstacles(A))
 -- Broken blocks
 
 -- https://www.youtube.com/watch?v=XODPSbau0WA&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=42
--- 
-
-=========================================================================================================================================================================================
-
+-- https://practice.geeksforgeeks.org/problems/broken-blocks0022/1
 
 
 --
+
+--
+
+=========================================================================================================================================================================================
+
+-- Ones and Zeros
+
+-- https://www.youtube.com/watch?v=PSYnD_yz-l8&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=43
+-- https://leetcode.com/problems/ones-and-zeroes/submissions/
