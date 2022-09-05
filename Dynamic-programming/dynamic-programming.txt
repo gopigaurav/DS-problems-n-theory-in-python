@@ -3553,11 +3553,11 @@ print (count(n))
 -- check if there is a valid partition for the array
 
 -- https://www.youtube.com/watch?v=eiBz5W3g6Vk&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=46
--- 
+-- https://leetcode.com/problems/check-if-there-is-a-valid-partition-for-the-array/
 
 
 
---
+--  Use dp here 
 class Solution(object):
     def validPartition(self, arr):
         
