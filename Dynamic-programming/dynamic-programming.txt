@@ -3576,5 +3576,33 @@ class Solution(object):
                 if sol(nums, i+3): return True
             return False
         return sol(arr, 0)
+       
+--
+
+
+==============================================================================================================================================================
+
+-- Longest ideal subsequence
+
+--
+
+
+--
+
+class Solution(object):
+    def longestIdealString(self, s, k):
         
+        dp = [0] * 26
+        ans = 0
+        
+        for i in range(len(s)):
+            element = ord(s[i]) - ord("a")
+            for j in range(element, (element- k) + 1, -1):
+                dp[element] = max(dp[element] , dp[j]+1)
+            
+            for j in range(element + 1, (element+ k) + 1):
+                dp[element] = max(dp[element] , dp[j]+1)
+            ans = max(ans, dp[element])
+        return ans
+         
 --
