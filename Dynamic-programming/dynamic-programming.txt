@@ -3476,4 +3476,29 @@ class Solution(object):
 
 =============================================================================================================================================
 
--- 
+-- Count digits group
+
+-- https://practice.geeksforgeeks.org/problems/count-digit-groupings-of-a-number1520/1
+-- https://www.geeksforgeeks.org/count-groupings-number-sum-digits-every-sub-group-less-equals-immediate-right-sub-group/
+-- https://www.youtube.com/watch?v=DI6pH9Cx654&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=44
+
+--
+class Solution:
+	def TotalCount(self, s):
+	    dp = [[-1 for _ in range(9*len(s))] for _ in range(len(s) + 1)]
+	    
+	    def sol(str, index, sum):
+	        
+	        if index == len(str): return 1
+	        if dp[index][sum] != -1:
+	            return dp[index][sum]
+	        ans = 0
+	        cursum = 0
+	        for i in range(index, len(str)):
+	            cursum += int(str[i])
+	            if cursum >= sum:
+	                ans += sol(str, i + 1, cursum)
+	        dp[index][sum] = ans
+	        return dp[index][sum]
+		return sol(s, 0, 0)
+--
