@@ -3582,9 +3582,10 @@ class Solution(object):
 
 ==============================================================================================================================================================
 
--- Longest ideal subsequence
+-- Longest ideal subsequence (code not fully completed)
 
---
+-- https://www.youtube.com/watch?v=kGHL46IvyTY&list=PLLT4EuYB4kIY_DWiiFY_TW3Egm9pmZPuS&index=47
+-- https://leetcode.com/contest/weekly-contest-305/problems/longest-ideal-subsequence/
 
 
 --
