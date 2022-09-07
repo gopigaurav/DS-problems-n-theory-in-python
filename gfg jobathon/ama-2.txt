@@ -1,0 +1,7 @@
+==> https://www.youtube.com/watch?v=BrDYbv-zWt0
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-exclusive-hiring-challenge-2-for-amazon-alexa/instructions/
+
+-- Maximum Multiple
+
+-- sort
+-- reverse first half or second half then multiply
