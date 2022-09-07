@@ -5,3 +5,25 @@
 
 -- sort
 -- reverse first half or second half then multiply
+
+
+def sol(N, A):
+	cnt = 0
+	A.sort()
+	
+	for i in range(N):
+		if A[i] < 0: cnt += 1
+	
+	if (2 *cnt == N):
+		reverse(A, A+(N/2))
+	
+	maxi = 0
+	for i in range(N):
+		maxi = max(maxi, A[i] * A[N - i - 1])
+	
+	return maxi
+
+
+=================================================================================================================================================
+
+
