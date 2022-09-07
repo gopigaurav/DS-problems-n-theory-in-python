@@ -9,3 +9,6 @@ nearest chair
 
 step 1 : sort both the arrays
 step 2 : take the absolute diff between the two arrays
+
+--
+--
