@@ -6,3 +6,6 @@ https://www.youtube.com/watch?v=NdBmSeBkFmY
 
 -- Given passengers and chairs array place passengers to the 
 nearest chair
+
+step 1 : sort both the arrays
+step 2 : take the absolute diff between the two arrays
