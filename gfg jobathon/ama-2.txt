@@ -27,3 +27,52 @@ def sol(N, A):
 =================================================================================================================================================
 
 
+-- Triplet Query
+
+
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-exclusive-hiring-challenge-2-for-amazon-alexa/problems/
+-- 
+from collections import defaultdict
+class Solution():
+    def solve(self, N, M, Q, col, Edge, query):
+        dp = [[[0 for _ in range(27)] for _ in range(27)] for _ in range(27)]
+        g = defaultdict(list)
+        vis = [0] * N
+        for u, v in Edge :
+            g[u].append(v)
+            g[v].append(u)
+    
+        def dfs(node, adj, vis, col, st):
+            vis[node] = 1
+            for i in g[node]:
+                if not vis[i] and col[i] == col[node]:
+                    dfs(i, adj, vis, col, st)
+                elif col[i] != col[node]:
+                    st.add(col[i])
+                    
+                
+        for i in range(N):
+            if not vis[i]:
+                st = set()
+                dfs(i, g, vis, col, st)
+                for it1 in st:
+                    for it2 in st:
+                        dp[ord(col[i]) - ord("a")][ord(it1) - ord("a")][ord(it2) - ord("a")] = 1
+        
+        res = []
+        for it in query:
+            a = ord(it[0]) - ord("a")
+            b = ord(it[1]) - ord("a")
+            c = ord(it[2]) - ord("a")
+            
+            if dp[a][b][c] or dp[a][c][b] or dp[b][a][c] or dp[b][c][a] or dp[c][b][a] or dp[c][a][b]:
+                res.append("YES")
+            else:
+                res.append("NO")
+        return res
+--
+
+
+==================================================================================================================================================================
+
+
