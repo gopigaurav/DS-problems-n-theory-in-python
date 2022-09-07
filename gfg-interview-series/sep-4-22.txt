@@ -4,4 +4,5 @@ https://www.youtube.com/watch?v=NdBmSeBkFmY
 -- Bus Conductor
 
 
--- 
+-- Given passengers and chairs array place passengers to the 
+nearest chair
