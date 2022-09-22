@@ -1,0 +1,31 @@
+License key formatting
+
+-- https://practice.geeksforgeeks.org/problems/license-key-formatting/1
+-- https://www.youtube.com/watch?v=-C8yeHtazmA
+
+-- 
+
+class Solution:
+    def ReFormatString(self,S, K):
+        temp = ""
+        ans = ""
+        for i in range(len(S)-1, -1, -1):
+            if S[i] == '-':
+                continue
+            else:
+                temp += S[i]
+                if len(temp) == k:
+                    ans += temp.upper()
+                    if i > 0:
+                        ans += '-'
+                    temp = ""
+        ans+= temp.upper()
+        if ans and ans[0] == '-':
+            return ans.pop(0)
+        return ans[::-1]
+                    
+--
+
+======================================================================================================
+
+-- 
