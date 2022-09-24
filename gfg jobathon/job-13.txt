@@ -3,3 +3,33 @@
 odd series
 
 -- 
+
+
+--
+f = [0] * 100005
+mod = 10000000007
+class Solution:
+
+    def findNth(self,N):
+        firstcal = 0
+        if firstcal == 0:
+            self.sol()
+            firstcal = 1
+        return f[N]
+    def sol(self):
+        f[0] = 0
+        f[1] = 1
+        for i in range(2, 100000):
+            if i % 5 == 0:
+                f[i] = 11
+            else:
+                f[i] = (f[i-1] + f[i-2]) 
+                f[i] = f[i] % mod
+--
+============================================================================================================================
+
+-- water problem
+
+--
+
+-- 
