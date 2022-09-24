@@ -30,6 +30,24 @@ class Solution:
 
 -- water problem
 
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-13-hiring-challenge/problems/
+
+--
+class Solution:
+    def minCapacity(self,n,arr):
+        # code here
+        arr.sort()
+        maxi = 0
+        for i in range(n):
+            maxi = max(maxi, arr[i] - i)
+        return maxi
 --
 
--- 
+======================================================================================================================================
+
+-- sum up the beauty
+
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-13-hiring-challenge/problems/
+
+--
+ 
