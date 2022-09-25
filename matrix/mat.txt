@@ -1,0 +1,29 @@
+-- Queries on a Matrix
+
+-- https://practice.geeksforgeeks.org/problems/queries-on-a-matrix0443/0
+
+-- 
+class Solution:
+	def solveQueries(self, n, Queries):
+		ans = [[0 for _ in range(n)] for _ in range(n)]
+		
+		for i in range(len(Queries)):
+		    a = Queries[i][0]
+		    b = Queries[i][1]
+		    c = Queries[i][2]
+		    d = Queries[i][3]
+		    
+		    for j in range(a, c+1):
+		        # change the value of only bth column
+		        ans[j][b] += 1
+		        if d+1 < n:
+		            ans[j][d+1] -= 1
+	    
+	    for i in range(n):
+	        for j in range(1, n):
+	            ans[i][j] += ans[i][j-1]
+	    return ans 
+--
+
+====================================================================================================
+
