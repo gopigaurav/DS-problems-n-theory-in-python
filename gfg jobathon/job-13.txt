@@ -50,4 +50,26 @@ class Solution:
 -- https://practice.geeksforgeeks.org/contest/job-a-thon-13-hiring-challenge/problems/
 
 --
- 
+ from collections import defaultdict
+class Solution:
+    def calcBeauty(self,n,a):
+        g = defaultdict(list)
+        ans = 0
+        for i in range(n):
+            if a[i] not in g:
+                g[a[i]].append(-1)
+            g[a[i]].append(i)
+        
+        for i in range(n):
+            g[a[i]].append(n)
+        for i in g:
+            ls = g[i]
+            for j in range(1, len(ls) - 1):
+                first =(ls[j] - ls[j-1])
+                second = (ls[j+1] - ls[j]) 
+                ans = ans + first * second
+        return ans
+--
+
+====================================================================================================================================================
+
