@@ -1,0 +1,19 @@
+-- https://www.youtube.com/watch?v=fdnvPurbs9Y
+
+
+-- Geek hates too amy 1s
+
+-- 
+class Solution:
+    def noConseBits(self, query : int) -> int:
+        cnt = 0
+        for i in range(31, -1, -1):
+            if (query & (1 << i)) > 0:
+                cnt += 1
+                if cnt == 3:
+                    query ^= (1<<i)
+                    cnt = 0
+            else:
+                cnt = 0
+        return que
+-- 
