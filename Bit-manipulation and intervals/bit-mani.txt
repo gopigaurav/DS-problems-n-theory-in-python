@@ -6,24 +6,7 @@ x & ~(x-1) extracts the lowest set bit of x
 x & ~(x + (1 << n)) the run of set bits (possibly length 0) in x,
 			starting at bit n
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+x | (x + 1) x with the lowest cleared bit set 
 
 ===========================================================================================================================================
 -- Single Number
