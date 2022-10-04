@@ -9,6 +9,22 @@ x & ~(x + (1 << n)) the run of set bits (possibly length 0) in x,
 x | (x + 1) x with the lowest cleared bit set 
 
 ===========================================================================================================================================
+
+-- Convert Decimal to binary
+
+-- 
+
+def sol(n):
+	ans = []
+	while n:
+		ans.append(n%2):
+		n/=2
+	return ans[::-1]
+
+--
+		
+
+========================================================================================================================================
 -- Single Number
 
 -- https://leetcode.com/problems/single-number/submissions/
