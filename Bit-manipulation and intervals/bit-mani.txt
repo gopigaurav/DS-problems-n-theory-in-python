@@ -27,7 +27,7 @@ def sol(n):
 
 -- Count Number of set bits
 
--- 
+-- https://www.geeksforgeeks.org/count-set-bits-in-an-integer/
 
 def sol(n):
 	count = 0
