@@ -1,4 +1,10 @@
-https://practice.geeksforgeeks.org/contest/interview-series-67/problems/
+-- https://practice.geeksforgeeks.org/contest/interview-series-67/problems/
+-- https://www.youtube.com/watch?v=zA4PpSPDh30
+
+
+=====================================================================================================================================
+
+-- Minimum Number
 
 --
 import math
@@ -15,3 +21,9 @@ class Solution:
         return g
 
 --
+
+=====================================================================================================================================================
+
+-- Commin Strings
+
+-- https://practice.geeksforgeeks.org/contest/interview-series-67/problems/
