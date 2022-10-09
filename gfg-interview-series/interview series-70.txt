@@ -1,0 +1,67 @@
+-- https://www.youtube.com/watch?v=EgIRcKvoyuA
+
+
+-- BST traverssal downwords
+
+
+-- https://practice.geeksforgeeks.org/events/rec/interview-series?utm_source=gfgpractice&utm_medium=events_page&utm_campaign=events_series_interview_series
+-- https://practice.geeksforgeeks.org/contest/interview-series-70/problems/#
+
+
+--
+class Node:
+    def __init__(self,val):
+        self.data=val
+        self.left=None
+        self.right=None
+'''
+
+class Solution:
+    def verticallyDownBST(self, root, target):
+        
+            
+        if not root: return -1
+        if root.data == target:
+            return self.sol(root.left, -1) + self.sol(root.right, +1)
+        elif root.data < target:
+            self.verticallyDownBST(root.right, target)
+        else:
+            self.verticallyDownBST(root.left, target)
+            
+    def sol(self, node, xcoordinate):
+            if not node: return 0
+            if xcoordinate == 0: return node.data
+            return self.sol(node.left, xcoordinate -1) + self.sol(node.right, xcoordinate + 1)
+
+--
+
+=============================================================================================================================================================================================
+
+-- Good stones
+
+-- 
+
+class Solution:
+    def goodStones(self, n, arr) -> int:
+        dp = [-1] * (n+1)
+        def sol(index, arr):
+            if index < 0 or index >= n:
+                return 1
+            if dp[index] >= 0: return dp[index]
+            dp[index] = 0
+            dp[index] = sol(index + arr[index], arr)
+            return dp[index]
+        
+        for i in range(n):
+            sol(i, arr)
+        
+        ans = 0
+        for i in range(n):
+            if dp[i] > 0:
+                ans += 1
+        return ans
+
+--
+
+========================================================================================================================================================================================================
+
