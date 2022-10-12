@@ -24,6 +24,9 @@ class Solution:
 
 =====================================================================================================================================================
 
--- Commin Strings
+-- Common Strings
 
 -- https://practice.geeksforgeeks.org/contest/interview-series-67/problems/
+
+
+--
