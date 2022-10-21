@@ -1,1 +1,45 @@
-https://www.youtube.com/watch?v=owALwrH6x_Y
+-- https://www.youtube.com/watch?v=owALwrH6x_Y
+
+
+
+-- Consecutive occurance
+
+-- https://practice.geeksforgeeks.org/contest/weekly-interview-series-72/problems/# 
+
+
+--
+
+from typing import List
+class Solution:
+    def count(self, n : int, s : str) -> List[str]:
+        cnt = 1
+        last = s[0]
+        maxcnt = 1
+        ans = s[0]
+        for i in range(1, n):
+            if s[i] == last:
+                cnt += 1
+            else:
+                if cnt > maxcnt:
+                    maxcnt = cnt
+                    ans = last
+                cnt = 1 
+                last = s[i]
+            if maxcnt < cnt:
+                maxcnt = cnt
+                ans = last 
+        return (ans, maxcnt)
+-- 
+
+=======================================================================================================================================
+
+
+-- Geeks village and wells
+
+
+-- Can be solved from the neetcode problem similar to gates problem from graphs
+
+
+
+
+===============================================================================================================================================================
