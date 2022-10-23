@@ -2,3 +2,7 @@
 
 -- Data Consistency and Tradeoffs in Distributed Systems
 -- https://www.youtube.com/watch?v=m4q7VkgDWrM
+
+
+-- System Design Playlist 
+-- https://www.youtube.com/watch?v=xpDnVSmNFX0&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX
