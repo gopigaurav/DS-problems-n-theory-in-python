@@ -2,4 +2,6 @@ web 3 roadmap
 
 -- https://medium.com/arcana-network-blog/web3-developer-roadmap-by-arcana-network-d21c1eb61340
 -- https://remote3.co/blog-post/complete-web3-developer-roadmap-2022
--- 
+-- https://vitto.cc/web3-and-solidity-smart-contracts-development-roadmap/
+
+
