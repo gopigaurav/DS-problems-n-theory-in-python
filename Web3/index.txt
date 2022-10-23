@@ -5,3 +5,4 @@ web 3 roadmap
 -- https://vitto.cc/web3-and-solidity-smart-contracts-development-roadmap/
 
 
+The programming language used for Web 3 ===>> SOLIDITY
