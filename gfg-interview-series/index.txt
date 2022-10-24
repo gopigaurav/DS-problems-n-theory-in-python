@@ -1,0 +1,34 @@
+-- https://practice.geeksforgeeks.org/contest/weekly-interview-series-73/problems/#
+
+
+
+-- Dominant Pairs
+
+
+-- Not completed
+from typing import List
+
+
+# u can use binary search or two pointer method
+
+class Solution:
+    def dominantPairs(self, n : int, arr : List[int]) -> int:
+        a = []
+        b = []
+        cnt = 0
+        for i in range(n/2):
+            a.append(arr[i])
+        for j in range(n/2, n):
+            b.append(arr[j])
+        
+        i = 0
+        j = 0
+        b.sort()
+        while i < len(a):
+            if a[i] >= (5 * b[i]):
+                cnt += 1
+            
+--
+
+
+======================
