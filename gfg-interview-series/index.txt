@@ -35,6 +35,6 @@ class Solution:
 
 -- Good subtrees
 
-Note : 
+Note : if the time complex is less than like 50 or 60 use bit-masking
 -- 
 --
