@@ -41,7 +41,9 @@ class Solution:
 Note : if the time complex is less than like 50 or 60 use bit-masking
 step. "OR" the subtree elements and check if the number of set bits are less than k or not  
 
---  this is the correct solution but dont know why its not working
+--  this is the correct solution but dont know why its not working2
+
+
 class Solution:
     ans = 0
     def goodSubtrees(self, root, k):
