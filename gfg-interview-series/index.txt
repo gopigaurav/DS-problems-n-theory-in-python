@@ -1,5 +1,5 @@
 
-###########################3  Interview series -- 73
+########################  Interview series --> 73   #################################################################
 
 -- https://practice.geeksforgeeks.org/contest/weekly-interview-series-73/problems/#
 
@@ -39,7 +39,29 @@ class Solution:
 -- Good subtrees
 
 Note : if the time complex is less than like 50 or 60 use bit-masking
--- 
+step. "OR" the subtree elements and check if the number of set bits are less than k or not  
+
+--  this is the correct solution but dont know why its not working
+class Solution:
+    ans = 0
+    def goodSubtrees(self, root, k):
+        self.dfs(root, k)
+        return self.ans
+    def dfs(self, node, k):
+        if node == None:
+            return 0
+        mask = (1 << node.data)
+        mask |= self.dfs(node.left, k)
+        mask |= self.dfs(node.right, k)
+            
+        cnt = 0
+        while mask:
+                # if (mask & 1): cnt += 1
+            cnt += mask & 1;
+            mask>>=1
+        if cnt <= k:
+            self.ans += 1
+        return mask
 --
 
 
