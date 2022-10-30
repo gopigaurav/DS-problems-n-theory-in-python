@@ -10,3 +10,11 @@
 
 -- Distributed cache
 -- https://www.youtube.com/watch?v=U3RkDLtS7uY&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX&index=12
+
+The way u can make entry to the cache
+-- wirte through
+-- wirte backcash
+
+
+-- Publisher subscriber model
+-- https://www.youtube.com/watch?v=FMhbR_kQeHw&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX&index=15 
