@@ -17,4 +17,8 @@ The way u can make entry to the cache
 
 
 -- Publisher subscriber model
--- https://www.youtube.com/watch?v=FMhbR_kQeHw&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX&index=15 
+-- https://www.youtube.com/watch?v=FMhbR_kQeHw&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX&index=15
+
+
+-- CDN 
+-- https://www.youtube.com/watch?v=8zX0rue2Hic&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX&index=17 
