@@ -21,4 +21,8 @@ The way u can make entry to the cache
 
 
 -- CDN 
--- https://www.youtube.com/watch?v=8zX0rue2Hic&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX&index=17 
+-- https://www.youtube.com/watch?v=8zX0rue2Hic&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX&index=17
+
+ 
+-- API Gateway
+-- https://www.youtube.com/watch?v=8WuVBbXsHzg
