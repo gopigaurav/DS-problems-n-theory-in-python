@@ -26,3 +26,7 @@ The way u can make entry to the cache
  
 -- API Gateway
 -- https://www.youtube.com/watch?v=8WuVBbXsHzg
+
+
+-- scaler quora implementation
+-- https://www.scaler.com/academy/mentee-dashboard/class/11014/session?joinSession=1
