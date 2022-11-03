@@ -30,3 +30,11 @@ The way u can make entry to the cache
 
 -- scaler quora implementation
 -- https://www.scaler.com/academy/mentee-dashboard/class/11014/session?joinSession=1
+
+
+################################ Designing 
+-- 
+
+
+-- Design Cache
+-- https://www.interviewbit.com/problems/design-cache/
