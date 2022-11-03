@@ -37,3 +37,6 @@ The way u can make entry to the cache
 
 -- Design Cache
 -- https://www.interviewbit.com/problems/design-cache/
+
+-- sharding database
+-- https://www.interviewbit.com/problems/sharding-a-database/
