@@ -13,7 +13,9 @@
 
 The way u can make entry to the cache
 -- wirte through
--- wirte backcash
+-- wirte back cache
+-- write around cache
+
 
 
 -- Publisher subscriber model
