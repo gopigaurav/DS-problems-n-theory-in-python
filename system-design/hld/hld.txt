@@ -52,3 +52,8 @@ QPS => Queries per second
 
 -- Highly available database
 -- https://www.interviewbit.com/problems/highly-available-database/
+
+
+-- Highly consistent database
+-- https://www.interviewbit.com/problems/highly-consistent-database/
+
