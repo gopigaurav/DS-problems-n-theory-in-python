@@ -38,6 +38,8 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=hdxdhCpgYo8
 	1. Vertical sharding
 	2. Horizontal sharding
+		- Master slave approach
+		- One problem here is Eventual Consistency
 
 
 ################################ Designing ########################################################################################### 
