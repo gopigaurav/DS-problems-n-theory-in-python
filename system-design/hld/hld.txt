@@ -34,6 +34,9 @@ The way u can make entry to the cache
 -- https://www.scaler.com/academy/mentee-dashboard/class/11014/session?joinSession=1
 
 
+-- Database Sharding
+-- https://www.youtube.com/watch?v=hdxdhCpgYo8
+
 ################################ Designing ########################################################################################### 
 
 -- https://www.interviewbit.com/courses/system-design/system-design-concepts/
@@ -56,4 +59,3 @@ QPS => Queries per second
 
 -- Highly consistent database
 -- https://www.interviewbit.com/problems/highly-consistent-database/
-
