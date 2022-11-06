@@ -39,8 +39,14 @@ The way u can make entry to the cache
 -- https://www.interviewbit.com/courses/system-design/system-design-concepts/
 
 
+QPS => Queries per second
+
 -- Design Cache
 -- https://www.interviewbit.com/problems/design-cache/
 
 -- sharding database
--- https://www.interviewbit.com/problems/sharding-a-database/
+-- https://www.interviewbit.com/problems/sharding-a-
+
+
+-- Highly available database
+-- https://www.interviewbit.com/problems/highly-available-database/
