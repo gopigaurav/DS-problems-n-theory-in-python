@@ -46,6 +46,8 @@ QPS => Queries per second
 
 -- sharding database
 -- https://www.interviewbit.com/problems/sharding-a-
+   ==> get some insight on consistent hashing
+
 
 
 -- Highly available database
