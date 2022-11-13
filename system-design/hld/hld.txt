@@ -49,6 +49,10 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=aSvOThsVe5w&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=4
 
 
+-- Proxies and types of proxies
+-- https://www.youtube.com/watch?v=Nu-4Q3OoR4E&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=4
+
+
 ################################ Designing ########################################################################################### 
 
 -- https://www.interviewbit.com/courses/system-design/system-design-concepts/
