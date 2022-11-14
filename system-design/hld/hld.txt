@@ -56,6 +56,10 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=O_c7lzNbcKo&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=6
 
 
+-- Caching
+-- https://www.youtube.com/watch?v=Ez1GK2imrsY&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=9
+
+
 ################################ Designing ########################################################################################### 
 
 -- https://www.interviewbit.com/courses/system-design/system-design-concepts/
