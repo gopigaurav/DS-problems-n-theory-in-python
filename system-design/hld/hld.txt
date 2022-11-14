@@ -52,6 +52,9 @@ The way u can make entry to the cache
 -- Proxies and types of proxies
 -- https://www.youtube.com/watch?v=Nu-4Q3OoR4E&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=4
 
+-- Databases and types
+-- https://www.youtube.com/watch?v=O_c7lzNbcKo&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=6
+
 
 ################################ Designing ########################################################################################### 
 
