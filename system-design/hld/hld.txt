@@ -67,6 +67,9 @@ The way u can make entry to the cache
 
 -- Message Queues
 -- https://www.youtube.com/watch?v=J6CBdSCB_fY&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=11
+	1. synchronous
+	2. Asynchronous
+
 
 
 
