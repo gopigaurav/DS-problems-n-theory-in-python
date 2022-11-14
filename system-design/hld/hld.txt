@@ -63,6 +63,8 @@ The way u can make entry to the cache
 		2. Read through strategy 
 		3. Write through strategy
 		4. Write around strategy
+		5. Write back strategy
+
 
 
 ################################ Designing ########################################################################################### 
