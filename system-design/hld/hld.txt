@@ -61,7 +61,8 @@ The way u can make entry to the cache
 	cache pattern:
 		1. cache aside strategy
 		2. Read through strategy 
-		
+		3. Write through strategy
+		4. Write around strategy
 
 
 ################################ Designing ########################################################################################### 
