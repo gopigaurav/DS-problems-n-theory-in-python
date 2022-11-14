@@ -65,6 +65,9 @@ The way u can make entry to the cache
 		4. Write around strategy
 		5. Write back strategy
 
+-- Message Queues
+-- https://www.youtube.com/watch?v=J6CBdSCB_fY&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=11
+
 
 
 ################################ Designing ########################################################################################### 
