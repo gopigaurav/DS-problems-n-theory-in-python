@@ -58,6 +58,8 @@ The way u can make entry to the cache
 
 -- Caching
 -- https://www.youtube.com/watch?v=Ez1GK2imrsY&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=9
+	cache pattern:
+		1. cache aside strategy
 
 
 ################################ Designing ########################################################################################### 
