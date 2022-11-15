@@ -74,6 +74,11 @@ The way u can make entry to the cache
 
 -- Pub Sub (Publish subscribe)
 -- https://www.youtube.com/watch?v=EgJ7xts82Mg&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=12
+	types:
+		-- terminology
+		-- concept
+		-- other details
+
 		
 
 
