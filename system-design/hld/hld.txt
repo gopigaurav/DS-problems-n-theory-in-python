@@ -69,6 +69,13 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=J6CBdSCB_fY&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=11
 	1. synchronous
 	2. Asynchronous
+	-- Message Queues
+		- types and models
+
+-- Pub Sub (Publish subscribe)
+-- https://www.youtube.com/watch?v=EgJ7xts82Mg&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=12
+		
+
 
 
 ################################ Designing ########################################################################################### 
