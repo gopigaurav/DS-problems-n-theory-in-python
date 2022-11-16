@@ -83,6 +83,11 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=-vd_Ay0pvFY&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=13
 
 
+-- Performance matrix
+-- https://www.youtube.com/watch?v=HrfgslRY7Ak&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=14
+	1. Throughput - some amount of work done in particular time
+	2. 
+
 
 		
 
