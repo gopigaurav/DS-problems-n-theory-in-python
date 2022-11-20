@@ -114,6 +114,10 @@ The way u can make entry to the cache
 -- Range based sharding
 -- https://www.youtube.com/watch?v=avepna2q9w0&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=23
 
+
+-- Directory based sharding
+-- 
+
 		
 
 
