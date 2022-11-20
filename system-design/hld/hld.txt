@@ -100,6 +100,12 @@ The way u can make entry to the cache
 -- Database replication
 -- https://www.youtube.com/watch?v=RIcNswROzCc&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=18
 
+
+-- what is CAP
+-- https://www.youtube.com/watch?v=pSoKUfLTe8Y&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=19
+
+
+
 		
 
 
