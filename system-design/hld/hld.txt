@@ -107,6 +107,9 @@ The way u can make entry to the cache
 
 -- CAP Theorem
 -- https://www.youtube.com/watch?v=kwCFHLbIhak&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=20
+	1. consistency
+	2. availability
+	3. partition
 
 		
 
