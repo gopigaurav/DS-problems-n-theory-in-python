@@ -105,6 +105,8 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=pSoKUfLTe8Y&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=19
 
 
+-- CAP Theorem
+-- https://www.youtube.com/watch?v=kwCFHLbIhak&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=20
 
 		
 
