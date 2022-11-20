@@ -92,6 +92,10 @@ The way u can make entry to the cache
 -- Performance matrix of system
 -- https://www.youtube.com/watch?v=R72h2D3Y76g&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=15
 
+
+-- Faults and Failure in distributed systems
+-- https://www.youtube.com/watch?v=7vIzGmxdUvI&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=17
+
 		
 
 
