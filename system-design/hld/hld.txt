@@ -127,6 +127,10 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=oKAU6LaYFhw&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=26
 
 
+-- Foundation of System Design Interview starting with Functional vs Non Functional Requirements
+-- https://www.youtube.com/watch?v=xRdjEd-VQTU&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=27
+
+
 		
 
 
