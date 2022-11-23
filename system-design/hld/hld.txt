@@ -123,7 +123,9 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=oKAU6LaYFhw&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=26
 
 
--- 
+-- Consistent Hashing
+-- https://www.youtube.com/watch?v=oKAU6LaYFhw&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=26
+
 
 		
 
