@@ -131,6 +131,8 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=xRdjEd-VQTU&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=27
 
 
+-- How to solve capacity estimation problems faster?
+-- https://www.youtube.com/watch?v=VBw703pjC3E&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=28
 		
 
 
