@@ -171,3 +171,7 @@ QPS => Queries per second
 -- System Design interview: Amazon, flipkart (Gouravsen)
 -- https://www.youtube.com/watch?v=2BWr0fsDSs0&t=2421s
 
+
+-- Uber System Design | Ola System Design | System Design Interview Question - Grab, Lyft
+-- youtube.com/watch?v=Tp8kpMe-ZKw
+
