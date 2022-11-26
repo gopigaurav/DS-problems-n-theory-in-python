@@ -175,3 +175,7 @@ QPS => Queries per second
 -- Uber System Design | Ola System Design | System Design Interview Question - Grab, Lyft
 -- youtube.com/watch?v=Tp8kpMe-ZKw
 
+
+-- Database design tips
+-- https://www.youtube.com/watch?v=cODCpXtPHbQ
+
