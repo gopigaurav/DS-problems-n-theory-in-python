@@ -133,6 +133,9 @@ The way u can make entry to the cache
 
 -- How to solve capacity estimation problems faster?
 -- https://www.youtube.com/watch?v=VBw703pjC3E&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=28
+
+
+--  
 		
 
 
@@ -163,4 +166,8 @@ QPS => Queries per second
 
 -- Design url shortner
 -- https://www.interviewbit.com/problems/design-url-shortener/
+
+
+-- System Design interview: Amazon, flipkart (Gouravsen)
+-- https://www.youtube.com/watch?v=2BWr0fsDSs0&t=2421s
 
