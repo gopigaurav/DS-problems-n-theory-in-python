@@ -179,3 +179,6 @@ QPS => Queries per second
 -- Database design tips
 -- https://www.youtube.com/watch?v=cODCpXtPHbQ
 
+
+-- Zoom system design
+-- https://www.youtube.com/watch?v=G32ThJakeHk&t=22s
