@@ -176,9 +176,12 @@ QPS => Queries per second
 -- youtube.com/watch?v=Tp8kpMe-ZKw
 
 
--- Database design tips
+-- Database design tips (CK)
 -- https://www.youtube.com/watch?v=cODCpXtPHbQ
 
 
--- Zoom system design
+-- Zoom system design (CK)
 -- https://www.youtube.com/watch?v=G32ThJakeHk&t=22s
+
+
+-- Netflix 
