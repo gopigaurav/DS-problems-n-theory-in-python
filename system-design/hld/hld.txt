@@ -189,6 +189,10 @@ QPS => Queries per second
 
 
 -- Airbinb design (CK)
+-- https://www.youtube.com/watch?v=YyOXt2MEkv4
+
+
+-- Netflix design (CK)
 -- 
 
 
