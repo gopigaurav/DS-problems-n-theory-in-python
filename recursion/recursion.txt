@@ -38,13 +38,14 @@ class Solution:
 
 ===========================================================================================================================================
 
--- Josephus problem
+-- Josephus problem (Find the safe position)
 
 
 -- https://www.youtube.com/watch?v=ULUNeD0N9yI&t=1133s
 -- https://www.youtube.com/watch?v=ULUNeD0N9yI
 -- https://www.geeksforgeeks.org/josephus-problem-set-1-a-on-solution/
 -- https://practice.geeksforgeeks.org/problems/josephus-problem/1
+-- https://practice.geeksforgeeks.org/problems/game-of-death-in-a-circle1840/1
 
 
 -- incomplete
