@@ -46,7 +46,7 @@ class Solution:
 -- https://practice.geeksforgeeks.org/problems/josephus-problem/1
 
 
--- in
+-- incomplete
 class Solution:
     def safePos(self, n, k):
         v = []
