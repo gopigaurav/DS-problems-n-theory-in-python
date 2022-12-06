@@ -193,6 +193,6 @@ QPS => Queries per second
 
 
 -- Netflix design (CK)
--- 
+-- https://www.youtube.com/watch?v=lYoSd2WCJTo
 
 

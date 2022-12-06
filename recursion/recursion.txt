@@ -45,6 +45,20 @@ class Solution:
 -- https://www.geeksforgeeks.org/josephus-problem-set-1-a-on-solution/
 -- https://practice.geeksforgeeks.org/problems/josephus-problem/1
 
+
+-- in
+class Solution:
+    def safePos(self, n, k):
+        v = []
+        for i in range(1, n+!):
+            v.append(i)
+            
+        def sol(index, arr):
+            if len(arr) == 1:
+                return arr[0]
+            
+        return sol(0, v)
+
 =========================================================================================================================================
 
 -- Pascals triangle
