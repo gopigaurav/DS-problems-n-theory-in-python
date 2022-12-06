@@ -47,6 +47,8 @@ class Solution:
 
 
 -- incomplete
+
+
 class Solution:
     def safePos(self, n, k):
         v = []
@@ -58,6 +60,8 @@ class Solution:
                 return arr[0]
             
         return sol(0, v)
+
+--
 
 =========================================================================================================================================
 
