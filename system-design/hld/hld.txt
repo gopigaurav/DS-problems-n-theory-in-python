@@ -135,8 +135,11 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=VBw703pjC3E&list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a&index=28
 
 
---  
-		
+
+## ==> Think Software	
+
+-- Types of Databases | Criteria to choose the best database in the System Design Interview
+-- https://www.youtube.com/watch?v=ym0cXSKZYnw&list=PLK8IOvtbwVsuYW8KovGg9o6dlhspym8O_
 
 
 
