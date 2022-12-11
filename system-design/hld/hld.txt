@@ -142,6 +142,10 @@ The way u can make entry to the cache
 -- https://www.youtube.com/watch?v=ym0cXSKZYnw&list=PLK8IOvtbwVsuYW8KovGg9o6dlhspym8O_
 
 
+-- Distributed Systems Introduction | From Single Machine Application to Distributed Service
+-- https://www.youtube.com/watch?v=wDqgbx-dcGc&list=PLK8IOvtbwVsuYW8KovGg9o6dlhspym8O_&index=3
+
+
 
 ################################ Designing ########################################################################################### 
 
