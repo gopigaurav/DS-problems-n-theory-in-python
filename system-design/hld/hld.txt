@@ -203,7 +203,7 @@ QPS => Queries per second
 -- https://www.youtube.com/watch?v=lYoSd2WCJTo
 
 
--- Design Rate limiter
+-- Design Rate limiter (Concept and coding)
 -- 
 
 
