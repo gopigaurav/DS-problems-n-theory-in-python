@@ -1,3 +1,21 @@
 -- Min cost of ropes
 -- https://www.youtube.com/watch?v=cL_IRO8Yzeo&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=4
+-- https://practice.geeksforgeeks.org/problems/minimum-cost-of-ropes-1587115620/1
 
+--
+import heapq
+class Solution:
+    #Function to return the minimum cost of connecting the ropes.
+    def minCost(self,arr,n) :
+    
+        heapq.heapify(arr)
+        res = 0
+        while len(arr) > 1:
+            firstMinimumRope = heapq.heappop(arr)
+            secondMinimumRope = heapq.heappop(arr)
+            
+            res += firstMinimumRope + secondMinimumRope
+            heapq.heappush(arr, firstMinimumRope + secondMinimumRope)
+            
+        return res
+--
