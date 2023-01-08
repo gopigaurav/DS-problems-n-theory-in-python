@@ -24,4 +24,25 @@ class Solution:
 
 -- Queries of matrix
 -- https://www.youtube.com/watch?v=G2OBYDINXLU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=5
+-- https://practice.geeksforgeeks.org/problems/queries-on-a-matrix0443/1
 
+--
+	def solveQueries(self, n, Queries):
+	    matrix = [[0 for _ in range(n)] for _ in range(n)]
+	    
+	    for i in range(len(Queries)):
+	        a = Queries[i][0]   # start row
+	        b = Queries[i][1]   # start column
+	        c = Queries[i][2]   # end row 
+	        d = Queries[i][3]   # end column
+	        
+	        for j in range(a, c+1):
+	            matrix[j][b] += 1
+	            if d+1 < n:
+	                matrix[j][d+1] -= 1
+	    
+	    for i in range(n):
+	        for j in range(1, n):
+	            matrix[i][j] += matrix[i][j-1]
+	    return matrix
+--
