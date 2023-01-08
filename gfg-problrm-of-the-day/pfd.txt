@@ -22,4 +22,6 @@ class Solution:
 
 ################################################################################################################
 
--- 
+-- Queries of matrix
+-- https://www.youtube.com/watch?v=G2OBYDINXLU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=5
+
