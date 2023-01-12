@@ -51,3 +51,6 @@ class Solution:
 ###############################################################################################################################
 
 -- The bit game
+
+-- https://practice.geeksforgeeks.org/problems/the-bit-game2313/1
+-- https://www.youtube.com/watch?v=TB17AxGvAIA&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=6
