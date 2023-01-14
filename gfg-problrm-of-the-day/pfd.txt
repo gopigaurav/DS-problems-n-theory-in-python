@@ -54,3 +54,17 @@ class Solution:
 
 -- https://practice.geeksforgeeks.org/problems/the-bit-game2313/1
 -- https://www.youtube.com/watch?v=TB17AxGvAIA&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=6
+
+--
+class Solution:
+    def swapBitGame (self,N):
+        # code here 
+        # count the number of set bits first => and if the number is odd then player 1 won else player 2 won
+        count = 0
+        while N > 0:
+            count += (N&1)
+            N = N>>1
+        if count % 2 == 0:
+            return 2
+        return 1
+--
