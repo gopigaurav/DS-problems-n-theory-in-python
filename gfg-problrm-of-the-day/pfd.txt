@@ -71,3 +71,53 @@ class Solution:
 
 ###########################################################################################################################################
 
+-- Geek and number
+
+-- https://practice.geeksforgeeks.org/problems/904237fa926d79126d42c437802b04287ea9d1c8/1
+-- https://www.youtube.com/watch?v=8bw38nAZITo&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=8
+
+-- 
+class Solution:
+    def minLength(self, s, n):
+        
+        def expected(num):
+            if num == '0':
+                return '9'
+            if num == '9':
+                return '0'
+            if int(num) % 2 == 0:
+                return str(int(num) - 1)
+            return str(int(num) + 1)
+        stack = []
+        for i in range(n):
+            if len(stack) == 0:
+                stack.append(s[i])
+            elif stack[-1] == expected(s[i]):
+                stack.pop()
+            else:
+                stack.append(s[i])
+        return len(stack)
+--
+
+############################################################################################################################################
+
+-- Tom and jerry
+
+-- https://practice.geeksforgeeks.org/problems/tom-and-jerry1325/1
+-- https://www.youtube.com/watch?v=8bw38nAZITo&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=8
+
+--
+class Solution:
+    def numsGame(self, N):
+        # code here
+        # we cannot subtract the number with itself
+        # for n = 1 => tom loses
+        # for n = 2 => tom wins
+        # for n = 3 => tom loses
+        # for n = 4 => tom wins
+        # 
+        if N % 2 == 0:
+            return 1
+        else:
+            return 0
+--
