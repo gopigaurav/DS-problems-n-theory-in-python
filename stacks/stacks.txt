@@ -531,7 +531,7 @@ def calculateSpan(self,arr,n):
 
 =============================================================================================================================================================================================
 
--- Longest valid parenthesis
+-- Longest valid parenthesis (ipl 2021 final)
 
 -- https://www.youtube.com/watch?v=G53_EUjUYcQ
 -- https://practice.geeksforgeeks.org/problems/3b47f0ad00f953dd514235ddec54e39fdc297dda/1/
@@ -560,7 +560,7 @@ class Solution:
 
 --
 
--- methid 2
+-- method 2
 
 # Python3 program to implement the above approach
 
