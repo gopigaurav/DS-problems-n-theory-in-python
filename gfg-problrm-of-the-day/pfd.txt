@@ -153,4 +153,6 @@ class Solution:
 ########################################################################################################################################################
 
 
--- 
+-- Smallest subset with greater sum
+
+-- https://www.youtube.com/watch?v=x3xCSsCsc_g&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=13
