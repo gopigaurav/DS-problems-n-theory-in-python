@@ -176,3 +176,11 @@ class Solution:
 
 ########################################################################################################################################################
 
+
+-- Maximum number of 2x2 sqaures
+
+-- https://www.youtube.com/watch?v=7WrjdY08BSM&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=12
+-- https://practice.geeksforgeeks.org/problems/maximum-number-of-22-squares/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+
+--
