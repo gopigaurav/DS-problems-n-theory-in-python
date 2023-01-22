@@ -156,3 +156,20 @@ class Solution:
 -- Smallest subset with greater sum
 
 -- https://www.youtube.com/watch?v=x3xCSsCsc_g&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=13
+-- https://practice.geeksforgeeks.org/problems/smallest-subset-with-greater-sum/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+--
+class Solution:
+    def minSubset(self, A, N):
+        maximumSum = 0
+        for i in range(N):
+            maximumSum += A[i]
+        A.sort()
+        res = 0
+        for i in range(N):
+            res += A[i] 
+            maximumSum -= A[i] 
+            if res>maximumSum:
+                return i+1
+        return N
+--
