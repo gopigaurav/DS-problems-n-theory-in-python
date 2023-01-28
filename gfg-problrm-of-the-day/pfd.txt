@@ -192,8 +192,8 @@ class Solution:
 
 -- Smallest number on the left (nearest smaller to left) => using stack
 
---  
--- 
+--  https://practice.geeksforgeeks.org/problems/smallest-number-on-left3403/1
+-- youtube.com/watch?v=YRnI-HDQBSU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=13
 
 --
 class Solution:
@@ -210,3 +210,7 @@ class Solution:
             stack.append(a[i])
         return ans
 --
+
+#################################################################################################################################################################
+
+
