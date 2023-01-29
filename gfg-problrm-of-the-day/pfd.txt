@@ -214,3 +214,29 @@ class Solution:
 #################################################################################################################################################################
 
 
+-- Composite and prime 
+
+-- https://www.youtube.com/watch?v=vMu0chFRG7o&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=14
+-- 
+
+--
+import math
+class Solution:
+	def Count(self, L, R):
+		p = [True for _ in range(R+1)]
+		p[0] = False
+		p[1] = False
+		for i in range(2, int(math.sqrt(R)) + 1):
+		    if p[i] == False: continue
+		    for j in range(i*i, R+1, i):
+		        p[j] = False
+		    
+		prime = 0
+		composite = 0
+		for i in range(L, R+1):
+		    if i == 1: continue
+		    if p[i] == True: prime += 1
+		    else:
+		        composite+= 1
+	    return composite - prime
+--
