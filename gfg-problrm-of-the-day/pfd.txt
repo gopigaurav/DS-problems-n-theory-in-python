@@ -246,3 +246,4 @@ class Solution:
 -- Number of ways to arrive at destination
 
 -- https://www.youtube.com/watch?v=EQ4sX6mxDsk&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=15
+-- https://practice.geeksforgeeks.org/problems/number-of-ways-to-arrive-at-destination/1
