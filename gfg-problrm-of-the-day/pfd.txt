@@ -217,7 +217,7 @@ class Solution:
 -- Composite and prime 
 
 -- https://www.youtube.com/watch?v=vMu0chFRG7o&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=14
--- 
+-- https://practice.geeksforgeeks.org/problems/composite-and-prime0359/1
 
 --
 import math
@@ -240,3 +240,9 @@ class Solution:
 		        composite+= 1
 	    return composite - prime
 --
+
+##################################################################################################################################################################
+
+-- Number of ways to arrive at destination
+
+-- https://www.youtube.com/watch?v=EQ4sX6mxDsk&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=15
