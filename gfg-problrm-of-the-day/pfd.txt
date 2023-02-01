@@ -251,6 +251,36 @@ class Solution:
 
 
 --
+from collections import deque, defaultdict
+from typing import List
+from collections import defaultdict
+import sys
+class Solution:
+    def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        # Dijkstra algo
+        mod = 1e9+7
+        ans = 0
+        nw = 0
+        graph = defaultdict(list)
+        dis = [float('inf') for _ in range(n)]
+        for s, d, w in roads:
+            graph[s].append((d, w))
+            graph[d].append((s, w))
+        
+        s = set([0])
+        dis[0] = 0
+        res = []
+        while s:
+            cur = s.pop()
+            for node, weight in graph[cur]:
+                nw = dis[cur] + weight
+                if dis[cur] + weight < dis[node]:
+                    dis[node] = dis[cur] + weight
+                    if node == n - 1:
+                        if dis[node] == nw:
+                            ans = (ans + 1)%mod
+                    s.add(node)
+        return ans
 --
 
 ############################################################################################################################################################################
