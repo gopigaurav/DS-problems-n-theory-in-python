@@ -306,7 +306,8 @@ class Solution:
 
 steps:
 => Perform inorder traversal and store all the values in an array
-=> Perform Preorder traversal of the bst using array
+=> Perform Preorder traversal on bst array and change the values of the tree
+
 
 
 --
