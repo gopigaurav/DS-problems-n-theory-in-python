@@ -314,3 +314,18 @@ steps:
 
 --
 ############################################################################################################################################################################
+
+
+-- Convert Bst to max heap
+
+-- https://www.youtube.com/watch?v=zWYmcwFWp1M&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=18
+-- 
+
+
+steps:
+=> Perform inorder traversal and store all the values in an array
+=> Perform Postorder traversal on bst array and change the values of the tree
+
+--
+
+--
