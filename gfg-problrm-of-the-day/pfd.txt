@@ -285,16 +285,33 @@ class Solution:
 
 #############################################################################################################################################################################
 
--- Minimum swaps 
+-- Minimum swaps (sheeps problem)
 
+-- youtube.com/watch?v=6uSxQKVSP3o&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=16
+-- https://practice.geeksforgeeks.org/problems/minimum-swaps-1649134975/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
 -- 
-
-
-
-
-
-
+from typing import List
+class Solution:
+    def minimumSwaps(self,c : List[int], v : List[int],n : int,k : int,b : int, t : int) -> int:
+        ans = 0
+        ts = 0
+        r = 0
+        
+        for i in range(n - 1, -1, -1):
+            if r >= k:
+                break
+            d = v[i] * t
+            if d >= (b - c[i]):
+                ans += ts
+                r += 1
+            else:
+                ts += 1
+            
+        if r >= k:
+            return ans
+        return -1
+--
 
 ###################################################################################################################################################################################
 
@@ -318,6 +335,7 @@ steps:
 
 -- https://www.youtube.com/watch?v=zWYmcwFWp1M&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=18
 -- https://www.geeksforgeeks.org/convert-bst-to-max-heap/
+-- https://practice.geeksforgeeks.org/problems/bst-to-max-heap/1
 
 
 steps:
