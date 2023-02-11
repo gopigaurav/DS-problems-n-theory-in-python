@@ -325,6 +325,35 @@ steps:
 => Perform Postorder traversal on bst array and change the values of the tree
 
 --
+# Tree Node
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+        
+'''
 
-
+class Solution:
+    def convertToMaxHeapUtil(self, root):
+        arr = []
+        def inorder(node):
+            if not node:
+                return None
+            inorder(node.left)
+            arr.append(node.data)
+            inorder(node.right)
+        
+        def postOrder(node):
+            if not node:
+                return None
+                
+            postOrder(node.left)
+            postOrder(node.right)
+            node.data = arr.pop()
+        
+        inorder(root)
+        arr.reverse()
+        postOrder(root)
+        return root
 --
