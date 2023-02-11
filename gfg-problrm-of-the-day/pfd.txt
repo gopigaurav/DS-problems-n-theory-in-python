@@ -323,7 +323,24 @@ class Solution:
 
 
 --
-
+class Solution:
+    
+    #Function to find the minimum number of swaps required to sort the array.
+	def minSwaps(self, nums):
+		n = len(nums)
+		for i in range(n):
+		    nums[i] = [nums[i], i]
+		nums.sort(key = lambda x: x[0])
+		i = 0
+		swap = 0
+		while i < n:
+		    element, index = nums[i] 
+		    if index != i:
+		        swap += 1
+		        nums[i], nums[index] = nums[index], nums[i]
+		    else:
+		        i += 1
+        return swap
 --
 
 
