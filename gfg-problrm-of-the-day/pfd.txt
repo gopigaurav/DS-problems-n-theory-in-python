@@ -320,6 +320,7 @@ class Solution:
 
 -- https://www.youtube.com/watch?v=kFe_LRWuZjE
 -- https://practice.geeksforgeeks.org/problems/minimum-swaps/1
+-- https://www.geeksforgeeks.org/minimum-number-swaps-required-sort-array/
 
 
 --
@@ -407,5 +408,17 @@ class Solution:
 --
 
 
-##############################################################################################################################################
+########################################################################################################################################################################
 
+-- Minimum exchange
+
+-- https://www.youtube.com/watch?v=nXpmRnaZqdE&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=19
+-- https://practice.geeksforgeeks.org/problems/distributing-question-papers2513/1
+
+
+--
+
+--
+
+
+#####################################################################################################################################################################
