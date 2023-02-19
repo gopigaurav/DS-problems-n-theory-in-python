@@ -441,3 +441,35 @@ class Solution:
 
 
 #####################################################################################################################################################################
+
+-- Ball coloring 
+
+-- https://www.youtube.com/watch?v=kpDZ5JOXCO4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=20
+-- https://practice.geeksforgeeks.org/problems/ball-coloring3450/1
+
+--
+class Solution:
+    def noOfWays (self, n):
+        # for n balls 2 + n(n - 1) ways
+        # https://www.youtube.com/watch?v=kpDZ5JOXCO4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=20
+        # for 0 touching => 2 ways
+        # for 1 touching => ((n - 1) x 2) ways
+        # for 2 tocuhing => (n - 1)(n - 2) ways
+        # so total will be 2 + (n - 1) x 2 + (n - 1)(n - 2)
+        
+        return 2 + n * (n - 1)
+-- 
+
+
+#####################################################################################################################################################################
+
+-- Count occurrences of a given word in a 2-d array
+
+-- https://practice.geeksforgeeks.org/problems/count-occurences-of-a-given-word-in-a-2-d-array/1
+-- https://www.youtube.com/watch?v=eCMiY-BUnOo&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=21
+
+
+--
+--
+
+###########################################################################################################################################################################
