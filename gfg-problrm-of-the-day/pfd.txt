@@ -513,3 +513,24 @@ class Solution:
 
 ###########################################################################################################################################################################
 
+-- Smallest number with sum of digits as N and divisible by 10 power 'N'
+
+-- https://www.youtube.com/watch?v=B6AAvp_ba5I&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=22
+-- https://practice.geeksforgeeks.org/problems/smallest-number-with-sum-of-digits-as-n-and-divisible-by-10n4032/1
+
+--
+class Solution:
+	def digitsNum(self, N):
+		s = ""
+		if N % 9 != 0:
+		    s = s + str(N % 9)
+		
+		for i in range(1, (N//9) + 1):
+		    s += "9"
+		
+		for i in range(1, N + 1):
+		    s+= "0"
+	    return s
+--
+
+##############################################################################################################################################################################
