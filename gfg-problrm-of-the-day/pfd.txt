@@ -579,4 +579,12 @@ class Solution:
 
 ###############################################################################################################################################################################
 
--- 
+-- Sum of k smallest elements in bst
+
+-- https://www.youtube.com/watch?v=e48rTjOSvyA&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=25
+-- https://practice.geeksforgeeks.org/problems/sum-of-k-smallest-elements-in-bst3029/1
+
+--
+--
+
+
