@@ -543,8 +543,36 @@ class Solution:
 
 
 --
+
 --
 
 
 ############################################################################################################################################################################
 
+-- Kth smallest element in bst
+
+-- https://practice.geeksforgeeks.org/problems/find-k-th-smallest-element-in-bst/1
+-- https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+
+--
+class Solution:
+    # Return the Kth smallest element in the given BST 
+    def KthSmallestElement(self, root, k): 
+        #code here.
+        count = 0
+        ans = -1
+
+        def sol(node, k):
+            nonlocal count, ans
+            if node is None:
+                return
+            sol(node.left, k)
+            count += 1
+
+            if count == k:
+                ans = node.data
+            sol(node.right, k)
+
+        sol(root, k)
+        return ans 
+--
