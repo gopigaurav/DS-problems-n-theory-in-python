@@ -583,6 +583,7 @@ class Solution:
 
 -- https://www.youtube.com/watch?v=e48rTjOSvyA&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=25
 -- https://practice.geeksforgeeks.org/problems/sum-of-k-smallest-elements-in-bst3029/1
+-- https://www.geeksforgeeks.org/sum-k-smallest-elements-bst/
 
 --
 # Node Class:
