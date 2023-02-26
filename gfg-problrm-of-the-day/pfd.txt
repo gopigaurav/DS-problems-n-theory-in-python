@@ -668,3 +668,21 @@ class Solution:
 -- Smallest sum contiguous subarray
 
 -- https://www.youtube.com/watch?v=XTRFIfu2OUw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=26
+-- https://practice.geeksforgeeks.org/problems/smallest-sum-contiguous-subarray/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+
+--
+class Solution:
+    def smallestSumSubarray(self, A, N):
+        #Your code here
+        minimum = float("inf")
+        su = 0
+        for i in range(N):
+            su += A[i]
+            if minimum > su:
+                minimum = su
+            if su > 0:
+                su = 0
+        
+        return minimum
+--
