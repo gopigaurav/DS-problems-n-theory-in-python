@@ -579,12 +579,41 @@ class Solution:
 
 ###############################################################################################################################################################################
 
--- Sum of k smallest elements in bst
+-- Sum of k smallest elements in bst => O(k) complexity
 
 -- https://www.youtube.com/watch?v=e48rTjOSvyA&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=25
 -- https://practice.geeksforgeeks.org/problems/sum-of-k-smallest-elements-in-bst3029/1
 
 --
+# Node Class:
+class Node:
+    def __init__(self,val):
+        self.key = val
+        self.left = None
+        self.right = None
+'''
+
+def summ(root, k):
+    # code here
+    count = 0
+    ans = 0
+    def sol(node, k):
+        nonlocal count, ans
+        if node is None:
+            return 
+        
+        sol(node.left, k)
+        
+        count += 1
+        if count <= k:
+            ans += node.key
+            
+        else: return 
+        
+        sol(node.right, k)
+        
+    sol(root, k)
+    return ans
 --
 
 ##############################################################################################################################################################################
@@ -592,4 +621,5 @@ class Solution:
 
 -- Stack permutations
 
+-- https://www.youtube.com/watch?v=q4CbTMLogyk&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=24
 -- 
