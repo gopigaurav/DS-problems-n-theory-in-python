@@ -646,4 +646,25 @@ class Solution:
 
 ###########################################################################################################################################################################
 
--- 
+-- Minimum sum of absolute differences of pairs
+
+-- https://www.youtube.com/watch?v=RZYkEj0iX3U&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=25
+-- https://practice.geeksforgeeks.org/problems/minimum-sum-of-absolute-differences-of-pairs/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+
+--
+class Solution:
+    def findMinSum(self, A,B,N):
+        A.sort()
+        B.sort()
+        sum = 0
+        for i in range(N):
+            sum += abs(A[i] - B[i])
+        return sum
+--
+
+####################################################################################################################################################################################################
+
+-- Smallest sum contiguous subarray
+
+-- https://www.youtube.com/watch?v=XTRFIfu2OUw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=26
