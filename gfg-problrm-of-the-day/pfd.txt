@@ -696,7 +696,14 @@ class Solution:
 -- https://www.youtube.com/watch?v=JttvX2HH7M0&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=27
 
 --
+
 --
 
 
 #########################################################################################################################################################################################################
+
+-- Minimum cost to cut a board into squares
+
+-- https://www.youtube.com/watch?v=j9Pxyfp8knU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=28
+-- 
+
