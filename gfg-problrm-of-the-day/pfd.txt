@@ -711,4 +711,11 @@ class Solution:
 
 -- Minimum time to fulfill all orders (Binary search hard question)
 
+
+-- https://practice.geeksforgeeks.org/problems/minimum-time-to-fulfil-all-orders/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 -- https://www.youtube.com/watch?v=tfch4QSfRZc&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=29
+
+
+
+
+#######################################################################################################################################################################################################################################
