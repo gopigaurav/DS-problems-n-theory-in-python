@@ -708,3 +708,7 @@ class Solution:
 -- 
 
 ##########################################################################################################################################################################################################
+
+-- Minimum time to fulfill all orders (Binary search hard question)
+
+-- https://www.youtube.com/watch?v=tfch4QSfRZc&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=29
