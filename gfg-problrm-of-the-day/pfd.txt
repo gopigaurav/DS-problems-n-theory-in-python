@@ -731,9 +731,30 @@ class Solution:
 
 
 --
-
+class Solution:
+    def findPairsWithGivenSum(self, target : int, head : Optional['Node']) -> List[List[int]]:
+        # two pointer method
+        # code here
+        
+        l = head
+        r = head
+        ans = []
+        while r.next != None:
+            r = r.next
+        #left is at start and right is at the end
+        
+        # condition also works for both even and odd elements
+        while (l != r) and (r.next != l):
+            csum = l.data + r.data
+            if csum == target:
+                ans.append((l.data, r.data))
+                l = l.next
+                r = r.next
+            elif csum < target:
+                l = l.next
+            else:
+                r = r.prev
+        return ans
 --
-
-
 
 ####################################################################################################################################################################################################################################
