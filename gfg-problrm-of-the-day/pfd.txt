@@ -726,8 +726,13 @@ class Solution:
 
 -- Find the pairs with given sum in doubly linked list
 
+-- https://www.youtube.com/watch?v=evxWPp3TI3E&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=30
+-- https://practice.geeksforgeeks.org/problems/find-pairs-with-given-sum-in-doubly-linked-list/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
--- 
+
+--
+
+--
 
 
 
