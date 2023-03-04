@@ -765,6 +765,25 @@ class Solution:
 -- 
 
 --
+class Solution:
+	def DistinctSum(self, nums):
+	    dp = [[0 for _ in range(10001)] for _ in range(len(nums))]
+		# Code here
+		s = set()
+		def sol(i, arr, s, sum):
+		    if i == len(arr):
+		        s.add(sum)
+		        return 
+		    
+		    if dp[i][sum]:
+		        return
+		    
+		    sol(i + 1, arr, s, sum)
+		    sol(i+ 1, arr, s, sum + arr[i])
+		    dp[i][sum] = 1
+		    
+		sol(0, nums, s, 0)
+		return sorted(s)
 --
 
 ######################################################################################################################################################################################################
