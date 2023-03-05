@@ -836,6 +836,53 @@ class Solution:
 
 
 --
+class Solution:
+    head = None
+    tail = None
+    def bToDLL(self,root):
+        if not root: return
+        self.bToDLL(root.left)
+        if not self.head: 
+            self.head = root
+        else:
+            root.left = self.tail
+            self.tail.right = root
+        self.tail = root
+        self.bToDLL(root.right)
+        return self.head
 --
 
 #####################################################################################################################################################################################################
+
+-- Alternate positive and negative numbers
+
+-- https://www.youtube.com/watch?v=ntt_6CCXDqI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=35
+-- 
+
+
+--
+class Solution:
+    def rearrange(self,arr, n):
+        # code here
+        pos = []
+        neg = []
+        ans = []
+        for i in range(n):
+            if arr[i] > 0:
+                pos.append(arr[i])
+            elif arr[i] < 0:
+                neg.append(arr[i])
+        
+        
+        i, j, k, = 0, 0, 0
+        while i < len(pos) or j < len(neg):
+            if pos[i]:
+                ans.append(pos[i])
+                i+= 1
+            if neg[j]:
+                ans.append(neg[j])
+                j += 1
+        return ans
+--
+
+###################################################################################################################################################################################################
