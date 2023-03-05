@@ -762,7 +762,7 @@ class Solution:
 -- Find all distinct subset or subsequence
 
 -- https://www.youtube.com/watch?v=evxWPp3TI3E&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=30
--- 
+-- https://practice.geeksforgeeks.org/problems/find-all-distinct-subset-or-subsequence-sums4424/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
 --
 class Solution:
@@ -788,3 +788,43 @@ class Solution:
 
 ######################################################################################################################################################################################################
 
+
+-- Merging Details
+
+
+-- https://practice.geeksforgeeks.org/problems/merging-details/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=8-foSocrEV4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=32
+
+
+--
+--
+
+##########################################################################################################################################################################################
+
+-- Next right node
+
+-- https://www.youtube.com/watch?v=5SPNg4blazc&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=33
+-- https://practice.geeksforgeeks.org/problems/next-right-node/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+--
+from collections import deque
+class Solution:
+    def nextRight(self, root, key):
+        #code here
+        queue = [root]
+        ans = Node(-1)
+        while queue:
+            n = len(queue)
+            for i in range(n):
+                curr = queue.pop(0)
+                if curr.data == key and i != n-1:
+                    return queue[0]
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
+        return ans
+            
+--
+
+####################################################################################################################################################################################################
