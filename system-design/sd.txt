@@ -11,3 +11,9 @@ OTT Platforms
 Github Links
 
 -- https://github.com/gopigaurav/system-design-primer?organization=gopigaurav&organization=gopigaurav
+-- https://github.com/karanpratapsingh/system-design
+-- https://github.com/donnemartin/system-design-primer
+-- https://github.com/checkcheckzz/system-design-interview
+-- https://github.com/shashank88/system_design
+-- https://github.com/InterviewReady/system-design-resources
+-- https://www.freecodecamp.org/news/systems-design-for-interviews/
