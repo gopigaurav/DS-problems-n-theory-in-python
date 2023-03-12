@@ -889,4 +889,68 @@ class Solution:
 
 -- Count palindromic sequence
 
--- 
+-- https://practice.geeksforgeeks.org/problems/count-palindromic-subsequences/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+--
+    def countPS(self,string):
+        n = len(string)
+        dp = [[-1 for _ in range(n+1)] for _ in range(n+1)]
+        
+        def sol(i, j, string, dp):
+            mod = 1e9+7
+            if i == j:
+                return 1
+            if i > j:
+                return 0
+            
+            if dp[i][j] != -1:
+                return dp[i][j]
+            
+            if string[i] == string[j]:
+                dp[i][j] = (1 + sol(i+1, j, string, dp) + sol(i, j-1, string, dp))%mod
+            else:
+                dp[i][j] = ((sol(i+1, j, string, dp) + sol(i, j - 1, string, dp) - sol(i+1, j-1, string, dp))%mod + mod)%mod
+            return dp[i][j]
+        
+        return int(sol(0, len(string)-1, string, dp))
+--
+
+
+
+#####################################################################################################################################################################################################
+
+-- Counting elements in two arrays
+
+
+-- https://practice.geeksforgeeks.org/problems/counting-elements-in-two-arrays/1
+-- https://www.youtube.com/watch?v=uLyFwNUCfmw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=37
+
+
+--
+class Solution:
+    def countEleLessThanOrEqual(self,arr1,n1,arr2,n2):
+        #returns the required output
+        res = []
+        arr2.sort()
+        def binary(target, n2):
+            low = 0
+            high = n2 - 1
+            ans = 0
+            while (low<=high):
+                mid = low + ((high - low)//2)
+                if arr2[mid] > target:
+                    ans = mid
+                    high = mid - 1
+                else:
+                    if mid + 1 >= n2:
+                        ans = mid + 1
+                    low = mid + 1
+            return ans
+        
+        for i in range(n1):
+            index = binary(arr1[i], n2)
+            res.append(index)
+        return res
+--
+
+####################################################################################################################################################################################
