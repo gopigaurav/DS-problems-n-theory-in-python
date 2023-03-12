@@ -588,3 +588,42 @@ class Solution:
             res.append(ans)
         return res
 --
+
+######################################################################################################################################################################################################################
+
+-- Counting elements in two arrays
+
+
+-- https://practice.geeksforgeeks.org/problems/counting-elements-in-two-arrays/1
+-- https://www.youtube.com/watch?v=uLyFwNUCfmw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=37
+
+
+--
+class Solution:
+    def countEleLessThanOrEqual(self,arr1,n1,arr2,n2):
+        #returns the required output
+        res = []
+        arr2.sort()
+        def binary(target, n2):
+            low = 0
+            high = n2 - 1
+            ans = 0
+            while (low<=high):
+                mid = low + ((high - low)//2)
+                if arr2[mid] > target:
+                    ans = mid
+                    high = mid - 1
+                else:
+                    if mid + 1 >= n2:
+                        ans = mid + 1
+                    low = mid + 1
+            return ans
+        
+        for i in range(n1):
+            index = binary(arr1[i], n2)
+            res.append(index)
+        return res
+--
+
+####################################################################################################################################################################################
+
