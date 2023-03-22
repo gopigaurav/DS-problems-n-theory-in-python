@@ -1010,4 +1010,29 @@ class Solution:
 
 ######################################################################################################################################################
 
+-- foldable tree (Similar to mirror of the tree)
+
+-- https://practice.geeksforgeeks.org/problems/foldable-binary-tree/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=C87kVZOq9Sg&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=39
+
+--
+def IsFoldable(root):
+    if not root:
+        return True
+        
+    def sol(left, right):
+        if not left and not right:
+            return 1
+        if not left or not right:
+            return 0
+        return (sol(left.right, right.left) and sol(left.left, right.right))
+    
+    if sol(root.left, root.right):
+        return True
+    return False
+--
+
+
+###########################################################################################################################################################
+
 -- 
