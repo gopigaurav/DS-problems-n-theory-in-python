@@ -1037,5 +1037,9 @@ def IsFoldable(root):
 
 -- Immediate Smaller element
 
-
 -- https://www.youtube.com/watch?v=75LH0gHa4dQ&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=40 
+
+
+
+
+##########################################################################################################################################################
