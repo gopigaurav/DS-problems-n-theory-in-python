@@ -1038,8 +1038,21 @@ def IsFoldable(root):
 -- Immediate Smaller element
 
 -- https://www.youtube.com/watch?v=75LH0gHa4dQ&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=40 
+-- https://practice.geeksforgeeks.org/problems/immediate-smaller-element1142/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
 
+--
+	def immediateSmaller(self,arr,n):
+		for i in range(n - 1):
+		    if arr[i] > arr[i + 1]:
+		        arr[i] = arr[i + 1]
+		    else:
+		        arr[i] = -1
+		arr[n - 1] = -1
+		return arr
+--
 
 
 ##########################################################################################################################################################
+
+-- 
