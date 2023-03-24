@@ -1104,12 +1104,40 @@ class Solution:
 
 ############################################################################################################################################################################
 
--- Unit area of largest region of 1s
+-- Unit area of largest region of 1s (Similar to region in binary matrix)
 
 -- https://www.youtube.com/watch?v=2fI49mrEYmM&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=43
 -- https://practice.geeksforgeeks.org/problems/length-of-largest-region-of-1s-1587115620/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
 --
+class Solution:
+
+    #Function to find unit area of the largest region of 1s.
+	def findMaxArea(self, grid):
+		n = len(grid)
+		m = len(grid[0])
+		ans = 0
+		for i in range(n):
+		    for j in range(m):
+		        if grid[i][j] == 1:
+		            count = self.count(i, j, grid, n, m)
+		            ans = max(count, ans)
+	    return ans
+    
+    def count(self, row, col, A, n, m):
+        if any([row < 0, col < 0, row >= n, col >= m]):
+            return 0
+        if A[row][col] == 0:
+            return 0
+        count = 1
+        
+        A[row][col] = 0 # so that it wont repeat on loop
+        
+        for r in range(row - 1, row + 2):
+            for c in range(col - 1, col + 2):
+                count += self.count(r, c, A, n, m)
+        
+        return count
 --
 
 
