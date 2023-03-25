@@ -1151,6 +1151,9 @@ class Solution:
 
 -- method 1 ( works for both positive and negative values) (using two pointers)
 
+=> find prefix sum
+=> check for x+k
+
 --
 
 
