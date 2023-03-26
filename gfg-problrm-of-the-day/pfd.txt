@@ -1149,11 +1149,27 @@ class Solution:
 -- https://www.youtube.com/watch?v=yDeNqw_dAU0&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=44
 -- https://practice.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
--- method 1 ( works for both positive and negative values) (using two pointers)
+-- method 1 ( works for both positive and negative values) ( use this method for all neg and pos numbers)
 
 => find prefix sum
-=> check for x+k
+=> check for sum - kin dict()
 
+class Solution:
+    def lenOfLongSubarr (self, arr, n, k) : 
+        m = dict()
+        m[0] = -1 # if k = 0 then it might differ like if subarray starts from 0
+        l = 0
+        curSum = 0
+        for i in range(n):
+            curSum += arr[i]
+            
+            if (curSum - k) in m:
+                l = max(l, i - m[curSum - k])
+            
+            if curSum not in m:
+                m[curSum] = i
+        
+        return l
 --
 
 
