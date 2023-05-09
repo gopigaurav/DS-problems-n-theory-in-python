@@ -1271,12 +1271,23 @@ class Solution:
 
 ####################################################################################################################################################################
 
--- Max length chain 
+-- Max length chain (greedy)
+
+-- https://practice.geeksforgeeks.org/problems/max-length-chain/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=UTOKMABq4Zs&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=46
 
 --
---
-
---
+class Solution:
+    def maxChainLen(self, Parr, n):
+        Parr.sort(key=lambda x:x.b)
+        
+        result = 1
+        end = Parr[0].b
+        for pair in Parr:
+            if pair.a > end:
+                result+=1
+                end = pair.b
+        return result 
 --
 
 
