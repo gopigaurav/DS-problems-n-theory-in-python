@@ -1,4 +1,7 @@
-Fenwick tree
+Fenwick tree (Binary indexed tree)
 
 
--- 
+-- It is also called as binary indexed tree
+
+-- Update operation - O(logn)
+-- find sum operation - O(logn)
