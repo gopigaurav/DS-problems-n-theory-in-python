@@ -1323,4 +1323,44 @@ class Solution:
 ##############################################################################################################################################################################
 
 
---  
+--  Case specific sorting of strings
+
+-- https://www.youtube.com/watch?v=synFG_49iC0&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=48
+-- https://practice.geeksforgeeks.org/problems/case-specific-sorting-of-strings4845/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+class Solution:
+
+    #Function to perform case-specific sorting of strings.
+    def caseSort(self,s,n):
+        #code here
+        lower = [0 for _ in range(50)]
+        upper = [0 for _ in range(50)]
+        res = ''
+        l = 0
+        u = 0
+        for character in s:
+            if ord(character) >= ord('a') and ord(character) <= ord('z'):
+                lower[abs(ord(character) - ord('a'))] += 1
+            else:
+                upper[abs(ord(character) - ord('A'))] += 1
+        
+        for i in range(n):
+            if ord(s[i]) >= ord('a') and ord(s[i]) <= ord('z'):
+                while lower[l] == 0:
+                    l += 1
+                
+                res += (chr(ord('a') + l))
+                lower[l] -= 1
+            else:
+                while upper[u] == 0:
+                    u += 1
+                
+                res += chr(ord('A') + u)
+                upper[u] -= 1
+                
+        return res
+--
+
+##############################################################################################################################################################################
