@@ -1327,7 +1327,7 @@ class Solution:
 
 -- https://www.youtube.com/watch?v=synFG_49iC0&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=48
 -- https://practice.geeksforgeeks.org/problems/case-specific-sorting-of-strings4845/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
-
+-- https://www.geeksforgeeks.org/case-specific-sorting-of-strings/
 
 --
 class Solution:
