@@ -1364,3 +1364,43 @@ class Solution:
 --
 
 ##############################################################################################################################################################################
+
+-- knight walk
+
+-- https://www.youtube.com/watch?v=n4RbVQxvEXc&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=48
+-- https://practice.geeksforgeeks.org/problems/knight-walk4521/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+class Solution:
+	def minStepToReachTarget(self, KnightPos, TargetPos, N):
+		#Code here
+		
+		vis = [[0 for i in range(N+1)] for _ in range(N+1)]
+		queue = [(KnightPos[0], KnightPos[1], 0)]
+
+        if KnightPos == TargetPos:
+            return 0
+        
+        dx = [1, 1, -1, -1, 2, 2, -2, -2] # moves for knight in x direction
+        dy = [2, -2, 2, -2, 1, -1, 1, -1] # moves for knight in y direction
+        
+        while queue:
+            x, y, moves = queue.pop(0)
+            
+            if (x == TargetPos[0] and y == TargetPos[1]):
+                return moves
+            
+            for k in range(8):
+                nx = dx[k] + x 
+                ny = dy[k] + y
+                
+                if nx >= 1 and ny >= 1 and ny <= N and nx <= N and vis[nx][ny] == 0:
+                    vis[nx][ny] = 1
+                    queue.append((nx, ny, moves + 1))
+                    
+                 
+        return -1
+--
+
+
