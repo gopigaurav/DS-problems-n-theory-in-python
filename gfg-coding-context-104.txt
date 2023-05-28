@@ -1,6 +1,6 @@
 
 -- https://practice.geeksforgeeks.org/events/rec/gfg-weekly-coding-contest?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=weekly_coding_contest
-
+-- https://www.youtube.com/watch?v=FcmzOC4HUAQ
 -- https://practice.geeksforgeeks.org/contest/gfg-weekly-coding-contest-104/problems/
 
 -- Density of the tree of n nodes
@@ -34,5 +34,38 @@ class Solution:
 --
 
 ================================================================================================================================================================================
+
+-- distinct elements (greedy)
+
+-- sort in descending order
+
+--
+ class Solution:
+    def distinctElements(self, N, k, A): 
+        #code here
+        
+        # greedy approach go with first sort in descending order 
+        # do +k, 0, -k
+        m = {}
+        A.sort(reverse=True)
+        
+        c = 0
+        for i in A:
+            if not m.get(i + k, 0):
+                c+= 1
+                m[i + k] = m.get(i + k, 0) + 1
+            
+            elif not m.get(i, 0):
+                c+= 1
+                m[i] = m.get(i, 0) + 1
+                
+            elif not m.get(i - k, 0):
+                c += 1
+                m[i - k] = m.get(i - k, 0) + 1
+                
+        return c
+--
+
+===================================================================================================================================================================
 	
 	
