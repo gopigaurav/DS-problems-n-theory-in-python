@@ -1,10 +1,38 @@
 
 -- https://practice.geeksforgeeks.org/events/rec/gfg-weekly-coding-contest?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=weekly_coding_contest
 
+-- https://practice.geeksforgeeks.org/contest/gfg-weekly-coding-contest-104/problems/
+
 -- Density of the tree of n nodes
 
--- for Density => Size/Height of tree
-	size => total no of nodes
-	height => height of the tree
+	-- for Density => Size/Height of tree
+		size => total no of nodes
+		height => height of the tree
 
+	-- height of the tree => longest path from root to leaf (dfs)
 
+--
+from collections import defaultdict
+class Solution:
+    def density(self, N,  p):
+        # density = size/height
+        global h
+        h = 0
+        
+        def dfs(node, g, d): # d => distance, h => height
+            global h
+            h = max(h, d)
+            for i in g[node]:
+                dfs(i, g, d+1)
+        
+        g = defaultdict(list)
+        for i in range(1, N):
+            g[p[i]].append(i)
+        
+        dfs(0, g, 1)
+        return N/h
+--
+
+================================================================================================================================================================================
+	
+	
