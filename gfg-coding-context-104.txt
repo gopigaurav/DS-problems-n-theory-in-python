@@ -1,0 +1,10 @@
+
+-- https://practice.geeksforgeeks.org/events/rec/gfg-weekly-coding-contest?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=weekly_coding_contest
+
+-- Density of the tree of n nodes
+
+-- for Density => Size/Height of tree
+	size => total no of nodes
+	height => height of the tree
+
+
