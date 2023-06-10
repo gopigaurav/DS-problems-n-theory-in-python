@@ -1417,7 +1417,32 @@ class Solution:
 
 ####################################################################################################################################################################################
 
--- 
+-- Fact Digit Sum
+
+
+-- https://www.youtube.com/watch?v=cAWhCK6s89w&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=49
+-- https://practice.geeksforgeeks.org/problems/fact-digit-sum4125/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+--
+class Solution:
+	def FactDigit(self, N):
+		# Code here
+		
+		f = [1 for _ in range(10)]
+		ans = []
+		
+		for i in range(1, 10):
+		    f[i] = f[i - 1] * i
+		
+	    for i in range(9, -1, -1):
+	        while f[i] <= N:
+	            N -= f[i]
+	            ans.append(i)
+	    
+	    return ans[::-1]
+--
+
+#################################################################################################################################################################
 
 
 
