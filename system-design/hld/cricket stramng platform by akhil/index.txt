@@ -1,0 +1,16 @@
+
+
+-- Data Ingestion
+
+-- The process of collecting data from sources to data platforms.
+   Once data is ingested, it is stored and integrated. The process steps are:
+	- Collect data sources
+	- Bring data to data sources with stream / batch/ both modes
+	- maintain information about data in metadata repository
+	- tools: apache kafka, amazon kinesis, google data flow
+
+
+
+-- Batch processing vs stream processing
+
+-- https://www.youtube.com/watch?v=41VHGrTnFrU
