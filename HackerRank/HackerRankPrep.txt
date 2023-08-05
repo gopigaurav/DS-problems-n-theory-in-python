@@ -13,4 +13,22 @@ def miniMaxSum(arr):
 
 #########################################################################################################################################
 
+-- Diagonal Difference
+
+-- https://www.hackerrank.com/challenges/one-week-preparation-kit-diagonal-difference/problem?h_l=interview&isFullScreen=true&playlist_slugs%5B%5D%5B%5D=preparation-kits&playlist_slugs%5B%5D%5B%5D=one-week-preparation-kit&playlist_slugs%5B%5D%5B%5D=one-week-day-two
+
+--
+def diagonalDifference(arr):
+    # Write your code here
+    n = len(arr)
+    m = len(arr[0])
+    leftdia = 0
+    rightdia = 0
+    for i in range(n):
+        leftdia += arr[i][i]
+        rightdia += arr[i][n - i - 1]   
+--
+
+#######################################################################################################################################################
+
 -- 
