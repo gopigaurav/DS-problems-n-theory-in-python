@@ -1530,7 +1530,7 @@ class Solution:
 
 #########################################################################################################################
 
--- Josepheus problem
+-- Josepheus problem (Recursion)
 
 -- https://www.youtube.com/watch?v=HEQN_dejrbw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=53
 -- https://practice.geeksforgeeks.org/problems/josephus-problem/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
@@ -1557,6 +1557,30 @@ class Solution:
 
 
 ##############################################################################################################################
+
+-- Quick sort on doubly linked list  (Lomuto and Hoares algorithmn)
+
+-- https://www.youtube.com/watch?v=ms_rjPaUNqs&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=55
+-- https://practice.geeksforgeeks.org/problems/quicksort-on-doubly-linked-list/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+--
+
+
+############################################################################################################################################
+
+-- 
+
+
+
+
+
+
+
+
+
+
 
 
 
