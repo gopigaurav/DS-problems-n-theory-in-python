@@ -1503,17 +1503,45 @@ class Solution:
 ############################################################################################################################################################################################ 
 
 
--- Nine Divisors
-
+-- Nine Divisors (Simple math)
+ 
 
 -- https://www.youtube.com/watch?v=VyFxFoKi9_k&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=52
 
---
+-- https://practice.geeksforgeeks.org/problems/nine-divisors3751/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+import math
 
+
+#User function Template for python3
+class Solution:
+    def nineDivisors(self, N):
+        # code here 
+        
+        # if we have a2 and b2 when both are prime then we have 7 combinations and plus for the 1 and number itself
+        
+        # a**2 x b**2  -> (p1**2 and p2**2) <= N
+        # 1, p**8 -> prime number to the power 8
+        
+        # steps
+        # find all prime <= sqrt(N)
+        
+        limit = math.sqrt(N) + 1
 -- 
 
 #########################################################################################################################
 
+-- Josepheus problem
+
+-- https://www.youtube.com/watch?v=HEQN_dejrbw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=53
+-- https://practice.geeksforgeeks.org/problems/josephus-problem/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+
+--
+
+
+##############################################################################################################################
 
 
 
