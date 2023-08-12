@@ -31,4 +31,29 @@ def diagonalDifference(arr):
 
 #######################################################################################################################################################
 
+-- Tower Breakers
+
+-- https://www.hackerrank.com/challenges/one-week-preparation-kit-tower-breakers-1/problem?isFullScreen=true&h_l=interview&playlist_slugs%5B%5D=preparation-kits&playlist_slugs%5B%5D=one-week-preparation-kit&playlist_slugs%5B%5D=one-week-day-three
+-- https://www.youtube.com/watch?v=jOxTTE3IkjE
+
+--
+def towerBreakers(n, m):
+    # Write your code here
+    
+    # m == 1 always player-2 will win
+    
+    # when the number of players is odd always the player-2 loses ie player-1 wins
+    # when the number of players is even always the player-1 loses ie player-2 wins
+    
+    if (m == 1 or n%2 == 0):
+        return 2
+    else:
+        return 1
+--
+
+
+########################################################################################################################################################################
+
+
 -- 
+####################################################################################################################################################
