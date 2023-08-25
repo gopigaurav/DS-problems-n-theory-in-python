@@ -1717,8 +1717,71 @@ def post_order(pre, size) -> Node:
 -- Complete Binary tree
 
 
--- Two 
+-- For a complete binary tree 
+	-> All the levels are filled except the lowest level
+	-> filled from left
 
+-- https://www.youtube.com/watch?v=eu0mbmfHgyM&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=58
+-- https://practice.geeksforgeeks.org/problems/complete-binary-tree/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+--
+
+class Solution():
+    def isCompleteBT(self, root):
+        #Add Code Here
+        
+        # first go to left to right if left child is not present then it is not complete binary tree
+        
+        # Use level order traversal
+        # BFS (level order traversal) using queue
+        
+        
+        if root is None:
+            return 1
+        
+        ok = 0
+        
+        queue = [root]
+        
+        while len(queue)>0:
+            node = queue.pop(0)
+            
+            if node.left:
+                if ok:
+                    return 0
+                else:
+                    queue.append(node.left)
+            else:
+                ok = 1
+                
+            if node.right:
+                if ok:
+                    return 0
+                else:
+                    queue.append(node.right)
+            else:
+                ok = 1
+            
+        return 1
+--
+
+
+######################################################################################################################################################
+
+
+-- Delete nodes greater than k
+
+
+-- https://www.youtube.com/watch?v=eu0mbmfHgyM&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=58
+-- https://practice.geeksforgeeks.org/problems/delete-nodes-greater-than-k/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+
+--
+
+
+######################################################################################################################################################
 
 
 
