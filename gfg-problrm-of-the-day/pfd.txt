@@ -1564,13 +1564,93 @@ class Solution:
 -- https://practice.geeksforgeeks.org/problems/quicksort-on-doubly-linked-list/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
 
---
+Ways to partition the array
+
+1. Naive
+2. Lomuto
+3. Hoares
+
+
+--  Lomuto method used
+class Solution:
+    def partition(self, l, h):
+        # Your code goes here
+        
+        
+        # using the lomuto method
+        
+        
+        # first assign high element to pivot and (low - 1) element to i
+        
+        # In loop Compare the j and pivot 
+        
+        pivot = h.data
+        i = l.prev
+        
+        j = l
+        
+        while j != h:
+            if j.data <= pivot:
+                if i is not None:
+                    i = i.next
+                else:
+                    i = l
+                i.data, j.data = j.data, i.data
+                
+            j = j.next
+            
+        if i is not None:
+            i = i.next
+        else:
+            i = l
+        
+        i.data, h.data = h.data, i.data 
+        return i
 --
 
 
 ############################################################################################################################################
 
--- 
+-- X total shapes
+
+-- https://www.youtube.com/watch?v=Hu1ahbUTBmk&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=56
+-- https://practice.geeksforgeeks.org/problems/x-total-shapes3617/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+--
+class Solution:
+    
+    #Function to find the number of 'X' total shapes.
+    def dfs(self, row, col, n, m, grid):
+        if row < 0 or col < 0 or row >= n or col >= m or grid[row][col] == 'O':
+            return
+        
+        grid[row][col] = 'O'
+        
+        self.dfs(row - 1, col, n, m, grid)
+        self.dfs(row + 1, col, n, m, grid)
+        self.dfs(row, col - 1, n, m, grid)
+        self.dfs(row, col + 1, n, m, grid)
+        
+        
+	def xShape(self, grid):
+		#Code here
+		n = len(grid)
+		m = len(grid[0])
+		count = 0
+		
+		
+		for i in range(n):
+		    for j in range(m):
+		        if grid[i][j] == 'X':
+		            count += 1
+		            self.dfs(i, j, n, m, grid)
+	
+	    return count
+--
+
+
+
+####################################################################################################################################################
 
 
 
