@@ -1653,6 +1653,71 @@ class Solution:
 ####################################################################################################################################################
 
 
+-- PreOrder to BST
+
+
+-- https://www.youtube.com/watch?v=-XnqvzYGQGs&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=57
+-- https://practice.geeksforgeeks.org/problems/preorder-to-postorder4423/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+-- Two method 
+	1. build the BST by traversing the array one by one O(N**2)
+	2. we need Preorder and Inorder traversal 
+		-> Inorder traversal is the ascending order of the BST  O(logN) max
+	3. have range for particular node in BST separately
+
+
+--
+#User function Template for python3
+
+class Node:
+
+    def __init__(self, data=0):
+        self.data = data
+        self.left = None
+        self.right = None
+
+#Function that constructs BST from its preorder traversal.
+    
+
+def rec(pre, n, i, mi, mx):
+    
+    if i >= n: 
+        return None
+    
+    if mi > pre[i] or pre[i] > mx:
+        return None
+    
+    root = Node(pre[i])
+    
+    i = i + 1
+    
+    root.left = rec(pre, n, i, mi, root.data - 1)
+    root.right = rec(pre, n, i, root.data - 1, mx)
+    
+    return root
+    
+
+def post_order(pre, size) -> Node:
+    #code here
+    
+    i = 0
+    mi = float('-inf')
+    mx = float('inf')
+    
+    root = rec(pre, size, i, mi, mx)
+    
+    return root
+--
+
+
+
+############################################################################################################################################
+
+-- Complete Binary tree
+
+
+-- Two 
 
 
 
