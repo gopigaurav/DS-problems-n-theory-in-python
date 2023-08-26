@@ -1777,7 +1777,25 @@ class Solution():
 
 
 --
-
+class Solution:
+    # your task is to complete this function
+    # function should delete all the Nodes greater than or equal to k
+    # function should return the new head to pointer
+    def deleteNode(self, root, k):
+        # Code here
+        
+        # use post order traversal
+        
+        if root is None:
+            return None
+            
+        root.left = self.deleteNode(root.left, k)
+        root.right = self.deleteNode(root.right, k)
+        if root.data >= k:
+            temp = root.left
+            del root
+            return temp
+        return root
 --
 
 
