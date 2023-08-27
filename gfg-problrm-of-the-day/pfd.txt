@@ -1903,7 +1903,41 @@ class Solution:
 
 #################################################################################################################################################################################
 
+-- Repeated Character
 
+
+-- https://practice.geeksforgeeks.org/problems/repeated-character2058/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=D0IQVwa5wOU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=62
+
+--
+class Solution:
+    def firstRep(self, s):
+        # code here
+        
+        # hashing
+        
+        # we need the array of 26 to hash the value a[26]
+        
+        n = len(s)
+        a = [(n + 2) for _ in range(27)]
+        pos = n + 1
+        ans = "#"
+        
+        for i in range(n):
+            if a[ord(s[i]) - ord("a")] < pos:
+                pos = a[ord(s[i]) - ord("a")]
+                ans = s[i]
+            
+            else:
+                a[ord(s[i]) - ord("a")] = i
+        return ans
+        
+--
+
+########################################################################################################################################################
+
+
+--  https://www.youtube.com/watch?v=D0IQVwa5wOU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=62
 -- 
 
 
