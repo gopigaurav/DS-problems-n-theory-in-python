@@ -1805,7 +1805,10 @@ class Solution:
 
 -- https://www.youtube.com/watch?v=siViBAILDi8&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=60
 -- https://practice.geeksforgeeks.org/problems/elements-in-the-range2834/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.geeksforgeeks.org/egg-dropping-puzzle-dp-11/
 
+
+## Here u need to take the minimum of worst cases
 
 --
 class Solution:
@@ -1852,8 +1855,56 @@ class Solution:
 ########################################################################################################################################################
 
 
--- 
+-- Elements in the range
 
+
+-- https://www.youtube.com/watch?v=Ykp4ZIlBNfw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=61
+-- https://practice.geeksforgeeks.org/problems/elements-in-the-range2834/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+class Solution:
+    def check_elements(self, arr, n, A, B):
+        # Your code goes here
+        
+        
+        # for eg from 2 to 5 
+        # to get the index of 4 in range 2 to 5 -> take 4 and substrat with 2
+        # so the index of 4 is -> 4 - 2 => 2 
+        # same goes for all others 
+        
+        
+        # get the index and then if present make the index of the array neg
+        # later traverse the array till the number of elements like 2 - 5 + 1 then check the neg elements array 
+        
+        
+        ranges = B - A
+        for i in range(n):
+            
+            if abs(arr[i]) <= B and abs(arr[i]) >= A:
+                temp = abs(arr[i]) - A
+                 
+                if temp < n and arr[temp] > 0:
+                    arr[temp] *= -1
+                
+        count = 0
+        
+        for i in range(0, ranges + 1):
+            if i < n:
+                if arr[i] > 0:
+                    return False
+                else:
+                    count += 1
+        
+        return True if count == (ranges + 1) else False
+--
+
+
+
+#################################################################################################################################################################################
+
+
+-- 
 
 
 
