@@ -1977,6 +1977,45 @@ class Solution:
 ###########################################################################################################################################################
 
 
+-- Adding array elements 
+
+
+-- https://www.youtube.com/watch?v=vxGqGEwqahY&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=64
+-- https://practice.geeksforgeeks.org/problems/adding-array-element4756/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+--
+from heapq import heapify, heappush, heappop
+class Solution:
+    def minOperations(self, arr, n, k):
+        # code here
+        
+        # you can use minheap
+        heap = []
+        heapify(heap)
+        count = 0
+        
+        for i in range(n):
+            heappush(heap, arr[i])
+            
+        if heap[0] > k:
+            return 0
+        
+        while not len(heap) <= 1 and heap[0] < k:
+            count += 1
+            a = heappop(heap)
+            b = heappop(heap)
+            
+            c = a + b
+            heappush(heap, c)
+            
+        if heap[0] < k:
+            return -1
+        
+        return count
+--
+
+
+###################################################################################################################################################
 
 
 
