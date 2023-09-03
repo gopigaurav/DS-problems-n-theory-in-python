@@ -1936,9 +1936,45 @@ class Solution:
 
 ########################################################################################################################################################
 
+-- Geek and knots (DP) (Hard can be solved by pascals triangle)
 
---  https://www.youtube.com/watch?v=D0IQVwa5wOU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=62
--- 
+--  https://www.youtube.com/watch?v=Nk2RLImBXCo&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=63
+-- https://practice.geeksforgeeks.org/problems/little-murph-and-knots0402/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+
+--
+class Solution:
+    mod = 1000000007
+    def ncr(self, n, r):
+        if r == 0 or r == n:
+            return 1
+        
+        return ncr(n-1, r-1) + ncr(n-1, r-1)
+        
+    def knots(self, M, N, K):
+        # code here
+        
+        # try to use the pascals triangle method using permutation and combination
+        
+        # using dp
+        
+        dp = [[0 for _ in range(max(M, N)+1)] for _ in range(max(M, N) + 1)]
+        
+        for i in range(max(M, N) + 1):
+            dp[i][0] = 1
+            dp[i][i] = 1
+            
+            for j in range(1, i):
+                dp[i][j] = (dp[i-1][j -1]%self.mod + dp[i-1][j]%self.mod)%self.mod
+                
+        ans = ((dp[N][K]%self.mod) * (dp[M][K]%self.mod) )%self.mod
+        return int(ans)
+            
+--
+
+
+###########################################################################################################################################################
 
 
 
