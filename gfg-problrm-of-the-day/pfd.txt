@@ -2066,5 +2066,57 @@ class Solution:
 
 ########################################################################################################################################################
 
+-- Levels of game
 
+
+-- 
+-- 
+
+--
+from typing import List
+
+
+class Solution:
+    def maxLevel(self, h:int,m:int) -> int:
+        # code here
+        
+        # recursion (seems like greedy but watch the video to understand)
+        # https://www.youtube.com/watch?v=YLln1c75lO4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=68
+        
+        # p1 -> h+3, m+2
+        # p2 -> h-5, m-10
+        # p3 -> h-20, m+5
+        
+        # try all possible path except the previous path
+        # 3d dp is required h, m, c
+        dp = [[ [-1 for col in range(2020)] for col in range(2020)] for row in range(3)]
+        dx = [3, -5, -20]
+        dy = [2, 10, 5]
+        
+        def f(h, m, c):
+            if h <= 0 or m <= 0:
+                return -1
+                
+            if dp[h][m][c] != -1:
+                return dp[h][m][c]
+                
+            res = 0
+            
+            for i in range(3):
+                if(i != c):
+                    res = max(res, f(h+dx[i], m+dy[i], i) + 1)
+            
+            dp[h][m][c] = res
+            return res
+            
+        ans = 0
+        
+        for i in range(3):
+            ans = max(ans, f(h, m, i))
+        
+        return ans    
+--
+
+
+####################################################################################################################################
 
