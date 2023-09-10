@@ -2053,7 +2053,7 @@ class Solution:
             rsum = dfs(node.right)
             
             if(lsum==0 or rsum==0):
-                stepmax = lsum+rsum
+                stepmax = lsum+rsum     # this condition to also get the negative numbers
             else:
                 stepmax = max(lsum,rsum)
             
