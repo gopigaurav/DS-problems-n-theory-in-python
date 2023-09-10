@@ -2037,6 +2037,7 @@ class Solution:
 
 -- https://practice.geeksforgeeks.org/problems/maximum-sum-leaf-to-root-path/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
 -- https://www.youtube.com/watch?v=SqYiGzF2IUI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=67
+-- https://www.geeksforgeeks.org/find-the-maximum-sum-path-in-a-binary-tree/
 
 --
 class Solution:
