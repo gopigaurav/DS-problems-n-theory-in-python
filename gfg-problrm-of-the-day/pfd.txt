@@ -2032,7 +2032,38 @@ class Solution:
 
 ##################################################################################################################################################
 
+-- Max Sum leaf to root 
 
+
+-- https://practice.geeksforgeeks.org/problems/maximum-sum-leaf-to-root-path/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+-- https://www.youtube.com/watch?v=SqYiGzF2IUI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=67
+
+--
+class Solution:
+    def maxPathSum(self, root):
+        #code here
+        
+        def dfs(node):
+            
+            if not node:
+                return 0
+                
+            
+            lsum = dfs(node.left)
+            rsum = dfs(node.right)
+            
+            if(lsum==0 or rsum==0):
+                stepmax = lsum+rsum
+            else:
+                stepmax = max(lsum,rsum)
+            
+            return node.data + stepmax
+        
+        return dfs(root)
+--
+
+
+########################################################################################################################################################
 
 
 
