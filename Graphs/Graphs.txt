@@ -1197,6 +1197,48 @@ class Solution:
 --
 
 
+-- another Solution
+
+--
+#User function Template for python3
+
+class Solution:
+    # Function to construct and return cost of MST for a graph
+    # represented using adjacency matrix representation
+    '''
+    V: nodes in graph
+    edges: adjacency list for the graph
+    S: Source
+    '''
+    def bellman_ford(self, V, edges, S):
+        #code here
+        
+        #step - 1 -> mark the ditance of souce node as zero
+        #step - 2 -> and distance for all the nodes except source as inifinity
+        #step - 3 -> run untill (V - 1) times 
+        #sstep - 4 -> if d[u] + w < d[v] then d[v] = d[u] + w
+    
+        
+        # according to bellman ford if negative cycle exits then using the relaxing once more will get u the negative cycle
+        # for bellman ford works mainly on directed graph if u get undirected graph convert it to directed graph\
+        
+        d = [int(1e8) for _ in range(V)]
+        d[S] = 0
+        
+        for i in range(V-1):
+            for u, v, w in edges:
+                if d[u] != int(1e8) and d[u] + w < d[v]:
+                    d[v] = d[u] + w
+        
+        for u, v, w in edges:
+            if d[u] != int(1e8) and d[u] + w < d[v]:
+                return [-1]
+                    
+        
+        return d
+--
+
+
 
 ======================================================================================================================================================
 
