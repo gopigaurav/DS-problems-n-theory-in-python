@@ -1176,6 +1176,8 @@ g.BellmanFord(0)
 
 -- bellmon ford in weighted directed graph (Negative weight cycle)
 -- https://practice.geeksforgeeks.org/problems/negative-weight-cycle3504/1
+-- https://practice.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
 
 -- ( Refer this )
 class Solution:
