@@ -2122,6 +2122,8 @@ class Solution:
 
 -- Number of Provices (Connected components graph)
 
+(Refer the leetcode)
+-- https://leetcode.com/problems/number-of-operations-to-make-network-connected/description/ 
 -- https://www.youtube.com/watch?v=jwMT8U8acz0&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=69
 -- https://practice.geeksforgeeks.org/problems/number-of-provinces/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 -- https://www.youtube.com/watch?v=ZGr5nX-Gi6Y
@@ -2156,6 +2158,43 @@ class Solution:
 ##################################################################################################################################
 
 
+-- Get min at pop
+
+
+-- https://practice.geeksforgeeks.org/problems/get-min-at-pop/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=8loqyMoxNfY&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=70
+
+
+--
+def _push(a,n):
+    st = []
+    st.append(a[0])
+
+    # code here
+    for i in range(1, n):
+        st.append(min(st[len(st) - 1], a[i]))
+    
+    return st
+
+
+#Function to print minimum value in stack each time while popping.    
+def _getMinAtPop(st):
+    
+    # code here
+    
+    # if stack is empty then push the element
+    # if not, then push min(stack[0], arr[i])
+
+        
+    while st:
+        temp = st.pop()
+        print(temp, end= " ")
+--
+
+###############################################################################################################################################################
+
+
+-- 
 
 
 
