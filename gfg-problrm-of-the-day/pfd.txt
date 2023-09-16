@@ -2120,3 +2120,42 @@ class Solution:
 
 ####################################################################################################################################
 
+-- Number of Provices (Connected components graph)
+
+-- https://www.youtube.com/watch?v=jwMT8U8acz0&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=69
+-- https://practice.geeksforgeeks.org/problems/number-of-provinces/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=ZGr5nX-Gi6Y
+
+
+--
+class Solution:
+    def numProvinces(self, adj, V):
+        # code here 
+        
+        
+        # similar to connected components difference is just with the input format
+        
+        vis = [0]* V
+        ans = 0
+        
+        def dfs(adj, V, node, vis):
+            vis[node] = 1
+            
+            for i in range(V):
+                if adj[node][i] == 1 and vis[i] == 0:
+                    dfs(adj, V, i, vis)
+        
+        for i in range(V):
+            if vis[i] == 0:
+                ans += 1
+                dfs(adj, V, i, vis)
+        
+        return ans
+--
+
+##################################################################################################################################
+
+
+
+
+
