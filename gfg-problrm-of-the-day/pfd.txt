@@ -2201,7 +2201,32 @@ def _getMinAtPop(st):
 -- https://practice.geeksforgeeks.org/problems/form-a-palindrome1455/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
 
---
+-- Code not completed
+class Solution:
+    def countMin(self, Str):
+        # code here
+        
+        # you need to use the LCS 
+        # where in LCS = (s1, reverse(S1))
+        # then subtract it with length of the string
+        
+        
+        # length(s) - LCS
+        
+        def lcs(X, Y, m, n, dp):
+ 
+            if (m == 0 or n == 0):
+                return 0
+         
+            if (dp[m][n] != -1):
+                return dp[m][n]
+         
+            if X[m - 1] == Y[n - 1]:
+                dp[m][n] = 1 + lcs(X, Y, m - 1, n - 1, dp)
+                return dp[m][n]
+         
+            dp[m][n] = max(lcs(X, Y, m, n - 1, dp), lcs(X, Y, m - 1, n, dp))
+            return dp[m][n]
 --
 
 
