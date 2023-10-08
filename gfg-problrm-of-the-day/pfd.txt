@@ -2194,11 +2194,13 @@ def _getMinAtPop(st):
 ###############################################################################################################################################################
 
 
--- Form a palindrome
+-- Form a palindrome (dp use LCS)
 
 -- https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
 -- https://www.youtube.com/watch?v=FquxDjU1O4Q&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=71
 -- https://practice.geeksforgeeks.org/problems/form-a-palindrome1455/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
 
 
 -- Code not completed
@@ -2235,7 +2237,7 @@ class Solution:
 
 -- Count Smaller elements
 
---
+-- https://www.youtube.com/watch?v=aqftBCqPu_g&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=72
 --
 
 --
