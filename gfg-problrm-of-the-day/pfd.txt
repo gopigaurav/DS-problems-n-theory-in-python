@@ -2246,3 +2246,60 @@ class Solution:
 
 
 ####################################################################################################################################################################
+
+-- Ceil in BST
+
+
+-- https://www.youtube.com/watch?v=4_06GvIv9wY&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=73
+-- https://practice.geeksforgeeks.org/problems/implementing-ceil-in-bst/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+-- Two methods are there choose either one
+class Solution:
+    def findCeil1(self,root, inp):
+        # code here
+        
+        global ans
+        ans = float('inf')
+        
+        def bftdfs(node, key):
+            global ans
+            if not node:
+                return
+            
+            if node.key >= key:
+                ans = min(ans, node.key)
+    
+            if node.key >= key:
+                bftdfs(node.left, key)
+            else:
+                bftdfs(node.right, key)
+            
+        bftdfs(root, inp)
+        
+        if (float('inf') == ans):
+            return -1
+        
+        return ans
+        
+    
+    def findCeil(self, root, inp):
+        ans = -1
+        curr = root
+        
+        while curr:
+            if curr.key >= inp:
+                ans = curr.key
+                curr = curr.left
+            else:
+                curr = curr.right
+        
+        return ans
+--
+
+
+###################################################################################################################################################################
+
+-- 
+
+
