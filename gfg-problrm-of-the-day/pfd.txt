@@ -2304,6 +2304,91 @@ class Solution:
 
 
 -- https://www.youtube.com/watch?v=SzLQVC7uFjw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=76
--- 
+-- https://practice.geeksforgeeks.org/problems/largest-square-in-a-binary-matrix-with-at-most-k-1s-for-multiple-queries/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+-- Refer the video for clear understanding
+
+class Solution:
+    def largestSquare(self, M, R, C, k, Q, q_i, q_j):
+        # code here 
+        
+        # we need to find prefix to find the number of 1s in array
+        
+        prefix = [[0 for _ in range(C)] for _ in range(R)]
+        
+        prefix[0][0] = M[0][0]
+        res = []
+        
+        # first perform prefix sum on all rows and then on all columns => first vertical and then horizontal
+        
+        for i in range(1, R):
+            prefix[i][0] = prefix[i - 1][0] + M[i][0]
+            
+        for j in range(1, C):
+            prefix[0][j] = prefix[0][j - 1] + M[0][j]
+            
+        
+        #  and then perform this equation to get prefix sum 
+        
+        for i in range(R):
+            for j in range(C):
+                prefix[i][j] = M[i][j] + prefix[i - 1][j] + prefix[i][j - 1] - prefix[i][j]
+                
+                
+        
+        # Now solve for the each given query
+        
+        for q in range(Q):
+            i = q_i[q]
+            j = q_j[q]
+            
+            # get the minimum square distance to find the maximum size of square
+            
+            # maximum size of the square is 2*m + 1
+            
+            min_dist = min(min(i, j), min(R - i - 1, C - j - 1))
+            ans = -1
+            
+            # do to binary search
+            l = 0
+            u = min_dist
+            
+            while (l <= u):
+                mid = (l + u)//2
+                
+                x1 = i - mid
+                x2 = i + mid
+                y1 = j - mid
+                y2 = j + mid
+                
+                count = prefix[x2][y2]
+                
+                if x1 > 0:
+                    count -= prefix[x1 - 1][y2]
+                if x2 > 0:
+                    count -= prefix[x2][y1 - 1]
+                    
+                if x1 > 0 and y1 > 0:
+                    count += prefix[x1 - 1][y1 - 1]
+                    
+                
+                if count <= k:
+                    ans = 2 * mid + 1
+                    l = mid + 1
+                
+                else: 
+                    u = mid - 1
+                
+            
+            if ans == -1:
+                ans = 0
+            res.append(ans)
+
+--
+
+
+
+############################################################################################################################################################################
 
 
