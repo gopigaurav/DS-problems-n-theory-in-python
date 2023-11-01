@@ -2300,7 +2300,7 @@ class Solution:
 
 ###################################################################################################################################################################
 
--- Binary Matrix with at most k 1s
+-- Binary Matrix with at most k 1s (Binary Search)
 
 
 -- https://www.youtube.com/watch?v=SzLQVC7uFjw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=76
@@ -2391,4 +2391,80 @@ class Solution:
 
 ############################################################################################################################################################################
 
+-- Partition array to K subsets
 
+-- Be it discontinuos but it should be in same order
+
+-- https://www.youtube.com/watch?v=90R1xPMPayU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=75
+-- https://practice.geeksforgeeks.org/problems/partition-array-to-k-subsets/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+-- Not fully completed check properly
+
+class Solution:
+    def isKPartitionPossible(self, array, k):
+        #code here
+        
+        # recursion and backtracking
+        # visited array to make sure no repeatation is there
+        
+        global arraySum 
+        arraySum = sum(array) 
+        
+        if k > len(array) or arraySum % k != 0:
+            return 0
+            
+        global ssum
+            
+        ssum = int(arraySum / k)
+        print(ssum)
+            
+        visited = [False] * len(array)
+        global count 
+        count = 0
+        
+        def recursion(vis, a, curSum, k):
+            global count
+            global ssum
+            
+            if k == 1:
+                return 1
+                
+            if curSum > ssum:
+                return 0
+            
+            if curSum == sum:
+                return recursion(vis, a, 0, k - 1)
+                
+            for i in range(len(a)):
+                if not vis[i]:
+                    vis[i] = True
+                    if (recursion(vis, a, a[i] + curSum, k)):
+                        return 1
+                    vis[i] = False
+            return 0
+            
+            
+            
+            
+        
+        return recursion(visited, array, 0, k)
+
+--
+
+
+
+############################################################################################################################################
+
+-- Min sum formed by digits
+
+-- https://practice.geeksforgeeks.org/problems/min-sum-formed-by-digits3551/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=_HmRD7Yzeic&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=76
+
+
+--
+
+--
+
+
+###################################################################################################################################################
