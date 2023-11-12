@@ -2462,8 +2462,24 @@ class Solution:
 -- https://www.youtube.com/watch?v=_HmRD7Yzeic&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=76
 
 
---
-
+-- 
+class Solution:
+    def minSum(self, arr, n):
+        # Your code goes here
+        
+        arr.sort()
+        s = 0
+        b = 0
+        
+        for i in range(len(arr)):
+            
+            if i % 2 == 0: 
+                s = s*10 + arr[i]
+            else:
+                b = b*10 + arr[i]
+            
+            
+        return s + b
 --
 
 
