@@ -2484,3 +2484,36 @@ class Solution:
 
 
 ###################################################################################################################################################
+
+
+-- BST to greater sum tree
+
+
+-- https://www.youtube.com/watch?v=vE2mhSHwxmw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=77
+-- https://practice.geeksforgeeks.org/problems/bst-to-greater-sum-tree/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+class Solution:
+    def transformTree(self, root):
+        #code here
+        
+        # the output looks like in descending order and can use reverse inorder
+        
+        def rec(node, sum):
+            if not node:
+                return 
+            
+            rec(node.right, sum)
+            
+            temp = node.data
+            node.data = sum
+            sum += temp
+            
+            rec(node.left, sum)
+            
+        rec(root, 0)
+        return
+--
+
+################################################################################################################################################
