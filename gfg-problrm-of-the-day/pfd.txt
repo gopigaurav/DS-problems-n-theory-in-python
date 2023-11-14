@@ -2579,3 +2579,16 @@ def reaching_height (n, arr) :
 
 
 #########################################################################################################################################################################
+
+-- Shortest Uncommon subsequence
+
+-- https://www.youtube.com/watch?v=tGlSd-hCCl8&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=80
+-- https://practice.geeksforgeeks.org/problems/shortest-uncommon-subsequence5746/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+
+--
+
+
+######################################################################################################################################################
