@@ -2517,3 +2517,22 @@ class Solution:
 --
 
 ################################################################################################################################################
+
+-- Assignment problem  (Hungarian algo.)
+
+--  https://www.youtube.com/watch?v=-C6Om_Nv6MY&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=78
+--  https://practice.geeksforgeeks.org/problems/assignment-problem3016/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=E_xr_7R4rBQ
+
+-- Hungarian algo.
+
+   -> Subtract lowest value in each row from every element in the row 
+   -> if a column doesnt contain a zero subtract the lowest value from every element in the column
+   -> add the smallest uncovered value to elements that are covered by 2 lines and subtract it from all the uncovered elements
+--
+
+--
+
+--
+
+##################################################################################################################################################################
