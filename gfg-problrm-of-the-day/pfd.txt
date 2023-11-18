@@ -2914,3 +2914,40 @@ class Solution:
 
 
 ######################################################################################################################################################
+
+-- Find all possible paths from top to bottom
+
+
+--
+from typing import List
+class Solution:
+    def findAllPossiblePaths(self, n : int, m : int, grid : List[List[int]]) -> List[List[int]]:
+        # code here
+        ans = []
+        
+        def backtrack(grid, row, col, n, m, path):
+           
+            if row == n - 1 and col == m - 1:
+                
+                path.append(grid[row][col])
+                ans.append(path[:])     # important ************
+                path.pop()
+                return 
+    
+            if row < 0 or row >= n or col >= m or col < 0:
+                return 
+            
+            path.append(grid[row][col])
+            
+            backtrack(grid, row + 1, col, n, m, path)
+            backtrack(grid, row, col + 1, n, m, path)
+            
+            path.pop()
+        
+        
+        backtrack(grid, 0, 0, len(grid), len(grid[0]), [])
+        return ans
+--
+
+
+##################################################################################################################################################### 
