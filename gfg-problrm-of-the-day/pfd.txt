@@ -2917,6 +2917,9 @@ class Solution:
 
 -- Find all possible paths from top to bottom
 
+-- https://chat.openai.com/c/e1397214-6b3d-41d8-b6bc-9903bf6e7d1c
+-- https://www.geeksforgeeks.org/print-all-possible-paths-from-top-left-to-bottom-right-of-a-mxn-matrix/
+-- https://www.youtube.com/watch?v=Jdctlrjp1YI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=81
 
 --
 from typing import List
