@@ -2588,6 +2588,328 @@ def reaching_height (n, arr) :
 
 -- order for the string is maintained
 
+
+class Solution2:
+    def shortestUnSub(self, S, T):
+        # code here 
+        
+        # done using recursion and dp
+        # get the minimum of the length of uncommon subsequence
+        n = len(S)
+        m = len(T)
+        
+        dp = [[-1 for _ in range(501)] for _ in range(501)]
+        
+        global intmax 
+        intmax = 501
+        
+        def rec(n, m, s, t):
+            global intmax
+            if n == 0:
+                return 501
+            if m == 0:
+                return 1
+                
+            if dp[n][m] != -1:
+                return dp[n][m]
+            
+            ans = intmax
+            
+            # loop apllied on string t 
+            j = -1
+            for k in range(m - 1, -1, -1):
+                if t[k] == s[n - 1]:
+                    j = k
+                    break
+
+                
+            if j == -1:
+                ans = 1
+            else: 
+                ans = min(rec(n - 1, m, s, t), rec(n - 1, j, s, t) + 1)
+                
+            dp[n][m] = ans
+            
+            return ans
+        
+        res = rec(n, m, S, T)
+        if res >= intmax:
+            return -1
+        return res
+        
+        
+class Solution3:
+    def shortestUnSub(self, S, T):
+        # code here 
+        
+        # done using recursion and dp
+        # get the minimum of the length of uncommon subsequence
+        n = len(S)
+        m = len(T)
+        
+        dp = [[-1 for _ in range(501)] for _ in range(501)]
+        
+        global intmax 
+        intmax = 501
+        
+        def rec(n, m, s, t):
+            global intmax
+            if n == 0:
+                return 501
+            if m == 0:
+                return 1
+                
+            if dp[n][m] != -1:
+                return dp[n][m]
+            
+            ans = intmax
+            
+            # loop applied on string t 
+            j = -1
+            for k in range(m - 1, -1, -1):
+                if t[k] == s[n - 1]:
+                    j = k
+                    break
+                
+            if j == -1:
+                ans = 1
+            else: 
+                ans = min(rec(n - 1, m, s, t), rec(n - 1, j, s, t) + 1)
+                
+            dp[n][m] = ans
+            
+            return ans
+        
+        # Convert strings to lists for mutability
+        S_list = list(S)
+        T_list = list(T)
+        
+        res = rec(n, m, S_list, T_list)
+        
+        # Convert lists back to strings if needed
+        S_result = ''.join(S_list)
+        T_result = ''.join(T_list)
+        
+        if res >= intmax:
+            return -1
+        return res
+
+class Solution4:
+    def rec(self, n, m, s, t, dp):
+        if n == 0:
+            return 501
+        if m == 0:
+            return 1
+        
+        if dp[n][m] != -1:
+            return dp[n][m]
+        
+        ans = 501
+        
+        # Loop applied on string t
+        j = -1
+        for k in range(m - 1, -1, -1):
+            if t[k] == s[n - 1]:
+                j = k
+                break
+        
+        if j == -1:
+            ans = 1
+        else:
+            ans = min(self.rec(n - 1, m, s, t, dp), self.rec(n - 1, j, s, t, dp) + 1)
+        
+        dp[n][m] = ans
+        
+        return ans
+    
+    def shortestUnSub(self, S, T):
+        n = len(S)
+        m = len(T)
+        
+        dp = [[-1 for _ in range(501)] for _ in range(501)]
+        
+        intmax = 501
+        
+        res = self.rec(n, m, list(S), list(T), dp)
+        
+        S_result = ''.join(list(S))
+        T_result = ''.join(list(T))
+        
+        if res >= intmax:
+            return -1
+        
+        return res
+        
+        
+class Solution5:
+    def solve(self, s, t, i, j, dp):
+        if i < 0:
+            return 1000
+        
+        if j < 0:
+            return 1
+        
+        if dp[i][j] != -1:
+            return dp[i][j]
+        
+        k = j
+        while k >= 0:
+            if t[k] == s[i]:
+                break
+            k -= 1
+        
+        if k < 0:
+            return 1  # this character is not present in t
+        
+        ans1 = self.solve(s, t, i - 1, j, dp)
+        ans2 = 1 + self.solve(s, t, i - 1, k - 1, dp)
+        
+        dp[i][j] = min(ans1, ans2)
+        return dp[i][j]
+    
+    def shortestUnSub(self, s, t):
+        ssz = len(s)
+        tsz = len(t)
+        dp = [[-1 for _ in range(tsz)] for _ in range(ssz)]
+        
+        ans = self.solve(s, t, ssz - 1, tsz - 1, dp)
+        
+        if ans >= 1000:
+            return -1
+        
+        return ans
+
+
+class Solution6:
+   def __init__(self):
+       self.indices={} 
+   def shortestUnSub(self, S, T):
+       m= len(S)
+       n= len(T)
+       dp=[[0]*(n+1) for _ in range(m+1)]
+       
+       for i in range(n+1):
+           dp[0][i]=501 
+           
+       for i in range(1, m+1):
+           dp[i][0]= 1
+           
+       for i in range(1, m+1):
+           for j in range(1, n+1):
+               k=j-1
+               ch= S[i-1]
+               if(ch==T[k]):
+                   self.indices[ch]=k
+               elif(ch in self.indices):
+                   k = self.indices[ch]
+               else:
+                   while(k>=0):
+                       if(T[k]==S[i-1]): 
+                           break
+                       k-=1
+                   self.indices[ch]=k
+               if(k==-1): 
+                   dp[i][j]=1
+               
+               else: 
+                   dp[i][j]= min(dp[i-1][j], 1+dp[i-1][k])
+               ans= dp[i][j]
+               if ans>= 501:
+                   ans=-1
+       return ans
+       
+       
+       
+class Solution7:
+    def __init__(self):
+        self.indices = {}
+
+    def shortestUnSub(self, S, T):
+        m = len(S)
+        n = len(T)
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+        # Initialization of dp table
+        for i in range(n + 1):
+            dp[0][i] = 501
+
+        for i in range(1, m + 1):
+            dp[i][0] = 1
+
+        # Main dynamic programming loop
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                k = j - 1
+                ch = S[i - 1]
+
+                # Updating the index of the current character in T
+                if ch == T[k]:
+                    self.indices[ch] = k
+                elif ch in self.indices:
+                    k = self.indices[ch]
+                else:
+                    while k >= 0:
+                        if T[k] == S[i - 1]:
+                            break
+                        k -= 1
+                    self.indices[ch] = k
+
+                # Calculating dp value
+                if k == -1:
+                    dp[i][j] = 1
+                else:
+                    dp[i][j] = min(dp[i - 1][j], 1 + dp[i - 1][k])
+
+        # Final result calculation
+        ans = dp[m][n]
+        if ans >= 5
+        01:
+            ans = -1
+
+        return ans
+        
+class Solution:
+    def __init__(self):
+        self.indices = {}
+
+    def shortestUnSub(self, S, T):
+        m = len(S)
+        n = len(T)
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+        # Initialization of dp table
+        for i in range(n + 1):
+            dp[0][i] = 501
+
+        for i in range(1, m + 1):
+            dp[i][0] = 1
+
+        # Main dynamic programming loop
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                k = j - 1
+                ch = S[i - 1]
+
+                # Updating the index of the current character in T
+                if ch == T[k]:
+                    self.indices[ch] = k
+
+                # Correcting the else block
+                else:
+                    k = self.indices.get(ch, -1)
+
+                # Calculating dp value
+                if k == -1:
+                    dp[i][j] = 1
+                else:
+                    dp[i][j] = min(dp[i - 1][j], 1 + dp[i - 1][k])
+
+        # Final result calculation
+        ans = dp[m][n]
+        if ans >= 501:
+            ans = -1
+
+        return ans
 -- 
 
 
