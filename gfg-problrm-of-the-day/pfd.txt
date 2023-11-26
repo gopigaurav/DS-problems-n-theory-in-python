@@ -3120,3 +3120,43 @@ class Solution:
 
 
 ########################################################################################################################################################################
+
+-- Diagonal traversal of binary tree
+
+-- https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=CrxsIbT37iI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=85
+
+
+--
+class Solution:
+    def diagonal(self,node):
+        #:param root: root of the given tree.
+        #return: print out the diagonal traversal,  no need to print new line
+        #code here
+        
+        # first traverse the whole right first push and then left child in queue
+        
+        if not node:
+            return []
+        
+        res = []
+        q = []
+        q.append(node)
+            
+        while q:
+            temp = q.pop(0)
+            
+            while temp is not None:
+                res.append(temp.data)
+                
+                if temp.left:
+                    q.append(temp.left)
+                    
+                temp = temp.right
+                
+            
+        
+        return res
+--
+
+################################################################################################################################################
