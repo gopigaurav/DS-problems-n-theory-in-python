@@ -3007,6 +3007,10 @@ class Solution:
 
 -- Brackets in Matrix chain multiplication
 
+-- https://practice.geeksforgeeks.org/problems/brackets-in-matrix-chain-multiplication1024/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=8EnQPglnEVU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=83
+
+
 --
 class Solution:
     # for the minimum number
