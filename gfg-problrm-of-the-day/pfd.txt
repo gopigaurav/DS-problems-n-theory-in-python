@@ -2954,3 +2954,124 @@ class Solution:
 
 
 ##################################################################################################################################################### 
+
+-- Polynomial addition
+
+-- https://practice.geeksforgeeks.org/problems/polynomial-addition/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=BF3YD86PSVo&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=82
+
+--
+'''
+ class node:
+    def __init__(self, coeff, pwr):
+        self.coef = coeff
+        self.next = None
+        self.power = pwr
+'''
+
+class Solution:
+    # return a linked list denoting the sum with decreasing value of power
+    def addPolynomial(self, p1, p2):
+        # Code here
+        
+        res = node(0, 0)
+        prev = res
+        
+        while p1 and p2:
+            if p1.power < p2.power:
+                prev.next = p2
+                p2 = p2.next
+            
+            elif p1.power > p2.power:
+                prev.next = p1
+                p1 = p1.next
+            
+            else:
+                prev.coef = p1.coef + p2.coef
+                prev.next = p1
+                p1 = p1.next
+                p2 = p2.next
+            prev = prev.next
+                
+                
+        if p1:
+            prev.next = p1
+        
+        if p2:
+            prev.next = p2
+            
+        return res.next
+--
+
+############################################################################################################################################
+
+-- Brackets in Matrix chain multiplication
+
+--
+class Solution:
+    # for the minimum number
+    def matrixChainOrder1(self, p, n):
+        # code here
+        dp = [[-1 for _ in range(n)] for _ in range(n)]
+        global ans
+        ans = float("inf")
+        
+        def recursion(i, j, p):
+            global ans
+            
+            if i == j:
+                
+                return 0
+            
+            if dp[i][j] != 0:
+                return dp[i][j]
+            
+            for k in range(i, j):
+                ans = max(ans, p[i - 1] * p[k] * p[j] + recursion(i, k, p) + recursion(k + 1, j, p))
+            
+            dp[i][j] = ans
+            return ans
+        
+        recursion(1, n - 1, p)
+        return ans
+        
+    
+    def matrixChainOrder(self, p, n):
+        # code here
+        # for the string output
+        dp = [[("", -1) for _ in range(n)] for _ in range(n)]
+        global ans
+        ans = float("inf")
+        
+        def recursion(i, j, p):
+            global ans
+            
+            if i == j:
+                st = ""
+                st += chr(ord('A') + i - 1)
+                return (st, 0)
+            
+            if dp[i][j][1] != -1:
+                return dp[i][j]
+                
+            m = float("inf")
+            s = ""
+            
+            
+            for k in range(i, j):
+                p1 = recursion(i, k, p)  # left part
+                p2 = recursion(k + 1, j, p)  # right part
+                x = p1[1] + p2[1] + p[i - 1] * p[k] * p[j]
+                s = "(" + p1[0] + p2[0] + ")"
+                
+                if (m > x):
+                    m = x
+                    sr = s
+            
+            dp[i][j] = (sr, m)
+            return dp[i][j]
+        
+        res = recursion(1, n - 1, p)
+        return res[0]
+--
+
