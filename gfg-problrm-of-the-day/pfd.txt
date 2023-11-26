@@ -3079,3 +3079,44 @@ class Solution:
         return res[0]
 --
 
+##########################################################################################################################################################
+
+-- Brain Game 
+
+-- https://www.youtube.com/watch?v=Nrvjwas1ctM&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=84
+-- https://practice.geeksforgeeks.org/problems/brain-game1742/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+-- giving tle check once
+class Solution:
+	def brainGame(self, nums):
+		# Code here
+		# similar to nim game
+		
+		# find the factors of numbers apart from 1, and number itself
+		# actually get the nuumber of factors
+		
+		# Prime C
+		
+		# and calculate the number of primes and factors
+		
+		
+		# max(a[j], a[i] + 1)
+		
+		a = [0] * 1001
+		
+		for i in range(2, 1001):
+		    for j in range(4, 1001):
+		        a[j] = max(a[j], a[i] + 1)
+		        
+        x = 0
+        for i in range(len(nums)):
+            x = x ^ a[nums[i]]
+        
+        if (x == 0):
+            return False
+        return True
+--
+
+
+########################################################################################################################################################################
