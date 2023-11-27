@@ -3125,7 +3125,7 @@ class Solution:
 
 -- https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 -- https://www.youtube.com/watch?v=CrxsIbT37iI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=85
-
+-- https://www.geeksforgeeks.org/diagonal-traversal-of-binary-tree/
 
 --
 class Solution:
@@ -3160,3 +3160,27 @@ class Solution:
 --
 
 ################################################################################################################################################
+
+-- Count bst nodes that lie in given range
+
+-- https://practice.geeksforgeeks.org/problems/count-bst-nodes-that-lie-in-a-given-range/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=TFns2TE8C_k&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=86
+
+--
+class Solution:
+    def getCount(self,root,low,high):
+        ##Your code here
+        
+        if not root:
+            return 0
+        
+        if root.data >= low and root.data <= high:
+            res = 1 + self.getCount(root.left, low, high) + self.getCount(root.right, low, high)
+            return res
+        
+        elif root.data < low:
+            return self.getCount(root.right, low, high)
+            
+        else:
+            return self.getCount(root.left, low, high)
+--
