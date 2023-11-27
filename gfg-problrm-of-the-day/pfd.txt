@@ -3184,3 +3184,50 @@ class Solution:
         else:
             return self.getCount(root.left, low, high)
 --
+
+##################################################################################################################################################
+
+-- Count the paths
+
+-- https://www.youtube.com/watch?v=YJs_e4PMlig&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=87
+-- https://practice.geeksforgeeks.org/problems/count-the-paths4332/1
+
+--
+from collections import defaultdict
+
+class Solution:
+    def possible_paths(self, edges, n, S, D):
+        #Code here
+        # explorre all possible ways to reach the destination
+        
+        g = defaultdict(list)
+        
+        for (u, v) in edges:
+            g[u].append(v)
+            
+        global ans
+        ans = 0
+        
+        def dfs(g, s, d):
+            global ans
+            if s == d:
+                ans += 1
+                return
+            
+            for node in g[s]:
+                dfs(g, node, d)
+        
+        dfs(g, s, d)
+        return ans
+                
+--
+
+
+##############################################################################################################################################
+
+--
+
+--
+--
+
+########################################################################################################################################################
