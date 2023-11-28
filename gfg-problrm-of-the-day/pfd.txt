@@ -3227,10 +3227,58 @@ class Solution:
 
 -- Word  break part 2
 
--- https://www.youtube.com/watch?v=SIz7vbE-ZIw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=88
+--
 --
 
 --
 --
 
 ########################################################################################################################################################
+
+-- Minimum X xor A 
+
+
+-- https://www.youtube.com/watch?v=SIz7vbE-ZIw&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=88
+-- https://practice.geeksforgeeks.org/problems/x-xor-a-is-minimum-and-set-bits-in-x-b/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+--
+class Solution:
+    def minVal(self, a, b):
+        #code here
+        
+        # cal number of set bits
+        
+        def count(num):
+            c = 0
+            while num:
+                if num & 1:
+                    c += 1
+                num >>= 1
+            return c
+        
+        c1 = count(a)
+        c2 = count(b)
+        
+        if c1 == c2:
+            return a
+        
+        elif c1 > c2:
+            # convet 1 to 0
+            diff = c1 - c2
+            while diff > 0:
+                a = a & (a - 1)  # to make the lsb to from 1 to 0
+                diff -= 1
+            return a
+        
+        else:
+            # convert 0 to 1
+            diff = c2 - c1   # be carefull here
+            while diff > 0: 
+                # or the number with succeding number to make 0 to 1
+                a = a | (a + 1) # to make the lsb from 0 to 1  
+                diff -= 1
+            return a
+--
+
+
+##################################################################################################################################################################################
