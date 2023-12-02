@@ -3286,12 +3286,72 @@ class Solution:
 -- Matrix exponentiation  (binary exponentiation and matrix multiplication) (logn) time
 
 -- https://www.youtube.com/watch?v=oBH9dH6KGLM
--- 
+-- https://practice.geeksforgeeks.org/problems/matrix-exponentiation2711/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=bBPzWYDKPBE&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=90
 
 
---
-
+-- The below solution is not totally complete
+class Solution:
+	def FindNthTerm(self, n):
+		# Code here
+        # it is similar to fibonacci series but have to do it in logn complexity
+        if n == 0:
+            return 1
+        if n == 1:
+            return 1
+            
+        
+        def matmul(A, B):
+            n = len(A)
+            mat = [[0] * 2] * 2
+            for i in range(n):
+                for j in range(len(B)):
+                    for k in range(len(B)):
+                        mat[i][j] = (mat[i][j] + A[i][k] * B[k][j]) %  (int(1e9) + 7)
+        
+            return mat
+        
+        # create a base matrix to get the 2x2 matrix with 1,1,1,0 values for matrix mul
+    
+        base = [[0] * 2] * 2
+        
+        base[0][0] = 1
+        base[0][1] = 1
+        base[1][0] = 1
+        base[1][1] = 0
+        
+        
+        # initial matrix which has f(1) and f(0)
+        initial = [[0] * 1] * 2
+        
+        
+        initial[0][0] = 1
+        initial[1][0] = 1
+        
+        def matExp(mat, n):
+            if n == 1:
+                return mat
+            
+            half = n // 2
+            ans = [[0] * 2] * 2
+            
+            ans = matExp(mat, half)
+            ans = matmul(ans, ans)
+            if n % 2 == 0:
+                return ans
+            else:
+                ans = matmul(ans, mat)
+                return ans
+        
+        poeBase = matExp(base, n - 1)
+        
+        
+        result = matmul(poeBase, initial)
+        
+        return result[0][0]
 --
 
 
 ######################################################################################################################################################################
+
+-- 
