@@ -3361,38 +3361,6 @@ class Solution:
 -- https://www.youtube.com/watch?v=2x_Bn17Qo6o&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=91
 
 
--- not completed yet
-class Solution:
-    def canReach(self, A, N):
-        # code here 
-        dp = [-1] * 100005
-        
-        def rec(index, a, n):
-            if index == n - 1:
-                return 1
-            
-            if dp[index] != -1:
-                return dp[index]
-            
-            for k in range(index + 1, index + a[index] + 1):
-                if rec(k, a, n):
-                    dp[index] = 1
-                    return 1
-            dp[index] = 0
-            return 0
-        
-        return rec(0, A, N)
---
-
-
-###########################################################################################################################################################################
-
--- Sum of elements between k1th and k2th smallest elements 
-
-
--- https://www.youtube.com/watch?v=EgMPjWliYGY
--- https://practice.geeksforgeeks.org/problems/jump-game/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
-
 --  Travel from last to first index
 class Solution:
     def canReach1(self, A, N):
@@ -3428,6 +3396,18 @@ class Solution:
         if last == 0:
             return 1
         return 0
+--
+
+
+###########################################################################################################################################################################
+
+-- Sum of elements between k1th and k2th smallest elements 
+
+
+-- https://www.youtube.com/watch?v=EgMPjWliYGY
+-- https://practice.geeksforgeeks.org/problems/jump-game/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
 --
 
 
