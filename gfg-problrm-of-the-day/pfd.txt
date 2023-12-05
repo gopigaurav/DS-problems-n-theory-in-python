@@ -3405,11 +3405,11 @@ class Solution:
 
 
 -- https://www.youtube.com/watch?v=EgMPjWliYGY
--- https://practice.geeksforgeeks.org/problems/jump-game/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+-- 
 
 
 --
-
+--
 
 ###############################################################################################################################################################################
 
