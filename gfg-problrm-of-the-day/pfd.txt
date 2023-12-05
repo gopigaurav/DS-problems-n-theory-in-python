@@ -3390,4 +3390,47 @@ class Solution:
 -- Sum of elements between k1th and k2th smallest elements 
 
 
+-- https://www.youtube.com/watch?v=EgMPjWliYGY
+-- https://practice.geeksforgeeks.org/problems/jump-game/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
 --
+class Solution:
+    def canReach1(self, A, N):
+        # code here 
+        # exceution from first
+        dp = [-1] * 100005
+        
+        def rec(index, a, n):
+            if index == n - 1:
+                return 1
+            
+            if dp[index] != -1:
+                return dp[index]
+            
+            for k in range(index + 1, min(n, index + a[index] + 1)):
+                if rec(k, a, n):
+                    dp[index] = 1
+                    return 1
+            dp[index] = 0
+            return 0
+        
+        return rec(0, A, N)
+            
+    
+    def canReach(self, A, N):
+        # excetion from last
+        last = N - 1
+        
+        for i in range(N - 2, -1, -1):
+            if A[i] >= last - i:
+                last = i
+        
+        if last == 0:
+            return 1
+        return 0
+--
+
+
+###############################################################################################################################################################################
+
+-- 
