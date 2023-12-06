@@ -3405,10 +3405,24 @@ class Solution:
 
 
 -- https://www.youtube.com/watch?v=EgMPjWliYGY
--- 
+-- https://practice.geeksforgeeks.org/problems/sum-of-elements-between-k1th-and-k2th-smallest-elements3133/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
 
 --
+class Solution:
+    def sumBetweenTwoKth(self, A, N, K1, K2):
+        # Your code goes here
+        
+        A.sort()
+        
+        if K2 > len(A):
+            return -1
+
+        csum = 0
+        for i in range(K1, K2 - 1 ):
+            csum += A[i]
+        
+        return csum
 --
 
 ###############################################################################################################################################################################
