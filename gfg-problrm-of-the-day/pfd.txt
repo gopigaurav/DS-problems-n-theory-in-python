@@ -3466,3 +3466,33 @@ class Solution(object):
             
         return jumps
 -- 
+
+#################################################################################################################################################################################################
+
+-- Change bits 
+
+
+-- https://www.youtube.com/watch?v=HVeHz7Kg6-k&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=93
+-- https://practice.geeksforgeeks.org/problems/change-bits1538/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+class Solution:
+    def changeBits(self, N):
+        # code here 
+        # count the number of bits in number and take the pow of 2 - 1
+        prev = N
+        
+        count = 0
+        while N:
+            count += 1
+            N = N >> 1
+        
+        newNum = (pow(2, count) - 1)
+        
+        return  [newNum - prev, newNum]
+--
+
+#####################################################################################################################################################################################
+
+-- Fill the Tank 
