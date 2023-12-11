@@ -3497,11 +3497,103 @@ class Solution:
 
 -- Fill the Tank 
 
---
---
+-- https://www.youtube.com/watch?v=bmexRSG0p3A&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=95https://www.youtube.com/watch?v=bmexRSG0p3A&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=95
+-- https://practice.geeksforgeeks.org/problems/fill-the-tank3026/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
 
---
+-- not completed
+from collections import defaultdict
+
+class Solution:
+    high = 10**8
+    def minimum_amount (self, Edges, num, start, cap):
+        # code here
+        
+        # it is monotonic solution and can use binary search solution
+        # low = 1
+        # high = 10pow18
+        # calculate mid
+        
+        # if at mid the answer is false then go right else go left
+        
+        # to traverse use dfs ->  logn for BS and O(N) for dfs
+        
+        
+        # also to make things simple get the maximum capacity the node can handle first 
+        # and then count children also at end then multiple max and count and compare it with mid
+        
+        adj = defaultdict(list)
+        vis = [False] * (num + 1)
+        
+        for u, v in Edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        print(adj)
+            
+        # undiredted graph
+        
+        def dfs(node, cap):
+            count = 0
+            vis[node] = True
+            res = cap[node]
+            maxi = 0
+            
+            for i in adj[node]:
+                if not vis[i]:
+                    cur = dfs(i, cap)
+                    if cur == -1:
+                        return -1
+                    maxi = max(maxi, cur)
+                    count += 1
+            res += (maxi * count)
+            if res > self.high:
+                return -1
+            return res
+        
+        res = dfs(start, cap)
+        return res
 --
 
 
 #############################################################################################################################################################
+
+-- Equivalent sub array
+
+-- https://www.youtube.com/watch?v=3Wcb18Wafyc&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=95
+-- https://practice.geeksforgeeks.org/problems/equivalent-sub-arrays3731/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+class Solution:
+    def countDistinctSubarray(self, arr, n): 
+        # two pointers and sliding window
+        # should be equal to unique elements
+        
+        unique_elements = {}
+        
+        k = len(set(arr))
+        
+        right = 0
+        window = 0
+        ans = 0
+        
+        for left in range(n):
+            while right < n and window < k:
+                unique_elements[arr[right]] = unique_elements.get(arr[right], 0) + 1
+                if unique_elements[arr[right]] == 1:
+                    window += 1
+                right += 1
+            
+            if window == k:
+                ans += (n - right + 1)
+                
+            unique_elements[arr[left]] = unique_elements.get(arr[left], 0) - 1
+            if unique_elements[arr[left]] == 0:
+                del unique_elements[arr[left]]
+                window -= 1
+            
+        return ans
+        
+--
+
+
+###############################################################################################################################################
