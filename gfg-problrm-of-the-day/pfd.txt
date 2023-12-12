@@ -3597,3 +3597,36 @@ class Solution:
 
 
 ###############################################################################################################################################
+
+-- Finding profession 
+
+
+-- https://www.youtube.com/watch?v=6eO8uhfJ6Xg&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=96
+-- https://practice.geeksforgeeks.org/problems/finding-profession3834/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+class Solution:
+    def profession(self, level, pos):
+        # code here
+        
+        # find the parent first if its E then odd will be E and even will be D
+        # parent pos = (pos + 1)/2
+        
+        if pos == 1:
+            return "e"
+        
+        if self.profession(level - 1, (pos + 1)//2) == 'e':
+            if pos % 2 == 1:
+                return 'e'
+            else:
+                return 'd'
+        else:
+            if pos % 2 == 1:
+                return 'd'
+            else:
+                return 'e'
+--
+
+
+####################################################################################################################################################
