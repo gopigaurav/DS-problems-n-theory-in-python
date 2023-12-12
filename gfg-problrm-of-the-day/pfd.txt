@@ -3630,3 +3630,16 @@ class Solution:
 
 
 ####################################################################################################################################################
+
+-- Count possible ways to contruct building
+
+-- https://www.youtube.com/watch?v=QDRGO3dcyJI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=97
+-- https://practice.geeksforgeeks.org/problems/word-break-part-23249/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+
+--
+
+
+####################################################################################################################################################
