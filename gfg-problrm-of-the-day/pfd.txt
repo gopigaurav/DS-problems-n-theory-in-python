@@ -3637,7 +3637,27 @@ class Solution:
 -- https://practice.geeksforgeeks.org/problems/word-break-part-23249/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 
 
---
+-- Use Consecutives 1s not allowed to get n and do n x n
+
+class Solution:
+	def TotalWays(self, N):
+		# Code here
+		# similar to find the no. of binary string with no adj 1 
+		
+		 
+        # find the combination on one side and multiply n x n
+        
+        a = 1
+        b = 1
+        
+        ans = a + b
+        
+        for i in range(1, N):
+            b = a
+            a = ans
+            ans = a + b
+        
+        return (ans * ans) % 1000000007
 
 --
 
@@ -3648,6 +3668,7 @@ class Solution:
 
 -- https://www.youtube.com/watch?v=H7tshfFTSvw
 -- https://www.geeksforgeeks.org/problems/consecutive-1s-not-allowed1912/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+-- https://geeksforgeeks.org/count-number-binary-strings-without-consecutive-1s/
 
 --
 class Solution:
@@ -3678,6 +3699,23 @@ class Solution:
             ans = zeroend + onend
         
         return ans
+
+
+
+    def countString(self, n):
+        a = 1
+        b = 1
+        
+        ans = a + b
+        
+        for i in range(1, n):
+		b = a
+		b = ans
+		ans = a + b
+        
+        return ans
+
+
 --
 
 
