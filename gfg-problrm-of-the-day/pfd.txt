@@ -3643,3 +3643,48 @@ class Solution:
 
 
 ####################################################################################################################################################
+
+-- Consecutives 1s not allowed  (both ways can be used)
+
+-- https://www.youtube.com/watch?v=H7tshfFTSvw
+-- https://www.geeksforgeeks.org/problems/consecutive-1s-not-allowed1912/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+
+--
+class Solution:
+
+	def countStrings(self,n):
+    	# code here
+    	# using dp or this method
+    	
+    	a = [0] * n  # storing the count of the string ending with 0
+    	b = [0] * n  # storing the count of the strign ending with 1
+        a[0] = b[0] = 1
+    	for i in range(1, n):
+    	    a[i] = (a[i - 1] + b[i - 1] % 1000000007) 
+    	    b[i] = (a[i - 1] % 1000000007)
+    	    
+        return (a[n - 1] + b[n - 1]) % 1000000007
+        
+    
+    def countString(self, n):
+        zeroend = 1
+        onend = 1
+        
+        ans = zeroend + onend
+        
+        for i in range(1, n):
+            temp = zeroend
+            onend = zeroend
+            ans = zeroend + onend
+        
+        return ans
+--
+
+
+
+#######################################################################################################################################################
+
+-- 
+
+
+
