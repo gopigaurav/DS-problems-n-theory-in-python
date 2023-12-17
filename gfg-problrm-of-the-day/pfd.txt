@@ -3833,6 +3833,62 @@ class Solution:
 
 --  This can be done reversing the part of it
 
+class Solution:
+    def reverseBetween(self, head, m, n):
+        #code here
+        
+        # we need four varibles point at the reverse, reversprev, reverseend, reverseendnext
+        
+        
+        def reverse(node):
+            prev = None
+            curr = node
+            nexxt = None
+            
+            while curr:
+                nexxt = curr.next
+                curr.next = prev
+                prev = curr
+                curr = nexxt
+            
+            return prev
+        
+        if m == n:
+            return head
+        
+        rev = None
+        revprev = None
+        revend = None
+        revendnxt = None
+        
+        cur = head
+        
+        i = 1
+        while cur and i <= n:
+            if i < m:
+                revprev = cur
+                
+            if i == m:
+                rev = cur
+                
+            if i == n:
+                revend = cur
+                revendnxt = cur.next
+            cur = cur.next
+            i += 1
+        
+        revend.next = None
+        
+        revend = reverse(rev)
+        
+        if revprev:
+            revprev.next = revend
+        else:
+            head = revend
+        
+        rev.next = revendnxt
+        return head
+
 --
 
 
