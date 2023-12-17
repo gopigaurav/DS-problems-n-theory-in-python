@@ -3669,6 +3669,7 @@ class Solution:
 -- https://www.youtube.com/watch?v=H7tshfFTSvw
 -- https://www.geeksforgeeks.org/problems/consecutive-1s-not-allowed1912/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
 -- https://geeksforgeeks.org/count-number-binary-strings-without-consecutive-1s/
+-- https://www.youtube.com/watch?v=H7tshfFTSvw
 
 --
 class Solution:
@@ -3722,7 +3723,58 @@ class Solution:
 
 #######################################################################################################################################################
 
--- 
+-- Consecutive subsequence of type a^i, b^j, c^k
 
+
+-- https://www.youtube.com/watch?v=DqtBe0vkudk&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=98
+-- https://practice.geeksforgeeks.org/problems/count-subsequences-of-type-ai-bj-ck4425/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=Gz8f_k45Zqg (use this)
+
+--
+class Solution:
+    def fun(self,s):
+        # code here
+        n = len(s)
+        
+        # for a double it with previous and add one
+        # for b = 2b + a
+        # for c = 2c + b
+        
+        dp = [[-1 for i in range(n + 1)] for _ in range(3)]
+        
+        for i in range(3):
+            dp[0][i] = 0
+        
+        for i in range(3):
+            for j in range(1, n):
+                if s[j] == 'a':
+                    dp[i][j] = dp[i][j - 1] * 2 + 1
+                else:
+                    dp[i][j] = 2 * dp[i][j - 1] + dp[i - 1][j - 1]
+        
+        return dp[2][n - 1]
+        
+        
+    
+    # AND ONLY IF U R USING THE LAST COLUMN IN DP THEN USE ONLY VAIABLES TO GET LESS SPACE COMPLEXITY
+    
+    def fun(self, s):
+        a = 0
+        b = 0
+        c = 0
+        
+        for char in s:
+            if char == 'a':
+                a = 2 * a + 1
+            elif char == 'b':
+                b = 2 * b + a
+            else:
+                c = 2 * c + b
+--
+
+
+
+############################################################################################################################################################
+ 
 
 
