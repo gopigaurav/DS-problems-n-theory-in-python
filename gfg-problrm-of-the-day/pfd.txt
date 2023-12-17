@@ -3776,5 +3776,52 @@ class Solution:
 
 ############################################################################################################################################################
  
+-- Number of positive integral solutions
 
 
+-- https://practice.geeksforgeeks.org/problems/number-of-positive-integral-solutions2115/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=PrNAt-ZzaYQ&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=99
+
+
+--
+class Solution:
+    def posIntSol(self,s):
+        #code here
+        
+        # u need to calculate the ncr for this
+        # the input is given in string
+        # similar to x1+ x2+ x3 = k
+        
+        def fac(n):
+            f = 1
+            for i in range(1, n + 1):
+                f = f * i
+            
+            return f
+        
+        n = 0
+        index = 0  # index to get the k value
+        
+        for i in range(len(s)):
+            if s[i] == "+":
+                n += 1
+            if s[i] == "=":
+                index = i # contains k = index + 1
+        
+        k = int(s[index + 1:])
+        
+        k = k - 1
+        num = 1
+        
+        for i in range(1, n + 1):
+            num = num * k
+            k = k - 1
+        
+        deno = fac(n)
+        return int(num / deno)
+--
+
+#####################################################################################################################################################################################
+
+
+-- 
