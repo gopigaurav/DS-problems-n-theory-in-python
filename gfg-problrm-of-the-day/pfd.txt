@@ -3824,4 +3824,17 @@ class Solution:
 #####################################################################################################################################################################################
 
 
--- 
+-- Reverse a sublist in linkedlist
+
+
+-- https://www.youtube.com/watch?v=c11q_aXCuwE&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=100
+-- https://practice.geeksforgeeks.org/problems/reverse-a-sublist-of-a-linked-list/1
+
+
+--  This can be done reversing the part of it
+
+--
+
+
+
+################################################################################################################################################################################################
