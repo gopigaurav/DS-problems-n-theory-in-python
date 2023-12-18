@@ -3979,3 +3979,17 @@ class Solution:
 
 
 #################################################################################################################################################################
+
+
+-- Smallest distinct window (sliding window)
+
+
+-- https://www.youtube.com/watch?v=oNMKKmDcjm4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=103
+-- https://practice.geeksforgeeks.org/problems/smallest-distant-window3132/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+--
+
+
+##########################################################################################################################################################################
