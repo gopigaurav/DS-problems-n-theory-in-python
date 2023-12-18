@@ -3894,3 +3894,88 @@ class Solution:
 
 
 ################################################################################################################################################################################################
+
+-- Longest possible route in a matrix
+
+-- https://practice.geeksforgeeks.org/problems/longest-possible-route-in-a-matrix-with-hurdles/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=P2NkEFl37Hg&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=101
+
+--
+class Solution:
+    def longestPath(self, mat, n: int, m: int, xs: int, ys: int, xd: int, yd: int) -> int:
+        
+        
+        def rec(mat, i, j, xd, yd, n, m):
+            if i < 0 or j < 0 or i >= n or j >= m or mat[i][j] == 0:
+                return -1e7
+                
+            if i == xd and j == yd:
+                return 0
+
+            mat[i][j] = 0
+
+            R = 1 + rec(mat, i, j + 1, xd, yd, n, m)
+            L = 1 + rec(mat, i, j - 1, xd, yd, n, m)
+            B = 1 + rec(mat, i + 1, j, xd, yd, n, m)
+            U = 1 + rec(mat, i - 1, j, xd, yd, n, m)
+
+            mat[i][j] = 1
+
+            return max(R, L, B, U)
+            
+        
+        if xs == xd and ys == yd:
+            return -1
+            
+        if mat[xs][ys] == 0 or mat[xd][yd] == 0:
+            return -1
+
+        return rec(mat, xs, ys, xd, yd, n, m)
+--
+
+#######################################################################################################################################################################################################
+
+-- Bipartite graph
+
+-- https://www.youtube.com/watch?v=4-uHujp6tj8&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=102
+-- https://practice.geeksforgeeks.org/problems/bipartite-graph/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+
+
+--
+class Solution:
+	def isBipartite(self, V, adj):
+		#code here
+		
+		# take two colors denoted by 0 and 1
+		# to get the color of the node take (1 - parent colour)
+		# there might also be connected components in it so use the vertices to loop over
+		    
+		color = [-1] * V
+		
+		def dfs(i, par_col, adj):
+		    
+		    # calulcate the childs color
+		    color[i] = 1 - par_col
+		    
+		    for node in adj[i]:
+		        if color[node] == -1:
+		            if not dfs(node, color[i], adj):
+		                return False
+		        else:
+		            if color[i] == color[node]:
+		                return False
+		    
+		    return True
+		    
+		
+		for i in range(V):
+		    if color[i] == -1:
+		        if not dfs(i, 0, adj):
+		            return False
+		
+		return True
+		        
+--
+
+
+#################################################################################################################################################################
