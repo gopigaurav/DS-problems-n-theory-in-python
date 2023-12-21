@@ -3984,11 +3984,51 @@ class Solution:
 -- Smallest distinct window (sliding window)
 
 
--- https://www.youtube.com/watch?v=oNMKKmDcjm4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=103
 -- https://practice.geeksforgeeks.org/problems/smallest-distant-window3132/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
-
+-- https://www.youtube.com/watch?v=zm50uGBsSz4
 
 --
+class Solution:
+    def findSubString(self, s):
+        # Your code goes here
+        
+        # first the worst case might be is the length of the whole string
+        
+        # use sliding window and check the size of it and if smaller then update the answer
+        # we need to use map for it to get the distinct characters at first
+        
+        maps = {}
+        
+        for i in s:
+            if i in maps:
+                maps[i] += 1
+            else:
+                maps[i] = 1
+        
+        dis = len(maps)
+        ans = float('inf')
+        i = 0
+        j = 0
+        
+        maps = {}
+        
+        while i < len(s):
+            if s[i] in maps:
+                maps[s[i]] += 1
+            else:
+                maps[s[i]] = 1
+            
+            if len(maps) == dis:
+                while maps[s[j]] > 1 and j < i:
+                    maps[s[j]] -= 1
+                    j += 1
+                
+                ans = min(ans, i - j + 1)
+            
+            i += 1
+        
+        return ans
+                
 --
 
 
