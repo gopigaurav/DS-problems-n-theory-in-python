@@ -4036,7 +4036,7 @@ class Solution:
 
 -- Ishaan loves chocolate
 
--- 
+-- https://practice.geeksforgeeks.org/problems/ishaan-loves-chocolates2156/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
 
 
 --
@@ -4053,3 +4053,57 @@ class Solution:
 
 
 ###############################################################################################################################################################################
+
+-- Smallest factorial number
+
+-- https://practice.geeksforgeeks.org/problems/smallest-factorial-number5929/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=hixRsifVxUY&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=105
+
+--
+class Solution:
+    def findNum(self, n : int):
+        # Complete this function
+          
+        # first divide the number by 5 
+        # but if it is divisible by 25 add 1
+        # also if it is divisible by 125 add 1
+        
+        # kinda similar to monotonous funtions can use binary search
+        
+        # if no low = mid + 1
+        # if yes high = mid - 1
+        
+        def check(p, n):
+            temp = p
+            count = 0
+            f = 5
+            
+            while f <= temp:
+                count += temp // f
+                f = f * 5
+            
+            if count >= n:
+                return 1
+            else:
+                return 0
+            
+        if n == 1:
+            return 5
+        
+        low = 0
+        high = 5 * n
+        ans = 0
+        
+        while low <= high:
+            mid = (low + high)//2
+            
+            if check(mid, n):
+                high = mid - 1
+                ans = mid
+            else:
+                low = mid + 1
+        
+        return ans
+--
+
+####################################################################################################################################################################################
