@@ -3004,8 +3004,8 @@ class Solution:
 --
 
 ############################################################################################################################################
-
--- Brackets in Matrix chain multiplication
+ 
+-- Brackets in Matrix chain multiplication   (Partition Programming)
 
 -- https://practice.geeksforgeeks.org/problems/brackets-in-matrix-chain-multiplication1024/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
 -- https://www.youtube.com/watch?v=8EnQPglnEVU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=83
@@ -4153,4 +4153,16 @@ class Solution:
 ###############################################################################################################################################################################################
 
 
+-- Count digit groupings of a number (Partition Programming DP)
+
+
+-- https://www.youtube.com/watch?v=dcyd-L7AWQ4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=107
+-- https://practice.geeksforgeeks.org/problems/count-digit-groupings-of-a-number1520/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
 -- 
+
+--
+
+--
+
+
+####################################################################################################################################################################################################
