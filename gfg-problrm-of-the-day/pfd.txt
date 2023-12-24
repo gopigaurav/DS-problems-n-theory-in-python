@@ -4201,5 +4201,35 @@ class Solution:
 
 
 -- https://www.youtube.com/watch?v=kyQlViCiA4Q&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=108
--- 
+-- https://practice.geeksforgeeks.org/problems/magnet-array-problem3743/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
 
+-- Not completed
+class Solution:
+    def nullPoints(self, n, a, ans):
+        # Your code goes here 
+        
+        def binary(high, low, m, n):
+            dif = 1 // (1e12)
+            while 1:
+                mid = (low + high)//2
+                net = 0
+                
+                for i in range(n):
+                    net += 1 // (mid - m[i])
+                    if net < dif and (-dif) > net:
+                        return mid
+                    elif net > 0:
+                        low = mid
+                    else:
+                        high = mid
+                        
+        
+            return -1
+        
+            
+        for i in range(n):
+            ans[i] = binary(a[i], a[i - 1], a, n)
+--
+
+
+##################################################################################################################################################################
