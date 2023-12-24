@@ -4107,3 +4107,50 @@ class Solution:
 --
 
 ####################################################################################################################################################################################
+
+-- String formation from string
+
+
+-- https://practice.geeksforgeeks.org/problems/string-formation-from-substring2734/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
+-- https://www.youtube.com/watch?v=4mG9pWvca9M
+
+
+--
+class Solution:
+	def isRepeat(self, s):
+		# code here
+		
+		# Pattern Matching
+		# For Pattern matching use KMP
+		
+		# get longest pprefix which is also a suffix
+		
+		n = len(s)
+		
+		le = 0
+		i = 1
+		lps = [0] * n
+		
+
+		
+		while i < n:
+		    if s[i] == s[le]:
+		        le += 1
+		        lps[i] = le
+		        i += 1
+		    else:
+		        if le == 0:
+		            lps[i] = 0
+		            i += 1
+		        else:
+		            lps[i] = lps[i - 1]
+		
+        
+        ans = 1 if lps[n - 1] > 0 else 0
+		return ans 
+--
+
+###############################################################################################################################################################################################
+
+
+-- 
