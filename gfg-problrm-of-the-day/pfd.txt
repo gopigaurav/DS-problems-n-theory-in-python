@@ -4158,11 +4158,48 @@ class Solution:
 
 -- https://www.youtube.com/watch?v=dcyd-L7AWQ4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=107
 -- https://practice.geeksforgeeks.org/problems/count-digit-groupings-of-a-number1520/1?utm_source=Youtube&utm_medium=CourseTeam_practice_desc&utm_campaign=problem_of_the_day
--- 
+-- https://www.youtube.com/watch?v=DI6pH9Cx654
+
 
 --
-
+class Solution:
+    def TotalCount(self, s):
+        # Code here
+        
+        # similar to partition programming DP
+        # DP partition Programming
+        
+        dp = [[-1] * (9 * len(s)) for _ in range(len(s))]
+        
+        
+        def grouping(index, summ, st):
+            
+            if index == len(st):
+                return 1
+            
+            ans = 0 
+            curSum = 0
+            
+            if dp[index][summ] != -1:
+                return dp[index][summ]
+            
+            for i in range(index, len(st)):
+                curSum += int(st[i]) 
+                if curSum >= summ:
+                    ans += grouping(i + 1, curSum, st)
+              
+            dp[index][summ] = ans
+            return ans
+        
+        return grouping(0, 0, s)
 --
 
 
 ####################################################################################################################################################################################################
+
+-- Magnet array Problem
+
+
+-- https://www.youtube.com/watch?v=kyQlViCiA4Q&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=108
+-- 
+
