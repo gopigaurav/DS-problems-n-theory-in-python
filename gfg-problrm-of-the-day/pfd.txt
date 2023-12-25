@@ -4326,6 +4326,24 @@ class Solution:
 -- https://www.youtube.com/watch?v=Sk5ZxELRgj4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=111
 
 --
+from heapq import heappop, heappush
+
+class Solution:
+    
+    # Function to return the sorted array.
+    def nearlySorted(self, a, n, k):
+        arr = []
+        res = []
+        
+        for i in range(n):
+            heappush(arr, a[i])
+            
+            if k + 1 == len(arr):
+                res.append(heappop(arr))
+        
+        while arr:
+            res.append(heappop(arr))
+        return res
 --
 
 
