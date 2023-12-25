@@ -4233,3 +4233,41 @@ class Solution:
 
 
 ##################################################################################################################################################################
+
+
+-- Help a theif
+
+
+-- https://practice.geeksforgeeks.org/problems/help-a-thief5938/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://youtube.com/watch?v=gRWx76z0Ezk&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=110
+
+
+--
+from heapq import heappop, heappush
+
+class Solution:
+    def maxCoins(self, A, B, T, N):
+        # code here 
+        if T == 0:
+            return 0
+        ans = []
+        for i in range(N):
+            heappush(ans, (-B[i], A[i]))
+            
+        res = 0
+        
+        while T > 0 and ans:
+            temp = heappop(ans)
+            
+            if T >= temp[1]:
+                T = T - temp[1]
+                res += abs(temp[0]) * temp[1]
+            else:
+                res += abs(temp[0]) * T
+                T = 0
+        
+        return res
+--
+
+
+##############################################################################################################################################################################
