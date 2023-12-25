@@ -4383,4 +4383,34 @@ class Solution:
 
 ##############################################################################################################################################################################
 
--- 
+-- Count pairs in array
+
+-- https://www.youtube.com/watch?v=IUami0pKijo
+-- https://practice.geeksforgeeks.org/problems/count-pairs-in-array-divisible-by-k/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+
+--class Solution:
+    def countKdivPairs(self, arr, n, k):
+        #code here
+        
+        # can be done using a map
+        # first take the modulo of individual and store it in map
+        # if the number that is diff of modulo ans - k check if exits in map if yes then add it to count
+        m = {}
+        ans = 0
+        for i in range(n):
+            temp = arr[i] % k
+            
+            if temp != 0:
+                if abs(temp - k) in m:
+                    ans += m[abs(temp - k)]
+            else:
+                ans += m.get(0, 0)
+                
+            m[temp] = m.get(temp, 0) + 1
+            
+        return ans
+
+--
+
+
+##################################################################################################################################################################
