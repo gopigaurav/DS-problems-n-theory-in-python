@@ -4271,3 +4271,62 @@ class Solution:
 
 
 ##############################################################################################################################################################################
+
+-- Union Find
+
+
+-- https://practice.geeksforgeeks.org/problems/union-find/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://www.youtube.com/watch?v=DJkhVQOK1Qc&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=110
+
+--
+class Solution:
+    
+    #Function to merge two nodes a and b.
+    def find(self, i, par, rank1):
+        if i == par[i]:
+            return i
+        
+        par[i] = self.find(par[i], par, rank1)
+        return par[i]
+        
+        
+    def union_(self,a,b,par,rank1):
+        # code here
+        a = self.find(a, par, rank1)
+        b = self.find(b, par, rank1)
+        
+        if a == b:
+            return
+        
+        if rank1[a] >= rank1[b]:
+            rank1[a] += rank1[b]
+            par[b] = a
+        else:
+            rank1[b] += rank1[a]
+            par[b] = a
+        
+    
+        
+    #Function to check whether 2 nodes are connected or not.
+    def isConnected(self,x,y,par,rank1):
+        # code here
+        p1 = self.find(x, par, rank1)
+        p2 = self.find(y, par, rank1)
+        
+        if p1 == p2:
+            return 1
+        return 0
+--
+
+####################################################################################################################################################################
+
+-- Nealy sorted
+
+-- https://practice.geeksforgeeks.org/problems/nearly-sorted-1587115620/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://www.youtube.com/watch?v=Sk5ZxELRgj4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=111
+
+--
+--
+
+
+##########################################################################################################################################################################
