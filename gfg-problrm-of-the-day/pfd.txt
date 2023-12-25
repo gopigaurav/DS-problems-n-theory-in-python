@@ -4414,3 +4414,39 @@ class Solution:
 
 
 ##################################################################################################################################################################
+
+-- Bike racing (BS and ARRAYS)
+
+-- https://practice.geeksforgeeks.org/problems/bike-racing0543/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://www.youtube.com/watch?v=j89m-H66Xlg
+
+
+--
+class Solution:	
+    def buzzTime(self, N, M, L, H, A):
+        # code here
+        
+
+            
+        # can use binary search since it is similar to a monotonous array
+        low = 0
+        high = max(L, M)
+        ans = 0
+        while low <= high:
+            mid = (low + high) // 2
+            fast = 0
+            for i in range(N):
+                if H[i] + (A[i] * mid) >= L:  # for the bike at a particular hour can be calculated like this
+                    fast += H[i] + (A[i] * mid)
+            
+            if fast >= M:
+                ans = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+
+        return ans
+--
+
+
+#######################################################################################################################################################################
