@@ -4324,6 +4324,7 @@ class Solution:
 
 -- https://practice.geeksforgeeks.org/problems/nearly-sorted-1587115620/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
 -- https://www.youtube.com/watch?v=Sk5ZxELRgj4&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=111
+-- https://www.youtube.com/watch?v=dYfM6J1y0mU
 
 --
 from heapq import heappop, heappush
@@ -4348,3 +4349,38 @@ class Solution:
 
 
 ##########################################################################################################################################################################
+
+-- Sorted linked list to BST
+
+-- https://practice.geeksforgeeks.org/problems/sorted-list-to-bst/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://www.youtube.com/watch?v=26WXJ8Q1OXQ&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=112
+-- https://www.youtube.com/watch?v=K5cVk6yN4yA
+
+--
+class Solution:
+    def sortedListToBST(self, head):
+        #code here
+        # count the length of linked list
+        a = []
+        
+        while head:
+            a.append(head.data)
+            head = head.next
+        
+        def array_to_bst_inorder(arr):
+            if not arr:
+                return None
+        
+            mid = len(arr) // 2
+            root = TNode(arr[mid])
+            root.left = array_to_bst_inorder(arr[:mid])
+            root.right = array_to_bst_inorder(arr[mid+1:])
+        
+            return root
+        return array_to_bst_inorder(a)
+--
+
+
+##############################################################################################################################################################################
+
+-- 
