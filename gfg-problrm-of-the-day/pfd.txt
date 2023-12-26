@@ -4450,3 +4450,97 @@ class Solution:
 
 
 #######################################################################################################################################################################
+
+-- Number of dice rolls with target sum
+
+
+-- https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/submissions/?envType=daily-question&envId=2023-12-26
+-- https://www.youtube.com/watch?v=XY297u8qRDI
+-- 
+
+
+--
+class Solution(object):
+    def numRollsToTarget(self, N, k, t):
+        """
+        :type n: int
+        :type k: int
+        :type target: int
+        :rtype: int
+        """
+
+        def rec(n, target, faces, memo):
+            if target == 0 and n == 0:
+                return 1
+
+            if n == 0:
+                return 0
+
+            if (n, target) in memo:
+                return memo[(n, target)]
+
+            ans = 0
+            for i in range(1, faces + 1):
+                if target - i >= 0:
+                    ans += rec(n - 1, target - i, faces, memo)
+
+            memo[(n, target)] = ans
+            return (ans) % 1000000007
+
+        memo = {}
+        return rec(N, t, k, memo)
+--
+
+
+####################################################################################################################################################################
+
+-- Median of two sorted arrays (Binary Search)
+
+
+-- https://leetcode.com/problems/median-of-two-sorted-arrays/description/
+-- https://www.youtube.com/watch?v=q6IEA26hvXc&t=251s
+
+
+--
+class Solution:
+    def findMedianSortedArrays(self, nums1, nums2):
+        A, B = nums1, nums2
+        total = len(nums1) + len(nums2)
+        
+        if (len(A) > len(B)):
+            A, B = B, A  # Swapping to make A smaller
+        n = len(A)
+        m = len(B)
+        start = 0
+        end = n
+        realmidinmergedarray = (n + m + 1) // 2
+  
+        while (start <= end):
+            
+            mid = (start + end) // 2
+            # mid for A
+            leftAsize = mid
+            
+            # median for B
+            leftBsize = realmidinmergedarray - mid
+              
+            # checking overflow of indices
+            leftA = A[leftAsize - 1] if (leftAsize > 0) else float('-inf')
+            leftB = B[leftBsize - 1] if (leftBsize > 0) else float('-inf')
+            rightA = A[leftAsize] if (leftAsize < n) else float('inf')
+            rightB = B[leftBsize] if (leftBsize < m) else float('inf')
+  
+            # if correct partition is done
+            if leftA <= rightB and leftB <= rightA:
+                if ((m + n) % 2 == 0):
+                    return (max(leftA, leftB) + min(rightA, rightB)) / 2.0
+                return max(leftA, leftB)
+  
+            elif (leftA > rightB):
+                end = mid - 1
+            else:
+                start = mid + 1
+--
+
+
+##########################################################################################################################################################################
