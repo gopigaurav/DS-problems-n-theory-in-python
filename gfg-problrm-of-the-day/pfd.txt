@@ -4548,8 +4548,8 @@ class Solution:
 -- Regular Expression Matching (DP)
 
 
---
---
+-- https://leetcode.com/problems/regular-expression-matching/submissions/
+-- https://www.youtube.com/watch?v=l3hda49XcDE
 
 --
     def isMatch(self, s, p):
@@ -4574,3 +4574,6 @@ class Solution:
 
         return dp[len(s)][len(p)]
 --
+
+####################################################################################################################################################################
+
