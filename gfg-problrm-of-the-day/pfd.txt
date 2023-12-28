@@ -4577,3 +4577,37 @@ class Solution:
 
 ####################################################################################################################################################################
 
+-- Rverse the number or Palindrome of a number (Both in one)
+
+--
+--
+
+--
+class Solution(object):
+    def isPalindrome1(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x < 0:
+            return False
+        rev = str(x)
+        res = rev[::-1]
+        
+        if int(x) == int(res):
+            return True
+
+        return False
+
+    def isPalindrome(self, x):
+        rev = 0
+        temp = x
+        while temp:
+            rem = temp % 10
+            rev = (10 * rev) + rem
+            temp = temp // 10
+        
+        return x == rev
+--
+
+##############################################################################################################################################################################
