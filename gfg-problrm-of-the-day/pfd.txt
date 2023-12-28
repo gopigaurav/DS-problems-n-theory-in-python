@@ -4579,8 +4579,8 @@ class Solution:
 
 -- Rverse the number or Palindrome of a number (Both in one)
 
---
---
+-- https://leetcode.com/problems/palindrome-number/submissions/
+-- https://www.geeksforgeeks.org/check-if-a-number-is-palindrome/
 
 --
 class Solution(object):
