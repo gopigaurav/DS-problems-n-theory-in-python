@@ -4615,8 +4615,8 @@ class Solution(object):
 -- Merge K sorted Linked list (Heaps and map)
 
 
---
---
+-- https://leetcode.com/problems/merge-k-sorted-lists/submissions/
+-- https://www.youtube.com/watch?v=0_PSq3j8GrY
 
 --
 from heapq import heappop, heappush
@@ -4666,3 +4666,102 @@ class Solution(object):
 
 
 #####################################################################################################################################################################################
+
+-- Swap Nodes in pairs
+
+-- https://leetcode.com/problems/swap-nodes-in-pairs/description/
+-- https://www.youtube.com/watch?v=o811TZLAWOo
+
+--
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+
+        # Create a dummy node to simplify code
+        dummy = ListNode(0)
+        dummy.next = head
+        temp = dummy
+
+        while temp.next and temp.next.next:
+            # Nodes to be swapped
+            node1 = temp.next
+            node2 = temp.next.next
+
+            # Swapping
+            temp.next = node2
+            node1.next = node2.next
+            node2.next = node1
+
+            # Move temp pointer to the next pair
+            # pointer comes to node1 since it is swapped
+            temp = node1
+
+        return dummy.next
+--
+
+
+####################################################################################################################################################################################
+
+-- Reverse node k nodes
+
+--
+--
+
+
+--
+class Solution(object):
+    def reverseKGroup(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+
+        def rev(node):
+            prev = None
+            cur = node
+
+            while cur:
+                temp = cur.next
+                cur.next = prev
+                prev = cur
+                cur = temp
+            return node
+
+        def getKNode(node, kt):
+            kt = kt - 1
+            while node and kt:
+                kt = kt - 1
+                node = node.next
+            return node
+
+        
+        # iterate throw the list inidividually and reverse them by group 
+        # returned reveresed linked list returns head and kth node needs to interchange
+
+        temp = head
+    
+        while temp:
+            kth = getKNode(temp, k)
+            if not kth:
+                prevNode.next = temp
+                break
+
+            nxtNode = kth.next
+            kth.next = None
+
+            rev(temp)
+            if temp == head:
+                head = kth
+            else:
+                prevNode.next = kth
+            prevNode = temp       
+            temp = nxtNode
+
+        return head
+--
+
+#############################################################################################################################################################################
