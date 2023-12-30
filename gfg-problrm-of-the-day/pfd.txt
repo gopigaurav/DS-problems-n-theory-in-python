@@ -4707,8 +4707,8 @@ class Solution(object):
 
 -- Reverse node k nodes
 
---
---
+-- https://leetcode.com/problems/reverse-nodes-in-k-group/submissions/
+-- https://www.youtube.com/watch?v=lIar1skcQYI
 
 
 --
@@ -4765,3 +4765,31 @@ class Solution(object):
 --
 
 #############################################################################################################################################################################
+
+--  Remove duplicates from sorted array
+
+-- https://leetcode.com/problems/remove-duplicates-from-sorted-array/submissions/
+-- https://www.youtube.com/watch?v=DEJAZBq0FDA
+
+
+--
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # can be done using two pointers
+        # one at left and other at right
+        # if two elements are same then ignore else store it in left side of the array at left index
+
+        left = 0
+        for right in range(1, len(nums)):
+            if nums[left] != nums[right]:
+                left += 1
+                nums[left] = nums[right]
+
+        return left + 1
+--
+
+###############################################################################################################################################################################
