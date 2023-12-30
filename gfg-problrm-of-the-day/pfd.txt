@@ -4793,3 +4793,84 @@ class Solution(object):
 --
 
 ###############################################################################################################################################################################
+
+-- Remove Element 
+
+
+-- https://leetcode.com/problems/remove-element/description/
+-- https://www.youtube.com/watch?v=Pcd1ii9P9ZI
+
+--
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        k = 0
+        for right in range(len(nums)):
+            if nums[right] != val:
+                nums[k] = nums[right]
+                k += 1
+        return k
+--
+
+#################################################################################################################################################################################
+
+-- Substring with concatination of all words
+
+-- https://leetcode.com/problems/substring-with-concatenation-of-all-words/submissions/
+-- https://www.youtube.com/watch?v=Qf-djNo5jsQ&t=187s
+
+
+--
+class Solution(object):
+    def findSubstring(self, s, words):
+        """
+        :type s: str
+        :type words: List[str]
+        :rtype: List[int]
+        """
+        hmap = {}
+        for i in words:
+            if i in hmap:
+                hmap[i] += 1
+            else:
+                hmap[i] = 1
+
+
+
+        charLen = len(words[0]) * len(words)
+        ind_char_len = len(words[0])
+
+        ans = []
+        match_count = 0
+        st = ''
+        i = 0
+        j = charLen - 1 # can directly take the window and iterate in it
+        print(hmap)
+        while j <= len(s):
+            temp = hmap.copy()
+            a = i # starting index
+            b = i + ind_char_len - 1
+            cnt = 0
+            while b <= j:
+                char = s[a: b + 1] # char len
+                if char in temp:
+                    temp[char] -= 1
+                    if temp[char] == 0:
+                        cnt += 1
+                else:
+                    break
+                a = b + 1
+                b += ind_char_len
+            if cnt == len(hmap):
+                ans.append(i)
+            i += 1
+            j += 1
+        
+        return ans
+--
+
+#################################################################################################################################################################################
