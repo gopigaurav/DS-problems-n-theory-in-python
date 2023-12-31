@@ -5095,3 +5095,54 @@ class Solution(object):
 --
 
 ########################################################################################################################################################
+
+-- Villain Con (graph problem)
+
+
+-- https://practice.geeksforgeeks.org/problems/villain-con0511/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+--
+
+--
+from collections import defaultdict
+
+class Solution:
+    def minColour(self, N, M, mat):
+        # code here
+        
+        # to find the longest chain 
+        
+        # similar to graph problem 
+        g = defaultdict(list)
+        vis = [0] * (N + 1)
+        
+        for u, v in mat:
+            g[u].append(v) # given that y admires x
+        
+        
+        # longest distance wherein the node is linked
+        # store it in distance array 
+        
+        d = [0] * 100005
+        
+        def f(i, graph, v):
+            if v[i]:
+                return d[i]
+            v[i] = 1
+            c = 0
+            for node in graph[i]:
+                if v[node]:
+                    c = max(c, 1 + d[node]) # plus one to consider the node itself
+                else:
+                    c = max(c, 1 + f(node, graph, v))
+            d[i] = c
+            return c
+            
+        ans = 0
+        for nodes in list(g.keys()):
+            ans = max(ans, f(nodes, g, vis))
+        return ans + 1
+
+--
+
+###################################################################################################################################################################################
+
