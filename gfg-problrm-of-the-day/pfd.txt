@@ -4942,11 +4942,12 @@ class Solution(object):
 
 ##############################################################################################################################################
 
--- 
+--  Search in roated array (upgraded version of Sorted roated array)
 
 
---https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
---
+-- https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
+-- https://www.youtube.com/watch?v=4WmTRFZilj8
+-- https://www.geeksforgeeks.org/find-rotation-count-rotated-sorted-array/
 
 
 --
