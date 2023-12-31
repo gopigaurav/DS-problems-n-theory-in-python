@@ -4943,3 +4943,66 @@ class Solution(object):
 ##############################################################################################################################################
 
 -- 
+
+
+--https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
+--
+
+
+--
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+
+        
+        n = len(nums)
+
+        def BS(arr, s, e, t):
+            while s <= e:
+                mid = (s + e) // 2
+
+                if arr[mid] == t:
+                    return mid
+                elif arr[mid] < t:
+                    s = mid + 1
+                else:
+                    e = mid - 1
+            return -1
+
+ 
+        def getStart():
+            low = 0
+            high = n - 1
+
+            while low <= high:
+                mid = (low + high) // 2
+                nxt = (mid + 1) % n
+                prev = (mid - 1) % n
+
+                if nums[nxt] >= nums[mid] <= nums[prev]:
+                    return mid # number of rotation is equal to index of min element
+
+                # this condition to check on which side it should proceed
+                elif (nums[mid] <= nums[high]): 
+                    high = mid - 1
+                # you should compare it with both ends
+                elif (nums[mid] >= nums[low]): 
+                    low = mid + 1
+            return -1
+        
+        min_index = getStart()
+        print(min_index)
+
+        # now BS on both elements by dividing array at middle
+
+        s1 = BS(nums, 0, min_index - 1, target)
+        s2 = BS(nums, min_index, n - 1, target)
+
+        return max(s1, s2)
+--
+
+#######################################################################################################################################
