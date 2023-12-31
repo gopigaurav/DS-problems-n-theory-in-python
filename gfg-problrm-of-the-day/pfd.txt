@@ -5007,3 +5007,31 @@ class Solution(object):
 --
 
 #######################################################################################################################################
+
+-- Search insert position
+
+-- https://leetcode.com/problems/search-insert-position/submissions/
+--
+
+
+--
+class Solution(object):
+    def searchInsert(self, arr, target):
+        start = 0
+        end = len(arr) - 1
+        res = -1
+        while(start<=end):
+            mid = start + ((end-start)/2)
+            if(arr[mid] == target):
+                return mid
+            elif(arr[mid] < target):
+                start = mid+1
+            else:
+                end = mid-1
+        return start
+--
+
+
+########################################################################################################################################
+
+-- 
