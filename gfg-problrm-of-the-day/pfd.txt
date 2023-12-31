@@ -4877,8 +4877,8 @@ class Solution(object):
 
 -- Longest valid paraenthesis
 
---
---
+-- https://leetcode.com/problems/longest-valid-parentheses/submissions/
+-- https://www.youtube.com/watch?v=vURq_xYGr-k
 
 
 --
