@@ -5034,4 +5034,64 @@ class Solution(object):
 
 ########################################################################################################################################
 
--- 
+-- Valid Sudoku
+
+-- https://leetcode.com/problems/valid-sudoku/description/
+--https://www.youtube.com/watch?v=ADAq2TBP5PY
+
+--
+class Solution(object):
+    def isValidSudoku1(self, mat):
+        cols = defaultdict(set)
+        rows = defaultdict(set)
+        squares = defaultdict(set)
+        
+        for r in range(9):
+            for c in range(9):
+                if mat[r][c] == ".":
+                    continue
+                if (mat[r][c] in rows[r] or mat[r][c] in cols[c] or mat[r][c] in squares[(r//3,c//3)]):
+                    return 0
+                rows[r].add(mat[r][c])
+                cols[c].add(mat[r][c])
+                squares[(r//3,c//3)].add(mat[r][c])
+        return 1
+        
+
+    def isValidSudoku(self, board):
+        # brrak down into three parts first check in rows, columns and then in 3 x 3 matrix
+        # valid units
+        def is_valid_unit(unit):
+            seen = set()
+            for digit in unit:
+                if digit != '.':
+                    if digit in seen:
+                        return False
+                    seen.add(digit)
+            return True
+
+        # Check rows
+        for i in range(9):
+            if not is_valid_unit(board[i]):
+                return False
+
+        # Check columns
+        for j in range(9):
+            if not is_valid_unit([board[i][j] for i in range(9)]):
+                return False
+
+        # Check 3 x 3 sub-boxes
+        for i in range(0, 9, 3):
+            for j in range(0, 9, 3):
+                sub_box = []
+                for x in range(i, i + 3):
+                    for y in range(j, j + 3):
+                        sub_box.append(board[x][y])
+                
+                if not is_valid_unit(sub_box):
+                    return False
+
+        return True
+--
+
+########################################################################################################################################################
