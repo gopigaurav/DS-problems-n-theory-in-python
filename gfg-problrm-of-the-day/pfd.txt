@@ -5100,7 +5100,7 @@ class Solution(object):
 
 
 -- https://practice.geeksforgeeks.org/problems/villain-con0511/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
---
+-- https://www.youtube.com/watch?v=u2nMVejJPpE&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=115
 
 --
 from collections import defaultdict
@@ -5146,3 +5146,45 @@ class Solution:
 
 ###################################################################################################################################################################################
 
+-- Tricky subset problem
+
+
+-- https://www.youtube.com/watch?v=t1Ez5HycVIg&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=116
+-- https://practice.geeksforgeeks.org/problems/tricky-subset-problem1557/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+
+--
+class Solution:
+    def isPossible(self, S, N, X, A):
+        # code here
+        
+        ans = [S]
+        prev = S
+        
+        for i in range(len(A)):
+            curSum = prev + A[i]
+            ans.append(curSum)
+            prev += curSum # this should be the total sum to check for if its greater than X be careful here
+            
+            if prev > X:
+                break
+        
+        for i in range(len(ans) - 1, -1, -1):
+            if X >= ans[i]:
+                X = X - ans[i]
+            if X == 0:
+                return 1
+        
+        return 0
+--
+
+#################################################################################################################################################################################
+ 
+-- Rat maze problem
+
+-- https://practice.geeksforgeeks.org/problems/rat-maze-with-multiple-jumps3852/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+--
+
+--
+--
+
+#################################################################################################################################################
