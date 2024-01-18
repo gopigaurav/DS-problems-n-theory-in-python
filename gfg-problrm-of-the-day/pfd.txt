@@ -5219,3 +5219,14 @@ class Solution:
 --
 
 #################################################################################################################################################
+
+-- Help the old man
+
+-- https://www.geeksforgeeks.org/problems/help-the-old-man3848/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://www.youtube.com/watch?v=0eWxQsRyCnY&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=118
+
+--
+--
+
+
+##################################################################################################################################################
