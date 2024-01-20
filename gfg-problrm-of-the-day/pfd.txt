@@ -5250,3 +5250,16 @@ class Solution:
 
 
 ##################################################################################################################################################
+
+-- ncr mod m
+
+
+-- https://www.geeksforgeeks.org/problems/ncr-mod-m-part-20611/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://www.youtube.com/watch?v=1rboxAiGn6k&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=119
+
+
+--
+--
+
+
+#########################################################################################################################################################
