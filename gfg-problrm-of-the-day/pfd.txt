@@ -5251,14 +5251,62 @@ class Solution:
 
 ##################################################################################################################################################
 
--- ncr mod m
+-- ncr mod m (Pascals triangle) this is not completed use Lucas theorem
 
 
 -- https://www.geeksforgeeks.org/problems/ncr-mod-m-part-20611/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
 -- https://www.youtube.com/watch?v=1rboxAiGn6k&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=119
 
 
---
+-- C(n, r) = C(n -1 , r - 1) + C(n - 1, r )
+
+class Solution:
+	def nCrModM1(self, n, r, m):
+		# Code here
+        
+        # similar to pascals triangle 
+        
+        # for first column the answer is always 1 and for all the last columns the answer is 1 
+        # Lucas theorem
+        
+        dp = [[-1 for _ in range(r + 1)] for _ in range(n + 1)]
+        
+        def ncr(n, r):
+            if n == r or r == 0:
+                return 1
+            
+            if dp[n][r] != -1:
+                return dp[n][r]
+            
+            ans = ncr(n - 1, r - 1) + ncr(n - 1, r)
+            dp[n][r] = (ans) % m
+            return (ans) % m
+        
+        return ncr(n, r)
+        
+        
+    def nCrModM(self, n, r, m):
+		# Code here
+        
+        # similar to pascals triangle 
+        
+        # for first column the answer is always 1 and for all the last columns the answer is 1 
+        # can be done with 1d Array
+        
+        dp = [-1 for _ in range(r + 1)]
+
+        def ncr(n, r):
+            if r == 0 or n == r:
+                return 1
+
+            if dp[r] != -1:
+                return dp[r]
+
+            ans = (ncr(n - 1, r - 1) % m + ncr(n - 1, r) % m) % m
+            dp[r] = ans
+            return ans
+
+        return ncr(n, r)
 --
 
 
