@@ -1,0 +1,61 @@
+
+
+-- Strategy design pattern
+
+
+-- refer the concept and coding youtube video for this
+
+--
+# Define a family of algorithms
+
+class SortingStrategy:
+    def sort(self, data):
+        pass
+
+class BubbleSort(SortingStrategy):
+    def sort(self, data):
+        print("Sorting using Bubble Sort")
+        # Implementation of Bubble Sort algorithm
+
+class QuickSort(SortingStrategy):
+    def sort(self, data):
+        print("Sorting using Quick Sort")
+        # Implementation of Quick Sort algorithm
+
+class MergeSort(SortingStrategy):
+    def sort(self, data):
+        print("Sorting using Merge Sort")
+        # Implementation of Merge Sort algorithm
+
+# Context class that uses the strategy
+
+class SorterContext:
+    def __init__(self, strategy):
+        self.strategy = strategy
+
+    def set_strategy(self, strategy):
+        self.strategy = strategy
+
+    def perform_sort(self, data):
+        self.strategy.sort(data)
+
+# Client code
+
+data_to_sort = [5, 2, 8, 1, 7]
+
+# Use Bubble Sort strategy
+bubble_sort_strategy = BubbleSort()
+sorter = SorterContext(bubble_sort_strategy)
+sorter.perform_sort(data_to_sort)
+
+# Change strategy to Quick Sort
+quick_sort_strategy = QuickSort()
+sorter.set_strategy(quick_sort_strategy)
+sorter.perform_sort(data_to_sort)
+
+# Change strategy to Merge Sort
+merge_sort_strategy = MergeSort()
+sorter.set_strategy(merge_sort_strategy)
+sorter.perform_sort(data_to_sort)
+
+--
