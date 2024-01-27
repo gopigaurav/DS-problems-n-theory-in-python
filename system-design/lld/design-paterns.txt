@@ -4,6 +4,8 @@
 
 
 -- refer the concept and coding youtube video for this
+-- Use case when the child wants the feature which is not present in base class
+
 
 --
 # Define a family of algorithms
@@ -59,3 +61,59 @@ sorter.set_strategy(merge_sort_strategy)
 sorter.perform_sort(data_to_sort)
 
 --
+
+###################################################################################################################
+
+-- Decorator pattern
+
+
+-- https://www.youtube.com/watch?v=w6a9MXUwcfY&list=PL6W8uoQQ2c61X_9e6Net0WdYZidm7zooW&index=6
+
+
+--
+from abc import ABC, abstractmethod
+
+class BasePizza(ABC):
+    @abstractmethod
+    def cost(self):
+        pass
+
+class PlainPizza(BasePizza):
+    def cost(self):
+        return 10  # Base cost for a plain pizza
+
+class MargaritaPizza(BasePizza):
+    def cost(self):
+        return 12  # Cost for Margarita pizza
+
+class PizzaDecorator(BasePizza):
+    def __init__(self, pizza):
+        self._pizza = pizza
+
+    @abstractmethod
+    def cost(self):
+        pass
+
+class TomatoSauceDecorator(PizzaDecorator):
+    def cost(self):
+        return self._pizza.cost() + 2
+
+class CheeseDecorator(PizzaDecorator):
+    def cost(self):
+        return self._pizza.cost() + 3
+
+class PepperoniDecorator(PizzaDecorator):
+    def cost(self):
+        return self._pizza.cost() + 4
+
+# Example usage:
+margarita_pizza = MargaritaPizza()
+print(f"Cost of Margarita pizza: ${margarita_pizza.cost()}")
+
+decorated_pizza = TomatoSauceDecorator(CheeseDecorator(PepperoniDecorator(PlainPizza())))
+print(f"Cost of decorated pizza: ${decorated_pizza.cost()}")
+
+--
+
+
+###################################################################################################################################
