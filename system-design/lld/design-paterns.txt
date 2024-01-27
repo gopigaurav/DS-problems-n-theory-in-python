@@ -119,4 +119,45 @@ print(f"Cost of decorated pizza: ${decorated_pizza.cost()}")
 ###################################################################################################################################
 
 
--- 
+-- Factory Pattern
+
+-- U can use this pattern when u want the object to be created based on the condition
+
+
+--
+# Product interface
+class Animal:
+    def speak(self):
+        pass
+
+# Concrete Products
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow!"
+
+# Factory class
+class AnimalFactory:
+    def create_animal(self, animal_type):
+        if animal_type == "Dog":
+            return Dog()
+        elif animal_type == "Cat":
+            return Cat()
+        else:
+            raise ValueError("Invalid animal type")
+
+# Client code
+factory = AnimalFactory()
+dog = factory.create_animal("Dog")
+cat = factory.create_animal("Cat")
+
+print(dog.speak())  # Output: Woof!
+print(cat.speak())  # Output: Meow!
+
+--
+
+###############################################################################################################################################
+
