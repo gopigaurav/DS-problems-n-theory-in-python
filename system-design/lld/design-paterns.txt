@@ -161,3 +161,65 @@ print(cat.speak())  # Output: Meow!
 
 ###############################################################################################################################################
 
+
+-- Abstract pattern
+
+
+--
+--
+
+
+--
+# Abstract Product interfaces
+class Animal:
+    def speak(self):
+        pass
+
+class Color:
+    def fill(self):
+        pass
+
+# Concrete Products
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow!"
+
+class White(Color):
+    def fill(self):
+        return "White"
+
+class Black(Color):
+    def fill(self):
+        return "Black"
+
+# Abstract Factory interface
+class AbstractFactory:
+    def create_animal(self):
+        pass
+
+    def create_color(self):
+        pass
+
+# Concrete Factory
+class PetFactory(AbstractFactory):
+    def create_animal(self):
+        return Dog()
+
+    def create_color(self):
+        return White()
+
+# Client code
+factory = PetFactory()
+dog = factory.create_animal()
+color = factory.create_color()
+
+print(dog.speak())   # Output: Woof!
+print(color.fill())  # Output: White
+
+--
+
+#####################################################################################################################
