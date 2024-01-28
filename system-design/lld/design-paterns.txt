@@ -165,7 +165,7 @@ print(cat.speak())  # Output: Meow!
 -- Abstract pattern
 
 
---
+-- It is a Fatory of Factories
 --
 
 
