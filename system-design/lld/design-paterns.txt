@@ -223,3 +223,14 @@ print(color.fill())  # Output: White
 --
 
 #####################################################################################################################
+
+
+-- Chain of responsibility
+
+--
+The Chain of Responsibility design pattern is a behavioral pattern that allows an 
+object to pass a request along a chain of potential handlers. 
+This pattern decouples senders and receivers of requests and allows multiple objects to handle a request without the sender
+ needing to know which object will ultimately process it. Each handler in the chain has a reference to the next handler 
+in the sequence.
+--
