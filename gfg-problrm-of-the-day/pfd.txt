@@ -5369,7 +5369,87 @@ class Solution:
 -- https://www.geeksforgeeks.org/problems/form-coils-in-a-matrix4726/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
 
 --
-
+    def formCoils(self, n):
+        # code here 
+        
+        
+        # we will br going from up -> right -> down -> left
+        
+        # for to get the starting point use 8n**2 + 2n
+        
+        # and then next subtract the found element with 4n to so on step should be 2 and direction will be changing
+        
+        m = 8 * n * n
+        c1 = [0 for _ in range(m)]
+        c1[0] = 8 *n *n + 2 *n
+        cur = c1[0]
+    
+        nflag = 1
+        step = 2
+        ind = 1
+        
+        while ind < m:
+            for i in range(step):
+                cur = cur - 4 * n * n
+                c1[ind + 1] = cur - 4 * n * n
+                if ind >= m:
+                    break
+            
+            if ind >=m :
+                break
+            
+            for i in range(step):
+                cur = cur + nflag
+                c1[ind + 1] = cur + nflag
+                if ind >= m:
+                    break
+            
+            nflag = nflag * (-1)
+            step += 2
+        
+        c2 = [0 for _ in range(m)]
+        
+        # for the seconf array instead of running the while loop again just subtract 16nn - c1[i] + 1
+        
+        for i in range(m):
+            c2[i] = 16*n*n + 1 -c[i]
+        
+        return [c1, c2]
+        
+class Solution:
+    def formCoils(self, n):
+        m = 8 * n * n
+        c1 = [0 for _ in range(m)]
+        c1[0] = 8 * n * n + 2 * n
+        cur = c1[0]
+    
+        nflag = 1
+        step = 2
+        ind = 1
+        
+        while ind < m - 1:
+            for i in range(step):
+                cur = cur - 4 * n * n
+                c1[ind + 1] = cur
+                if ind >= m:
+                    break
+                
+            
+            if ind >= m - 1:
+                break
+            
+            for i in range(step):
+                cur = cur + nflag
+                c1[ind + 1] = cur
+                if ind >= m:
+                    break
+            
+            nflag = nflag * (-1)
+            step += 2
+        
+        c2 = [16 * n * n + 1 - c for c in c1]
+        
+        return [c1, c2]
 --
 
 
