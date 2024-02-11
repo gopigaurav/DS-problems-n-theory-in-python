@@ -5461,6 +5461,20 @@ class Solution:
 --
 
 --
+class Solution:
+    def shortestPath(self, x, y): 
+        # code here
+        
+        #  divide it by 2 untill u find the common ancestor
+        c = 0
+        while x != y and x > 0 and y > 0:
+            if x > y:
+                x = x//2
+            else:
+                y = y//2
+            c += 1
+        return c
+
 --
 
 
