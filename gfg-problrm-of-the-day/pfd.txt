@@ -5495,8 +5495,8 @@ class Solution:
 -- Even and odd
 
 
---
---
+-- https://geeksforgeeks.org/problems/even-and-odd/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://www.youtube.com/watch?v=4IyE9NiXbWk&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=124
 
 
 --
