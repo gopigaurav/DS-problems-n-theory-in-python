@@ -5500,7 +5500,25 @@ class Solution:
 
 
 --
-
+class Solution:
+    def reArrange(self, arr, N):
+        # code here 
+        
+        e = 0
+        o = 1
+        
+        # iterate on the array and check for the breakdown in the even and odd and swap them
+        
+        while True:
+            while (e<N and arr[e] % 2 == 0):
+                e += 2
+            while o < N and arr[o] % 2 != 0:
+                o += 2
+            if e < N and o < N:
+                arr[e], arr[o] = arr[o], arr[e]
+            else:
+                break
+        return 
 --
 
 
