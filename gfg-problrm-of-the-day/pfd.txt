@@ -5559,3 +5559,16 @@ class Solution:
 
 
 ###############################################################################################################################################################################
+
+
+-- Array partition
+
+-- https://www.geeksforgeeks.org/problems/array-partition/1?utm_source=youtube&utm_medium=recorded_Video&utm_campaign=POD&utm_id=POD22
+-- https://www.youtube.com/watch?v=8fbfV5vQsFU&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=126
+
+
+--
+--
+
+
+##############################################################################################################################################################################
