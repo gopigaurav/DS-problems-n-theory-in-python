@@ -1,0 +1,18 @@
+
+load balancer -
+
+
+# RESOURCE URL
+
+
+-- https://aws.amazon.com/what-is/load-balancing/#:~:text=A%20load%20balancer%20is%20a,resource%20servers%20are%20used%20equally.
+-- https://www.cloudflare.com/learning/performance/what-is-load-balancing/
+
+
+
+
+# DEFINATION
+
+Load balancing is the method of distributing network traffic equally across a pool of resources that support an application. 
+Modern applications must process millions of users simultaneously and return the correct text, videos, images, and other data to each user in a fast and reliable manner. 
+To handle such high volumes of traffic, most applications have many resource servers with duplicate data between them. A load balancer is a device that sits between the user and the server group and acts as an invisible facilitator, ensuring that all resource servers are used equally.
