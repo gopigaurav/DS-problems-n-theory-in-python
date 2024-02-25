@@ -1,0 +1,52 @@
+ Spiral matrix 2 
+
+
+-- https://www.scaler.com/academy/mentee-dashboard/class/9822/assignment/problems/63/submissions
+--
+
+
+--
+class Solution:
+    # @param A : integer
+    # @return a list of list of integers
+    def generateMatrix(self, n):
+
+        # can do it with 4 pointers
+
+        l = 0
+        r = n - 1
+        t = 0
+        d = n - 1
+
+        arr = [[0 for _ in range(n)] for _ in range(n)]
+        val = 1
+
+        while l <= r and t <= d:
+
+            for i in range(l, r + 1): 
+                arr[t][i] = val
+                val += 1
+            
+            t += 1
+
+            for i in range(t, d + 1):
+                arr[i][r] = val
+                val += 1
+            
+            r -= 1
+
+            for i in range(r, l - 1, -1):
+                arr[d][i] = val
+                val +=1 
+            
+            d -= 1
+
+            for i in range(d, t - 1, -1):
+                arr[i][l] = val
+                val += 1
+            l += 1
+        return arr
+--
+
+
+###########################
