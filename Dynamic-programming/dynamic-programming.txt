@@ -78,6 +78,69 @@ class Solution:
         return dp[W]
 --
 
+=================================================================================================================
+
+-- Target Sum (slightly diff)
+
+--
+--
+
+
+--
+class Solution(object):
+    def findTargetSumWays(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+
+
+        total_sum = sum(nums)
+        if abs(target) > total_sum:
+            return 0
+
+        # Adjust the size of dp based on the total sum of nums
+        dp = [[-1 for _ in range(2 * total_sum + 1)] for _ in range(len(nums) + 1)]
+
+        def rec(ind, csum):
+            if ind == len(nums):
+                return 1 if csum == target else 0
+
+            if dp[ind][csum + total_sum] != -1:
+                return dp[ind][csum + total_sum]
+
+            dp[ind][csum + total_sum] = rec(ind + 1, csum + nums[ind]) + rec(ind + 1, csum - nums[ind])
+            return dp[ind][csum + total_sum]
+
+        return rec(0, 0)
+
+
+    def findTargetSumWays(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+
+        # adding the +1000 to make the csum lie within the range and not fall off out off it
+        
+
+        dp = [[-1 for _ in range(2002)] for _ in range(len(nums) + 1)]
+        def rec(ind, csum):
+
+            if ind == len(nums):
+                return 1 if csum == target else 0
+
+            if dp[ind][csum + 1000] != -1:
+                return dp[ind][csum + 1000]
+
+            dp[ind][csum + 1000] = rec(ind + 1, csum + nums[ind]) + rec(ind + 1, csum - nums[ind])
+            return dp[ind][csum + 1000]
+
+        return rec(0, 0)
+--
+
 
 ============================================================================================================
 ## Longest common substring
