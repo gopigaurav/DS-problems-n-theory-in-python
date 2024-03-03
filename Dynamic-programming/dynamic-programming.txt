@@ -3,11 +3,42 @@
 -- https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
 -- https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
 
+-- Using bottim up approach
+class Solution:
+    
+    def knapSack(self, W, wt, val, n):
+       
+        # Initialize the DP array
+        dp = [[-1 for _ in range(W + 1)] for _ in range(n + 1)]
+        
+        # Recursive function to solve the knapsack problem
+        def rec(ind, w):
+            # Base cases
+            if ind < 0 or w == 0:
+                return 0
+                
+            if dp[ind][w] != -1:
+                return dp[ind][w]
+            
+            # If the weight of the current item is less than or equal to the current capacity
+            if wt[ind] <= w:
+                # Choose the maximum of including or excluding the current item
+                dp[ind][w] = max(rec(ind - 1, w), val[ind] + rec(ind - 1, w - wt[ind]))
+                return dp[ind][w]
+            else:
+                # If the weight of the current item is more than the current capacity, exclude it
+                dp[ind][w] = rec(ind - 1, w)
+                return dp[ind][w]
+                
+        # Start the recursive call from the last item and total weight
+        return rec(n - 1, W)
+--
+
 
 --
 class Solution:
     
-    #Function to return max value that can be put in knapsack of capacity W.
+    #Function to return max value that can be put in knapsack of capacity W
     def knapSack(self,W, wt, val, n):
        
         dp = [[0 for i in range(W + 1)] for j in range(n + 1)]  # Making the dp array
@@ -19,6 +50,8 @@ class Solution:
                 else:
                     dp[i][j] = dp[i-1][j]
         return dp[n][W]
+
+
     
     def knapSack(self, W, wt, val, n):
         dp = [0 for i in range(W+1)]  # Making the dp array

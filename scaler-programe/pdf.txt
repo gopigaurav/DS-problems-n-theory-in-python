@@ -54,3 +54,117 @@ class Solution:
 
 -- Water flow
 
+
+-- https://www.scaler.com/academy/mentee-dashboard/class/7327/assignment/problems/11949/hints?navref=cl_pb_nv_tb
+-- https://www.youtube.com/watch?v=s-VkcjHqkGI
+
+-- My solution
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def solve(self, A):
+        pac = set()
+        atl = set()
+        col = len(A[0])
+        row = len(A)
+
+        def dfs(prev, r, c, row, col, visit, A):
+            if r < 0 or c < 0 or c >= col or r >= row or (r, c) in visit or A[r][c] < prev:
+                return
+            
+            visit.add((r, c))
+
+            dfs(A[r][c], r + 1, c, row, col, visit, A)
+            dfs(A[r][c], r, (c + 1), row, col, visit, A)
+            dfs(A[r][c], r, c - 1, row, col, visit, A)
+            dfs(A[r][c], r - 1, c, row, col, visit, A)
+
+
+        for i in range(col):
+            dfs(A[0][i], 0, i, row, col, pac, A)
+            dfs(A[row - 1][i], row - 1, i, row, col, atl, A)
+        
+        for j in range(row):
+            dfs(A[j][0], j, 0, row, col, pac, A)
+            dfs(A[j][col - 1], j, col - 1, row, col, atl, A)
+        
+        res = []
+        for i in range(row):
+            for j in range(col):
+                if (i, j) in pac and (i, j) in atl:
+                    res.append((i, j))
+        return len(res)
+--
+
+
+-- Optimized
+from collections import deque
+def check(x, y, n, m):
+    if(x >= 0 and x < n and y >= 0 and y < m):
+        return True
+    
+    return False
+
+class Solution:
+    # @param A : list of list of integers
+    # @return an integer
+    def solve(self, A):
+        n = len(A)
+        m = len(A[0])
+        ans = 0
+        blue = [[0 for j in range(m)] for i in range(n)]
+        red = [[0 for j in range(m)] for i in range(n)]
+        q = deque()
+        
+        # All the co-ordinates which touches blue lake on left edge
+        for i in range(1, n):
+            q.append([i, 0])
+            blue[i][0] += 1
+        
+        # All the co-ordinates which touches blue lake on top edge
+        for i in range(m):
+            q.append([0,i])
+            blue[0][i] += 1
+        
+        dx = [0, 0, 1, -1]
+        dy = [1, -1, 0, 0]
+    
+        while(len(q) != 0):
+            idx = q.popleft()
+            for i in range(4):
+                x = idx[0] + dx[i]
+                y = idx[1] + dy[i]
+                if(check(x, y, n, m) and blue[x][y] == 0 and A[x][y] >= A[idx[0]][idx[1]]):
+                      q.append([x, y])
+                      blue[x][y] += 1
+                
+            
+        
+        # All the co-ordinates which touches red lake on right edge
+        for i in range(n):
+            q.append([i,m-1])
+            red[i][m-1] += 1
+        
+        # All the co-ordinates which touches red lake on bottom edge
+        for i in range(m-2, -1, -1):
+            q.append([n-1,i])
+            red[n-1][i] += 1
+        
+    
+        while(len(q) != 0):
+            idx = q.popleft()
+            if(red[idx[0]][idx[1]] == 1 and blue[idx[0]][idx[1]] == 1):
+                ans += 1
+            
+            for i in range(4):
+                x = idx[0] + dx[i]
+                y = idx[1] + dy[i]
+                if(check(x, y, n, m) and red[x][y] == 0 and A[x][y] >= A[idx[0]][idx[1]]):
+                      q.append([x, y])
+                      red[x][y] += 1
+                      
+        return ans
+--
+
+
+################################
