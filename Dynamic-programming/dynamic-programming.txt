@@ -3760,7 +3760,16 @@ class Solution(object):
 def solve(n):
 	if n == 0: return 1
 
-	ans = 
+	ans = 10 # cause its from 1 t0 10
+	start = 9
+	current = 9
+	
+	while n > 1 and start:
+		start -= 1
+		current *= (start)
+		ans += current	
+
+	return ans
 
 --
 
