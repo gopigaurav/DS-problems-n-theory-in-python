@@ -80,6 +80,34 @@ class Solution:
 
 =================================================================================================================
 
+-- Count the Subset with equals target
+
+
+--
+--
+
+--
+class Solution:
+    def countSubsets(self, arr, target):
+        n = len(arr)
+        dp = [[0 for _ in range(target + 1)] for _ in range(n + 1)]
+        
+        # Initialize the dp array
+        for i in range(n + 1):
+            dp[i][0] = 1
+        
+        # Fill the dp array
+        for i in range(1, n + 1):
+            for j in range(1, target + 1):
+                if arr[i - 1] <= j:
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - arr[i - 1]]
+                else:
+                    dp[i][j] = dp[i - 1][j]
+        
+        return dp[n][target]
+--
+
+==============================================================================================================
 -- Target Sum (slightly diff)
 
 -- https://leetcode.com/problems/target-sum/
