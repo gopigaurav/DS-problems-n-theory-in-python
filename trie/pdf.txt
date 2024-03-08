@@ -1,0 +1,61 @@
+
+Implementation of Trie
+
+
+--
+-- https://leetcode.com/problems/implement-trie-prefix-tree/
+
+
+--
+class TreeNode:
+    def __init__(self):
+        self.child = {}
+        self.end = False
+
+class Trie(object):
+
+    def __init__(self):
+        self.root = TreeNode()
+        
+
+    def insert(self, word):
+        node = self.root
+        for char in word:
+            if char not in node.child:
+                node.child[char] = TreeNode()
+            node = node.child[char]
+        node.end = True
+        return True
+
+        
+
+    def search(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        node = self.root
+        for char in word:
+            if char not in node.child:
+                return False
+            node = node.child[char]
+        return node.end
+
+
+    def startsWith(self, prefix):
+        """
+        :type prefix: str
+        :rtype: bool
+        """
+
+        node = self.root
+        for char in prefix:
+            if char not in node.child:
+                return False
+            node = node.child[char]
+        return True
+--
+
+
+========================================================================================================
+
