@@ -60,4 +60,54 @@
 
 ===============================================================================================================================
 
--- 
+-- Frog jump
+
+
+-- https://leetcode.com/problems/frog-jump/submissions/1200779600/
+-- https://www.youtube.com/watch?v=l9E-ZcbFhDg
+
+
+--
+from collections import defaultdict
+class Solution(object):
+    def canCross(self, stones):
+        """
+        :type stones: List[int]
+        :rtype: bool
+        """
+        # from current position (cp) untill it reachs the last index
+        # previous jump (pj) should be used to determine the other thinks
+        # current index (ci)
+
+        mp = defaultdict(int)
+
+        for i in range(len(stones)):
+            mp[stones[i]] = i
+
+        dp = [[-1 for _ in range(2002)] for _ in range(2002)]
+
+        def solve(ci, pj):
+            if ci == len(stones) - 1:
+                return 1
+            res = 0
+
+            if dp[ci][pj] != -1:
+                return dp[ci][pj]
+                
+            for step in range(pj - 1, pj + 2):
+                
+                if step > 0:
+                    nextstep = stones[ci] + step
+
+                    if mp.get(nextstep, 0):
+                        res = res or solve(mp[nextstep], step)
+
+            dp[ci][pj] = res
+            return res
+
+        return solve(0, 0)
+--
+
+
+
+==========================================================================================================================================
