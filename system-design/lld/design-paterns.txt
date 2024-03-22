@@ -241,3 +241,73 @@ in the sequence.
 
 
 #########################################################################################################################################
+
+-- Singleton Pattern
+
+
+--
+Only one instance of the class is allowed
+--
+
+-- First one uses the thread locking in python for the all the scenarios
+import threading
+
+class Singleton:
+    _instance = None
+    _lock = threading.Lock()
+    _initialized = False
+
+    @classmethod
+    def get_instance(cls):
+        if not cls._initialized:  # Check if instance has been initialized
+            with cls._lock:  # Acquire the lock to ensure thread safety during initialization
+                if not cls._initialized:  # Double check if instance has been initialized
+                    cls._instance = cls()  # Create the instance
+                    cls._initialized = True  # Mark instance as initialized
+        return cls._instance
+
+--
+
+
+--
+import threading
+
+class Singleton:
+    _instance = None
+    _lock = threading.Lock()
+
+    @classmethod
+    def get_instance(cls):
+        if cls._instance is None:
+            with cls._lock:
+                if cls._instance is None:
+                    cls._instance = cls()
+        return cls._instance
+
+    def __init__(self):
+        if self._instance is not None:
+            raise ValueError("An instance of this class already exists.")
+
+        # Initialize any attributes here
+        self.value = 0
+
+    def increment(self):
+        self.value += 1
+
+# Example usage
+singleton1 = Singleton.get_instance()
+singleton2 = Singleton.get_instance()
+
+print(singleton1 is singleton2)  # Output: True, both variables point to the same instance
+
+singleton1.increment()
+print(singleton1.value)  # Output: 1
+
+singleton2.increment()
+print(singleton2.value)  # Output: 2
+print(singleton1.value)  # Output: 2, both variables reference the same object
+
+--
+
+
+###################################################################################################################################
