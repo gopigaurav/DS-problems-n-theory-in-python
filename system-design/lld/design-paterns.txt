@@ -222,6 +222,97 @@ print(color.fill())  # Output: White
 
 --
 
+
+
+--
+from abc import ABC, abstractmethod
+
+# Abstract Product 1: Button
+class Button(ABC):
+    @abstractmethod
+    def click(self):
+        pass
+
+# Concrete Product 1A: WindowsButton
+class WindowsButton(Button):
+    def click(self):
+        print("Windows button clicked")
+
+# Concrete Product 1B: MacButton
+class MacButton(Button):
+    def click(self):
+        print("Mac button clicked")
+
+# Abstract Product 2: Checkbox
+class Checkbox(ABC):
+    @abstractmethod
+    def check(self):
+        pass
+
+# Concrete Product 2A: WindowsCheckbox
+class WindowsCheckbox(Checkbox):
+    def check(self):
+        print("Windows checkbox checked")
+
+# Concrete Product 2B: MacCheckbox
+class MacCheckbox(Checkbox):
+    def check(self):
+        print("Mac checkbox checked")
+
+# Abstract Factory
+class GUIFactory(ABC):
+    @abstractmethod
+    def create_button(self):
+        pass
+    
+    @abstractmethod
+    def create_checkbox(self):
+        pass
+
+# Concrete Factory 1: WindowsFactory
+class WindowsFactory(GUIFactory):
+    def create_button(self):
+        return WindowsButton()
+    
+    def create_checkbox(self):
+        return WindowsCheckbox()
+
+# Concrete Factory 2: MacFactory
+class MacFactory(GUIFactory):
+    def create_button(self):
+        return MacButton()
+    
+    def create_checkbox(self):
+        return MacCheckbox()
+
+# Director (Optional)
+class UIManager:
+    def __init__(self, factory):
+        self.factory = factory
+
+    def build_ui(self):
+        button = self.factory.create_button()
+        checkbox = self.factory.create_checkbox()
+        return button, checkbox
+
+# Client
+if __name__ == "__main__":
+    # Create an application with Windows UI
+    windows_factory = WindowsFactory()
+    windows_ui_manager = UIManager(windows_factory)
+    windows_button, windows_checkbox = windows_ui_manager.build_ui()
+    windows_button.click()
+    windows_checkbox.check()
+
+    # Create an application with Mac UI
+    mac_factory = MacFactory()
+    mac_ui_manager = UIManager(mac_factory)
+    mac_button, mac_checkbox = mac_ui_manager.build_ui()
+    mac_button.click()
+    mac_checkbox.check()
+
+--
+
 #####################################################################################################################
 
 
@@ -244,6 +335,8 @@ in the sequence.
 
 -- Singleton Pattern
 
+
+-- https://www.youtube.com/watch?v=tSZn4wkBIu8&list=PLlsmxlJgn1HJpa28yHzkBmUY-Ty71ZUGc&index=2
 
 --
 Only one instance of the class is allowed
