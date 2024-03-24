@@ -328,6 +328,57 @@ in the sequence.
 
 
 --
+class AuthenticationHandler:
+    def __init__(self, next_handler=None):
+        self.next_handler = next_handler
+
+    def authenticate(self, username, password):
+        raise NotImplementedError("Subclasses must implement authenticate method")
+
+class UsernamePasswordHandler(AuthenticationHandler):
+    def authenticate(self, username, password):
+        if username == "user1" and password == "password1":
+            print("UsernamePasswordHandler: User authenticated successfully")
+            return True
+        elif self.next_handler:
+            return self.next_handler.authenticate(username, password)
+        else:
+            print("UsernamePasswordHandler: Authentication failed")
+            return False
+
+class OTPHandler(AuthenticationHandler):
+    def authenticate(self, username, password):
+        if username == "user2" and password == "123456":
+            print("OTPHandler: User authenticated successfully")
+            return True
+        elif self.next_handler:
+            return self.next_handler.authenticate(username, password)
+        else:
+            print("OTPHandler: Authentication failed")
+            return False
+
+class BiometricHandler(AuthenticationHandler):
+    def authenticate(self, username, password):
+        if username == "user3" and password == "fingerprint":
+            print("BiometricHandler: User authenticated successfully")
+            return True
+        elif self.next_handler:
+            return self.next_handler.authenticate(username, password)
+        else:
+            print("BiometricHandler: Authentication failed")
+            return False
+
+# Client
+def login(username, password):
+    handler_chain = UsernamePasswordHandler(next_handler=OTPHandler(next_handler=BiometricHandler()))
+    handler_chain.authenticate(username, password)
+
+# Testing the login system
+login("user1", "password1")  # Output: UsernamePasswordHandler: User authenticated successfully
+login("user2", "123456")     # Output: OTPHandler: User authenticated successfully
+login("user3", "fingerprint") # Output: BiometricHandler: User authenticated successfully
+login("user4", "password4")  # Output: UsernamePasswordHandler: Authentication failed
+
 --
 
 
