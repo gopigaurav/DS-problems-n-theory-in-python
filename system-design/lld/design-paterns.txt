@@ -404,3 +404,79 @@ print(singleton1.value)  # Output: 2, both variables reference the same object
 
 
 ###################################################################################################################################
+
+
+-- Builder Pattern
+
+-- https://www.youtube.com/watch?v=DcFhITC9v0E&list=PLlsmxlJgn1HJpa28yHzkBmUY-Ty71ZUGc&index=6
+--
+
+--
+# Product class
+class Product:
+    def __init__(self):
+        self.part1 = None
+        self.part2 = None
+        # other parts
+    
+    # methods to set parts
+    def set_part1(self, part1):
+        self.part1 = part1
+    
+    def set_part2(self, part2):
+        self.part2 = part2
+    
+    # other methods
+
+# Builder interface
+class Builder:
+    def build_part1(self, part1):
+        pass
+    
+    def build_part2(self, part2):
+        pass
+    
+    # other build methods
+    def get_product(self):
+        pass
+
+# Concrete Builder
+class ConcreteBuilder(Builder):
+    def __init__(self):
+        self.product = Product()
+    
+    def build_part1(self, part1):
+        self.product.set_part1(part1)
+    
+    def build_part2(self, part2):
+        self.product.set_part2(part2)
+    
+    def get_product(self):
+        return self.product
+
+# Director (optional)
+class Director:
+    def __init__(self, builder):
+        self.builder = builder
+    
+    def construct(self):
+        self.builder.build_part1("Part 1")
+        self.builder.build_part2("Part 2")
+        # other build steps
+
+# Client code
+if __name__ == "__main__":
+    builder = ConcreteBuilder()
+    director = Director(builder)
+    
+    director.construct()
+    product = builder.get_product()
+    
+    # Use the product
+
+--
+
+
+
+
+=====================================================================================================================================
