@@ -753,7 +753,14 @@ print(alienDictionary(arr))
 
 =============================================================================================================================================================
 
--- Topological sort
+-- Topological sort (only exists on DAG (Directed Acyclic graph))
+
+
+--
+Linear Ordering of vertices of such that if there is an edge between u and v,
+u appear before v in that ordering
+--
+
 
 -- https://www.youtube.com/watch?v=eMVg3Gvnva4&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=9
 -- https://www.geeksforgeeks.org/topological-sorting/
@@ -785,7 +792,6 @@ class Solution:
         stack.append(i)
 
 --
-
 
 
 # Python program to print topological sorting of a DAG
