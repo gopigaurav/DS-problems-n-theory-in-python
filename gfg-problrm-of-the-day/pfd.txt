@@ -5572,3 +5572,124 @@ class Solution:
 
 
 ##############################################################################################################################################################################
+
+
+-- Coruse Scheduler (Topological sort)(can be done with dfs and bfs)
+
+-- https://www.geeksforgeeks.org/problems/course-schedule/1
+-- https://www.youtube.com/watch?v=73sneFXuTEg
+-- https://www.youtube.com/watch?v=d8udvjxY8jc&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=127
+
+
+-- Using dfs 
+class Solution1(object):
+    def canFinish1(self, numCourses, prerequisites):
+        pre = { c: [] for c in range(numCourses)}
+        for crs, nes in prerequisites:
+            pre[crs].append(nes)
+            
+        vis = set()
+        cycle = set()
+        res = []
+        
+        def dfs(node):
+            if node in cycle:
+                return False
+            if node in vis:
+                return True
+            
+            cycle.add(node)
+            for i in pre[node]:
+                # if cycle return False
+                if dfs(i) == False:
+                    return False
+            cycle.remove(node)
+            vis.add(node)
+            # comming back append in res
+            res.append(node)
+            return True
+        
+        for i in range(numCourses):
+            if dfs(i) == False:
+                return []
+        return True
+
+from collections import defaultdict
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        vis = ['0'] * numCourses
+        graph = defaultdict(list)
+        for course, prereq in prerequisites:
+            graph[prereq].append(course)
+
+        def dfs(index):
+            if vis[index] == '1': # cycle detected
+                return False
+            
+            if vis[index] == '2':
+                return True
+
+            vis[index] = '1'
+
+            for i in graph[index]:
+                if not dfs(i):
+                    return False
+            vis[index] = '2'
+            return True
+        
+        for i in range(numCourses):
+            if not dfs(i):
+                return False
+        return True
+
+--
+
+
+--
+
+    def findOrder(self, n, m, prerequisites):
+        # Create graph and calculate indegree for nodes
+        graph = defaultdict(list)
+        indegree = defaultdict(int)
+        
+         # lets solve this with Kahns algo.
+        # cal. the indegree for the nodes
+        # Kahn alog uses BFS so queue is used
+        
+        # first find the indegree for all the nodes
+        # put the ones which has 0 indegree into the queue
+        # traverse through the queue and same wiht inside the graph as well
+        
+        
+        for u, v in prerequisites:
+            graph[v].append(u)
+            indegree[u] += 1
+        
+        # Initialize queue with nodes having 0 indegree
+        
+        queue = deque([i for i in range(n) if i not in indegree])
+        
+        order = []
+        
+        # Perform BFS
+        while queue:
+            temp = queue.popleft()
+            order.append(temp)
+            
+            # Reduce indegree of adjacent nodes
+            for node in graph[temp]:
+                indegree[node] -= 1
+                if indegree[node] == 0:
+                    queue.append(node)
+        
+        # Check for cycles
+        if len(order) != n:
+            return []
+        
+        return order
+
+--
+
+=====================================================================================================================================================================
+
+-- 
