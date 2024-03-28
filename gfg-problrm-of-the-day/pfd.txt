@@ -5692,4 +5692,39 @@ class Solution(object):
 
 =====================================================================================================================================================================
 
--- 
+-- Find and Replace in string
+
+
+-- https://www.youtube.com/watch?v=ygmnqSHiakQ
+--
+
+--
+class Solution:
+    def findAndReplace(self, S, Q, index, sources, targets):
+        original_string = S
+        new_length = 0
+        
+        for i in range(Q):
+            
+            start_index = index[i] + new_length
+            
+            found_index = original_string.find(sources[i], start_index)
+            
+            while found_index != -1:
+                if found_index == index[i] + new_length:
+                    char_length = len(sources[i])
+                    
+                    original_string = original_string[:found_index] + targets[i] + original_string[found_index + len(sources[i]):]
+                    
+                    new_length += len(targets[i]) - len(sources[i])
+                    
+                    start_index = found_index + len(targets[i])
+                else:
+                    # If found at a different index, move on to the next occurrence
+                    start_index = found_index + 1
+                    
+                # for the next occurance
+                found_index = original_string.find(sources[i], start_index)
+                
+        return original_string
+--
