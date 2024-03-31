@@ -5745,3 +5745,51 @@ class Solution:
 
 
 =============================================================================================================================================================================
+
+-- Maximize the Array
+
+
+-- https://www.geeksforgeeks.org/problems/maximize-the-array3340/1
+-- https://www.youtube.com/watch?v=nGgTdd5kwRk
+
+
+--
+from collections import defaultdict
+
+class Solution:
+    def maximizeArray(self, arr1, arr2, n):
+        ans = set()
+        result = []
+        
+        # Add elements from both arrays to a set
+        for i in range(n):
+            ans.add(arr1[i])
+            ans.add(arr2[i])
+        
+        # Sort the set in descending order
+        ans = sorted(ans, reverse=True)
+        
+        se = set()
+        for num in ans:
+            se.add(num)
+            if len(se) == n:
+                break
+            
+        
+        # Iterate through arr2, add elements to result if they're in ans
+        for i in range(n):
+            if arr2[i] in se:
+                result.append(arr2[i])
+                se.remove(arr2[i])
+        
+        # Iterate through arr1, add elements to result if they're in ans
+        for i in range(n):
+            if arr1[i] in se:
+                result.append(arr1[i])
+                se.remove(arr1[i])
+        
+        return result
+--
+
+
+===============================================================================================================================================================================
