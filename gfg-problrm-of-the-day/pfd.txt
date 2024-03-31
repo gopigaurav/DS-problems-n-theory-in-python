@@ -5795,4 +5795,47 @@ class Solution:
 
 ===============================================================================================================================================================================
 
--- 
+-- Special Keyboard
+
+-- https://www.youtube.com/watch?v=c_y7H7qZJRU&t=371s
+-- https://www.geeksforgeeks.org/problems/special-keyboard3018/1
+
+--
+class Solution:
+    def optimalKeys(self, N):
+        # code here
+        
+        
+        # Dynamic programming 
+        
+        # for n = 8 as an example there are so many combination for gettng the answer
+        # for this we need to look for the pattern in the solution
+        # the pattern is 
+        # 5x2  or  4x3  or  3x4  and so on 
+        # one keeps on increasing and the other keeps on decreasing
+        
+        # the increasing one is key 4 op
+        # the decreasing one is A for that option
+        
+        
+        # the last three op are occupied for key 4, 3, 2
+        
+        if N <= 6:
+            return N
+            
+        dp = [0] * (N + 1)
+        
+        for i in range(7):
+            dp[i] = i
+        
+        for i in range(7, N+1):
+            
+            for j in range(i - 3, 0, -1):
+                curr = dp[j] * (i - j - 1)
+                
+                dp[i] = max(dp[i], curr)
+        return dp[N]
+--
+
+
+====================================================================================================================================================
