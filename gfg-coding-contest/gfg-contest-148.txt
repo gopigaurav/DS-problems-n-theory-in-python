@@ -1,0 +1,103 @@
+
+
+-- Max Splits (Hashmap)
+
+
+-- https://www.youtube.com/watch?v=VHY9YQgqXgM
+-- https://practice.geeksforgeeks.org/contest/gfg-weekly-coding-contest-148/problems
+
+
+1. check for the frequency of the splits or the chars
+
+
+--  
+class Solution:
+    def  maxSplits(self, s : str, t : str) -> int:
+        # code here
+        
+        f = {i: 0 for i in range(26)}
+        l = {i: 0 for i in range(26)}
+        
+        cnt = 0
+         
+        def checkSimilar(m1, m2):
+            for i in range(26):
+                if m1[i] != m2[i]:
+                    return False
+            return True
+            
+        for i in range(len(s)):
+            x = ord(s[i]) - ord('a')
+            y = ord(t[i]) - ord('a')
+            
+            f[x] += 1
+            l[y] += 1
+            
+            if checkSimilar(f, l):
+                cnt += 1
+            
+            
+        return cnt
+--
+
+
+======================================================================================================================================
+
+-- Minimize the Array
+
+
+-- https://practice.geeksforgeeks.org/contest/gfg-weekly-coding-contest-148/problems
+-- https://www.youtube.com/watch?v=VHY9YQgqXgM
+
+
+--
+from typing import List
+
+
+class Solution:
+    def minimizeArr(self, n : int, arr : List[int]) -> int:
+        # code here
+        
+        # It is more like a dry run
+        # if the minimum element count is 1 then the output is 1
+        
+        mi = float("inf")
+        cnt = 0
+        
+        for i in range(n):
+            if mi > arr[i]:
+                mi = arr[i]
+        
+        for i in range(n):
+            if mi == arr[i]:
+                cnt += 1
+        
+        
+        if cnt == 1:
+            return 1
+            
+        
+        for i in range(n):
+            if (arr[i] % mi) > 0 :
+                return 1
+        
+        return int((cnt + 1)/2)
+--
+
+================================================================================================================
+
+
+-- Allocate the minimum number of pages
+
+
+-- https://www.youtube.com/watch?v=2JSQIhPcHQg
+--
+
+
+--
+--
+
+
+===========================================================================================================================
+
+
