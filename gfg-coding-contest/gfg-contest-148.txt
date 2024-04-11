@@ -91,7 +91,7 @@ class Solution:
 
 
 -- https://www.youtube.com/watch?v=2JSQIhPcHQg
---
+-- https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
 
 
 --
@@ -155,4 +155,49 @@ class Solution:
 
 ===========================================================================================================================
 
+-- Maximise the cost
 
+
+--
+from typing import List
+
+
+class Solution:
+    def maximizeCost(self, n : int, a : List[int], x : int) -> int:
+        # code here
+        
+        start = 0
+        end = 10000000
+        result = -1
+        
+        a.sort()
+        
+        def check(mid, k, n):
+            cnt = 1
+            prev = a[0]
+            
+            for i in range(n):
+                if a[i] - prev >= mid:
+                    cnt += 1
+                    prev = a[i]
+            
+            if cnt >= k:
+                return True
+            return False
+                    
+            
+        
+        while start <= end:
+            mid = (start + end) // 2
+            
+            if check(mid, x, n):
+                result = mid
+                start = mid + 1
+            else:
+                end = mid - 1
+                
+        return result
+--
+
+
+=====================================================================================================================================
