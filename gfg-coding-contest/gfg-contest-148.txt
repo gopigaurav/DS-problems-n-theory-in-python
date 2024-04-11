@@ -95,7 +95,61 @@ class Solution:
 
 
 --
-
+class Solution:
+    
+    #Function to find minimum number of pages.
+    def findPages(self,arr, n, m):
+        # code here
+        
+        # get the number which the single student can read without making too much berdon on him
+        
+        # first the start will be max in arr
+        # second will be end which should be sum of all the array
+        
+        if n < m:
+            return -1
+        
+        max_element = float("-inf")
+        csum = 0
+        
+        for i in range(n):
+            max_element = max(max_element, arr[i])
+            csum += arr[i]
+        
+        
+        
+        def checkSolution(mid, k):
+            students_needed = 1
+            current_pages = 0
+            
+            for i in range(n):
+                if arr[i] > mid:
+                    return False  # If any book itself has more pages than mid, it's not feasible
+                if current_pages + arr[i] > mid:
+                    students_needed += 1
+                    current_pages = arr[i]
+                else:
+                    current_pages += arr[i]
+            
+            return students_needed <= k
+            
+        
+        result = -1
+        
+        start = max_element
+        end = csum
+        
+        while start<=end:
+            
+            mid = (start + end) // 2
+            
+            if checkSolution(mid, m):
+                result = mid
+                end = mid - 1
+            else:
+                start = mid + 1
+        
+        return result
 --
 
 
