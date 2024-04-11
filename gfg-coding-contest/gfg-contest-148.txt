@@ -205,11 +205,55 @@ class Solution:
 -- Black Black Tree
 
 
---
+-- https://www.youtube.com/watch?v=VHY9YQgqXgM
 
 
 --
 
+from typing import List
+from collections import defaultdict
+
+
+class Solution:
+    def blackblacktree(self, N : int, M : int, par : List[int], arr : List[int], brr : List[int]) -> int:
+        # code here
+        g = defaultdict(list)
+        flips = [0] * (N + 1)
+        color = [0] * (N + 1)
+        
+        for i in range(1, N):
+            u = i
+            v = par[i]
+            g[u].append(v)
+            g[v].append(u)
+            
+            
+        # dfs to iterate through all the node for the ancestors to change the colors
+        def dfs(cur, par, color, g, flips):
+            c = color[cur]
+            
+            for node in g[cur]:
+                if node != par:
+                    c += dfs(node, cur, color, g, flips)
+            flips[cur] = c
+            return c
+        
+        
+        # this is for the initial color step
+        for i in range(len(brr)):
+            color[brr[i]] += 1  
+                
+        
+        # if the number of flips are even for black that is 1 then add 1
+        ans = 0
+        for i in range(N):
+            if arr[i] == 1 and flips[i] % 2 == 0:
+                ans += 1
+            elif arr[i] == 0 and flips[i] % 2 == 1:
+                ans += 1
+        
+        return ans
+            
 --
 
 
