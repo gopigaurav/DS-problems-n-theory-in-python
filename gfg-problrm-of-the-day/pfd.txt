@@ -5840,15 +5840,323 @@ class Solution:
 
 ====================================================================================================================================================
 
--- Broken blocks
+-- Broken blocks (Dynamic programming)
 
 
 -- https://www.youtube.com/watch?v=ITLT1SYCIno&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=134
---
+-- https://www.geeksforgeeks.org/problems/broken-blocks0022/1
 
 
 --
+class Solution:
+	def MaxGold(self, matrix):
+		# Code here
+		
+        row = len(matrix)
+        col = len(matrix[0])
+        res = 0
+        for i in range(1, row):
+            for j in range(col):
+                if matrix[i][j] != -1:
+                    mx = -1
+                    if j > 0: 
+                        mx = max(mx, matrix[i - 1][j - 1])
+                    if j < col - 1:
+                        mx = max(mx, matrix[i - 1][j + 1])
+                        
+                    mx = max(mx, matrix[i - 1][j])
+                        
+                    if mx == -1:
+                        matrix[i][j] = -1
+                    else:
+                        matrix[i][j] += mx
+                else:
+                    continue
+        
+        for i in range(row):
+            for j in range(col):
+                res = max(res, matrix[i][j])
+        return res
 --
 
 
 ===========================================================================================================================================================
+
+-- Find whether path exists (bfs or dfs)
+
+
+-- https://www.geeksforgeeks.org/problems/find-whether-path-exist5238/1
+-- https://www.youtube.com/watch?v=TPODZpiU5yI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=136
+
+-- https://chat.openai.com/c/f9063448-d7be-4e85-b9ab-72f42baecda0
+
+-- (bfs)
+from collections import deque
+
+class Solution:
+    
+    #Function to find whether a path exists from the source to destination.
+    def is_Possible(self, grid):
+        n = len(grid)
+        m = len(grid[0])
+        destination = None
+        
+        q = deque()
+        vis = []
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1: 
+                    q.append((i, j))
+                    vis.append((i, j))
+                elif grid[i][j] == 2: 
+                    destination = (i, j)
+        
+        def is_valid(grid, vis, row, col, n, m):
+            if row < 0 or col < 0 or (row >= n) or (col >= m) or (row, col) in vis or grid[row][col] == 0:
+                return False
+            return True
+            
+        
+        while q:
+            temp = q.popleft()
+            r = temp[0]
+            c = temp[1]
+
+            if r == destination[0] and c == destination[1]:
+                return True
+            
+            moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            
+            for row, col in moves:
+                new_row = r + row
+                new_col = c + col
+                
+                if is_valid(grid, vis, new_row, new_col, n, m):
+                    q.append((new_row, new_col))
+                    vis.append((new_row, new_col))
+        
+        return False
+--
+
+--
+from collections import deque
+
+# Function to check if a given cell is valid to move
+def is_valid(grid, visited, row, col):
+    n = len(grid)
+    return (row >= 0 and row < n and col >= 0 and col < n and not visited[row][col] and grid[row][col] != 0)
+
+# Depth First Search (DFS) implementation
+def dfs(grid):
+    n = len(grid)
+    visited = [[False] * n for _ in range(n)]
+
+    # Find source and destination
+    source = destination = None
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j] == 1:
+                source = (i, j)
+            elif grid[i][j] == 2:
+                destination = (i, j)
+
+    # Helper function for DFS
+    def dfs_util(row, col):
+        if (row, col) == destination:
+            return True
+        visited[row][col] = True
+
+        # Possible moves: up, down, left, right
+        moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        for move in moves:
+            new_row, new_col = row + move[0], col + move[1]
+            if is_valid(grid, visited, new_row, new_col):
+                if dfs_util(new_row, new_col):
+                    return True
+        return False
+
+    # Start DFS from source
+    return dfs_util(source[0], source[1])
+--
+
+
+=====================================================================================================================================================
+
+-- Largest number with the given sum
+ 
+-- https://www.geeksforgeeks.org/problems/largest-number-with-given-sum-1587115620/1
+-- https://www.youtube.com/watch?v=myJ9g_xp7us&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=137
+
+
+--
+class Solution:
+    #Function to return the largest possible number of n digits
+    #with sum equal to given sum.
+    def largestNum(self,n,S):
+        
+        # code here
+        s = ''
+        
+        if 9 * n < S:
+            return -1
+        
+        for i in range(n):
+            if S >= 9:
+                s += '9'
+                S -= 9
+            else:
+                s += str(S)
+                temp = S
+                S -= temp
+        return s
+            
+--
+
+===============================================================================================================================================================
+
+-- Partition a number into two divisible parts
+
+
+-- https://www.youtube.com/watch?v=x6FWfQ9XMjI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=138
+-- https://www.geeksforgeeks.org/problems/partition-a-number-into-two-divisible-parts3605/1
+
+--
+class Solution:
+    def stringPartition(ob,number,a,b):
+        # Code here
+        
+        # we need prefix and suffix
+        # since prefix for start from left
+        # for suffix for start from right
+        
+        for i in range(1, len(number)):
+            first_part = number[:i]
+            second_part = number[i:]
+    
+            if int(first_part) % a == 0 and int(second_part) % b == 0:
+                return first_part + " " + second_part
+    
+        return -1
+--
+
+
+=====================================================================================================================================================
+
+-- Hungry pizza lovers
+
+-- https://www.geeksforgeeks.org/problems/hungry-pizza-lovers3148/1
+-- https://www.youtube.com/watch?v=HBoCX60fgY8&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=139
+
+--
+class Solution:
+    def permute(self,arr,n):
+        #Complete the function
+        order = []
+        for i in range(n):
+            order.append((arr[i][0] + arr[i][1], i + 1))
+        
+        order.sort(key=lambda x:x[0])
+        
+        return [order[1] for order in order]
+--
+
+====================================================================================================================================================
+
+-- Print all subsets
+
+-- https://www.geeksforgeeks.org/problems/subsets-1613027340/0
+-- https://www.youtube.com/watch?v=h4zNvA4lbtc
+
+
+-- recursion, backtracking and using loop
+#User function Template for python3
+
+class Solution:
+    def subsets1(self, A):
+        #code here
+        res = []
+        def backtracking(index, path):
+            if index == len(A):
+                res.append(path[:])
+                return
+            
+            backtracking(index + 1, path)
+            backtracking(index + 1, path +[A[index]])
+            
+        
+        backtracking(0, [])
+        
+        return res
+        
+    def subsets(self, A):
+        res = []
+        
+        def backtrack(start, path):
+            res.append(path[:])
+
+            for i in range(start, len(A)):
+                path.append(A[i])
+                
+                backtrack(i + 1, path)
+                
+                path.pop()
+        
+        backtrack(0, [])
+        return res 
+        
+    
+    # using a binary representation 
+    
+    def subsets(self, A):
+        # based on the 1s position in binary numbers u can get all possible subsets
+        
+        # 2 ^ n subsets
+        # left shift multiplies 2
+        
+        # 011 -> [1, 2]
+        # 010 -> [2]
+        
+        res = []
+        for i in range(1 << n):
+            # i =0 to i = 7
+            v = []
+            for j in range(n):
+                
+                if 1 << j & i:
+                    v.append(A[j])
+            res.append(v[:])
+        return res
+--
+
+
+======================================================================================================================================================
+
+-- Subsets with XOR value
+
+
+--
+--
+
+--
+--
+
+======================================================================================================================================================
+-- 
+
+
+1st round -> Machine coding 3hrs
+2nd -> DSA 
+3rd -> lld
+4th -> HM
+
+4 - 5 days 
+
+passbook and UAN
+
+
+functional coreectness
+edge casses and null checks
+extensibility and modularity
+testability
+exception handling
+entity design
