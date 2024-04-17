@@ -6066,6 +6066,7 @@ class Solution:
 
 -- https://www.geeksforgeeks.org/problems/subsets-1613027340/0
 -- https://www.youtube.com/watch?v=h4zNvA4lbtc
+-- https://www.geeksforgeeks.org/backtracking-to-find-all-subsets/
 
 
 -- recursion, backtracking and using loop
@@ -6134,10 +6135,11 @@ class Solution:
 -- Subsets with XOR value
 
 
---
---
+-- https://www.youtube.com/watch?v=0iXrHaGpzMI&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=140
+-- https://www.geeksforgeeks.org/problems/subsets-with-xor-value2023/1
 
 --
+
 --
 
 ======================================================================================================================================================
