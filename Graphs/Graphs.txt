@@ -1,4 +1,8 @@
 # BFS
+****** 
+While using BFS for DFS or BFS please use visited array for both of them
+
+
 
 graph = {
   1 : [2,3],
