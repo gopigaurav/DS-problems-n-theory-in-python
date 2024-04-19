@@ -2,7 +2,7 @@
 ****** 
 While using BFS for DFS or BFS please use visited array for both of them
 
-
+-- https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
 
 graph = {
   1 : [2,3],
@@ -46,24 +46,36 @@ dfs(graph, 1, visited)
 -- method -1 
 
 
---
+-- Always use this method
+#User function Template for python3
 from collections import defaultdict
-class Solution:
-    res = []
+
+class Solution1:
+    
     #Function to return a list containing the DFS traversal of the graph.
     def dfsOfGraph(self, V, adj):
-        vis = []
-        def dfs(node, vis, adj):
-            vis.append(node)
-            self.res.append(node)
-            for i in adj[node]:
-                if i not in vis:
-                    dfs(i, vis, adj)
-                    
+        # code here
         
-        dfs(0, vis, adj)
-        #print(self.res)
-        return self.res
+        g = defaultdict(list)
+        
+        for i in range(V):
+            for node in adj[i]:
+                g[i].append(node)
+        
+        visited = [False] * V
+        res = []
+        
+        def dfs(node):
+            res.append(node)
+            visited[node] = True
+            
+            for neighbor in adj[node]:
+                if not visited[neighbor]:
+                    dfs(neighbor)
+        
+        dfs(0)
+        
+        return res
 --
 
 
@@ -133,6 +145,113 @@ g.DFS()
 # This code is contributed by Neelam Yadav
 
 
+==============================================================================================================================
+
+-- Cycle detection in directed graph (dfs, bfs(kahns algo or topological sort))
+
+-- https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
+-- https://www.youtube.com/watch?v=6zVWOfwT0Dw
+-- https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1
+
+--
+#User function Template for python3
+from collections import deque, defaultdict
+
+class Solution:
+    
+    #Function to detect cycle in a directed graph.
+    #
+    
+    
+    # dfs
+    def isCyclic1(self, V, g):
+        # code here
+        
+        # here u can use the backtrack functionality to find the cycle
+        
+        # take an extra array for this and if the cycle is present then the both visited and extra array for that will be truw
+        
+        # this extra array for the getting the path and then backtrack it later
+        extra = [0] * V
+        vis = [0] * V
+        
+        def dfs(node, parent):
+		    vis[node] = 1
+		    extra[node] = 1
+		    
+		    for i in g[node]:
+		        if not vis[i]:
+		            if dfs(i, node):
+		                return True
+		                
+		        elif vis[i] and extra[i]: # or it can be like thsi elif extra[i]: return True
+		            return True
+
+		    extra[node] = 0
+		            
+		    return False
+		   
+        
+        for i in range(V):
+            if not vis[i]:
+                if dfs(i, -1):
+                    return True
+        return False
+        
+    
+    
+    # bfs (kahns algo)
+    
+    def isCyclic(self, V, adj):
+         
+        # first calculate the Indegree for all the nodes
+        # you can either use visited or not its upto u
+        # only make visited true if the indegree is 0
+        
+        indegree = [0] * (V + 1)
+        g = defaultdict(list)
+
+        for vertex in range(V):
+            for neighbor in adj[vertex]:
+                g[vertex].append(neighbor)
+ 
+                
+        for i in range(V):
+            for vertex in g[i]:
+                indegree[vertex] += 1
+        
+        
+        q = deque()
+        vis = [0] * (V + 1)
+        cnt = 0
+        
+        for i in range(V):
+            if indegree[i] == 0:
+                q.append(i)
+                vis[i] = 1
+                
+        
+        
+        while q:
+            temp = q.popleft()
+            cnt += 1
+            
+            # check for the neighbors and then reduce the indegree count for them
+            for node in g[temp]:
+                if not vis[node]:
+                    indegree[node] -= 1
+                    
+                    if indegree[node] == 0:
+                        vis[node] = 1
+                        q.append(node)
+            
+                
+            
+        if cnt == V: return 0
+        
+        return 1
+--
+
 
 =============================== cycle detetcion in directed graph =========================
 -- 
@@ -196,10 +315,150 @@ B = [[1, 4],
   [3, 2],
   [5, 2],
 ]
-================================================== cycle detection in undirected graph================================
+================================================== cycle detection in undirected graph (refer this) ================================
+
+-- https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
+-- https://www.youtube.com/watch?v=dwlY2LhOmX0
 
 
 --
+from typing import List
+from collections import defaultdict
+from collections import deque
+
+class Solution:
+    #Function to detect cycle in an undirected graph.
+    
+    # Using Bfs
+	def isCycle1(self, V: int, adj: List[List[int]]) -> bool:
+		#Code here
+		
+		g = defaultdict(list)
+		
+		for i in range(V):
+		    for node in adj[i]:
+		        g[i].append(node)
+        
+        
+        vis = [False] * V
+        def bfs(src, g):
+            vis[src] = 1
+            
+            q = deque()
+            
+            q.append((src, -1))
+            
+            while q:
+                temp = q.popleft()
+                
+                node = temp[0]
+                parent = temp[1]
+                
+                for i in g[node]:
+                    if not vis[i]:
+                        vis[i] = True
+                        q.append((i, node))
+                    elif i != parent:
+                        return True
+            
+            return False
+            
+            
+        
+        # run for all the disjoint graphs if there is
+        
+        for i in range(V):
+            if not vis[i] and bfs(i, g):
+                return True
+                
+        return False
+        
+        
+    # dfs
+	def isCycle2(self, V: int, adj: List[List[int]]) -> bool:
+	    
+	    g = defaultdict(list)
+		
+		for i in range(V):
+		    for node in adj[i]:
+		        g[i].append(node)
+		        
+		        
+		vis = [0] * V
+		def dfs(node, parent):
+		    vis[node] = 1
+		    
+		    for i in g[node]:
+		        if not vis[i]:
+		            if dfs(i, node):
+		                return True
+		        elif i != parent:
+		            return True
+		            
+		    return False
+		   
+        
+        for i in range(V):
+            if not vis[i]:
+                if dfs(i, -1):
+                    return True
+        return False
+        
+    
+    # Using disjoint sets
+    def isCycle(self, V: int, adj: List[List[int]]) -> bool:
+        
+        # rank and parent array is needed
+        
+        par = [0] * (V + 1)
+        rank = [0] * (V + 1)
+        
+        edge_list = []
+
+        for u, neighbors in enumerate(adj):
+            for v in neighbors:
+                edge_list.append((u, v))
+                
+        
+        # initialize the node as parent itself
+        for i in range(V + 1):
+            par[i] = i
+            rank[i] = 1
+            
+        
+        def find_parent(node):
+            if par[node] != node:
+                par[node] = find_parent(par[node])  # Update parent pointer
+            return par[node]
+        
+        
+        for u, v in edge_list:
+            
+            p1 = find_parent(u)
+            p2 = find_parent(v)
+            
+            if p1 == p2:
+                return 1
+            else:
+                if rank[p1] < rank[p2]:
+                    par[p1] = p2
+        
+                elif rank[p1] > rank[p2]:
+                    par[p2] = p1
+                    
+                else:
+                    par[p1] = p2
+                    rank[p1] += 1
+        return 0
+--
+
+
+
+====================================================================================================================================
+
+-- Cycle detection in undirected graph
+
+
 => https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
 => https://www.youtube.com/watch?v=GLGsIZGLvA0&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=7
 
