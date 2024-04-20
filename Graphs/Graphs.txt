@@ -2004,6 +2004,8 @@ cost is minimum among all the spanning trees. There also can be many minimum spa
 -- prims algo code
 
 
+-- https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=minimum-spanning-tree
+
 -- (Use this)
 from collections import deque, defaultdict
 from heapq import heappush, heappop
