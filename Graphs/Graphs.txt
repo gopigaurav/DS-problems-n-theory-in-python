@@ -1351,7 +1351,7 @@ class Solution:
 ---
 ======================================================================================================================================================
 
--- Details Dijkstra
+-- Detailed Dijkstra
 
 
 -- https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
@@ -1477,10 +1477,66 @@ void BFS(vector<int> adj[], int N, int src):
 
 --
 
+======================================================================================================================================
+
+
+-- Find and print the shortest path in dijkstra algo
+
+--https://www.youtube.com/watch?v=rp1SMw7HSO8&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=35
+-- https://www.geeksforgeeks.org/problems/shortest-path-in-weighted-undirected-graph/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=shortest-path-in-weighted-undirected-graph
+
+--
+#User function Template for python3
+
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def shortestPath(self,V , m, edges):
+        # code here
+        
+        graph = defaultdict(list)
+        for u, v, w in edges:
+            graph[u].append((v, w))
+            graph[v].append((u, w))
+        
+            
+        distance = [float("inf")] * (V + 1)
+        par = [i for i in range(V + 1)]
+        distance[1] = 0
+    
+        s = set([(1, 0)])
+        
+        while s:
+            curr, w = s.pop()
+            
+            for node, weight in graph[curr]:
+                if distance[curr] + weight < distance[node]:
+                    distance[node] = distance[curr] + weight
+                    par[node] = curr
+                    s.add((node, distance[node]))
+                    
+        
+        if distance[-1] == float("inf"):
+            return [-1]
+        print(distance)
+        
+        path = []
+        i = V
+        while par[i] != i and i > 0:
+            path.append(i)
+            i = par[i]
+        path.append(1) # Adding the source node
+        path.append(distance[-1])
+        path.reverse()
+        
+        return path
+--
+
 
 =====================================================================================================================================================
 
--- bellmon ford
+-- bellmon ford (for negative node as well)
 
 -- https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
 -- https://www.youtube.com/watch?v=-dlGfzdfHvM&list=PLNxqWc8Uj2LTb6VYJG3Kebwift2oaBFvE&index=14
@@ -1556,10 +1612,10 @@ g.addEdge(4, 3, -3)
 # Print the solution
 g.BellmanFord(0)
 
-# Initially, Contributed by Neelam Yadav
-# Later On, Edited by Himanshu Garg
 
 --
+
+
 
 
 -- bellmon ford in weighted directed graph (Negative weight cycle)
