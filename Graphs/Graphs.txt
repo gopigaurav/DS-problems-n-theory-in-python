@@ -1747,7 +1747,7 @@ class Solution:
 
 -- https://www.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=implementing-floyd-warshall
 -- https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/
-
+-- https://www.youtube.com/watch?v=YbY8cVwWAvw&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=42
 
 
 -- Use this
@@ -1969,6 +1969,9 @@ else :
 
 -- (Refer this)   https://www.hackerearth.com/practice/algorithms/graphs/minimum-spanning-tree/tutorial/ 
 
+
+--> A tree in which we have N nodes and N - 1 edges and all nodes are reachable from each
+	other
 
 --
 
@@ -2365,9 +2368,8 @@ class Solution:
         def getTranspose(adjc):
             g = defaultdict(list)
             for i in adjc:
-			    for j in adjc[i]:
-			        
-			        g[j].append(i)
+		for j in adjc[i]:
+			g[j].append(i)
             return g
             
             
