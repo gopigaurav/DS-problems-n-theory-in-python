@@ -1973,6 +1973,8 @@ else :
 --> A tree in which we have N nodes and N - 1 edges and all nodes are reachable from each
 	other
 
+--> Any tree with Minimum sum is called MST
+
 --
 
 What is a Minimum Spanning Tree?
@@ -2000,6 +2002,58 @@ cost is minimum among all the spanning trees. There also can be many minimum spa
 
 
 -- prims algo code
+
+
+-- (Use this)
+from collections import deque, defaultdict
+from heapq import heappush, heappop
+
+
+class Solution:
+    
+    #Function to find sum of weights of edges of the Minimum Spanning Tree.
+    def spanningTree(self, V, adj):
+        #code here
+        
+        # minimum sum to make the MST
+        
+        # Use Dijkstra but little bit different
+        
+        
+        g = defaultdict(list)
+        
+        for i in range(V):
+            for node, w in adj[i]:
+                g[i].append((node, w))
+        
+        
+        vis = [0] * V
+
+        heap = []
+        
+        
+        heappush(heap, (0, 0))
+        csum = 0
+        
+        
+        while heap:
+            
+            weight, node = heappop(heap)
+            
+            if vis[node]: continue
+            vis[node] = 1
+            csum += weight
+            
+            for i, w in g[node]:
+                if not vis[i]:
+
+                    heappush(heap, (w, i))
+                    
+                    
+        return csum
+--
+
+
 
 
 --
