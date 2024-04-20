@@ -109,12 +109,12 @@ class Solution:
 		n = len(image)
 		m = len(image[0])
 		
-		def dfs(r, c, row, col, color):
+	def dfs(r, c, row, col, color):
             if r < 0 or c < 0 or r >= row or c >= col or image[r][c] != color:
                 return
             image[r][c] = newColor
             
-            
+            dir = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
             
             for dr, dc in dir:
@@ -189,3 +189,62 @@ class Solution:
 
 
 ===========================================================================================================================================================
+
+-- Number of Enclaves (only use BFS)
+
+-- Use this link
+-- https://www.youtube.com/watch?v=rxKcepXQgU4&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=15
+--
+
+
+--
+from typing import List
+
+class Solution:    
+    def numberOfEnclaves(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        
+        def dfs(r, c, row, col):
+            if r < 0 or c < 0 or r >= row or c >= col or grid[r][c] != 1:
+                return
+            
+            grid[r][c] = 0
+            
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            
+            for dr, dc in directions:
+                new_row, new_col = r + dr, c + dc    
+                dfs(new_row, new_col, row, col)
+            
+        for i in range(n):
+            if grid[i][0]:
+                dfs(i, 0, n, m)
+                
+        for i in range(n):
+            if grid[i][m - 1]:
+                dfs(i, m - 1, n, m)
+                
+        for i in range(m):
+            if grid[0][i]:
+                dfs(0, i, n, m)
+                
+        for i in range(m):
+            if grid[n - 1][i]:
+                dfs(n - 1, i, n, m)
+                
+        cnt = 0
+        
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j]:
+                    cnt += 1
+        
+        return cnt if cnt else 
+--
+
+
+======================================================================================================================================
+
+
+--
