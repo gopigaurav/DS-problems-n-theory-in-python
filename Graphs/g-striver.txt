@@ -94,3 +94,43 @@ class Solution:
 
 
 =================================================================================================================================================
+
+-- Flood fill algo
+
+
+-- https://www.geeksforgeeks.org/problems/flood-fill-algorithm1856/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=flood-fill-algorithm
+-- https://www.youtube.com/watch?v=C-2_uSRli8o&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=9
+
+
+--class Solution:
+	def floodFill(self, image, sr, sc, newColor):
+		#Code here
+		
+		n = len(image)
+		m = len(image[0])
+		
+		def dfs(r, c, row, col, color):
+            if r < 0 or c < 0 or r >= row or c >= col or image[r][c] != color:
+                return
+            image[r][c] = newColor
+            
+            dir = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            
+            for dr, dc in dir:
+                new_row, new_col = r + dr, c + dc    
+                dfs(new_row, new_col, row, col, color)
+            
+        initialCol = image[sr][sc]
+
+        
+        
+        if initialCol != newColor:  # Only perform flood fill if the new color is different from the initial color
+            dfs(sr, sc, n, m, initialCol)
+        
+        return image
+--
+
+
+======================================================================================================================================================
+
+-- 
