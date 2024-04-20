@@ -1536,6 +1536,54 @@ class Solution:
 
 =====================================================================================================================================================
 
+-- Bellmon ford (use this)
+ 
+	(Only works for directed graogh, convert the undirect to directed)
+	(Mainly relax the edges for N - 1 times first)
+
+-- https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=distance-from-the-source-bellman-ford-algorithm
+-- https://www.youtube.com/watch?v=0vVofAhAYjc&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=41
+
+
+--
+#User function Template for python3
+
+class Solution:
+    # Function to construct and return cost of MST for a graph
+    # represented using adjacency matrix representation
+    '''
+    V: nodes in graph
+    edges: adjacency list for the graph
+    S: Source
+    '''
+    def bellman_ford(self, V, edges, src):
+        #code here
+        
+        dist = [100000000] * V
+        dist[src] = 0
+
+        # Step 2: Relax all edges |V| - 1 times. A simple shortest
+        # path from src to any other vertex can have at-most |V| - 1
+        # edges
+        for _ in range(V - 1):
+            # Update dist value and parent index of the adjacent vertices of
+            # the picked vertex. Consider only those vertices which are still in
+            # queue
+            for u, v, w in edges:
+                if dist[u] != 100000000 and dist[u] + w < dist[v]:
+                    dist[v] = dist[u] + w
+        
+        
+        for u, v, w in edges:
+            if dist[u] != 100000000 and dist[u] + w < dist[v]:
+                return [-1]
+        
+        return dist
+--
+
+=====================================================================================================================================================
+
+
 -- bellmon ford (for negative node as well)
 
 	(Only works for directed graogh, convert the undirect to directed)
