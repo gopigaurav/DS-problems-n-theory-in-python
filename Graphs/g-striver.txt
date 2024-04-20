@@ -49,11 +49,47 @@ class Solution:
 -- Number of Islands
 
 
---
---
+-- https://chat.openai.com/c/c2a155d1-4284-4165-85cd-f52a8aa395fd
+-- https://www.youtube.com/watch?v=muncqlKJrH0&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=8
 
 
 --
+from collections import defaultdict
+import sys
+sys.setrecursionlimit(10**8)
+class Solution:
+    def numIslands(self,grid):
+        #code here
+        n = len(grid)
+        m = len(grid[0])
+        
+        
+        def dfs(r, c, row, col, vis):
+            if r < 0 or c < 0 or r >= row or c >= col or grid[r][c] != 1 or vis[r][c]:
+                return
+            vis[r][c] = 1
+            
+            for i in [-1, 0, 1]:
+                for j in [-1, 0, 1]:
+                    if i != 0 or j != 0:
+                        new_row = r + i 
+                        new_col = c + j
+                        
+                        dfs(new_row, new_col, row, col, vis)
+            
+            
+        vis = [[0 for _ in range(m)] for _ in range(n)]
+        
+    
+        cnt = 0
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1 and not vis[i][j]:
+                    cnt += 1
+                    dfs(i, j, n, m, vis)
+        
+        return cnt
+                
 --
 
 
