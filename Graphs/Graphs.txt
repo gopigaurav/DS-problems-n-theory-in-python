@@ -1214,7 +1214,7 @@ def dijkstra(vec, vertices, edges, source):
     return distance
 --
 
--- using heap
+-- using heap (to get the shortest node)
 # using min heap
     def dijkstra(vec, V, adj, S):
         # Write your code here.
@@ -1350,6 +1350,109 @@ class Solution:
         return distance
 ---
 ======================================================================================================================================================
+
+-- Details Dijkstra
+
+
+-- https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
+
+--
+from collections import defaultdict, deque
+from heapq import heappush, heappop, heapify
+
+class Solution:
+
+    #Function to find the shortest distance of all the vertices
+    #from the source vertex S.
+    def dijkstra1(self, V, adj, S):
+        #code here
+        
+        g = defaultdict(list)
+        
+        for i in range(V):
+            for node, w in adj[i]:
+                g[i].append((node, w))
+        
+        dis = [float("inf")] * V
+        dis[S] = 0
+        q = deque([(0, S)])
+        
+        while q:
+            
+            weight, node = q.popleft()
+            
+            for i, w in g[node]:
+                if dis[node] + w < dis[i]:
+                    dis[i] = dis[node] + w
+                    q.append((dis[i], i))
+                    
+                    
+        return dis
+        
+--
+    # using priority queue that is heaps
+    # use min heaps
+    def dijkstra2(self, V, adj, S):
+        #code here
+        
+        g = defaultdict(list)
+        
+        for i in range(V):
+            for node, w in adj[i]:
+                g[i].append((node, w))
+        
+        dis = [float("inf")] * V
+        dis[S] = 0
+        heap = []
+        
+        heappush(heap, (0, S))
+        
+        while heap:
+            
+            weight, node = heappop(heap)
+            
+            for i, w in g[node]:
+                if dis[node] + w < dis[i]:
+                    dis[i] = dis[node] + w
+                    heappush(heap, (dis[i], i))
+                    
+                    
+        return dis
+        
+--
+    
+    # using set not much changes
+    def dijkstra(self, V, adj, S):
+        #code here
+        
+        g = defaultdict(list)
+        
+        for i in range(V):
+            for node, w in adj[i]:
+                g[i].append((node, w))
+        
+        dis = [float("inf")] * V
+        dis[S] = 0
+        q = set([(0, S)])
+        
+        while q:
+            
+            weight, node = q.pop()
+            
+            for i, w in g[node]:
+                if dis[node] + w < dis[i]:
+                    dis[i] = dis[node] + w
+                    q.add((dis[i], i))
+                    
+                    
+        return dis
+-- 
+
+
+
+
+======================================================================================================================================================
+
 
 -- dijkstra for unweighted graph
 

@@ -5579,7 +5579,7 @@ class Solution:
 -- https://www.geeksforgeeks.org/problems/course-schedule/1
 -- https://www.youtube.com/watch?v=73sneFXuTEg
 -- https://www.youtube.com/watch?v=d8udvjxY8jc&list=PLM68oyaqFM7R1dbnc2dvgkPojmU5PciOS&index=127
-
+-- https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1
 
 -- Using dfs 
 class Solution1(object):
