@@ -114,7 +114,8 @@ class Solution:
                 return
             image[r][c] = newColor
             
-            dir = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            
+
             
             for dr, dc in dir:
                 new_row, new_col = r + dr, c + dc    
@@ -133,4 +134,58 @@ class Solution:
 
 ======================================================================================================================================================
 
--- 
+-- Rotten Oranges
+
+
+-- https://www.geeksforgeeks.org/problems/rotten-oranges2536/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=rotten_oranges
+-- https://www.youtube.com/watch?v=yf3oUhkvqA0&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=11
+
+--
+class Solution:
+
+    #Function to find minimum time required to rot all oranges. 
+	def orangesRotting(self, grid):
+		#Code here
+		
+		r = len(grid)
+        c = len(grid[0])
+        
+        time = 0
+        count = 0
+        
+        q = []
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 2:
+                    q.append((i, j))
+                    
+                    
+        while q:
+            for _ in range(len(q)):
+                i, j = q.pop(0)
+                self.checkNei(i, j, grid, r, c, q)
+            if q:
+                time+=1
+                
+                
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    return -1 
+                    
+                    
+        return time
+    
+    def checkNei(self, i, j, grid, r, c, q):
+        x = [-1,1,0,0]
+        y = [0,0,-1,1]
+        for l in range(len(x)):
+            if (i + x[l]<0 or i+x[l] >= r or j+y[l] < 0 or j+y[l]>=c or grid[i+x[l]][j+y[l]] != 1 ):
+                continue
+            q.append((i +x[l], j+y[l]))
+            grid[i + x[l]][j+y[l]] = 2
+--
+
+
+===========================================================================================================================================================
