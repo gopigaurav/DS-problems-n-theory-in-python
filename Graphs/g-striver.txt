@@ -408,3 +408,59 @@ class Solution:
 
 
 =========================================================================================================================================
+
+
+--  Word ladder  (BFS)
+
+
+-- https://www.geeksforgeeks.org/problems/word-ladder/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=word-ladder
+-- https://leetcode.com/problems/word-ladder/submissions/1237986056/
+-- https://www.youtube.com/watch?v=tRPda0rcf8E&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=30
+
+--
+from collections import deque
+
+class Solution:
+	def wordLadderLength(self, startWord, targetWord, wordList):
+		#Code here
+		
+		# Using the BFS
+		
+		# first put the startword in queue
+		
+		# u need to take set instead of array
+		# make the input to set
+		# change the startword one by one character and check for the hit in the set
+		# if its present then we increase the level and remove the hit word from the set
+		
+		S = set(wordList)
+		
+		q = deque([(startWord, 1)])
+		res = float("inf")
+		
+		while q:
+		    word, level = q.popleft()
+		    
+		    if word == targetWord:
+		        res = min(res, level)
+		    
+ 
+		    for i in range(len(word)):
+		        original = word
+		  
+		        for alpha in range(26):
+		            
+		            new_word = word[:i] + chr(ord('a') + alpha) + word[i + 1:]
+		            
+		            if new_word in S:
+		                q.append((new_word, level + 1))
+		                S.remove(new_word)
+		
+		            
+		            
+        
+        return res if res != float("inf") else 0
+--
+
+
+========================================================================================================================================
