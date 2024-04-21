@@ -1,0 +1,38 @@
+-- https://docs.google.com/spreadsheets/d/1Pud-vdSPhhljScynHvTUGRE5yxEV6dCMb45rOwoSt_Q/edit#gid=0
+
+
+-- Watering plants
+
+-- https://leetcode.com/problems/watering-plants/
+--
+
+
+--
+class Solution(object):
+    def wateringPlants(self, plants, cap):
+        """
+        :type plants: List[int]
+        :type cap: int
+        :rtype: int
+        """
+        n = len(plants)
+        cnt = cap
+        res = 0
+        i = 0
+        while i < n:
+            if plants[i] > cap:
+                return -1
+            
+            if plants[i] <= cnt:
+                cnt -= plants[i]
+            else:
+                res += i * 2
+                cnt = cap - plants[i]
+            i += 1
+        return res + i
+--
+
+
+============================================================================================
+
+-- 
