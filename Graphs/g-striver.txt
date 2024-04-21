@@ -246,5 +246,165 @@ class Solution:
 
 ======================================================================================================================================
 
+-- Topological sorting  (use bfs instead of dfs)
+
+
+-- https://www.geeksforgeeks.org/problems/topological-sort/1
+-- https://www.youtube.com/watch?v=U3N_je7tWAs&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=27
+
 
 --
+from collections import defaultdict
+from collections import deque
+
+class Solution:
+    
+    #Function to return list containing vertices in Topological order.
+    def topoSort1(self, V, adj):
+        # Code here
+        
+        g = defaultdict(list)
+        
+
+        for i in range(V):
+            for node in adj[i]:
+                g[i].append(node)
+            
+        res = []
+        vis = [0] * V
+        
+        
+        def dfs(node):
+            vis[node] = 1
+            
+            for i in g[node]:
+                if not vis[i]:
+                    dfs(i)
+                    
+            res.append(node) # while leaving u need to insert it in the array or stack and at the reverse it
+
+            
+        for i in range(V):
+            if not vis[i]:
+                dfs(i)
+                
+                
+        return res[::-1]
+    
+    
+    # INdegree bfs kahns algo
+    def topoSort(self, V, adj):
+        
+        ind = [0] * V
+        g = defaultdict(list)
+        
+        for i in range(V):
+            for node in adj[i]:
+                g[i].append(node)
+                ind[node] += 1
+            
+        q = deque()
+        
+        for i in range(V):
+            if ind[i] == 0:
+                q.append(i)
+                
+        
+        
+        res = []
+        while q:
+            
+            node = q.popleft()
+            res.append(node)
+            
+            for i in g[node]:
+                ind[i] -= 1
+                
+                if ind[i] == 0:
+                    q.append(i)
+        
+        return res
+--
+
+
+
+=======================================================================================================================================
+
+
+-- Alien Dictionary
+
+-- https://www.geeksforgeeks.org/problems/alien-dictionary/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=alien-dictionary
+-- https://www.youtube.com/watch?v=U3N_je7tWAs&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=27
+
+
+--
+#User function Template for python3
+from collections import defaultdict, deque
+
+class Solution:
+    def findOrder(self,d, N, K):
+    # code here
+    
+        
+    # here for the order and all we use topological sort
+    # but first we need to get the order of it right
+    # so traverse throught the array and check for the nodes 
+    # which appears in increasing order
+        
+        def topoSort(V, adj):
+        
+            ind = [0] * V
+            g = defaultdict(list)
+            
+            for i in range(V):
+                for node in adj[i]:
+                    g[i].append(node)
+                    ind[node] += 1
+                
+            q = deque()
+            
+            for i in range(V):
+                if ind[i] == 0:
+                    q.append(i)
+                    
+            
+            
+            res = []
+            while q:
+                
+                node = q.popleft()
+                res.append(node)
+                
+                for i in g[node]:
+                    ind[i] -= 1
+                    
+                    if ind[i] == 0:
+                        q.append(i)
+            
+            return res
+            
+            
+        g = defaultdict(list)
+        
+        for i in range(N - 1):
+            s1 = d[i]
+            s2 = d[i + 1]
+            
+            for i in range(min(len(s1), len(s2))):
+                if s1[i] != s2[i]:
+                    g[ord(s1[i]) - ord('a')].append(ord(s2[i]) - ord('a'))
+                    break
+        
+        result = topoSort(K, g)
+        
+        res = ""
+        
+        for i in range(len(result)):
+            res += chr(ord('a') + result[i])
+            
+        return res
+--
+
+
+
+=========================================================================================================================================
