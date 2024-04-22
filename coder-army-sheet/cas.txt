@@ -266,7 +266,7 @@ class Solution:
 
 
 -- https://www.geeksforgeeks.org/problems/find-length-of-loop/1?page=1&difficulty%5B%5D=0&category%5B%5D=Linked%2520List&sortBy=submissions
---
+-- https://www.geeksforgeeks.org/find-length-of-loop-in-linked-list/
 
 
 --
