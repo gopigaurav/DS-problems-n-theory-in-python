@@ -35,4 +35,269 @@ class Solution(object):
 
 ============================================================================================
 
--- 
+-- Majority Element (Moores algo) (42) 
+
+
+-- https://www.geeksforgeeks.org/problems/majority-element-1587115620/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+-- https://www.geeksforgeeks.org/majority-element/
+ 
+
+--
+#User function template for Python 3
+from collections import defaultdict
+
+class Solution:
+    def majorityElement1(self, A, N):
+        #Your code here
+        
+        # u can do it using Moore voting algo 
+        # or u can use hashmaps for this, lets do both
+        
+        
+        # Moores Algo
+        
+        # first get the majority element and then check for the frequency is greater than 
+        # the n // 2
+        
+        majority_index = 0
+        majority_num_count = 1
+        
+        for i in range(N):
+            if A[i] != A[majority_index]:
+                majority_num_count -= 1
+                
+                if majority_num_count == 0:
+                    majority_index = i
+                    majority_num_count = 1
+            else:
+                majority_num_count += 1
+        
+        cnt = 0 # to get the total frequency of the element
+        
+        for i in range(N):
+            if A[majority_index] == A[i]:
+                cnt += 1
+        
+            if cnt > (N // 2):
+                return A[majority_index]
+        
+        return -1
+        
+        
+    
+
+    # Using Hashmaps
+    def majorityElement(self, A, N):
+        #Your code here
+        
+        # u can do it using Moore voting algo 
+        # or u can use hashmaps for this, lets do both
+        
+        
+        # Moores Algo
+        
+        # first get the majority element and then check for the frequency is greater than 
+        # the n // 2
+        
+        
+        m = defaultdict(int)
+        
+        cnt = 0 # to get the total frequency of the element
+        
+        for i in range(N):
+            m[A[i]] += 1
+        
+        
+        for key in m:
+            if m[key] > (N // 2):
+                return key
+        
+        return -1
+--
+
+
+
+##################### Linked List  ============================================================================================
+
+
+-- Cycle in a linkedlist
+
+-- https://www.geeksforgeeks.org/problems/circular-linked-list/1?page=1&difficulty%5B%5D=-1&category%5B%5D=Linked%2520List&sortBy=submissions
+--
+
+--
+def isCircular(head):
+    # Code here
+    
+    # two point are needed to check for the circle in linkedlist
+    
+    # x -> traverls normally
+    # y -> travels with speed twice the x
+    
+    x = head
+    y = head.next
+    
+    while x != y:
+        if not y or not y.next:
+            return 0
+        x = x.next
+        y = y.next.next
+    
+    return 1
+--
+
+======================================================================================================================
+
+
+-- Insert in a Sorted List
+
+
+-- https://www.geeksforgeeks.org/problems/insert-in-a-sorted-list/1?page=1&difficulty%5B%5D=0&category%5B%5D=Linked%2520List&sortBy=submissions
+--
+
+--
+class Solution:
+    def sortedInsert(self, head1,key):
+        # code here
+        # return head of edited linked list
+        
+        
+        head = head1
+        node = Node(key)
+        
+        if not head:
+            return node
+            
+        prev = None
+        
+        while head:
+            if head.data >= key:
+                break
+            else:
+                prev = head
+                head = head.next
+            
+        if prev:
+            temp = prev.next
+            prev.next = node
+            node.next = temp
+        else:
+            temp = head1
+            head1 = node
+            node.next = temp
+        
+        return head1
+                
+--
+
+========================================================================================================================================
+
+
+-- Insert in the Middle of the linked list
+
+
+-- https://www.geeksforgeeks.org/problems/insert-in-middle-of-linked-list/1?page=1&difficulty%5B%5D=-1&category%5B%5D=Linked%2520List&sortBy=submissions
+--
+
+
+--
+def insertInMid(head,node):
+    #code here
+    
+    x = head
+    y = head.next
+    
+    
+    while y and y.next:
+        x = x.next
+        y = y.next.next
+        
+    if x:
+        temp = x.next
+        x.next = node
+        node.next = temp
+    
+    return head
+--
+
+
+==========================================================================================================================================
+
+-- delete node in doubly linked list
+
+
+-- https://www.geeksforgeeks.org/problems/delete-node-in-doubly-linked-list/1?page=1&difficulty%5B%5D=-1&category%5B%5D=Linked%2520List&sortBy=submissions
+--
+
+
+--
+class Solution:
+    def deleteNode(self,head, x):
+        # Code here
+        
+        if not head:
+            return None
+        
+        if x == 1:
+            temp = head.next
+            return temp
+        
+        temp = head
+        delNode = None
+        
+        while temp:
+            if  x == 1:
+                delNode = temp
+            
+            x -= 1
+            temp = temp.next
+        
+        if delNode:
+            prev = delNode.prev
+            prev.next = delNode.next
+        
+        return head
+--
+
+
+===============================================================================================================================
+
+-- Count the length of the loop in linked list
+
+
+-- https://www.geeksforgeeks.org/problems/find-length-of-loop/1?page=1&difficulty%5B%5D=0&category%5B%5D=Linked%2520List&sortBy=submissions
+--
+
+
+--
+def countNodesinLoop(head):
+    
+    #Your code here
+    
+    slow = head
+    fast = head
+    if head == None or head.next == None:
+        return 0
+
+    #assign while loop and checks both are equal
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            break
+
+    # if both are not equal return 0
+    if slow != fast:
+        return 0
+
+    # In last node we starting counting each elements which are connected to the loop
+    slow = slow.next
+    count = 1
+    while slow != fast:
+        count += 1
+        slow = slow.next
+    return count
+--
+
+
+===============================================================================================================================
