@@ -335,3 +335,55 @@ class Solution:
 
 
 ===============================================================================================================================
+
+-- Rotate a linked list
+
+-- https://www.geeksforgeeks.org/problems/rotate-a-linked-list/1?page=1&difficulty%5B%5D=1&category%5B%5D=Linked%2520List&sortBy=submissions
+--
+
+
+--
+class Solution:
+    
+    #Function to rotate a linked list.
+    def rotate(self, head, k):
+        # code here
+        
+        if not head:
+            return head
+        
+        temp = head
+        
+        cnt = 1
+        dummy = None
+        while temp:
+            if cnt == k:
+                dummy = temp
+                break
+            cnt += 1
+            temp = temp.next
+          
+        
+        if dummy and not dummy.next:
+            return head
+        
+        if dummy and dummy.next:
+            temp = dummy.next
+            dummy.next = None
+            
+            temp1 = temp
+            
+            while temp.next:
+                temp = temp.next
+            
+            
+            temp.next = head
+            head = temp1
+    
+                
+        
+        return head
+--
+
+
+==============================================================================================================================
