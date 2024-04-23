@@ -387,3 +387,100 @@ class Solution:
 
 
 ==============================================================================================================================
+
+-- Check if the Linked list is plaindrome
+
+
+-- https://www.geeksforgeeks.org/problems/check-if-linked-list-is-pallindrome/1?page=1&difficulty%5B%5D=1&category%5B%5D=Linked%2520List&sortBy=submissions
+-- https://www.geeksforgeeks.org/function-to-check-if-a-singly-linked-list-is-palindrome/
+
+
+--
+class Solution:
+    def isPalindrome(self, head):
+        #code here
+        
+        slow = head
+        fast = head
+        mid_pointer = None
+        
+        if not head or not head.next:
+            return 1
+            
+        
+        while fast and fast.next:
+            prev_slow = slow
+            slow = slow.next
+            
+            fast = fast.next.next
+            
+        
+        def reverse(node):
+            if not node:
+                return node
+            
+            cur = node
+            prev = None
+            nxt = node
+            
+            while cur:
+                
+                nxt = cur.next
+                cur.next = prev
+                prev = cur
+                cur = nxt
+            
+            return prev
+            
+        
+        def compair_node(node1, node2):
+            
+            while node1 and node2:
+                if node1.data != node2.data:
+                    return False
+                node1 = node1.next
+                node2 = node2.next
+            
+            
+            if node1 or node2:
+                return False
+            return True
+                
+        
+        
+        if fast:
+            mid_pointer = slow
+            slow = slow.next
+        
+        prev_slow.next = None
+        
+                
+        second_half = slow 
+        
+        reversed_node = reverse(second_half)
+        
+        temp = head
+        
+        if compair_node(temp, reversed_node):
+            return 1
+        
+        return 0
+--
+
+
+==============================================================================================================================
+
+-- Intersection Point in Y shaped linked lists
+
+
+--
+--
+
+
+--
+--
+
+
+==================================================================================================================================
+
+
