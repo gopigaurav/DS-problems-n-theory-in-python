@@ -479,3 +479,52 @@ class Solution:
 
 
 =======================================================================================================================================
+
+-- Bipartite graph (also same as graph coloring)
+
+-- https://www.geeksforgeeks.org/problems/bipartite-graph/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=bipartite-graph
+-- https://www.youtube.com/watch?v=-vu34sct1g8&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=18
+
+
+--
+from collections import deque
+
+class Solution:
+	def isBipartite(self, V, adj):
+		#code here
+		color = [-1] * V
+		
+		def check(start, color):
+    		q = deque()
+    		q.append(start)
+    		
+    		
+    		color[start] = 0
+    		
+            
+            while q:
+                node = q.popleft()
+                
+                for i in adj[node]:
+                    
+                    # if the node is not coloured then color it with the opposite color of the neighbour
+                    if color[i] == -1:
+                        color[i] = 1 - color[node]
+                        q.append(i)
+                        
+                    # if the color is present then check for the color with neighbour if it is same then return false
+                    elif color[node] == color[i]:
+                        return False
+                        
+            return True
+            
+        for i in range(V):
+            if color[i] == -1:
+                if not check(i, color):
+                    return False
+        
+        return True
+--
+
+
+==========================================================================================================================================
