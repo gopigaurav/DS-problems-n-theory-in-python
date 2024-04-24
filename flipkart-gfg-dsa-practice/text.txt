@@ -53,7 +53,7 @@ class Solution(object):
 
 
 -- https://www.geeksforgeeks.org/problems/minimum-number-of-jumps-1587115620/1?page=1&company=Flipkart&sortBy=submissions
---
+-- https://www.geeksforgeeks.org/minimum-number-of-jumps-to-reach-end-of-a-given-array/
 
 --
 #User function Template for python3
