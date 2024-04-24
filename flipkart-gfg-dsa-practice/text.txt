@@ -93,4 +93,40 @@ class Solution:
 
 ==========================================================================================================
 
--- 
+-- Find duplicates in array for O(N)
+
+-- https://www.geeksforgeeks.org/problems/find-duplicates-in-an-array/1?page=1&company=Flipkart&sortBy=submissions
+-- https://www.geeksforgeeks.org/find-duplicates-in-on-time-and-constant-extra-space/
+
+
+--
+class Solution:
+    def duplicates(self, arr, n): 
+    	# code here
+    	
+    	result = []
+
+        # Step 1: Iterate through the array to mark frequencies
+        for i in range(len(arr)):
+            # Calculate the index where the frequency needs to be stored
+            index = arr[i] % len(arr)
+            # Increment the value at the calculated index by n, marking the frequency
+            arr[index] += len(arr)
+        
+        # Step 2: Traverse the modified array to find duplicate elements
+        found = False
+        for i in range(len(arr)):
+            # Calculate the frequency of the current element
+            if arr[i] // len(arr) > 1:
+                # If frequency is greater than 1, add the index to the result list
+                result.append(i)
+                found = True
+    
+        # Step 3: If no duplicates found, add -1 to the result
+        if not found:
+            result.append(-1)
+    
+        return result
+--
+
+==================================================================================================================
