@@ -49,4 +49,48 @@ class Solution(object):
 
 =======================================================================================
 
+-- Min number of jumps to reach the end (Jump game 2)
+
+
+-- https://www.geeksforgeeks.org/problems/minimum-number-of-jumps-1587115620/1?page=1&company=Flipkart&sortBy=submissions
+--
+
+--
+#User function Template for python3
+class Solution:
+	def minJumps(self, arr, n):
+	    #code here
+	    
+        # greedy approach
+        
+        farthest = 0
+        cur = 0
+        jumps = 0
+        
+        for i in range(n - 1):
+            
+            if arr[i] + i > farthest:
+                farthest = arr[i] + i
+            
+            if i == cur:
+                if farthest == cur:
+                    return -1
+                cur = farthest
+                jumps += 1
+            
+        
+            
+        if len(arr) == 1:
+            return 0
+        
+        if arr[0] == 0:
+            return -1
+        
+
+        return jumps
+--
+
+
+==========================================================================================================
+
 -- 
