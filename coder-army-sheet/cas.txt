@@ -522,6 +522,7 @@ def intersetPoint(head1,head2):
 -- https://www.interviewbit.com/problems/reverse-alternate-k-nodes/hints/
 -- https://www.geeksforgeeks.org/reverse-alternate-k-nodes-in-a-singly-linked-list/
 
+
 --
 class Solution:
     # @param A : head node of linked list
@@ -577,3 +578,52 @@ class Solution:
 
 
 ==================================================================================================================================
+
+
+-- Linked list cycle node (return the node where in the cycle begins)
+
+
+-- https://leetcode.com/problems/linked-list-cycle-ii/
+--
+
+
+--
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+
+        slow = head
+        fast = head
+
+        if (head == None or head.next == None):
+            return None
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow == fast:
+                break
+
+        if (slow != fast):
+            return None
+
+        if not fast:
+            return None
+        
+        slow = head
+
+        while slow != fast:
+            slow = slow.next
+            fast = fast.next
+        
+        return slow
+--
+
+
+==========================================================================================================================================
+
+-- 
