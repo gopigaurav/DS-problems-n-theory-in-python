@@ -1,0 +1,52 @@
+
+-- FInd the missing number
+
+
+-- https://www.geeksforgeeks.org/problems/missing-number-in-array1416/1?page=1&company=Flipkart&sortBy=submissions
+-- 
+
+--
+class Solution:
+    def missingNumber(self,a,n):
+        # code here
+        
+        total = n * (n + 1) // 2
+        
+        dif = total - sum(a)
+        return dif
+--
+
+
+======================================================================================
+
+
+-- jump game
+
+
+-- https://leetcode.com/problems/jump-game/submissions/1240898979/
+-- https://www.youtube.com/watch?v=EgMPjWliYGY
+
+--
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+
+        # We can do this in dp but also we can do this with greedy
+        index = len(nums) - 1
+        for i in range(len(nums) - 1, -1, -1):
+            # plus index becoz u need to check with respect to index
+            if nums[i] + i >= index:
+                index = i
+
+        if index == 0:
+            return True
+        return False
+--
+
+
+=======================================================================================
+
+-- 
