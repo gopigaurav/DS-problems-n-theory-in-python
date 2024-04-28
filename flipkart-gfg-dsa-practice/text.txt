@@ -233,4 +233,57 @@ def LeftView(root):
 
 ==========================================================================================================================================
 
+-- Trapping water
+
+
+-- https://www.geeksforgeeks.org/problems/trapping-rain-water-1587115621/1?page=1&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=m18Hntz4go8
+
+
+--
+class Solution:
+    def trappingWater(self, arr,n):
+        #Code here
+        
+        # the logic is get the left most greater one which is greater than the current number
+        # get the right most greater one which is greater than the current number
+        
+        # min(left[i], right[i]) - arr[i]
+        
+        # for this the better approach is to get the prefix array from left side and suffix array from right side
+        
+        # the optimal solution is using two pointer approach
+        
+        left = 0
+        right = n - 1
+        max_left = 0
+        max_right = 0
+        res = 0
+        
+        while left <= right:
+            
+            if arr[left] <= arr[right]:
+                if arr[left] > max_left:
+                    max_left = arr[left]
+                    
+                else:
+                    res += max_left - arr[left]
+                
+                left += 1
+                    
+            else:
+                if arr[right] > max_right:
+                    max_right = arr[right]
+                
+                else:
+                    res += max_right - arr[right]
+                
+                right += 1
+        
+        return res
+--
+
+
+======================================================================================================================
+
 -- 
