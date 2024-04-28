@@ -196,3 +196,41 @@ class Solution:
 
 
 =======================================================================================================================================
+
+
+-- Left view of the binary tree
+
+
+-- https://www.geeksforgeeks.org/problems/left-view-of-binary-tree/1?page=1&company=Flipkart&sortBy=submissions
+--
+
+-- Check the level of the and then input
+
+--
+def LeftView(root):
+    
+    # code here
+    
+    res = []
+    
+    def dfs(node, level):
+        if not node:
+            return
+        
+        if level == len(res):
+            res.append(node.data)
+        
+        if node.left:
+            dfs(node.left, level + 1)
+        if node.right:
+            dfs(node.right, level + 1)
+        
+        
+    dfs(root, 0)
+    return res
+--
+
+
+==========================================================================================================================================
+
+-- 
