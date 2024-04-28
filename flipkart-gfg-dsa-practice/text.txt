@@ -286,4 +286,30 @@ class Solution:
 
 ======================================================================================================================
 
--- 
+--  Count pairs of given sum
+
+
+-- https://www.geeksforgeeks.org/problems/count-pairs-with-given-sum5022/1?page=1&company=Flipkart&sortBy=submissions
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def getPairsCount(self, arr, n, sum):
+        # code here
+
+        unordered_map = {}
+        count = 0
+        for i in range(n):
+            if sum - arr[i] in unordered_map:
+                count += unordered_map[sum - arr[i]]
+            if arr[i] in unordered_map:
+                unordered_map[arr[i]] += 1
+            else:
+                unordered_map[arr[i]] = 1
+        return count
+--
+
+
+===============================================================================================================================
