@@ -313,3 +313,90 @@ class Solution:
 
 
 ===============================================================================================================================
+
+-- boundary traversal of the binary tree
+
+
+-- https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1?page=1&company=Flipkart&sortBy=submissions
+--
+
+-
+from collections import defaultdict
+
+'''
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+'''
+class Solution:
+    def printBoundaryView(self, root):
+        # Code here
+        
+        # method 1
+        
+        # Using recursion
+        
+        # first print left tree view excluding leaf
+        # second print all the leaves
+        # third print the right from bottom up approach
+        res = [root.data]
+        
+        def printleft(node):
+            
+            if node:
+            
+                if node.left:
+                    # only add it into the res if the either of the child is present
+                    
+                    res.append(node.data)
+                    
+                    printleft(node.left)
+                    
+                elif node.right:
+                    
+                    res.append(node.data)
+                    
+                    printleft(node.right)
+        
+        def printRight(node):
+            
+            if node:
+                
+                if node.right:
+                    printRight(node.right)
+                    res.append(node.data)
+                    
+                elif node.left:
+                    
+                    printRight(node.left)
+                    res.append(node.data)
+                
+                
+        
+        def printLeaves(node):
+            
+            if node:
+            
+                printLeaves(node.left)
+                
+                if not node.left and not node.right:
+                    res.append(root.data)
+                
+                printLeaves(node.right)
+        
+        printleft(root.left)
+        
+        printLeaves(root.left)
+        printLeaves(root.right)
+        
+        printRight(root.right)
+        
+        return res
+-
+
+=========================================================================================================
+
+
+-- 
