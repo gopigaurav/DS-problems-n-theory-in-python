@@ -598,4 +598,158 @@ class Solution:
 
 ==============================================================================================================
 
--- 
+-- Key pair
+
+
+-- https://www.geeksforgeeks.org/problems/key-pair5616/1?page=2&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+	def hasArrayTwoCandidates1(self,arr, n, x):
+		# code here
+		m = {}
+		
+		for i in range(n):
+		    m[arr[i]] = 1
+		   
+        
+        for i in range(n):
+            if abs(x - arr[i]) in m:
+                return True
+        
+        return False
+    
+    def hasArrayTwoCandidates(self, arr, n, x):
+        hashmap = {}
+
+        for i in range(n):
+            temp = x-arr[i]
+            if (temp in hashmap):
+                return 1
+            hashmap[arr[i]] = i
+        return 0
+--
+
+
+
+==============================================================================================================
+
+-- Wave array 
+
+
+-- https://www.geeksforgeeks.org/problems/wave-array-1587115621/1?page=2&company=Flipkart&sortBy=submissions
+-- https://www.geeksforgeeks.org/sort-array-wave-form-2/
+
+
+--
+from typing import List
+
+
+class Solution:
+    def convertToWave(self, n : int, arr : List[int]) -> None:
+        # code here
+        
+        # Traverse all even elements
+        for i in range(0, n - 1, 2):
+     
+            # If current even element is smaller than previous
+            if (i > 0 and arr[i] < arr[i-1]):
+                arr[i], arr[i-1] = arr[i-1], arr[i]
+     
+            # If current even element is smaller than next
+            if (i < n-1 and arr[i] < arr[i+1]):
+                arr[i], arr[i+1] = arr[i+1], arr[i]
+                
+        return arr
+--
+
+
+======================================================================================================
+
+
+-- Add two numbers represented by linked lists
+
+
+-- https://www.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-lists/1?page=2&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+    #Function to add two numbers represented by linked list.
+    def addTwoLists(self, num1, num2):
+        # code here
+        # return head of sum list
+        
+        carry = 0
+        dummy = Node(0)
+        temp = dummy
+        
+        z = True
+        
+        def reverse(node):
+            if not node:
+                return node
+            
+            cur = node
+            prev = None
+            nxt = node
+            
+            while cur:
+                
+                nxt = cur.next
+                cur.next = prev
+                prev = cur
+                cur = nxt
+            
+            return prev
+            
+        num1 = reverse(num1)
+        num2 = reverse(num2)        
+        
+        
+        while num1 or num2 or carry:
+            v1 = num1.data if num1 else 0
+            v2 = num2.data if num2 else 0
+            
+            # calculate sum and carry
+            csum = carry + v1 + v2
+            carry = csum // 10
+            
+            if csum % 10 != 0 and z:
+                z = False
+            
+            # create new node with the sum mod 10
+            temp.next = Node(csum % 10)
+            temp = temp.next
+            
+            # move to next nodes
+            if num1:
+                num1 = num1.next
+            if num2:
+                num2 = num2.next
+        
+        reversedHead = reverse(dummy.next)
+        
+    
+        if z:
+            return Node(0)
+        
+        while reversedHead and reversedHead.data == 0:
+            reversedHead = reversedHead.next
+        return reversedHead
+        
+
+        return reversedHead
+--
+
+
+===================================================================================================================
+
+
+
+
+
+
