@@ -748,7 +748,56 @@ class Solution:
 
 ===================================================================================================================
 
+-- The celebrity problem
 
+
+-- https://www.geeksforgeeks.org/problems/the-celebrity-problem/1?page=2&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=CiiXBvrX-5A&t=352s
+
+
+--
+class Solution:
+    
+    #Function to find if there is a celebrity in the party or not.
+    def celebrity(self, M, n):
+        # code here 
+        
+        # you can use stacks for it
+        
+        # put all the 0 to n - 1 in stack
+        # check for the first two elements in the stack of the attachments
+        
+        # if there is a edge between i and j that means i is kinda celebrity and not fully so do the same for all
+        
+        s = []
+        
+        for i in range(n):
+            s.append(i)
+        
+        while len(s) >= 2: 
+            v1 = s.pop()
+            v2 = s.pop()
+            
+            if M[v1][v2]:
+                s.append(v2)
+            
+            else:
+                s.append(v1)
+                
+                
+        # and after getting the last element check for the whole row if the particluar number n-knows anyone or not
+
+        pos = s.pop()
+        for i in range(n):
+            if i == pos:
+                if M[pos][i] == 1 or M[i][pos] == 0:
+                    return -1
+        return pos
+            
+--
+
+
+================================================================================================================
 
 
 
