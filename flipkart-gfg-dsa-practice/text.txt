@@ -803,8 +803,9 @@ class Solution:
 
 
 -- https://www.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1?page=2&company=Flipkart&sortBy=submissions
---
+-- 
 
+Get the number of meetinfs can fit in one room
 
 --
 class Solution:
@@ -834,4 +835,203 @@ class Solution:
 
 ====================================================================================================================
 
+-- Get minimum element from stack
 
+
+-- https://www.geeksforgeeks.org/problems/get-minimum-element-from-stack/1?page=2&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class stack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+
+    def push(self, x):
+        self.stack.append(x)
+        if not self.min_stack or x <= self.min_stack[-1]:
+            self.min_stack.append(x)
+
+    def pop(self):
+        if not self.stack:
+            return -1
+        popped = self.stack.pop()
+        if popped == self.min_stack[-1]:
+            self.min_stack.pop()
+        return popped
+
+    def getMin(self):
+        if not self.min_stack:
+            return -1
+        return self.min_stack[-1]
+--
+
+
+===========================================================================================================================
+
+
+-- Stickler theif ( House Robber )
+
+-- https://www.geeksforgeeks.org/problems/stickler-theif-1587115621/1?page=2&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=Rp7I15rKNxs
+
+--
+class Solution:  
+    
+    #Function to find the maximum money the thief can get.
+    def FindMaxSum1(self,arr, n):
+        
+        # code here
+        
+        dp = [-1 for i in range(n + 1)]
+        
+        if len(arr) == 1:
+            return arr[0]
+        
+        if len(arr) == 2:
+            return max(arr[0], arr[1])
+        
+        
+        def dfs(index):
+            
+            if index >= n:
+                return 0
+                
+            if dp[index] != -1:
+                return dp[index]
+                
+            withd = dfs(index + 2) + arr[index]
+            without = dfs(index + 1)
+            
+            dp[index] = max(withd, without)
+            
+            return dp[index]
+        
+        return dfs(0)
+        
+        
+    
+    def FindMaxSum(self,arr, n):
+        
+        dp = [0 for i in range(n + 1)]
+        
+        dp[0] = arr[0]
+        dp[1] = max(arr[0], arr[1])
+
+        
+        for i in range(2, n):
+            
+            dp[i] = max(arr[i] + dp[i - 2], dp[i - 1])
+        
+        
+        return dp[n - 1]
+--
+
+
+==========================================================================================================
+
+
+-- Top view of the binary tree
+
+
+-- https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
+-- https://www.youtube.com/watch?v=JMBFm__krXw
+
+--
+from collections import defaultdict, deque
+
+# Tree Node
+# class Node:
+#     def __init__(self, val):
+#         self.right = None
+#         self.data = val
+#         self.left = None
+
+class Solution:
+    
+    #Function to return a list of nodes visible from the top view 
+    #from left to right in Binary Tree.
+    def topView(self,root):
+        
+        # code here
+        
+        # go in the level order and get the horizontal distance of the tree node from the root
+        
+        # if going towards left then -1 else +1
+        
+        if not root:
+            return root
+        
+        m = defaultdict(int)
+        q = deque()
+        q.append((root, 0))
+        res = []
+        
+        while q:
+            
+            node, hd = q.popleft()
+            
+            if not m[hd]:
+                res.append((hd, node.data))
+                m[hd] = 1
+            
+            if node.left:
+                q.append((node.left, hd - 1))
+            
+            if node.right:
+                q.append((node.right, hd + 1))
+        
+        res.sort(key=lambda x: x[0])
+        
+        # Extract node values
+        return [node[1] for node in res]
+        
+        return res
+--
+
+
+============================================================================================================
+
+-- Bottom view of the binary tree
+
+
+-- https://www.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1?page=2&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=JMBFm__krXw
+
+
+--
+class Solution:
+    def bottomView(self, root):
+        # code here
+
+        if not root:
+            return root
+        
+        m = defaultdict(int)
+        q = deque()
+        q.append((root, 0))
+        res = []
+        
+        while q:
+            
+            node, hd = q.popleft()
+            
+            m[hd] = (hd, node.data)
+            
+            if node.left:
+                q.append((node.left, hd - 1))
+            
+            if node.right:
+                q.append((node.right, hd + 1))
+        
+        for i in m:
+            res.append(m[i])
+            
+        res.sort(key=lambda x: x[0])
+        
+        # Extract node values
+        return [node[1] for node in res]
+        
+        return res
+--
