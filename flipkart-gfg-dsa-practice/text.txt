@@ -1154,8 +1154,69 @@ def findSpiral(root):
 
 ==========================================================================================================
 
+-- Multiply two numbers
 
 
+-- https://www.geeksforgeeks.org/problems/multiply-two-strings/1?page=2&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=1vZswirL8Y8
 
+
+--
+class Solution:
+    def multiplyStrings(self,s1,s2):
+        # code here
+        # return the product string
+        
+        if "0" in s1 or "0" in s2:
+            return '0'
+            
+        i1 = len(s1)
+        i2 = len(s2)
+        
+        # if "0" == s1[0]:
+        #     t = True
+            
+        #     for i in range(s1):
+                
+                
+                
+                
+            
+        # if s1[0] == '-':
+        #     flag = 1 - flag
+        
+        i1 = len(s1)
+        i2 = len(s2)
+            
+        res = [0 for _ in range(i1 + i2)]
+        
+        s1 = s1[::-1]
+        s2 = s2[::-1]
+        
+        for i in range(len(s1)):
+            for j in range(len(s2)):
+                
+                digit = int(s1[i]) * int(s2[j])
+                
+                res[i + j] += digit
+                
+                res[i + j + 1] += res[i + j] // 10 
+                res[i + j] = res[i + j] % 10
+        
+        res = res[::-1]
+        beg = 0
+        
+        while beg < len(res) and res[beg] == 0:
+            beg += 1
+            
+        res = map(str, res[beg:])
+        
+        return "".join(res)
+--
+
+
+=======================================================================================================
+
+-- 
 
 
