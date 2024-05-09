@@ -1097,3 +1097,65 @@ class Solution:
 --
 
 ====================================================================================================================
+
+-- Level order traversal in spiral form (zig zag traversal)
+
+
+-- https://www.geeksforgeeks.org/problems/level-order-traversal-in-spiral-form/1?page=2&company=Flipkart&sortBy=submissions
+--
+
+
+--
+from collections import deque
+'''
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+'''        
+
+def findSpiral(root):
+    # Code here
+    
+    res = []
+    q = deque([root])
+    
+    leftToRight = tRUE
+    
+    while q:
+        
+        size = len(q)
+        row = [0 for _ in range(size)]
+        
+        for i in range(size):
+            
+            node = q.popleft()
+            
+            index = i if leftToRight else size - i - 1 
+            
+            row[index] = node.data
+            
+            if node.left:
+                q.append(node.left)
+            
+            if node.right:
+                q.append(node.right)
+                
+        
+        for i in row:
+            res.append(i)
+            
+        lefToRight = not leftToRight
+                    
+        
+    return res
+--
+
+==========================================================================================================
+
+
+
+
+
+
