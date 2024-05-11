@@ -51,7 +51,18 @@ class Solution:
 -- https://practice.geeksforgeeks.org/contest/job-a-thon-32-hiring-challenge/problems
 --
 
+--
+--
 
+==============================================================================================================
+
+-- Count the number of ways to reach nth steps
+
+-- https://www.geeksforgeeks.org/problems/count-ways-to-reach-the-nth-stair-1587115620/1?page=3&company=Flipkart&sortBy=submissions
+-- https://www.geeksforgeeks.org/count-ways-reach-nth-stair/
+
+
+--
 -
 class Solution:
     # Function to count number of ways to reach the nth stair.
@@ -97,5 +108,10 @@ class Solution:
             prev = curr
         return prev
 -
+--
 
-==============================================================================================================
+===============================================================================================
+
+
+-- 
+
