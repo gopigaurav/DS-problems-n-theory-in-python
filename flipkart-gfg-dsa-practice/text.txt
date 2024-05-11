@@ -980,7 +980,7 @@ class Solution:
                 q.append((node.left, hd - 1))
             
             if node.right:
-                q.append((node.right, hd + 1))
+                q.append((node.cright, hd + 1))
         
         res.sort(key=lambda x: x[0])
         
@@ -1245,4 +1245,63 @@ class Solution:
 
 ===================================================================================================================
 
+-- Coin change
 
+
+--
+--
+
+--
+class Solution:
+    def count1(self, coins, n, Sum):
+        # code here 
+        dp = [[-1 for _ in range(Sum + 1)] for _ in range(n + 1)]
+        
+        cnt = 0
+        def dfs(index, s):
+            if s == 0:
+                return 1
+                
+            if dp[index][s] != -1:
+                return dp[index][s]
+                
+            if index >= n:
+                return 0
+                
+            if s < 0:
+                return 0
+            
+            con = 0
+            if s - coins[index] >= 0:
+                con = dfs(index, s - coins[index]) 
+                
+            dcon = dfs(index + 1, s)
+            
+            dp[index][s] = con + dcon
+            return con + dcon
+        
+        return dfs(0, Sum)
+        
+    
+                
+    def count(self, coins, n, Sum):
+        
+        dp = [[0 for _ in range(Sum + 1)] for _ in range(n + 1)]
+        
+        for i in range(n + 1):
+            dp[i][0] = 1
+            
+        for i in range(1, n + 1):
+            for j in range(1, Sum + 1):
+                
+                if coins[i - 1] <= j:
+                    dp[i][j] = dp[i][j - coins[i - 1]] + dp[i - 1][j]
+                
+                else:
+                    dp[i][j] = dp[i - 1][j]
+            
+        return dp[n][Sum]
+        
+--
+
+============================================================================================================
