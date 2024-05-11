@@ -1,0 +1,101 @@
+
+
+-- Maximum skill 2 (Heap)
+
+
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-32-hiring-challenge/problems
+--
+
+
+--
+from typing import List
+from heapq import heappop, heappush
+
+
+class Solution:
+    def maximumSkill2(self, s : int, n : int, d : int, arr : List[List[int]]) -> int:
+        # code here
+        
+        
+        arr.sort(key= lambda x:x[0])
+        
+        h = []
+        
+        i = 0
+        while i < n:
+            if arr[i][0] <= s and d > 0:
+                heappush(h, -1 * arr[i][1])
+                i += 1
+            else:
+                break
+        
+        while d and h:
+            
+            s = s + (-1 * heappop(h))
+            d -= 1
+            
+            while i < n and arr[i][0] <= s:
+                heappush(h, -1 * arr[i][1])
+                i += 1
+            
+        return s
+--
+
+
+==================================================================================================
+
+
+--- Light Junctions
+
+
+-- https://practice.geeksforgeeks.org/contest/job-a-thon-32-hiring-challenge/problems
+--
+
+
+-
+class Solution:
+    # Function to count number of ways to reach the nth stair.
+    def countWays1(self, n):
+        # Initializing dp array with -1
+        dp = [-1 for _ in range(n + 1)]
+        
+        # Helper function to perform DFS with memoization
+        def dfs(step):
+            if step == n:
+                return 1
+            if step > n:
+                return 0
+            if dp[step] != -1:
+                return dp[step]
+            dp[step] = dfs(step + 1) + dfs(step + 2)
+            return dp[step]
+        
+        # Starting DFS from 0th step
+        return dfs(0)
+        
+    def countWays2(self, n):
+        # Initializing dp array with 1 for the base cases
+        dp = [0] * (n + 1)
+        dp[0], dp[1] = 1, 1  # There is 1 way to reach the 0th and 1st stairs
+        
+        # Iteratively filling dp array
+        for i in range(2, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2]
+        
+        # Returning the number of ways to reach the nth stair
+        return dp[n]
+        
+    
+    def countWays(self, n):
+        # declaring  two variables to store the count
+        prev = 1
+        prev2 = 1
+        # Running for loop to count all possible ways
+        for i in range(2, n+1):
+            curr = prev + prev2
+            prev2 = prev
+            prev = curr
+        return prev
+-
+
+==============================================================================================================
