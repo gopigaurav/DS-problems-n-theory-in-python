@@ -1217,6 +1217,32 @@ class Solution:
 
 =======================================================================================================
 
--- 
+-- Square root
+
+
+-- https://www.geeksforgeeks.org/problems/square-root/1?page=3&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+    def floorSqrt(self, n): 
+    #Your code here
+    
+        res = 0
+        
+        if n <= 1:
+            return n
+        for i in range(n):
+            if i * i <= n:
+                res = i
+            elif i * i > n:
+                break
+        
+        return res
+--
+
+
+===================================================================================================================
 
 
