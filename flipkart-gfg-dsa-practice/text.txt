@@ -937,6 +937,8 @@ class Solution:
 
 -- https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
 -- https://www.youtube.com/watch?v=JMBFm__krXw
+-- https://www.geeksforgeeks.org/problems/print-a-binary-tree-in-vertical-order/1?page=3&company=Flipkart&sortBy=submissions
+
 
 --
 from collections import defaultdict, deque
@@ -1305,3 +1307,75 @@ class Solution:
 --
 
 ============================================================================================================
+
+
+-- First non repeating character
+
+
+-- https://www.geeksforgeeks.org/problems/first-non-repeating-character-in-a-stream1216/1?page=3&company=Flipkart&sortBy=submissions
+-- https://www.geeksforgeeks.org/find-first-non-repeating-character-stream-characters/
+
+--
+class Solution:
+	def FirstNonRepeating(self, A):
+		# Code here
+	    list = [] 
+        mp = {}
+        ans = ''
+ 
+        for ch in A:
+            if ch not in mp:  # new character visited first time
+                list.append(ch)
+                mp[ch] = 1
+            else:
+                # any repeated character encountered
+                if ch in list:
+                    list.remove(ch)
+            ans += list[0] if list else '#'
+ 
+        return ans
+--
+
+
+=======================================================================================================
+
+-- Lowest common ancester
+
+
+-- https://www.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-binary-tree/1?page=3&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+    #Function to return the lowest common ancestor in a Binary Tree.
+    def lca(self,root, n1, n2):
+        # Code here
+        
+        def dfs(node):
+            
+            if not node:
+                return None
+            
+            if n1 == node.data:
+                return node
+            elif n2 == node.data:
+                return node
+            
+            left_lca = dfs(node.left)
+            right_lca = dfs(node.right)
+            
+            if left_lca and right_lca:
+                return node
+            
+            return left_lca if left_lca else right_lca
+            
+        
+        return dfs(root)
+--
+
+
+=================================================================================================
+
+-- 
+
