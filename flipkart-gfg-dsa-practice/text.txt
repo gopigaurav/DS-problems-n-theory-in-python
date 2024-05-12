@@ -1377,5 +1377,45 @@ class Solution:
 
 =================================================================================================
 
--- 
+-- Circular tour
+
+
+-- https://www.geeksforgeeks.org/problems/circular-tour-1587115620/1?page=3&company=Flipkart&sortBy=submissions
+-- https://www.geeksforgeeks.org/problems/circular-tour-1587115620/1?page=3&company=Flipkart&sortBy=submissions
+
+
+--
+class Solution:
+    
+    #Function to find starting point where the truck can start to get through
+    #the complete circle without exhausting its petrol in between.
+    def tour(self,lis, n):
+        #Code here
+        
+        diff = 0
+        possible_index = 0
+        ans = 0
+        
+        gas_sum = 0
+        cost_sum = 0
+        for i in range(n):
+            gas_sum += lis[i][0]
+            cost_sum += lis[i][1]
+            
+        if cost_sum > gas_sum:
+            return -1
+        
+        for i in range(n):
+            
+            diff += lis[i][0] - lis[i][1]
+            
+            if diff < 0:
+                ans = i + 1
+                diff = 0
+        
+        return ans
+--
+
+
+========================================================================================================
 
