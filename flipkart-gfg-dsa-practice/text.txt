@@ -1419,3 +1419,52 @@ class Solution:
 
 ========================================================================================================
 
+-- Bipartite graph
+
+-- https://www.geeksforgeeks.org/problems/bipartite-graph/1?page=3&company=Flipkart&sortBy=submissions
+--
+
+-
+from collections import deque
+
+class Solution:
+	def isBipartite(self, V, adj):
+		#code here
+		color = [-1] * V
+		
+		def check(start, color):
+    		q = deque()
+    		q.append(start)
+    		
+    		
+    		color[start] = 0
+    		
+            
+            while q:
+                node = q.popleft()
+                
+                for i in adj[node]:
+                    
+                    # if the node is not coloured then color it with the opposite color of the neighbour
+                    if color[i] == -1:
+                        color[i] = 1 - color[node]
+                        q.append(i)
+                        
+                    # if the color is present then check for the color with neighbour if it is same then return false
+                    elif color[node] == color[i]:
+                        return False
+                        
+            return True
+            
+        for i in range(V):
+            if color[i] == -1:
+                if not check(i, color):
+                    return False
+        
+        return True
+        
+-
+
+=====================================================================================================================================
+
+-- 
