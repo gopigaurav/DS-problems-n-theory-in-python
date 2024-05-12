@@ -113,5 +113,74 @@ class Solution:
 ===============================================================================================
 
 
--- 
+-- Light Junctions (SCC)
+
+
+-- https://www.youtube.com/watch?v=Wk_C8u2nCHE&t=2132s
+--
+
+
+--
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def minCost(self, N: int, M: int, Edges: List[List[int]], Cost: List[int]) -> int:
+        g = defaultdict(list)
+        g_r = defaultdict(list)
+        
+        for u, v in Edges:
+            g[u - 1].append(v - 1)
+            g_r[v - 1].append(u - 1)
+        
+        vis = [0] * N
+        res = 0
+        order = []
+        scc = []
+        
+        def dfs1(node):
+            vis[node] = 1
+            for i in g[node]:
+                if not vis[i]:
+                    dfs1(i)
+            order.append(node)
+        
+        def dfs2(node, component):
+            
+            vis[node] = 1
+            component.append(node)
+            
+            for i in g_r[node]:
+                if not vis[i]:
+                    dfs2(i, component)
+        
+        def kosaraju(N, order):
+            nonlocal vis
+            for i in range(N):
+                if not vis[i]:
+                    dfs1(i)
+                    
+            vis = [0] * N
+
+            order_rev = order[::-1]
+
+            for i in order_rev:
+                if not vis[i]:
+                    component = []
+                    dfs2(i, component)
+                    scc.append(component[:])
+        
+        kosaraju(N, order)
+        
+        for component in scc:
+            min_cost = float('inf')
+            for node in component:
+                min_cost = min(min_cost, Cost[node])
+            res += min_cost
+        
+        return res
+--
+
+
+=========================================================================================================
 
