@@ -1467,4 +1467,34 @@ class Solution:
 
 =====================================================================================================================================
 
--- 
+-- Pivot in k rotated array
+
+
+-- https://www.geeksforgeeks.org/problems/rotation4723/1?page=3&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+    def findKRotation(self, arr, n):
+        # code here
+        
+        low = 0
+        high = n - 1
+        res = 0
+        while low <= high:
+            mid = (high + low) // 2
+            
+            if arr[mid] > arr[high]:
+                low = mid + 1
+                
+            else:
+                high = mid - 1
+                
+        
+        return low
+
+--
+
+
+====================================================================================================
