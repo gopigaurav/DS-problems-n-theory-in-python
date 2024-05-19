@@ -1046,7 +1046,7 @@ class Solution:
 
 
 -- https://www.geeksforgeeks.org/problems/median-of-2-sorted-arrays-of-different-sizes/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
--- 
+-- https://leetcode.com/problems/median-of-two-sorted-arrays/
 
 
 --class Solution:
@@ -1632,3 +1632,125 @@ class Solution:
 
 
 ======================================================================================================
+
+-- Stock buy nd sell 2
+
+
+-- https://www.geeksforgeeks.org/problems/stock-buy-and-sell2615/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+--
+
+
+--
+
+from typing import List
+
+
+class Solution1:
+    def stockBuyAndSell(self, n : int, A) -> int:
+        # code here
+        
+		
+		dp = [[-1 for _ in range(2)] for _ in range(n + 1)]
+		
+		def dfs(index, buy):
+		    
+		    if index >= n:
+		        return 0
+		        
+		    if dp[index][buy] != -1:
+		        return dp[index][buy]
+		    
+		    if buy:
+		        profit = max(- A[index] + dfs(index + 1, 0), dfs(index + 1, 1))
+		    else:
+		        profit = max(A[index] + dfs(index + 1, 1), dfs(index + 1, 0))
+		    
+		    dp[index][buy] = profit
+		    return profit
+        
+        return dfs(0, 1)
+        
+        
+class Solution:
+    def stockBuyAndSell(self, n: int, A) -> int:
+        # Initialize a dp array with size (n+1) x 2
+        dp = [[0 for _ in range(2)] for _ in range(n + 1)]
+
+        # Iterate over the days in reverse order
+        for index in range(n - 1, -1, -1):
+            for buy in range(2):
+                if buy:
+                    dp[index][buy] = max(-A[index] + dp[index + 1][0], dp[index + 1][1])
+                else:
+                    dp[index][buy] = max(A[index] + dp[index + 1][1], dp[index + 1][0])
+
+        # The result will be the maximum profit starting from day 0 with the option to buy
+        return dp[0][1]
+--
+
+
+========================================================================================================
+
+-- Buy stocks and sell 
+
+
+-- https://www.geeksforgeeks.org/problems/stock-buy-and-sell-1587115621/1?page=2&company=Flipkart&sortBy=submissions
+-- https://www.geeksforgeeks.org/stock-buy-sell/
+
+
+--
+Find the local minima and maxima for every iteration
+--
+
+--
+class Solution:
+    #Function to find the days of buying and selling stock for max profit.
+	def stockBuySell(self, price, n):
+	    res = []
+		#code here
+		
+        if (n == 1): 
+            return
+      
+        # Traverse through given price array 
+        i = 0
+        while (i < (n - 1)): 
+      
+            # Find Local Minima 
+            # Note that the limit is (n-2) as we are 
+            # comparing present element to the next element 
+            while ((i < (n - 1)) and
+                    (price[i + 1] <= price[i])): 
+                i += 1
+      
+            # If we reached the end, break 
+            # as no further solution possible 
+            if (i == n - 1): 
+                break
+      
+            # Store the index of minima 
+            buy = i 
+            i += 1
+      
+            # Find Local Maxima 
+            # Note that the limit is (n-1) as we are 
+            # comparing to previous element 
+            while ((i < n) and (price[i] >= price[i - 1])): 
+                i += 1
+      
+            # Store the index of maxima 
+            sell = i - 1
+            
+            res.append((buy, sell))
+    
+        return res
+      
+--
+
+
+======================================================================================================
+
+--
+
+
+--
