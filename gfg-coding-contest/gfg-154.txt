@@ -38,4 +38,45 @@ class Solution:
 ================================================================================================
 
 
--- 
+-- Arranging horses (Topo sort with min heap)
+
+
+--
+from typing import List
+from collections import defaultdict
+from heapq import heappop, heappush
+
+
+class Solution:
+    def arrangingHorses(self, n: int, m: int, data: List[List[int]]) -> List[int]:
+        # Create an array for indegrees and an adjacency list
+        indegree = [0] * n
+        adj = defaultdict(list)
+        
+        # Populate the adjacency list and indegree array
+        for u, v in data:
+            adj[v].append(u)
+            indegree[u] += 1
+        
+        # Min-heap to ensure lexicographically smallest order
+        heap = []
+        
+        # Push all nodes with indegree 0 into the heap
+        for i in range(n):
+            if indegree[i] == 0:
+                heappush(heap, i)
+        
+        res = []
+        
+        # Perform the topological sort using a min-heap
+        while heap:
+            node = heappop(heap)
+            res.append(node)
+            for neighbor in adj[node]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    heappush(heap, neighbor)
+        
+        # Return the resulting order
+        return res
+--
