@@ -41,6 +41,8 @@ class Solution:
 -- Arranging horses (Topo sort with min heap)
 
 
+-- https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
+
 --
 from typing import List
 from collections import defaultdict
@@ -83,3 +85,4 @@ class Solution:
 
 
 ================================================================================================================
+
