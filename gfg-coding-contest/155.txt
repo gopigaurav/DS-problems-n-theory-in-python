@@ -1,0 +1,49 @@
+
+https://practice.geeksforgeeks.org/contest/gfg-weekly-155-rated-contest/problems
+
+
+-- Eyes contact (its a lcm problem)
+
+--
+
+--
+
+
+=================================================================================================
+
+-- Matching Characters
+
+
+--
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def matchingCnt(self, N : int, X : List[str]) -> List[int]:
+        # code here
+        
+        max_char_len = 0
+        for i in range(N):
+            max_char_len = max(max_char_len, len(X[i]))
+        
+        dp = [[0 for _ in range(26)] for _ in range(max_char_len)]
+        
+        res = []
+        
+        # u can go from back to front and then cal the once that are at the same index
+        for i in range(N - 1, -1, -1):
+            y = 0
+            for j in range(len(X[i])):
+                
+                y += dp[j][ord(X[i][j]) - ord('a')]
+                dp[j][ord(X[i][j]) - ord('a')] += 1
+            res.append(y)
+        
+        return res[::-1]
+--
+
+
+===============================================================================================================
+
+
+-- 
