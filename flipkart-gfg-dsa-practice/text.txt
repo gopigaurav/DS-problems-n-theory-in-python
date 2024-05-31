@@ -2067,3 +2067,143 @@ class Solution:
 
 ==============================================================================================================================
 
+-- Tower of Hanoi
+
+
+-- https://www.geeksforgeeks.org/problems/tower-of-hanoi-1587115621/1?page=4&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=V5vNq2WOPGE
+
+
+--
+class Solution:
+    def toh(self, N, fromm, to, aux):
+        # Your code here
+        
+        def toh_cal(n, src, des, helping):
+            if n == 1:
+                print("move disk {} from rod {} to rod {}".format(n, src, des))
+                return 
+            
+            toh_cal(n - 1, src, helping, des)
+            print("move disk {} from rod {} to rod {}".format(n, src, des))
+            toh_cal(n - 1, helping, des, src)
+            
+        toh_cal(N, fromm, to, aux)
+        return pow(2, N) - 1
+--
+
+
+===========================================================================================================================
+
+
+-- Reverse the level order traverssal
+
+
+-- https://www.youtube.com/watch?v=t6IwIr8mPz0
+-- https://www.geeksforgeeks.org/problems/reverse-level-order-traversal/1?page=4&company=Flipkart&sortBy=submissions
+
+
+
+-
+from collections import deque
+def reverseLevelOrder(root):
+    # code here
+    if not root:
+        return root
+    
+    q = deque()
+    q.append(root)
+    
+    res = []
+    
+    while q:
+        node = q.popleft()
+        
+        res.append(node.data)
+        
+        if node.right:
+            q.append(node.right)
+        
+        if node.left:
+            q.append(node.left)
+        
+    return res[::-1]
+-
+
+
+=============================================================================================================================
+
+
+-- Smallest window in a string containing all the characters of another string
+
+
+-- https://www.geeksforgeeks.org/problems/smallest-window-in-a-string-containing-all-the-characters-of-another-string-1587115621/1?page=4&company=Flipkart&sortBy=submissions
+--
+
+
+
+--
+from collections import defaultdict
+
+class Solution:
+    
+    #Function to find the smallest window in the string s consisting
+    #of all the characters of string p.
+    def smallestWindow(self, s, p):
+        #code here
+        
+        res = ""
+        m = defaultdict(int)
+        
+        for i in p:
+            m[i] += 1
+        
+        i = 0
+        j = 0
+        n = len(s)
+        
+        cnt = len(m)
+        min_len = float('inf')
+        
+        while j < n:
+            if s[j] in m:
+                m[s[j]] -= 1
+                
+                if m[s[j]] == 0:
+                    cnt -= 1
+                
+            while cnt == 0:
+                if j - i + 1 < min_len:
+                    min_len = j - i + 1
+                    res = s[i:j+1]
+                
+                if s[i] in m:
+                    m[s[i]] += 1
+                    if m[s[i]] > 0:
+                        cnt += 1
+                i += 1
+
+            j += 1
+        
+        return res if res else -1
+--
+
+
+========================================================================================================================
+
+-- Count Possible Decodings of a given Digit Sequence
+
+
+-- https://www.geeksforgeeks.org/count-possible-decodings-given-digit-sequence/
+--
+
+
+--
+--
+
+
+===============================================================================================================================
+
+
+
+
