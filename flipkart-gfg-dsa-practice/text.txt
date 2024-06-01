@@ -2195,14 +2195,109 @@ class Solution:
 
 
 -- https://www.geeksforgeeks.org/count-possible-decodings-given-digit-sequence/
---
+-- https://www.youtube.com/watch?v=dikmR3LaOFk
 
 
 --
+class Solution:
+    def CountWays1(self, string):
+        n = len(string)
+        dp = [-1 for _ in range(n)]
+        
+        def dfs(index):
+            if index >= n:
+                return 1
+            elif index == n - 1:
+                return 1 if string[index] != '0' else 0
+            elif string[index] == '0':
+                return 0
+            elif dp[index] != -1:
+                return dp[index]
+            else:
+                if string[index] == '1' or (string[index] == '2' and string[index + 1] in '0123456'):
+                    dp[index] = (dfs(index + 1) % 1000000007 + dfs(index + 2) % 1000000007)
+                else:
+                    dp[index] = dfs(index + 1) % 1000000007
+                return dp[index]
+        
+        return dfs(0)
+        
+    
+    def CountWays(self, string):
+        n = len(string)
+        
+        if n == 0 or string[0] == '0':
+            return 0
+        
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        dp[1] = 1
+        
+        for i in range(2, n + 1):
+            if string[i - 1] != '0':
+                dp[i] = (dp[i - 1])
+            
+            two_digit = int(string[i - 2:i])
+            if 10 <= two_digit <= 26:
+                dp[i] += dp[i - 2] % 1000000007
+                
+        
+        return dp[n] % 1000000007
 --
 
 
 ===============================================================================================================================
+
+-- Next permutation
+
+-- https://www.geeksforgeeks.org/problems/next-permutation5226/1?page=4&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=LuLCLgMElus
+
+
+--
+class Solution:
+    def nextPermutation(self, N, A):
+        
+        # Find the inflation point from the end of the array
+        # then for that index number find the number which is next greater than that from the end of the array
+        # then swap them and from inflation point reverse the array numbers
+
+        if N == 0 or N == 1:
+            return
+        
+        def swap(a, b):
+            A[a], A[b] = A[b], A[a]
+
+        def reverse(i, j):
+            while i < j:
+                swap(i, j)
+                i += 1
+                j -= 1
+        
+        # Step 1: Find the first decreasing element from the end
+        i = N - 2
+        while i >= 0 and A[i] >= A[i + 1]:
+            i -= 1
+        
+        # Step 2: If we found a valid 'i', find the smallest element greater than A[i] to the right of 'i'
+        if i >= 0:
+            j = N - 1
+            while A[j] <= A[i]:
+                j -= 1
+            # Step 3: Swap the elements at 'i' and 'j'
+            swap(i, j)
+            
+        # Step 4: Reverse the elements from 'i + 1' to the end of the array
+        reverse(i + 1, N - 1)
+        
+        return A
+            
+--
+
+
+============================================================================================================================
+
+
 
 
 
