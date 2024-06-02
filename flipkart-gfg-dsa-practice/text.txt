@@ -2382,7 +2382,119 @@ class Solution:
 
 
 --
+def sortedMerge(head1, head2):
+    # code here
+    
+    pt1 = head1
+    pt2 = head2
+    dummy = Node(0)
+    temp = dummy
+    
+    
+    while pt1 and pt2:
+        if pt1.data < pt2.data:
+            temp.next = pt1
+            pt1 = pt1.next
+        else:
+            temp.next = pt2
+            pt2 = pt2.next
+        
+        temp = temp.next
+        
+    if pt1:
+        temp.next = pt1
+    
+    if pt2:
+        temp.next = pt2
+    
+    
+    return dummy.next
+    
+    
+def sortedMerge2(head1, head2):
+    # Dummy node to provide a starting point for the merged list
+    dummy = Node(0)
+    # Tail pointer to build the new list
+    tail = dummy
+    
+    # Pointers to traverse the input lists
+    pt1 = head1
+    pt2 = head2
+    
+    # Traverse both lists and append the smaller value to the merged list
+    while pt1 and pt2:
+        if pt1.data < pt2.data:
+            tail.next = pt1
+            pt1 = pt1.next
+        else:
+            tail.next = pt2
+            pt2 = pt2.next
+        tail = tail.next
+    
+    # If there are remaining nodes in either list, append them
+    if pt1:
+        tail.next = pt1
+    elif pt2:
+        tail.next = pt2
+    
+    # Return the next node of the dummy node, which is the head of the merged list
+    return dummy.next
 --
 
 
 ==========================================================================================================
+
+-- Lowesr common ancestor in a bst
+
+
+-- https://www.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-bst/1?page=4&company=Flipkart&sortBy=submissions
+--
+
+
+--
+def LCA1(root, n1, n2):
+    #code here.
+    
+    def dfs(node):
+        
+        if not node:
+            return None
+            
+            
+        if node.data == n1 or node.data == n2:
+            return node
+            
+        left = dfs(node.left)
+        right = dfs(node.right)
+        
+        if left and right:
+            return node
+        
+        if left:
+            return left
+            
+        else:
+            return right
+    
+    return dfs(root)
+    
+
+def LCA(node, n1, n2):
+    
+    def lowest_common_ancestor(root, p, q):
+        if not root or root.data == p or root.data == q:
+            return root
+     
+        left_lca = lowest_common_ancestor(root.left, p, q)
+        right_lca = lowest_common_ancestor(root.right, p, q)
+     
+        if left_lca and right_lca:
+            return root
+     
+        return left_lca if left_lca else right_lca
+    
+    return lowest_common_ancestor(node, n1, n2)
+--
+
+
+==================================================================================================================
