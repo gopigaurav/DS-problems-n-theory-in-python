@@ -2298,6 +2298,48 @@ class Solution:
 ============================================================================================================================
 
 
+-- Activity Selction
+
+
+-- https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/
+-- https://www.geeksforgeeks.org/problems/activity-selection-1587115620/1?page=4&company=Flipkart&sortBy=submissions
+
+
+--
+class Solution:
+    
+    #Function to find the maximum number of activities that can
+    #be performed by a single person.
+    def activitySelection(self,n,start,end):
+        
+        # code here
+        arr = []
+        
+        # Creating a list of tuples (start, end)
+        for i in range(n):
+            arr.append((start[i], end[i]))
+        
+        # Sorting activities based on their end time first and start time second
+        arr.sort(key=lambda x: (x[1], x[0]))
+        
+        # The first activity is always selected
+        prev_end = arr[0][1]
+        cnt = 1
+        
+        # Iterate over the remaining activities
+        for i in range(1, n):
+            # If the start time of the current activity is greater or equal
+            # to the end time of the previously selected activity
+            if arr[i][0] > prev_end:
+                cnt += 1
+                prev_end = arr[i][1]
+        
+        return cnt
+--
+
+
+==============================================================================================================================
+
 
 
 
