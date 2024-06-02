@@ -2340,7 +2340,37 @@ class Solution:
 
 ==============================================================================================================================
 
+-- Bitonic point
 
 
+-- https://www.geeksforgeeks.org/problems/maximum-value-in-a-bitonic-array3001/1?page=4&company=Flipkart&sortBy=submissions
 
+
+--
+class Solution:
+
+	def findMaximum(self,arr, n):
+		# code here
+		
+		high = n - 1
+		low = 0
+		
+		while low <= high:
+		    mid = low + (high - low) // 2
+		    
+		    if(arr[mid] > arr[mid - 1] and (mid + 1 < n and arr[mid] > arr[mid + 1])): 
+                return arr[mid] 
+            # move to the right part 
+            elif mid + 1 < n and (arr[mid] < arr[mid + 1]): 
+                low = mid + 1
+                  
+            # move to the right part 
+            else: 
+                high = mid - 1
+		   
+	    return n
+--
+
+
+============================================================================================================================
 
