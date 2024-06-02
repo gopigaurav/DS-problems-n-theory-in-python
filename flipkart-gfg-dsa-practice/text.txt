@@ -2498,3 +2498,55 @@ def LCA(node, n1, n2):
 
 
 ==================================================================================================================
+
+
+-- Flattening a Linked list
+
+
+-- https://www.geeksforgeeks.org/problems/flattening-a-linked-list/1?page=4&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=ysytSSXpAI0
+
+
+--
+def flatten(root):
+    #Your code here
+    
+    
+    def mergell(a, b):
+        
+        dummy = Node(0)
+        temp = dummy
+        
+        while a and b:
+            if a.data < b.data:
+                temp.bottom = a
+                a = a.bottom
+            else:
+                temp.bottom = b
+                b = b.bottom
+            temp = temp.bottom
+        
+        if a:
+            temp.bottom = a
+        else:
+            temp.bottom = b
+        
+        return dummy.bottom
+    
+    
+    if not root or not root.next:
+        return root
+    
+    root.next = flatten(root.next)
+    
+    # traverse till the end and merge the last two recursively 
+    root = mergell(root, root.next)
+    
+    return root
+--
+
+
+=============================================================================================================================
+
+-- 
+
