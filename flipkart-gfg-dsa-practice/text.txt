@@ -2599,3 +2599,43 @@ class Solution:
 
 ==============================================================================================================================
 
+-- Delete middle of linked list
+
+
+-- https://www.geeksforgeeks.org/problems/delete-middle-of-linked-list/1?page=4&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+    def deleteMid(self,head):
+        '''
+        head:  head of given linkedList
+        return: head of resultant llist
+        '''
+        
+        #code here
+        
+        fast = head
+        slow = head
+        
+        if not head:
+            return head
+        
+    
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+            
+        # delete the second midd
+            
+        prev.next = slow.next
+            
+        return head
+--
+
+
+====================================================================================================================
+
+
