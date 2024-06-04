@@ -2638,4 +2638,44 @@ class Solution:
 
 ====================================================================================================================
 
+-- Maximum sum path in matrix
 
+
+-- https://www.geeksforgeeks.org/problems/path-in-matrix3805/1
+-- https://www.geeksforgeeks.org/maximum-path-sum-matrix/
+
+
+--
+class Solution:
+    def maximumPath(self, N, mat):
+        # code here
+        
+        n = len(mat)
+        m = len(mat[0])
+        
+        if n == 1:
+            return max(mat[0])
+        
+        for i in range(1, n):
+            res = -1
+            for j in range(m):
+                
+                if j > 0 and j < m - 1:
+                    mat[i][j] += max(mat[i - 1][j], mat[i - 1][j - 1], mat[i - 1][j + 1])
+                
+                elif j == 0:
+                    mat[i][j] += max(mat[i - 1][j], mat[i - 1][j + 1])
+                
+                elif j == m - 1:
+                    mat[i][j] += max(mat[i - 1][j - 1], mat[i - 1][j])
+                    
+                res = max(mat[i][j], res)
+        
+        return res
+--
+
+
+==========================================================================================================================
+
+
+-- 
