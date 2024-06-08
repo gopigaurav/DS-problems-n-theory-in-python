@@ -2724,3 +2724,48 @@ class Solution:
 
 
 ================================================================================================================
+
+
+-- Largest Bst
+
+
+-- https://www.geeksforgeeks.org/problems/largest-bst/1?page=4&company=Flipkart&sortBy=submissions
+--
+
+
+
+--
+class Solution:
+    # Return the size of the largest sub-tree which is also a BST
+    def largestBst(self, root):
+        #code here
+        
+        # return [len, min, max] for the node where len is the length of the longest bst
+        
+        def bst(node):
+            if not node:
+                # send length, minimumVslue, maximumValue
+                return [0, float('inf'), float('-inf')]
+                
+            left = bst(node.left)
+            right = bst(node.right)
+            
+            # if the current node is greater than max of left subtree and less than min of right subtree 
+            
+            if node.data < right[1] and node.data > left[2]:
+                return [left[0] + right[0] + 1, min(node.data, left[1]), max(node.data, right[2])]
+            
+            return [max(left[0], right[0]), float('-inf'), float('inf')]
+        
+        result = bst(root)
+        return result[0]
+--
+
+
+===================================================================================================================
+
+
+
+
+
+
