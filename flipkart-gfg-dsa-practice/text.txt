@@ -2920,7 +2920,7 @@ class Solution:
 
 
 -- https://www.geeksforgeeks.org/problems/maximum-rectangular-area-in-a-histogram-1587115620/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
---
+-- https://www.youtube.com/watch?v=X0X6G-eWgQ8&t=1038s
 
 
 --
@@ -2971,3 +2971,8 @@ class Solution:
 
 
 ======================================================================================================================
+
+-- 
+
+
+
