@@ -2764,8 +2764,167 @@ class Solution:
 
 ===================================================================================================================
 
+-- Minimum spanning tree
 
 
+-- https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1?page=4&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=mJcZjjKzeqk&t=889s
+
+--
+from heapq import heappop, heappush
+from collections import defaultdict
+
+class Solution:
+    
+    #Function to find sum of weights of edges of the Minimum Spanning Tree.
+    def spanningTree(self, V, adj):
+        #code here
+        
+        # take the min heap and put (weight, node) in it
+        
+        # Creating a graph as a default dictionary of lists
+        g = defaultdict(list)
+        
+        # Filling the adjacency list
+        for u in range(V):
+            for v, w in adj[u]:
+                g[u].append((w, v))
+                g[v].append((w, u))  # Assuming undirected graph
+
+        # Initializing the min heap and the visited list
+        heap = []
+        vis = [False] * V
+        
+        # Pushing the starting node (0) with weight 0
+        heappush(heap, (0, 0))
+        mst_weight = 0
+
+        while heap:
+            # Popping the smallest weight edge
+            wt, node = heappop(heap)
+            
+            # If the node is already visited, continue to the next
+            if vis[node]:
+                continue
+            
+            # Mark the node as visited
+            vis[node] = True
+            
+            # Add the edge weight to the MST total weight
+            mst_weight += wt
+            
+            # Examine all adjacent nodes
+            for weight, neighbor in g[node]:
+                if not vis[neighbor]:
+                    heappush(heap, (weight, neighbor))
+
+        return mst_weight
+--
 
 
+======================================================================================================================
 
+-- Maximum Occuring character
+
+
+-- https://geeksforgeeks.org/problems/maximum-occuring-character-1587115620/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+-
+from collections import defaultdict
+
+class Solution:
+    
+    #Function to find the maximum occurring character in a string.
+    def getMaxOccurringChar(self,s):
+        #code here
+        mp = defaultdict(int)
+        n = len(s)
+        ans = ''
+     
+        # to check count of answer character is less or greater
+        # than another elements count
+        cnt = 0
+     
+        # traverse the string
+        for i in range(n):
+            # push element into dictionary and increase its frequency
+            if s[i] in mp:
+                mp[s[i]] += 1
+            else:
+                mp[s[i]] = 1
+     
+            # update answer and count
+            if cnt < mp[s[i]]:
+                ans = s[i]
+                cnt = mp[s[i]]
+            elif cnt == mp[s[i]]:
+                upChar = ord(s[i]) - ord('a')
+                preChar = ord(ans) - ord('a')
+                
+                if upChar < preChar:
+                    ans = s[i]
+     
+        return ans
+-
+
+
+==============================================================================================================================
+
+
+-- K sum paths in Binary tree (using hashmaps)
+
+
+-- https://www.geeksforgeeks.org/problems/k-sum-paths/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+    def sumK(self,root,target):
+        # code here
+        
+        #  calculate the current sum
+        # if sum - k in hashmap increase the count to `
+        # this approach is used event for the subtree which equals this sum and not only from the root
+        
+        mp = defaultdict(int)
+        mp[0] = 1
+        global ans
+        ans = 0
+        
+        def dfs(node, csum, k):
+            global ans
+            
+            if not node:
+                return 0
+                
+            csum += node.data
+            
+            if csum - k in mp:
+                ans += mp[csum - k]
+            mp[csum] += 1
+            
+            dfs(node.left, csum, k)
+            dfs(node.right, csum, k)
+            mp[csum] -= 1
+        
+        dfs(root, 0, target)
+        return ans
+--
+
+
+==============================================================================================================================
+
+-- Largest Rectangle in Historgram
+
+
+--
+--
+
+
+--
+--
+
+
+======================================================================================================================

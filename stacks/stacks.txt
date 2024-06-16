@@ -101,7 +101,7 @@ def printNGE(a, n):
  
             else:
                 ans[i] = -1
- 
+ -
         s.append(a[i % n])
  
     for i in range(n):
@@ -120,6 +120,36 @@ if __name__ == "__main__":
 ================================================ Next Greater element without circular array ==================================================================
 -- https://practice.geeksforgeeks.org/problems/next-larger-element-1587115620/1/
 -- https://www.geeksforgeeks.org/next-greater-element/
+
+
+-- (Refer this)
+
+class Solution:
+    def nextLargerElement(self,arr,n):
+        #code here
+        
+        stack = []
+        res = []
+        
+        for i in range(n - 1, -1, -1):
+            while stack and stack[-1] <= arr[i]:
+                stack.pop()
+                
+            if not stack:
+                res.append(-1)
+            else:
+                res.append(stack[-1])
+                
+            
+            stack.append(arr[i])
+            
+        result = res[::-1]
+        
+        return result if result else []
+--
+
+
+
 
 def NextGreaterElement(arr):
     ans = []
@@ -176,6 +206,39 @@ class Solution:
 
 
 -- https://www.interviewbit.com/problems/nearest-smaller-element/
+-- https://www.geeksforgeeks.org/problems/help-classmates--141631/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+
+
+--
+class Solution:
+    def help_classmate(self, arr, n):
+        # Your code goes here
+        # Return the list
+        
+        stack = []
+        res = []
+        
+        for i in range(n - 1, -1, -1):
+            while stack and stack[-1] >= arr[i]:
+                stack.pop()
+                
+            if not stack:
+                res.append(-1)
+            else:
+                res.append(stack[-1])
+                
+            
+            stack.append(arr[i])
+            
+        result = res[::-1]
+        
+        return result if result else []
+--
+
+
+
+
+
 
 class Solution:
     # @param A : list of integers
