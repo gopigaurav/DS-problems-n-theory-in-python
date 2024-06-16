@@ -2919,11 +2919,54 @@ class Solution:
 -- Largest Rectangle in Historgram
 
 
---
+-- https://www.geeksforgeeks.org/problems/maximum-rectangular-area-in-a-histogram-1587115620/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
 --
 
 
 --
+class Solution:
+    
+    #Function to find largest rectangular area possible in a given histogram.
+    def getMaxArea(self,arr):
+        #code here
+        
+        # find the smaller left and smaller right for all the array elements
+        
+        # then use this formula a[i] * (left_small[i] - right_small[i] + 1) to get the area
+        n = len(arr)
+        s = []
+        
+        left_smaller = [0] * n
+        right_smaller = [n - 1] * n
+        
+        for i in range(n):
+            while s and arr[s[-1]] >= arr[i]:
+                s.pop()
+                
+            if s:
+                left_smaller[i] = s[-1] + 1
+            s.append(i)
+        
+        s = []
+        
+        for i in range(n - 1, -1, -1):
+            while s and arr[s[-1]] >= arr[i]:
+                s.pop()
+
+            if s:
+                right_smaller[i] = s[-1] - 1
+            s.append(i)
+            
+        
+        res = float("-inf")
+        ans = []
+        
+        
+        for i in range(n):
+            ans.append(arr[i] * (right_smaller[i] - left_smaller[i] + 1))
+            res = max(res, ans[i])
+        
+        return res
 --
 
 
