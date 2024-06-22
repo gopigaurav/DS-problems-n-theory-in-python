@@ -2921,6 +2921,7 @@ class Solution:
 
 -- https://www.geeksforgeeks.org/problems/maximum-rectangular-area-in-a-histogram-1587115620/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
 -- https://www.youtube.com/watch?v=X0X6G-eWgQ8&t=1038s
+-- https://leetcode.com/problems/largest-rectangle-in-histogram/solutions/28917/ac-python-clean-solution-using-stack-76ms/
 
 
 --
@@ -2972,7 +2973,132 @@ class Solution:
 
 ======================================================================================================================
 
--- 
+-- Alien Dictionary 
 
 
+-- https://www.geeksforgeeks.org/problems/alien-dictionary/1?page=5&company=Flipkart&sortBy=submissions
+--
 
+
+--
+#User function Template for python3
+
+from collections import defaultdict, deque
+
+class Solution:
+    def findOrder(self,d, N, K):
+    # code here
+    
+        
+    # here for the order and all we use topological sort
+    # but first we need to get the order of it right
+    # so traverse throught the array and check for the nodes 
+    # which appears in increasing order
+        
+        def topoSort(V, adj):
+        
+            ind = [0] * V
+            g = defaultdict(list)
+            
+            for i in range(V):
+                for node in adj[i]:
+                    g[i].append(node)
+                    ind[node] += 1
+                
+            q = deque()
+            
+            for i in range(V):
+                if ind[i] == 0:
+                    q.append(i)
+                    
+            
+            
+            res = []
+            while q:
+                
+                node = q.popleft()
+                res.append(node)
+                
+                for i in g[node]:
+                    ind[i] -= 1
+                    
+                    if ind[i] == 0:
+                        q.append(i)
+            
+            return res
+            
+            
+        g = defaultdict(list)
+        
+        for i in range(N - 1):
+            s1 = d[i]
+            s2 = d[i + 1]
+            
+            for i in range(min(len(s1), len(s2))):
+                if s1[i] != s2[i]:
+                    g[ord(s1[i]) - ord('a')].append(ord(s2[i]) - ord('a'))
+                    break
+        
+        result = topoSort(K, g)
+        
+        res = ""
+        
+        for i in range(len(result)):
+            res += chr(ord('a') + result[i])
+            
+        return res
+--
+
+
+================================================================================================================================
+
+-- Shortest direction
+
+
+--
+-- https://www.geeksforgeeks.org/problems/shortest-direction4201/1?page=9&company=Flipkart&sortBy=submissions
+
+
+--
+class Solution:
+    def shortestPath(self, s):
+        # code here
+        
+        
+        x = 0
+        y = 0
+        
+        for i in s:
+            if i == 'S': y -= 1
+            if i == 'N': y += 1
+            if i == 'W': x -= 1
+            if i == 'E':
+                x += 1
+        
+        res = ""
+        if x > 0: 
+            for i in range(abs(x)): 
+                res += "E"
+                x -= 1
+                
+        if y > 0: 
+            for i in range(abs(y)): 
+                res += "N"
+                y -= 1
+                
+        if y < 0: 
+            for i in range(abs(y)): 
+                res += "S"
+                y += 1
+
+        if x < 0: 
+            for i in range(abs(x)): 
+                res += "W"
+                x += 1
+                
+        return res
+        
+--
+
+
+============================================================================================================================
