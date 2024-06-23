@@ -3102,3 +3102,90 @@ class Solution:
 
 
 ============================================================================================================================
+
+-- Largest rectangle in histogram
+
+
+-- https://leetcode.com/problems/largest-rectangle-in-histogram/
+--
+
+
+--
+    def largestRectangleArea(self, arr):
+
+        stack = []
+
+        ans = 0
+        n = len(arr)
+
+        for i in range(n + 1):
+            while stack and (i == n or arr[stack[-1]] >= arr[i]):
+                temp = arr[stack.pop()]
+
+                if not stack:
+                    width = i
+                else: width = i - stack[-1] - 1
+                ans = max(ans, width * temp)
+
+            stack.append(i)
+
+        return ans
+--
+
+
+=============================================================================================================================
+
+-- Max Rectangle
+
+
+-- https://www.geeksforgeeks.org/problems/max-rectangle/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+    def maxArea(self,M, N, m):
+        # code here
+        
+        res = 0
+        def largestRectangleArea(arr):
+
+            stack = []
+    
+            ans = 0
+            n = len(arr)
+    
+            for i in range(n + 1):
+                while stack and (i == n or arr[stack[-1]] >= arr[i]):
+                    temp = arr[stack.pop()]
+    
+                    if not stack:
+                        width = i
+                    else: width = i - stack[-1] - 1
+                    ans = max(ans, width * temp)
+    
+                stack.append(i)
+    
+            return ans
+            
+        
+        h = [0] * m
+        
+        for i in range(N):
+            for j in range(m):
+                if M[i][j] == 1:
+                    h[j] += 1
+                else:
+                    h[j] = 0
+        
+            res = max(res, largestRectangleArea(h))
+        
+        return res
+--
+
+
+========================================================================================================================
+
+-- 
+
+
