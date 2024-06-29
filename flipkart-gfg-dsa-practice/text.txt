@@ -3194,7 +3194,54 @@ class Solution:
 
 
 --
+class Solution:
 
+    # Function to find a solved Sudoku.
+    def SolveSudoku(self, grid):
+        n = len(grid)
+        m = len(grid[0])
+
+        def isvalid(mat, r, c, k):
+            # Check the row
+            for i in range(9):
+                if mat[r][i] == k:
+                    return False
+            # Check the column
+            for i in range(9):
+                if mat[i][c] == k:
+                    return False
+            # Check the 3x3 subgrid
+            startRow = r - r % 3
+            startCol = c - c % 3
+            for i in range(3):
+                for j in range(3):
+                    if mat[i + startRow][j + startCol] == k:
+                        return False
+            return True
+
+        def solve(mat):
+            for i in range(n):
+                for j in range(m):
+                    if mat[i][j] == 0:
+                        for k in range(1, 10):
+                            if isvalid(mat, i, j, k):
+                                mat[i][j] = k
+                                if solve(mat):
+                                    return True
+                                mat[i][j] = 0
+                        return False
+            return True
+
+        return solve(grid)
+
+    # Function to print grids of the Sudoku.
+    def printGrid(self, arr):
+        res = []
+        for row in range(len(arr)):
+            for col in range(len(arr[row])):
+                res.append(str(arr[row][col]))
+
+        print(" ".join(res))
 --
 
 
@@ -3268,4 +3315,5 @@ class Solution:
 ===============================================================================================================================
 
 -- 
+
 
