@@ -3186,6 +3186,86 @@ class Solution:
 
 ========================================================================================================================
 
--- 
+-- Solve the sudoku
 
+ 
+-- https://www.geeksforgeeks.org/problems/solve-the-sudoku-1587115621/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+
+--
+
+--
+
+
+===============================================================================================================================
+
+-- Find median in a stream
+
+
+-- https://www.geeksforgeeks.org/problems/find-median-in-a-stream-1587115620/1?page=4&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=cjQNm2eS6Lw
+
+--
+from heapq import heappop, heappush
+
+class Solution:
+    # h1 is the max heap to keep all the smaller half
+    # h2 is the min heap to keep all the greater half
+    h1 = []
+    h2 = []    
+    # take two heaps where in the one is max heap and another is min heap
+    def balanceHeaps(self):
+        # Balance the two heaps size , such that difference is not more than one.
+        # code here
+        pass
+        
+        
+        
+        
+        
+        
+    '''    
+    You don't need to call getMedian it will be called itself by driver code
+    for more info see drivers code below.
+    '''
+    
+    def getMedian(self):
+        # return the median of the data received till now.
+        # code here
+        if len(self.h1) == len(self.h2):
+            return (self.h1[0] + self.h2[0])//2
+        else:
+            return - self.h1[0]
+        
+        
+    def insertHeaps(self,x):
+        #:param x: value to be inserted
+        #:return: None
+        # code here
+        
+        if not len(self.h1):
+            heappush(self.h1, -x)
+        
+        if len(self.h1) > len(self.h2):
+            if self.h1[0] > x:
+                temp = heappop(self.h1)
+                heappush(self.h1, x)
+                heappush(self.h2, -temp)
+            else:
+                heappush(self.h2, x)
+        else:
+            if self.h1[0] > x:
+                heappush(self.h1, x)
+            else:
+                heappush(self.h2, x)
+                temp2 = heappop(self.h2)
+                heappush(self.h1, -1 * temp2)
+            
+--
+
+
+===============================================================================================================================
+
+-- 
 
