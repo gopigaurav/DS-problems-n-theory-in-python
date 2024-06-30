@@ -3436,3 +3436,55 @@ class Solution(object):
 
 =================================================================================================================================
 
+-- Steps for knight
+
+
+-- https://geeksforgeeks.org/problems/steps-by-knight5927/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+
+    # Function to find out minimum steps Knight needs to reach target position.
+    def minStepToReachTarget(self, KnightPos, TargetPos, N):
+        # Code here
+        
+        vis = [[0 for _ in range(N)] for _ in range(N)]
+        
+        def is_valid(r, c, row, col):
+            if r < 0 or c < 0 or vis[r][c] or r >= row or c >= col:
+                return 0
+            return 1
+        
+        def dfs(r, c, row, col, des, steps):
+            
+            if not is_valid(r, c, row, col):
+                return float('inf')
+            
+            if r == des[0] and c == des[1]:
+                return steps
+               
+            min_steps = float('inf')
+            next_steps = [(-2, -1), (-2, 1), (2, -1), (2, 1), (-1, -2), (1, -2), (-1, 2), (1, 2)]
+            
+            vis[r][c] = 1
+            
+            for i, j in next_steps:
+                nr = r + i
+                nc = c + j
+                
+                min_steps = min(min_steps, dfs(nr, nc, row, col, des, steps + 1))
+                
+            vis[r][c] = 0
+            
+            return min_steps
+        
+        result = dfs(KnightPos[0] - 1, KnightPos[1] - 1, N, N, (TargetPos[0] - 1, TargetPos[1] - 1), 0)
+        return result if result != float('inf') else -1
+--
+
+
+==================================================================================================================================
+
+
