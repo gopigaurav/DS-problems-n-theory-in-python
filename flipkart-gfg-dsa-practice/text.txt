@@ -3374,7 +3374,7 @@ class Solution:
 
 
 -- https://leetcode.com/problems/minimum-cost-to-cut-a-stick/
---
+-- https://www.youtube.com/watch?v=xwomavsC86c
 
 
 --
