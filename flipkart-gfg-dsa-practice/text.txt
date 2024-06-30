@@ -3314,6 +3314,125 @@ class Solution:
 
 ===============================================================================================================================
 
--- 
+-- Matrix chain multiplication
 
+
+-- https://www.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1?page=4&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=pDCXsbAw5Cg
+
+
+--
+class Solution:
+    def matrixMultiplication1(self, N, arr):
+        # code here
+        
+        def loop(i, j):
+            if i == j:
+                return 0
+                
+            if dp[i][j] != -1:
+                return dp[i][j]
+            
+            mini = float("inf")
+            
+            for k in range(i, j):
+                res = arr[i - 1] * arr[k] * arr[j] + loop(i, k) + loop(k + 1, j)
+                mini = min(res, mini)
+            
+            dp[i][j] = mini
+            return mini
+                
+        
+        dp = [[-1 for _ in range(N + 1)] for _ in range(N + 1)]
+        
+        return loop(1, N - 1)
+    
+    
+    def matrixMultiplication(self, N, arr):
+        
+        dp = [[0 for _ in range(N)] for _ in range(N)]
+        
+        for i in range(N):
+            dp[i][i] = 0
+        
+        for i in range(N - 1, 0, -1):
+            for j in range(i + 1, N):
+                mini = float("inf")
+                
+                for k in range(i, j):
+                    steps = arr[i - 1] * arr[k] * arr[j] + dp[i][k] + dp[k + 1][j]
+                    mini = min(steps, mini)
+                
+                dp[i][j] = mini
+        
+        return dp[1][N - 1]
+--
+
+==============================================================================================================================
+
+-- Minimum cost to cut a stick
+
+
+-- https://leetcode.com/problems/minimum-cost-to-cut-a-stick/
+--
+
+
+--
+class Solution(object):
+    def minCost1(self, n, cuts):
+        """
+        :type n: int
+        :type cuts: List[int]
+        :rtype: int
+        """
+        cuts.append(n)
+        cuts.insert(0, 0)
+        cuts.sort()
+
+        dp = [[-1 for _ in range(len(cuts))] for _ in range(len(cuts))]
+
+        def loop(i, j):
+            if i > j:
+                return 0
+
+            if dp[i][j] != -1:
+                return dp[i][j]
+
+            mini = float("inf")
+
+
+            for ind in range(i, j+1):
+                cut = cuts[j + 1] - cuts[i - 1] + loop(i, ind - 1) + loop(ind + 1, j)
+                mini = min(mini, cut)
+            dp[i][j] = mini
+            return mini
+
+        return loop(1, len(cuts) - 2)
+
+    def minCost(self, n, cuts):
+        cuts.append(n)
+        cuts.insert(0, 0)
+        cuts.sort()
+
+        dp = [[0 for _ in range(len(cuts) +2)] for _ in range(len(cuts) + 2)]
+
+        for i in range(len(cuts), 0, -1):
+            for j in range(1, len(cuts) + 1):
+                if i > j:
+                    continue
+
+                mini = float("inf")
+
+                for ind in range(i, j + 1):
+                    cut = cuts[j + 1] - cuts[i - 1] + dp[i][ind - 1] + dp[ind + 1][j]
+                    mini = min(mini, cut)
+
+                dp[i][j] = mini
+        
+        return dp[1][len(cuts)]
+
+--
+
+
+=================================================================================================================================
 
