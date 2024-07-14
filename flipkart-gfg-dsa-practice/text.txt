@@ -3487,4 +3487,57 @@ class Solution:
 
 ==================================================================================================================================
 
+-- Max sum without adjacents
 
+
+-- https://www.geeksforgeeks.org/problems/max-sum-without-adjacents2430/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+
+
+--
+class Solution:
+	
+	def findMaxSum1(self,arr, n):
+		# code here
+		dp = [-1 for _ in range(n + 1)]
+		
+		def dfs(ind):
+		    if ind < 0:
+		        return 0
+		        
+		    if ind == 0:
+		        return arr[ind]
+		    
+		    if dp[ind] != -1:
+		        return dp[ind]
+		        
+		    within = arr[ind] + dfs(ind - 2)
+		    without = dfs(ind - 1)
+		    
+		    dp[ind] = max(within, without)
+		    
+		    return max(within, without)
+        
+        return dfs(n - 1)
+        
+        
+    def findMaxSum(self, arr, n):
+        if n == 0:
+            return 0
+        if n == 1:
+            return arr[0]
+        
+        dp = [0 for _ in range(n)]
+        
+        dp[0] = arr[0]
+        dp[1] = max(arr[0], arr[1])
+        
+        for i in range(2, n):
+            dp[i] = max(arr[i] + dp[i - 2], dp[i - 1])
+        
+        return dp[n - 1]
+--
+
+
+============================================================================================================================
