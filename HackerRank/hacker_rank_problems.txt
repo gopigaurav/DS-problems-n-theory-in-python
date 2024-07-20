@@ -1,0 +1,117 @@
+
+
+-- Matirx Layer rotation
+
+
+-- https://www.hackerrank.com/challenges/matrix-rotation-algo/problem?isFullScreen=true
+-- https://www.youtube.com/watch?v=acGcfh4JJiI
+
+
+--
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'matrixRotation' function below.
+#
+# The function accepts following parameters:
+#  1. 2D_INTEGER_ARRAY matrix
+#  2. INTEGER r
+#
+
+def matrixRotation(mat, r):
+    # Write your code here
+    m = len(mat)
+    n = len(mat[0])
+    
+    k = min(n, m) // 2
+    
+    vmat = []
+    for i in range(k):
+        temp = []
+        
+        # Top row
+        for j in range(i, n - i):
+            temp.append(mat[i][j])
+        # Right column
+        for j in range(i + 1, m - i):
+            temp.append(mat[j][n - 1 - i])
+        # Bottom row
+        for j in range(n - 2 - i, i - 1, -1):
+            temp.append(mat[m - 1 - i][j])
+        # Left column
+        for j in range(m - 2 - i, i, -1):
+            temp.append(mat[j][i])
+        
+        vmat.append(temp)
+    
+    # Rotate each layer
+    
+    for index, layer in enumerate(vmat):
+        # number of elements in layer and mod with r for effective rotation
+        num_elements = len(layer)
+        effective_rotations = r % num_elements
+        rotated_layer = layer[effective_rotations:] + layer[:effective_rotations]
+        vmat[index] = rotated_layer
+    
+    # Set rotated elements back into the matrix
+    # then again set the values back to original matrix
+    for i in range(k):
+        index = 0
+        # Top row
+        for j in range(i, n - i):
+            mat[i][j] = vmat[i][index]
+            index += 1
+        # Right column
+        for j in range(i + 1, m - i):
+            mat[j][n - 1 - i] = vmat[i][index]
+            index += 1
+        # Bottom row
+        for j in range(n - 2 - i, i - 1, -1):
+            mat[m - 1 - i][j] = vmat[i][index]
+            index += 1
+        # Left column
+        for j in range(m - 2 - i, i, -1):
+            mat[j][i] = vmat[i][index]
+            index += 1
+    
+    for row in mat:
+        print(" ".join(map(str, row)))
+
+if __name__ == '__main__':
+    first_multiple_input = input().rstrip().split()
+
+    m = int(first_multiple_input[0])
+
+    n = int(first_multiple_input[1])
+
+    r = int(first_multiple_input[2])
+
+    matrix = []
+
+    for _ in range(m):
+        matrix.append(list(map(int, input().rstrip().split())))
+
+    matrixRotation(matrix, r)
+
+--
+
+
+==================================================================================================
+
+-- Determining DNA Health
+
+
+--
+--
+
+--
+--
+
+
+============================================================================================================
