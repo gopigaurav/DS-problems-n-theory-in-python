@@ -3714,3 +3714,93 @@ class Solution:
 
 ===================================================================================================================================
 
+
+-- Serialize and Deserialize Binary tree
+
+
+-- https://www.geeksforgeeks.org/problems/serialize-and-deserialize-a-binary-tree/1?page=5&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=u4JAi2JJhI8
+
+
+--
+class Node:
+    def __init__(self,val):
+        self.data = val
+        self.left = None
+        self.right = None
+
+class Solution:
+    #Function to serialize a tree and return a list containing nodes of tree.
+    def serialize(self, root):
+        #code here
+        
+        res = []
+        def dfs(node):
+            if not node:
+                res.append("N")
+                return 
+            
+            res.append(node.data)
+            dfs(node.left)
+            dfs(node.right)
+        
+        dfs(root)
+        
+        return res
+    
+    #Function to deserialize a list and construct the tree.   
+    def deSerialize(self, a):
+        #code here
+        
+        self.i = 0
+        
+        def dfs():
+            if a[self.i] == "N":
+                return None
+            
+            node = Node(a[self.i])
+            self.i += 1
+            
+            node.left = dfs()
+            node.right = dfs()
+            return node
+            
+        return dfs()
+--
+
+
+==================================================================================================================
+
+
+-- kth largest element
+
+
+-- https://www.geeksforgeeks.org/problems/kth-largest-element-in-a-stream2220/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+
+--
+import heapq
+
+class Solution:
+    def kthLargest(self, k, arr, n):
+        queue = []
+        ans = []
+
+        for i in range(n):
+            heapq.heappush(queue, arr[i])
+
+            if len(queue) < k:
+                ans.append(-1)
+            else:
+                while len(queue) > k:
+                    heapq.heappop(queue)
+                ans.append(queue[0])
+
+        return ans
+--
+
+
+============================================================================================================================
+
+
