@@ -3803,4 +3803,100 @@ class Solution:
 
 ============================================================================================================================
 
+-- Maximum width of the tree
 
+
+-- https://www.geeksforgeeks.org/problems/maximum-width-of-tree/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+
+--
+'''
+# Node Class:
+class Node:
+    def _init_(self,val):
+        self.data = val
+        self.left = None
+        self.right = None
+'''
+class Solution:
+    #Function to get the maximum width of a binary tree.
+    def getMaxWidth(self,root):
+       
+        #code here
+        
+        q = []
+        
+        q.append(root)
+        res = 0
+        while q:
+            size = len(q)
+            
+            res = max(res, size)
+            
+            for i in range(size):
+                temp = q.pop(0)
+                
+                if temp.left:
+                    q.append(temp.left)
+                if temp.right:
+                    q.append(temp.right)
+        
+        
+        return res
+--
+
+
+============================================================================================================================
+
+
+-- Find the string in the grid
+
+
+--
+-- https://www.geeksforgeeks.org/problems/find-the-string-in-grid0111/1?page=5&company=Flipkart&sortBy=submissions
+
+--
+class Solution:
+	def searchWord(self, grid, word):
+		# Code here
+        n = len(grid)
+        m = len(grid[0])
+        word_len = len(word)
+        
+        # Define the 8 possible directions: (dx, dy)
+        directions = [
+            (-1, 0), (1, 0), (0, -1), (0, 1),  # up, down, left, right
+            (-1, -1), (-1, 1), (1, -1), (1, 1)  # 4 diagonals
+        ]
+        
+        def is_valid(x, y):
+            return 0 <= x < n and 0 <= y < m
+        
+        def search_from(x, y, word):
+            found_positions = []
+            for dx, dy in directions:
+                match = True
+                for k in range(word_len):
+                    nx, ny = x + k * dx, y + k * dy
+                    if not is_valid(nx, ny) or grid[nx][ny] != word[k]:
+                        match = False
+                        break
+                if match:
+                    found_positions.append((x, y))
+            return found_positions
+        
+        result = set()
+        
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == word[0]:
+                    found_positions = search_from(i, j, word)
+                    result.update(found_positions)
+        
+        result = sorted(result)  # Sort lexicographically
+        return result
+--
+
+
+=============================================================================================================================
