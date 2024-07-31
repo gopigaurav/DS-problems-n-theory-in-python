@@ -3900,3 +3900,33 @@ class Solution:
 
 
 =============================================================================================================================
+
+
+-- Binary strings
+
+
+-- https://www.geeksforgeeks.org/problems/binary-string-1587115620/1?page=5&company=Flipkart&sortBy=submissions
+--
+
+
+--
+class Solution:
+    
+    #Function to count the number of substrings that start and end with 1.
+    def binarySubstring(self,n,S):
+        #code here
+        positions = [i for i, char in enumerate(S) if char == '1']
+        
+        # Calculate the number of such substrings
+        n = len(positions)
+        if n < 2:
+            return 0  # If less than 2 '1's, no such substrings
+        
+        # Number of substrings that start and end with '1'
+        num_substrings = (n * (n - 1)) // 2
+        
+        return num_substrings
+--
+
+
+=================================================================================================================================
