@@ -3973,3 +3973,292 @@ def max_number(s):
 
 
 ====================================================================================================================================
+
+-- Largest Number by swapping any digits with same parity
+
+
+-- https://leetcode.com/problems/largest-number-after-digit-swaps-by-parity/submissions/1343181117/
+-- https://www.youtube.com/watch?v=QMFBm58tpHI&t=38s
+
+
+--
+class Solution(object):
+    def largestInteger(self, num):
+        """
+        :type num: int
+        :rtype: int
+        """
+        s = str(num)
+
+        evens = []
+        odds = []
+
+        for i in s:
+            if int(i) % 2:
+                odds.append(int(i))
+            
+            else:
+                evens.append(int(i))
+        
+        evens.sort(reverse=True)
+        odds.sort(reverse=True)
+        
+        ans = ""
+        for i in s:
+            if int(i) % 2:
+                ans += str(odds.pop(0))
+            else:
+                ans += str(evens.pop(0))
+        
+        return int(ans)
+--
+
+
+=====================================================================================================================
+
+-- Count the occurances of anagrams
+
+
+-- https://www.geeksforgeeks.org/problems/count-occurences-of-anagrams5839/1?page=5&company=Flipkart&sortBy=submissions
+-- https://www.youtube.com/watch?v=MW4lJ8Y0xXk
+
+
+--
+from collections import Counter
+class Solution:
+
+	
+	def search1(self,pat, txt):
+	    # code here
+	    
+	    n = len(pat)
+	    
+	    pat_map = [0] * 26
+	    
+	    cnt = 0
+	    
+	    for i in pat:
+	        pat_map[ord(i) - ord('a')] += 1
+	        
+        i = 0
+        
+	    while i + n < len(txt) + 1:
+	        if not pat_map[ord(txt[i]) - ord('a')]:
+	            i += 1
+	        
+	        sentence = txt[i: i + n]
+	        txt_map = [0] * 26
+	                
+	        for j in sentence:
+	            txt_map[ord(j) - ord('a')] += 1 
+	        
+	        if pat_map == txt_map:
+	            cnt += 1
+	       
+	        i += 1
+	    
+	    
+	    return cnt
+	    
+    
+    def search3(self,pat, txt):
+        
+        k = len(pat)
+        d = {}
+        t = {}
+        
+        # Populate dictionary d with character counts from pattern
+        for i in pat:
+            if i in d:
+                d[i] += 1
+            else:
+                d[i] = 1
+    
+        i = 0
+        cur_s = ""
+        cnt = 0
+    
+        # Traverse through the text
+        for j in range(len(txt)):
+            # Add current character to t
+            if txt[j] in t:
+                t[txt[j]] += 1
+            else:
+                t[txt[j]] = 1
+    
+            # If the window size is less than k, continue forming the window
+            if j - i + 1 < k:
+                continue
+            elif j - i + 1 == k:
+                # If dictionaries are equal, pattern found
+                if d == t:
+                    print(d)
+                    cnt += 1
+            else:
+                # Remove character at position i from t as window slides
+                if txt[i] in t:
+                    if t[txt[i]] == 0:
+                        del t[txt[i]]
+                    else:
+                        t[txt[i]] -= 1
+                i += 1
+    
+        return cnt
+                    
+    def search2(self, p, s):
+        len_s, len_p = len(s), len(p)
+        
+        if len_p > len_s:
+            return 0
+        
+        p_counter = Counter(p)
+        window_counter = Counter(s[:len_p])
+        
+        count = 0
+        if window_counter == p_counter:
+            count += 1
+        
+        for i in range(len_p, len_s):
+            start_char = s[i - len_p]
+            end_char = s[i]
+            
+            window_counter[end_char] += 1
+            window_counter[start_char] -= 1
+            
+            if window_counter[start_char] == 0:
+                del window_counter[start_char]
+            
+            if window_counter == p_counter:
+                count += 1
+                
+        return count
+        
+    
+    def search(self, p, s):
+        
+        # better method, Use the sliding window to count the anagrams
+        
+        k = len(p)
+        
+        m = {}
+        
+        for i in p:
+            if m.get(i):
+                m[i] += 1
+            else:
+                m[i] = 1
+                
+        i = 0
+        ans = 0
+        j = 0
+        
+        count = len(m) # len of the unique characters in the string
+        
+        
+        while j < len(s):
+            
+            if s[j] in m:
+                m[s[j]] -= 1
+                if m[s[j]] == 0:
+                    count -= 1
+            
+            if j - i + 1 < k:
+                j += 1
+            
+            elif j - i + 1 == k:
+                
+                if count == 0:
+                    ans += 1
+                
+                if s[i] in m:
+                    if m[s[i]] == 0:
+                        count += 1
+                    m[s[i]] += 1
+                    
+                i += 1
+                j += 1
+                
+        
+        return ans
+
+
+        def search4(self, p, s):
+            k = len(p)
+            m = {}
+        
+            # Count the frequency of each character in p
+            for char in p:
+                if char in m:
+                    m[char] += 1
+                else:
+                    m[char] = 1
+        
+            i = 0
+            ans = 0
+            count = len(m)  # Number of unique characters in p
+        
+            # Sliding window over s
+            for j in range(len(s)):
+                # Decrease the count for the current character
+                if s[j] in m:
+                    m[s[j]] -= 1
+                    if m[s[j]] == 0:
+                        count -= 1
+        
+                # If the window size is smaller than k, continue expanding
+                if j - i + 1 < k:
+                    continue
+        
+                # When window size equals k
+                if j - i + 1 == k:
+                    # Check the substring
+                    if count == 0:
+                        ans += 1
+                        print(s[i: j + 1])
+        
+                    # Before sliding the window, restore the count of the leftmost character
+                    if s[i] in m:
+                        if m[s[i]] == 0:
+                            count += 1
+                        m[s[i]] += 1
+        
+                    i += 1
+        
+            return ans
+
+--
+
+
+===============================================================================================================================
+
+-- Longest Subsequence such that the diff between adjacents is one
+
+
+-- https://www.geeksforgeeks.org/problems/longest-subsequence-such-that-difference-between-adjacents-is-one4724/1?page=5&company=Flipkart&sortBy=submissions
+
+-- https://www.youtube.com/watch?v=h-6HD5o-MR0
+
+
+--
+
+from typing import List
+from collections import defaultdict
+
+
+class Solution:
+    def longestSubseq(self, n : int, a : List[int]) -> int:
+        # code here
+        
+        m = defaultdict(int)
+        ans = 0
+        
+        for i in range(n):
+            m[a[i]] = max(m.get(a[i] - 1, 0), m.get(a[i] + 1, 0) if i < n else 0) + 1
+            ans = max(ans, m[a[i]])
+            
+        return ans
+            
+--
+
+
+====================================================================================================================================
