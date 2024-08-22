@@ -4346,3 +4346,88 @@ class Solution:
 
 
 =================================================================================================================================
+
+
+-- Burning Tree (This is similar to other problem in this)
+
+
+-- https://www.geeksforgeeks.org/problems/burning-tree/1?page=6&company=Flipkart&sortBy=submissions
+--
+
+
+--
+from collections import defaultdict
+
+class Solution:
+    def minTime(self, root, target):
+        if not root:
+            return 0
+        
+        q = []
+        par = defaultdict(lambda: None)
+        
+        def mark_parents(node, t):
+            q.append(node)
+            target_node = None
+            
+            while q:
+                temp = q.pop(0)
+                
+                if temp.data == t:
+                    target_node = temp 
+                
+                if temp.left:
+                    par[temp.left] = temp
+                    q.append(temp.left)
+                
+                if temp.right:
+                    par[temp.right] = temp
+                    q.append(temp.right)
+                
+            return target_node
+                    
+        target_node = mark_parents(root, target)
+        
+        if not target_node:
+            return -1
+            
+        q = [target_node]
+        cnt = 0
+        
+        vis = defaultdict(bool)
+        vis[target_node] = True
+        
+        while q:
+            q_size = len(q)
+            any_node_burnt = False
+            
+            for i in range(q_size):
+                temp = q.pop(0)
+                
+                # Burn left child
+                if temp.left and not vis[temp.left]:
+                    q.append(temp.left)
+                    vis[temp.left] = True
+                    any_node_burnt = True
+                
+                # Burn right child
+                if temp.right and not vis[temp.right]:
+                    q.append(temp.right)
+                    vis[temp.right] = True
+                    any_node_burnt = True
+                
+                # Burn parent
+                parent = par[temp]
+                if parent and not vis[parent]:
+                    q.append(parent)
+                    vis[parent] = True
+                    any_node_burnt = True
+            
+            if any_node_burnt:
+                cnt += 1
+        
+        return cnt
+--
+
+
+==============================================================================================================================

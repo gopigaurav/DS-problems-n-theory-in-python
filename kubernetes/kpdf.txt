@@ -1,0 +1,23 @@
+
+
+Kubernetes - It is container orchestratio platform
+
+
+
+Docker Cons: 
+-- Container can die and revive any time (Single host)
+-- No Auto healing (Container wont start by itself)
+-- Auto Scaling (No feature to scale up)
+-- No loadbalancer inbuilt (No way to distribute the traffic)
+-- No enterprise level support
+-- 
+
+
+What is Enterprise ready:
+1. Load balancer
+2. Firewall
+3. Auto scale
+4. Auto Healing
+5. Api Gateway
+
+
