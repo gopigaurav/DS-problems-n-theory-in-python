@@ -10,7 +10,6 @@ Docker Cons:
 -- Auto Scaling (No feature to scale up)
 -- No loadbalancer inbuilt (No way to distribute the traffic)
 -- No enterprise level support
--- 
 
 
 What is Enterprise ready:
@@ -20,4 +19,14 @@ What is Enterprise ready:
 4. Auto Healing
 5. Api Gateway
 
+
+
+Kubernetes Pro:
+
+-- Kubernetes is installed as clusters
+-- Kubernetes has replica sets to handle the traffic
+-- Auto Healing
+-- Enterprise Level support
+-- Kubernetes offers fecilities for containers to talk with each other
+-- Container running on multiple hosts can be connected to each other
 
