@@ -30,3 +30,24 @@ Kubernetes Pro:
 -- Kubernetes offers fecilities for containers to talk with each other
 -- Container running on multiple hosts can be connected to each other
 
+
+
+
+
+============================ Inside Kubernetes  ================================================================
+Key Concepts
+
+
+Cluster: A set of nodes (machines) where Kubernetes runs. A cluster consists of:
+
+Master Node: Manages the cluster, schedules the workloads, and maintains the desired state.
+Worker Nodes: Run the containers.
+Pods: The smallest deployable units in Kubernetes, usually containing one or more containers.
+
+Services: Define how to expose the pods to the network, ensuring communication both internally and externally.
+
+Deployments: Define the desired state for pods and their scaling behavior.
+
+Namespaces: Provide a way to divide cluster resources between multiple users.
+
+
