@@ -27,3 +27,84 @@ func isPalindrome(x int) bool {
 
 
 ========================================================================================================
+
+-- Convert 1d array to 2d
+
+
+-- https://leetcode.com/problems/convert-1d-array-into-2d-array/?envType=daily-question&envId=2024-09-01
+--
+
+
+--
+class Solution:
+    def construct2DArray(self, arr: List[int], m: int, n: int) -> List[List[int]]:
+        if m * n != len(arr):
+            return []
+
+        res = []
+        index = 0
+
+        for i in range(m):
+            col = []
+            for j in range(n):
+                col.append(arr[index])
+                index += 1
+            res.append(col)
+        return res     
+--
+
+
+=================================================================================================================
+
+
+-- Symmetric binary tree
+
+
+-- https://leetcode.com/problems/symmetric-tree/submissions/1376558768/
+--
+
+
+--
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        
+        def dfs(left, right):
+            if not left and not right:
+                return True
+
+            if not left or not right:
+                return False
+            
+            if left.val != right.val:
+                return False
+            
+            return dfs(left.left, right.right) and dfs(left.right, right.left)
+        
+        return dfs(root.left, root.right)
+--
+
+-- Go code
+
+--
+func dfs(left *TreeNode, right *TreeNode) bool {
+    if left == nil && right == nil {
+        return true
+    }
+
+    if left == nil || right == nil {
+        return false
+    }
+
+    if left.Val != right.Val {
+        return false
+    }
+
+    return dfs(left.Left, right.Right) && dfs(left.Right, right.Left)
+}
+func isSymmetric(root *TreeNode) bool {
+    return dfs(root.Left, root.Right)
+}
+--
+
+
+==========================================================================================================================
