@@ -108,3 +108,29 @@ func isSymmetric(root *TreeNode) bool {
 
 
 ==========================================================================================================================
+
+-- Maximum depth of the binary tree
+
+
+--
+-- https://leetcode.com/problems/maximum-depth-of-binary-tree/
+
+--
+func dfs(node *TreeNode) int {
+    if node == nil {
+        return 0
+    }
+
+    left := dfs(node.Left)
+    right := dfs(node.Right)
+
+    return max(left, right) + 1
+}
+
+func maxDepth(root *TreeNode) int {
+
+    return dfs(root)
+}
+--
+
+==========================================================================================================================
