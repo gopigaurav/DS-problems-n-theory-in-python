@@ -134,3 +134,61 @@ func maxDepth(root *TreeNode) int {
 --
 
 ==========================================================================================================================
+
+-- Longest common prefix 
+
+
+-- https://leetcode.com/problems/longest-common-prefix/submissions/1379023169/
+--
+
+
+--
+func longestCommonPrefix(strs []string) string {
+
+    res := ""
+
+    for i := 0; i < len(strs[0]); i++ {
+        for j := 1; j < len(strs); j++ {
+            if i >= len(strs[j]) || strs[0][i] != strs[j][i] {
+                return res
+            }
+        } 
+        res += string(strs[0][i])
+    }
+
+    return res
+
+}
+--
+
+
+===================================================================================================================================
+
+
+-- Climbing stairs
+
+
+-- https://leetcode.com/problems/climbing-stairs/
+--
+
+
+-
+func climbStairs(n int) int {
+    if n == 1 {
+        return 1
+    }
+
+    dp := make([]int, n + 1)
+    dp[0] = 1
+    dp[1] = 1
+
+    for i := 2; i < n + 1; i++ {
+        dp[i] = dp[i-1] + dp[i-2]
+    }
+
+    return dp[n]
+}
+-
+
+
+============================================================================================================================================
