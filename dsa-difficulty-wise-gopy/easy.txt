@@ -192,3 +192,148 @@ func climbStairs(n int) int {
 
 
 ============================================================================================================================================
+
+-- Happy Number
+
+
+-- https://leetcode.com/problems/happy-number/
+--
+
+-- The concept is the non happy number will always be repeated after words
+
+--
+func sqaure(n int) int {
+    sqaure := 0
+
+    for n != 0 {
+        temp := n % 10
+        sqaure += temp * temp
+        n /= 10
+    }
+
+    return sqaure
+}
+
+func isHappy(n int) bool {
+    slow := n
+    fast := n
+
+
+    for  {
+        slow = sqaure(slow)
+        fast = sqaure(sqaure(fast))
+
+        if slow == fast {
+            break
+        }
+    }
+
+    return slow == 1
+}
+--
+
+
+===================================================================================================
+
+-- Clear digits
+
+
+-- https://leetcode.com/problems/clear-digits/submissions/1380780060/
+--
+
+
+--
+
+// IsDigit checks if a character is a digit.
+func IsDigit(a rune) bool {
+	return unicode.IsDigit(a)
+}
+
+// clearDigits removes digits and the adjacent character from the string.
+func clearDigits(s string) string {
+	runes := []rune(s) // Convert the string to a slice of runes to handle Unicode characters
+	for i := 0; i < len(runes); i++ {
+		if IsDigit(runes[i]) {
+			if i != 0 {
+				// Remove the character before the digit and the digit itself
+				runes = append(runes[:i-1], runes[i+1:]...)
+				i -= 2 // Adjust the index to handle the new length
+			} else {
+				// Remove the first character and the digit
+				runes = runes[2:]
+				i-- // Adjust the index
+			}
+		}
+	}
+	return string(runes)
+}
+--
+
+==========================================================================================================
+
+
+-- Find the child who has the ball after k seconds
+
+
+-- https://leetcode.com/problems/find-the-child-who-has-the-ball-after-k-seconds/submissions/1380793962/
+--
+
+
+--
+func numberOfChild(n int, k int) int {
+    p := 0
+    i := 0
+
+    for k != 0 {
+        if i == 0 {
+            p = 1
+        }
+        if i == n - 1 {
+            p = -1
+        }
+
+        i += p
+        k -= 1
+    }
+    return i
+}
+--
+
+
+=========================================================================================================
+
+-- Count the pairs that form a complete day
+
+
+-- https://leetcode.com/problems/count-pairs-that-form-a-complete-day-i/
+--
+
+
+--
+func countCompleteDayPairs(hours []int) int{
+	// Create a map to store the frequency of remainders
+	remainderFreq := make(map[int]int)
+	pairs := 0
+
+	for _, hour := range hours {
+		// Find the remainder when divided by 24
+		rem := hour % 24
+		
+		// Calculate the complement remainder
+		complement := (24 - rem) % 24
+		
+		// If the complement remainder exists in the map, it means we found a valid pair
+		if count, exists := remainderFreq[complement]; exists {
+			pairs += count
+		}
+		
+		// Increment the frequency of the current remainder
+		remainderFreq[rem]++
+	}
+
+	return pairs
+}
+--
+
+
+================================================================================================================
