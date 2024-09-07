@@ -498,3 +498,29 @@ func checkStraightLine(coordinates [][]int) bool {
 
 ======================================================================================================
 
+-- Subtract the product and sum of the digits of an integer
+
+
+-- https://leetcode.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/submissions/1381753084/
+--
+
+
+--
+func subtractProductAndSum(n int) int {
+    product := 1
+    sumarry := 0
+
+    for n != 0 {
+        temp := n % 10
+        
+        product *= temp
+
+        sumarry += temp
+        n /= 10
+    }
+    return product - sumarry
+}
+--
+
+
+========================================================================================================
