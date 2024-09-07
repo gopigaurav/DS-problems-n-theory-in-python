@@ -524,3 +524,275 @@ func subtractProductAndSum(n int) int {
 
 
 ========================================================================================================
+
+
+-- Element appearing more than 25 in sorted array
+
+
+-- https://leetcode.com/problems/element-appearing-more-than-25-in-sorted-array/
+--
+
+
+--
+func findSpecialInteger(arr []int) int {
+    n := len(arr)
+    if n == 0 {
+        return -1 // Handle the case when the array is empty
+    }
+
+    m := make(map[int]int)
+    maximumElement := 0
+    maxCount := 0
+
+    for _, val := range arr {
+        m[val]++
+        if m[val] > maxCount {
+            maxCount = m[val]
+            maximumElement = val
+        }
+    }
+
+    if maxCount > n/4 {
+        return maximumElement
+    }
+
+    return -1 // Return -1 if no element appears more than 25% of the time
+}
+--
+
+=========================================================================================================
+
+
+-- Convert the binary number in a linked list to a integer
+
+
+-- https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/
+--
+
+--
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+
+func binarytodecimal(binary string) int {
+    decimal := 0
+    n := len(binary)
+    for i:= 0; i < n; i++ {
+        // Convert the current binary character to an integer (0 or 1)
+        bit, _ := strconv.Atoi(string(binary[i]))
+        
+        // Calculate the base-10 equivalent
+        decimal += bit * (1 << (n - i - 1))  // 1 << n is equivalent to 2 ** n
+
+    } 
+    return decimal
+}
+
+
+func getDecimalValue(head *ListNode) int {
+    str := ""
+    for head != nil {
+        str += strconv.Itoa(head.Val)
+        head = head.Next
+    }
+    return binarytodecimal(str)
+}
+--
+
+=======================================================================================================
+
+
+-- Find the numbers with even number of digits
+
+
+--
+-- https://leetcode.com/problems/find-numbers-with-even-number-of-digits/description/
+
+
+--
+func findNumbers(nums []int) int {
+    cnt := 0
+
+    for _, val := range nums {
+        if len(strconv.Itoa(val)) % 2 == 0 {
+            cnt += 1
+        }
+    }
+
+    return cnt
+}
+--
+
+
+===========================================================================================================
+
+-- Replace elements with greatest element on the right side
+
+
+-- https://leetcode.com/problems/replace-elements-with-greatest-element-on-right-side/
+--
+
+
+--
+func replaceElements(arr []int) []int {
+    // Initialize stack with -1, which acts as the greatest element for the last position
+    stack := []int{-1}
+    n := len(arr)
+    res := make([]int, n)
+
+    // Iterate over the array from right to left
+    for i := n - 1; i >= 0; i-- {
+        // The top of the stack is always the greatest element to the right
+        res[i] = stack[len(stack)-1]
+
+        // If the current element is greater than the stack's top, update the stack
+        if arr[i] > stack[len(stack)-1] {
+            stack = append(stack, arr[i])
+        }
+    }
+
+    return res
+}
+--
+
+=======================================================================================================
+
+-- Find the n unique sum up to zero
+
+
+--
+-- https://leetcode.com/problems/find-n-unique-integers-sum-up-to-zero/
+
+
+--
+func sumZero(n int) []int {
+    ans := []int{}  // Initialize the slice
+
+    mid := n / 2
+    fmt.Println(mid)
+    for i := 0; i < n/ 2; i++ {
+        ans = append(ans, mid)
+        ans = append(ans, -mid)
+        mid -= 1
+    }
+
+    if n % 2 == 1 {  // Check if n is odd
+        ans = append(ans, 0)
+    }
+    all_zero := true
+
+    for _, val := range ans {
+        if val != 0 {
+            all_zero = false
+        }
+    }
+    zeroSlice := []int{0}
+
+    if all_zero {
+        return zeroSlice
+    }
+
+    return ans
+}
+
+--
+
+
+========================================================================================================
+
+-- Decrypt string from alphavet to integer mapping
+
+
+-- https://leetcode.com/problems/decrypt-string-from-alphabet-to-integer-mapping/submissions/1382026983/
+--
+
+--
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func freqAlphabets(s string) string {
+	res := []byte{}
+	n := len(s)
+	i := 0
+
+	for i < n {
+		if i+2 < n && s[i+2] == '#' {
+			// Convert the substring s[i:i+2] to an integer
+			temp, _ := strconv.Atoi(s[i : i+2])
+			// Append the corresponding alphabet character
+			res = append(res, byte(temp+96))
+			i += 3
+		} else {
+			// Convert the single character s[i] to an integer
+			temp, _ := strconv.Atoi(string(s[i]))
+			// Append the corresponding alphabet character
+			res = append(res, byte(temp+96))
+			i++
+		}
+	}
+
+	return string(res)
+}
+--
+
+
+--
+class Solution(object):
+    def freqAlphabets(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+
+        res = []
+        n = len(s)
+        i = 0
+        while i < n:
+            if i + 2 < n and s[i + 2] == "#":
+                temp = int(s[i: i+2])
+
+                res.append(chr(temp + 96))
+                i += 3
+            else:
+                temp = int(s[i])
+                res.append(chr(temp + 96))
+                i += 1
+
+        return "".join(res)        
+--
+
+========================================================================================================
+
+-- Decompress run length encoded list
+
+--
+-- https://leetcode.com/problems/decompress-run-length-encoded-list/
+
+--
+func decompressRLElist(nums []int) []int {
+    n := len(nums)
+
+    res := [] int{}
+
+    for i:= 1; i < n; i+=2 {
+        count := nums[i - 1]
+        num := nums[i]
+        for c:= 0; c < count; c++ {
+            res = append(res, num)
+        }
+    }
+    return res
+}
+--
+
+
+==============================================================================================================
+
