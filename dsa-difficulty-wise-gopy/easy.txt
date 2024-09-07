@@ -338,8 +338,163 @@ func countCompleteDayPairs(hours []int) int{
 
 ================================================================================================================
 
--- 
+-- Minimum time visiting all points
 
 
+-- https://leetcode.com/problems/minimum-time-visiting-all-points/
+--
 
+
+--
+import (
+	"fmt"
+	"math"
+)
+
+func minTimeToVisitAllPoints(points [][]int) int {
+	time := 0
+
+	for i := 1; i < len(points); i++ {
+		prev := points[i-1]
+		curr := points[i]
+
+		// Calculate the absolute difference between x and y coordinates
+		first := math.Abs(float64(prev[0] - curr[0]))
+		second := math.Abs(float64(prev[1] - curr[1]))
+
+		// Add the maximum of the two differences to the time
+		time += int(math.Max(first, second))
+	}
+
+	return time
+}
+
+
+--
+
+===============================================================================================================
+
+
+-- Shft 2d grid
+
+
+-- https://leetcode.com/problems/shift-2d-grid/
+--
+
+
+--
+func shiftGrid(grid [][]int, k int) [][]int {
+    m, n := len(grid), len(grid[0])
+    totalElements := m * n
+    k = k % totalElements // Reduce unnecessary full rotations
+
+    // Flatten the 2D grid into a 1D array
+    flat := make([]int, totalElements)
+    idx := 0
+    for _, row := range grid {
+        for _, val := range row {
+            flat[idx] = val
+            idx++
+        }
+    }
+
+    // Shift the flat array
+    shifted := make([]int, totalElements)
+    for i, val := range flat {
+        shifted[(i+k)%totalElements] = val
+    }
+
+    // Convert the shifted 1D array back into a 2D grid
+    result := make([][]int, m)
+    for i := range result {
+        result[i] = make([]int, n)
+        for j := range result[i] {
+            result[i][j] = shifted[i*n+j]
+        }
+    }
+
+    return result
+}
+--
+
+===================================================================================================
+
+-- Cells with odd values in a matrix
+
+
+-- https://leetcode.com/problems/cells-with-odd-values-in-a-matrix/submissions/1381645907/
+--
+
+
+--
+func oddCells(m int, n int, indices [][]int) int {
+    // Create a 2D slice with size m x n
+    res := make([][]int, m)
+    for i := range res {
+        res[i] = make([]int, n)
+    }
+
+    // Apply the operations for each index pair in indices
+    for _, el := range indices {
+        r := el[0]
+        c := el[1]
+
+        // Increment all elements in the r-th row
+        for i := 0; i < n; i++ {
+            res[r][i] += 1
+        }
+
+        // Increment all elements in the c-th column
+        for j := 0; j < m; j++ {
+            res[j][c] += 1
+        }
+    }
+
+    cnt := 0
+    // Count the number of odd cells
+    for _, row := range res {
+        for _, el := range row {
+            if el%2 == 1 {
+                cnt++
+            }
+        }
+    }
+
+    return cnt
+}
+
+--
+
+
+========================================================================================================
+
+
+-- Check if it is a straight line
+
+
+-- https://leetcode.com/problems/check-if-it-is-a-straight-line/
+--
+
+
+--
+func checkStraightLine(coordinates [][]int) bool {
+    x1 := coordinates[0][0]
+    x2 := coordinates[1][0]
+    y1 := coordinates[0][1]
+    y2 := coordinates[1][1]
+
+    for i:= 2; i < len(coordinates); i++ {
+        x := coordinates[i][0]
+        y := coordinates[i][1]
+
+        if (x - x2)*(y - y1) != (y - y2)*(x - x1) {
+            return false
+        }
+    }
+    return true
+
+}
+--
+
+======================================================================================================
 
