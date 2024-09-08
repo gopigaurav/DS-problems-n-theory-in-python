@@ -985,7 +985,7 @@ class Solution:
 =========================================================================================================================
 
 
--- REmove palindromic subsequence
+-- Remove palindromic subsequence
 
 
 -- https://leetcode.com/problems/remove-palindromic-subsequences/submissions/1383017119/
