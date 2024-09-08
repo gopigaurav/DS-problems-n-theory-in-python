@@ -1129,7 +1129,7 @@ class Solution:
 
 --
 class Solution:
-    def sortedSquares(self, nums: List[int]) -> List[int]:
+    def sortedSquares1(self, nums: List[int]) -> List[int]:
         peak_index = float("inf")
 
         if len(nums) == 1:
@@ -1173,8 +1173,124 @@ class Solution:
         return res
 
 
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        res = [0] * len(nums)
+        left = 0
+        right = len(nums) - 1
+
+        for i in range(len(nums) - 1, -1, -1):
+            if abs(nums[left]) > abs(nums[right]):
+                res[i] = nums[left] ** 2
+                left += 1
+            else:
+                res[i] = nums[right] ** 2
+                right -= 1
+        
+        return res
+
+
+        
+
         
 --
 
 
 ==============================================================================================================
+
+
+-- Cousins in the binary tree
+
+ 
+-- https://leetcode.com/problems/cousins-in-binary-tree/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
+        q = [root]
+
+        while q:
+            s = len(q)
+            foundx = False
+            foundy = False
+            for i in range(s):
+                temp = q.pop(0)
+
+                if temp.val == x:
+                    foundx = True
+                if temp.val == y:
+                    foundy = True
+
+                if temp.left:
+                    q.append(temp.left)
+                if temp.right:
+                    q.append(temp.right)
+
+            if foundx and foundy:
+                return True
+        
+        return False
+--
+
+
+===============================================================================================================
+
+-- Add to Array form of integer
+
+
+-- https://leetcode.com/problems/add-to-array-form-of-integer/
+--
+
+
+--
+class Solution:
+    def addToArrayForm(self, num: List[int], k: int) -> List[int]:
+        k_arr = []
+
+        while k:
+            k_arr.append(k % 10)
+            k = k // 10
+        
+        k_arr = k_arr[::-1]
+
+        i = len(num) - 1
+        j = len(k_arr) - 1
+        carry = 0
+        res = []
+
+        while i >= 0 and j >= 0:
+            temp = (num[i] + k_arr[j] + carry) % 10
+            carry = (num[i] + k_arr[j] + carry) // 10
+
+            res.append(temp)
+
+            i -= 1
+            j -= 1
+        
+        while i >= 0:
+            temp = (num[i] + carry) % 10
+            carry = (num[i] + carry) // 10
+            res.append(temp)
+            i -= 1
+
+        while j >= 0:
+            temp = (k_arr[j] + carry) % 10
+            carry = (k_arr[j] + carry) // 10
+            res.append(temp)
+            j -= 1
+
+        if carry:
+            res.append(carry)
+
+        return res[::-1]
+--
+
+
+================================================================================================
