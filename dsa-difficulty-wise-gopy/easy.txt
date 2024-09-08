@@ -796,3 +796,85 @@ func decompressRLElist(nums []int) []int {
 
 ==============================================================================================================
 
+-- INteger to the sum of two no zero intergers
+
+
+
+-- https://leetcode.com/problems/convert-integer-to-the-sum-of-two-no-zero-integers/
+--
+
+
+--
+func containsZero(num int) bool {
+        for num > 0 {
+            if num%10 == 0 {
+                return true
+            }
+            num /= 10
+        }
+        return false
+    }
+
+func getNoZeroIntegers(n int) []int {
+    // if n <= 1 {
+    //     return 
+    // }
+
+    if n <= 1 {
+        return []int{-1, -1} // Returning a slice instead of -1
+    }
+
+    temp := n / 2
+    temp2 := n - temp
+
+    for containsZero(temp) || containsZero(temp2) {
+        temp--
+        temp2++
+    }
+
+    res := [] int {temp, temp2}
+    return res
+}
+--
+
+
+==============================================================================================================
+
+-- Maximum 69 number 
+
+
+-- https://leetcode.com/problems/maximum-69-number/
+--
+
+--
+import (
+    "strconv"
+    "fmt"
+)
+
+func maximum69Number (num int) int {
+    res := ""
+    numConv := strconv.Itoa(num)
+    once := true
+    
+    for _, val := range numConv {
+        if val == '6' && once {
+            once = false
+            res += "9"
+        } else {
+            res += string(val)
+        }
+    }
+
+    result, err := strconv.Atoi(res)
+
+    if err != nil {
+        
+    }
+
+    return result
+}
+--
+
+
+===============================================================================================================
