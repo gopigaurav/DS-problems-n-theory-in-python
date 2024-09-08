@@ -914,3 +914,24 @@ class Solution:
 
 
 ====================================================================================================================
+
+-- Rank the transform of an array
+
+
+-- https://leetcode.com/problems/rank-transform-of-an-array/
+--
+
+
+--
+class Solution:
+    def arrayRankTransform(self, arr: List[int]) -> List[int]:
+        sorted_unique = sorted(set(arr))
+        
+        # Create a dictionary to map each element to its rank
+        rank_map = {num: i + 1 for i, num in enumerate(sorted_unique)}
+        
+        # Replace each element with its corresponding rank
+        return [rank_map[num] for num in arr]
+--
+
+=====================================================================================================================
