@@ -935,3 +935,74 @@ class Solution:
 --
 
 =====================================================================================================================
+
+
+-- Count the negative numbers in a sorted matrix
+
+
+-- https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/
+--
+
+
+--
+class Solution:
+    def countNegatives1(self, grid: List[List[int]]) -> int:
+        r = len(grid)
+        c = len(grid[0])
+        cnt = 0
+
+        for i in range(r):
+            for j in range(c - 1, -1, -1):
+                if grid[i][j] >= 0:
+                    break
+                cnt += 1
+
+        return cnt
+
+    def countNegatives(self, grid: List[List[int]]) -> int:
+        r = len(grid)
+        c = len(grid[0])
+
+        cnt = 0
+
+        for i in range(r):
+            low = 0
+            high = c - 1
+
+            while low <= high:
+                mid = low + (high - low) // 2
+
+                if grid[i][mid] < 0:
+                    high = mid - 1
+                else:
+                    low = mid + 1
+
+            cnt += c - low
+        return cnt
+--
+
+
+=========================================================================================================================
+
+
+-- REmove palindromic subsequence
+
+
+-- https://leetcode.com/problems/remove-palindromic-subsequences/submissions/1383017119/
+--
+
+--
+class Solution:
+    def removePalindromeSub(self, s: str) -> int:
+        if not s:
+            return 0
+        if s == s[::-1]:
+            return 1
+        else:
+            return 2
+--
+
+
+==============================================================================================================================
+
+
