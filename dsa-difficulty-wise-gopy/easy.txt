@@ -1005,4 +1005,176 @@ class Solution:
 
 ==============================================================================================================================
 
+-- The k weakest rows in a matrix
 
+
+-- https://leetcode.com/problems/the-k-weakest-rows-in-a-matrix/submissions/1383026309/
+--
+
+
+--class Solution:
+    def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
+        m = []
+
+        for i in range(len(mat)):
+            m.append([mat[i].count(1), i])
+        
+        m.sort()
+        res = []
+        for i in range(k):
+            res.append(m[i][1])
+
+        return res
+--
+
+
+===================================================================================================================
+
+-- Check if n and its double exist
+
+-- https://leetcode.com/problems/check-if-n-and-its-double-exist/submissions/1383028678/
+--
+
+
+--
+class Solution:
+    def checkIfExist(self, arr: List[int]) -> bool:
+        m = {}
+
+        for i in range(len(arr)):
+            if m.get(arr[i] / 2) or m.get(arr[i] * 2):
+                return True
+            m[arr[i]] = 1
+
+        return False
+--
+
+
+===========================================================================================================================
+
+-- Valid mountain array 
+
+
+-- https://leetcode.com/problems/valid-mountain-array/submissions/1383066368/
+--
+
+
+--
+class Solution:
+    def validMountainArray(self, arr: List[int]) -> bool:
+        n = len(arr)
+        if n <= 2:
+            return False
+        i = 1
+        while i < n:
+            if arr[i] <= arr[i - 1]:
+                break
+            i += 1
+        i = i - 1
+        
+        if i == n - 1 or i == 0:
+            return False
+
+        while i + 1 < n:
+            if arr[i] <= arr[i + 1]:
+                return False
+            i += 1
+        
+        return True
+        
+--
+
+
+===========================================================================================================================
+
+-- Univalued binary tree
+
+
+-- https://leetcode.com/problems/univalued-binary-tree/
+--
+
+
+--
+class Solution:
+    def isUnivalTree(self, root: Optional[TreeNode]) -> bool:
+        value = root.val
+
+        head = root
+
+        def dfs(node, value):
+            if not node:
+                return True
+
+            if node.val != value:
+                return False
+
+            left = dfs(node.left, value)
+            right = dfs(node.right, value)
+
+            return left and right
+
+        return dfs(head, value)
+--
+
+
+=======================================================================================================================
+
+
+-- Squares if a sorted array 
+
+
+-- https://leetcode.com/problems/squares-of-a-sorted-array/
+--
+
+
+--
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        peak_index = float("inf")
+
+        if len(nums) == 1:
+            return [nums[0] * nums[0]]
+
+        for index, val in enumerate(nums):
+            if val >= 0:
+                peak_index = index
+                break
+        
+        n = len(nums)
+
+        left_arr = []
+
+        if peak_index == float("inf"):
+            peak_index = n
+
+        for i in range(peak_index - 1, -1 , -1):
+            left_arr.append(nums[i] * nums[i])
+
+        if peak_index >= n:
+            return left_arr
+
+        res = []
+        p = 0
+        j = 0
+
+        while j < n:
+            t = nums[peak_index]
+
+            if p < len(left_arr) and left_arr[p] < (t * t):
+                res.append(left_arr[p])
+                p += 1
+
+            else:
+                res.append(t * t)
+                peak_index = (peak_index + 1) % n
+
+            j += 1
+
+        return res
+
+
+        
+--
+
+
+==============================================================================================================
