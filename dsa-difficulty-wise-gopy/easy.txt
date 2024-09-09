@@ -469,7 +469,7 @@ func oddCells(m int, n int, indices [][]int) int {
 ========================================================================================================
 
 
--- Check if it is a straight line
+-- Check if it is a straight line 
 
 
 -- https://leetcode.com/problems/check-if-it-is-a-straight-line/
@@ -1399,3 +1399,37 @@ class Solution:
 --
 
 ==================================================================================================
+
+-- Check if it is a Straight line
+
+
+-- https://leetcode.com/problems/check-if-it-is-a-straight-line/
+--
+
+
+--
+class Solution:
+    def checkStraightLine(self, c: List[List[int]]) -> bool:
+
+        x1 = c[0][0]
+        y1 = c[0][1]
+
+        x2 = c[1][0]
+        y2 = c[1][1]
+
+        for i in range(2, len(c)):
+            x = c[i][0]
+            y = c[i][1]
+
+            if (x - x1)*(y - y2) != (x - x2)*(y - y1):
+                return False
+        return True
+
+
+        
+--
+
+
+========================================================================================================
+
+
