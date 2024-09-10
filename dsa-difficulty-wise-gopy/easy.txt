@@ -1497,3 +1497,31 @@ class Solution:
 
 
 =============================================================================================================
+
+
+-- Detect pattern of length m repeated k or more time
+
+
+--
+--
+
+
+--
+class Solution:
+    def containsPattern(self, arr: List[int], m: int, k: int) -> bool:
+        cnt = 0
+        i = 0
+        while i <= len(arr) - 2 * m:
+            if arr[i:i + m] == arr[i + m:i + m + m]:
+                cnt += 1
+                i += m 
+                if cnt == k - 1:
+                    return True
+            else:
+                cnt = 0
+                i += 1 
+        return False
+--
+
+
+========================================================================================================
