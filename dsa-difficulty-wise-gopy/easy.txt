@@ -1502,7 +1502,7 @@ class Solution:
 -- Detect pattern of length m repeated k or more time
 
 
---
+-- https://leetcode.com/problems/detect-pattern-of-length-m-repeated-k-or-more-times/
 --
 
 
@@ -1525,3 +1525,27 @@ class Solution:
 
 
 ========================================================================================================
+
+
+-- Thousand separator
+
+
+--
+-- https://leetcode.com/problems/thousand-separator/
+
+
+--
+class Solution:
+    def thousandSeparator(self, n: int) -> str:
+        li = list(str(n))[::-1]
+        final = []
+        
+        for i in range(0, len(li), 3):
+            final.append("".join(li[i:i+3]))
+            if i + 3 < len(li):
+                final.append(".")
+        
+        return "".join(final)[::-1]
+--
+
+============================================================================================
