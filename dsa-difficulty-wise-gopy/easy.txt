@@ -1460,3 +1460,40 @@ class Solution:
 
 =========================================================================================================
 
+-- Replace all s to avoid consecutive repeating characters
+
+
+--
+-- https://leetcode.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/
+
+
+--
+class Solution:
+    def modifyString(self, s: str) -> str:
+
+        b = [0] * 26
+
+        for i, val in enumerate(s):
+            if val != '?':
+                b[ord(val) - ord('a')]
+
+                
+
+        for i in range(n):
+            if s[i] == "?":
+                for j in range(26):
+                    char = chr(j + ord('a'))  # Generate a character from 'a' to 'z'
+                    # Check if this character can be placed without matching neighbors
+                    if (i == 0 or res[i - 1] != char) and (i == n - 1 or res[i + 1] != char):
+                        res[i] = char
+                        break
+            else:
+                res[i] = s[i]
+
+        return ''.join(res)
+                    
+        
+--
+
+
+=============================================================================================================
