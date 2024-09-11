@@ -1576,3 +1576,54 @@ class Solution:
 
 
 =======================================================================================================
+
+-- Three consecutive odds
+
+
+-- https://leetcode.com/problems/three-consecutive-odds/submissions/1385745683/
+--
+
+--
+class Solution:
+    def threeConsecutiveOdds(self, arr: List[int]) -> bool:
+
+        count = 0
+        for num in arr:
+            if num % 2 == 1:
+                count += 1
+                if count == 3:
+                    return True
+            else:
+                count = 0
+        return False
+--
+
+
+==========================================================================================================
+
+
+-- Find all duplicates in an array
+
+
+
+-- https://leetcode.com/problems/find-all-duplicates-in-an-array/
+--
+
+
+--
+class Solution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        res = []
+
+        for i in range(len(nums)):
+            index = abs(nums[i]) - 1
+
+            if nums[index] < 0:
+                res.append(index + 1)
+            else:
+                nums[index] *= -1
+        return res
+--
+
+
+=======================================================================================================

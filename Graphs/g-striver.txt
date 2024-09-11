@@ -528,3 +528,59 @@ class Solution:
 
 
 ==========================================================================================================================================
+
+
+-- M - colouring Problem
+
+
+-- https://www.geeksforgeeks.org/problems/m-coloring-problem-1587115620/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+--
+
+
+--
+from collections import defaultdict
+
+# Function to determine if graph can be coloured with at most M colours such
+# that no two adjacent vertices of graph are coloured with the same colour.
+def graphColoring(graph, k, V):
+    # Create the adjacency list representation of the graph
+    g = defaultdict(list)
+    
+    for i in range(len(graph)):
+        for j in range(len(graph[0])):
+            if graph[i][j]:  # There is an edge between vertex i and vertex j
+                g[i].append(j)
+    
+    # Array to store colors assigned to vertices
+    colour = [0] * V
+    
+    def isSafe(node, col):
+        # Check if it's safe to assign color 'col' to vertex 'node'
+        for adjacent in g[node]:
+            if colour[adjacent] == col:  # If adjacent vertex has the same color, it's not safe
+                return False
+        return True
+    
+    def colouring(node):
+        # If all vertices are assigned a color, return True
+        if node == V:
+            return True
+        
+        # Try assigning all possible colors (1 to k)
+        for i in range(1, k + 1):
+            if isSafe(node, i):
+                colour[node] = i
+                # Recur to assign colors to the rest of the vertices
+                if colouring(node + 1):
+                    return True
+                # If no valid coloring found, backtrack
+                colour[node] = 0
+        
+        return False
+    
+    # Start from vertex 0
+    return colouring(0)
+--
+
+
+======================================================================================================================================================

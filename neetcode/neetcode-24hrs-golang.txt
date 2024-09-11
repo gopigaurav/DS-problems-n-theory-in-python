@@ -1,0 +1,163 @@
+-- Contiguous array
+
+
+-- https://leetcode.com/problems/contiguous-array/description/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def findMaxLength(self, nums: List[int]) -> int:
+        m = defaultdict(int)
+        zero = 0
+        ones = 0
+        res = 0
+
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                zero += 1
+            else:
+                ones += 1
+
+            if ones - zero not in m:
+                m[ones - zero] = i
+
+            if ones == zero:
+                res = ones + zero
+            elif ones - zero in m:
+                idx = m[ones - zero]
+                res = max(res, i- idx)
+            
+        return res
+
+
+
+
+        
+--
+
+
+====================================================================================
+
+
+-- Minimum remove to make the valid parentheses
+
+
+--
+-- https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+
+
+--
+class Solution:
+    def minRemoveToMakeValid1(self, s: str) -> str:
+        stack = [] # to store the index of the 
+
+        for i in range(len(s)):
+            if s[i] == '(':
+                stack.append(i)
+            elif s[i] == ')':
+                if stack and s[stack[-1]] == "(":
+                    stack.pop()
+                else:
+                    stack.append(i)
+        
+        res = ""
+
+        for i in range(len(s)):
+            if i not in stack:
+                res += s[i]
+        
+        return res
+
+    def minRemoveToMakeValid(self, s: str) -> str:
+        res = []
+        cnt = 0 # count of open parenthesis
+
+        for i in range(len(s)):
+            if s[i] == "(":
+                res.append(s[i])
+                cnt += 1
+            elif s[i] == ")" and cnt > 0:
+                res.append(s[i])
+                cnt -= 1
+            elif s[i] != ")":
+                res.append(s[i])
+        
+        result = ""
+
+        for i in res[::-1]:
+            if i == '(' and cnt > 0:
+                cnt -= 1
+            else:
+                result += i
+        
+        return result[::-1]
+        
+--
+
+
+================================================================================================
+
+
+-- Find the polygon with the largest perimeter
+
+-- https://leetcode.com/problems/find-polygon-with-the-largest-perimeter/submissions/1386125972/
+--
+
+--
+class Solution:
+    def largestPerimeter(self, nums: List[int]) -> int:
+        n = len(nums)
+        nums.sort()
+
+        sides = n
+        perimeter = sum(nums)
+
+
+        for i in range(n - 1, 1, -1):
+            if perimeter <= 2 * nums[i]:
+                perimeter -= nums[i]
+                sides -= 1
+        
+            else:
+                break
+        
+        return -1 if sides == 2 else perimeter
+--
+
+
+===========================================================================================================
+
+-- Sort characters by frequency 
+
+
+-- https://leetcode.com/problems/sort-characters-by-frequency/submissions/1386179334/
+--
+
+
+--
+from collections import defaultdict 
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        m = defaultdict(int)
+        for i in range(len(s)):
+            m[s[i]] += 1
+    
+        # Using Buket sort for this
+        b = defaultdict(list)
+        for c, v in m.items():
+            b[v].append(c)
+
+        res = []
+        for i in range(len(s), 0, -1):
+            for c in b[i]:
+                res.append(c * i) 
+
+        return "".join(res)
+--
+
+
+===============================================================================================================
+
+-- 
