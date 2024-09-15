@@ -85,4 +85,167 @@ class Solution:
 
 =========================================================================================================================
 
--- 
+-- Reach End of Array with Max Score
+
+
+-- https://leetcode.com/problems/reach-end-of-array-with-max-score/description/
+--
+
+
+--
+class Solution:
+    def findMaximumScore(self, nums: List[int]) -> int:
+        cur = nums[0]
+        n = len(nums)
+
+        ans = 0
+
+        for i in range(1, n):
+            ans += cur
+            cur = max(cur, nums[i])
+        
+        return ans
+--
+
+
+==========================================================================================================================
+
+
+-- Maximum number of moves to kill all pawns
+
+
+-- https://leetcode.com/problems/maximum-number-of-moves-to-kill-all-pawns/
+--
+
+
+--
+from collections import deque
+import sys
+
+# Initialize 4D array for distances (50x50x50x50)
+dist = [[[[ -1 for _ in range(50)] for _ in range(50)] for _ in range(50)] for _ in range(50)]
+
+# Possible knight moves
+dx = [1, 2, 2, 1, -1, -2, -2, -1]
+dy = [2, 1, -1, -2, -2, -1, 1, 2]
+
+# Function to compute shortest distances from (startx, starty) to all other points
+def dis(startx, starty):
+    q = deque()
+    q.append(((startx, starty), 0))  # (current position, distance)
+    dist[startx][starty][startx][starty] = 0  # Distance from a point to itself is zero
+
+    while q:
+        (x, y), d = q.popleft()
+
+        for i in range(8):
+            newx, newy = x + dx[i], y + dy[i]
+            # Check if new position is within bounds and not yet visited
+            if 0 <= newx < 50 and 0 <= newy < 50 and dist[startx][starty][newx][newy] == -1:
+                dist[startx][starty][newx][newy] = d + 1
+                q.append(((newx, newy), d + 1))
+
+# Function to preprocess distances for all pairs of points
+def pre():
+    global dist
+    if dist[0][0][0][0] != -1:  # Already preprocessed
+        return
+
+    for i in range(50):
+        for j in range(50):
+            if dist[i][j][i][j] == -1:
+                dis(i, j)
+
+class Solution:
+    def __init__(self):
+        self.dp = None  # Memoization table
+
+    # Recursive function to compute maximum/minimum score
+    def f(self, curr, mask, turn, positions):
+        n = len(positions)
+        if mask == (1 << n) - 1:  # All positions visited, base case
+            return 0
+
+        if self.dp[curr][mask][turn] != -1:  # Check if result is already computed
+            return self.dp[curr][mask][turn]
+
+        x, y = positions[curr]
+        if turn == 0:  # Alice's turn
+            ans = -sys.maxsize  # Initialize to minimum value
+            for i in range(n):
+                if mask & (1 << i):  # Skip if position already visited
+                    continue
+                nextx, nexty = positions[i]
+                newDist = dist[x][y][nextx][nexty]  # Distance to next position
+                ans = max(ans, newDist + self.f(i, mask | (1 << i), 1, positions))  # Maximize Alice's score
+        else:  # Bob's turn
+            ans = sys.maxsize  # Initialize to maximum value
+            for i in range(n):
+                if mask & (1 << i):  # Skip if position already visited
+                    continue
+                nextx, nexty = positions[i]
+                newDist = dist[x][y][nextx][nexty]  # Distance to next position
+                ans = min(ans, newDist + self.f(i, mask | (1 << i), 0, positions))  # Minimize Bob's score
+
+        self.dp[curr][mask][turn] = ans
+        return ans
+
+    # Function to start the solution
+    def maxMoves(self, kx, ky, positions):
+        positions.append([kx, ky])  # Add knight's starting position
+        n = len(positions)  # Total number of positions
+        pre()  # Preprocess distances
+
+        # Initialize dp (memoization table)
+        self.dp = [[[-1 for _ in range(2)] for _ in range(1 << n)] for _ in range(n)]
+        return self.f(n - 1, 1 << (n - 1), 0, positions)
+
+
+--
+
+
+
+====================================================================================================================================
+
+
+
+========================== 413 ================================================================================================================
+
+
+-- Check if two chessboard squares have the same color
+
+-- https://leetcode.com/problems/check-if-two-chessboard-squares-have-the-same-color/submissions/1390780210/
+--
+
+
+--
+class Solution:
+    def checkTwoChessboards(self, c1: str, c2: str) -> bool:
+        
+        m = {
+            "a": 1,
+            "b": 2,
+            "c": 3,
+            "d": 4,
+            "e": 5,
+            "f": 6,
+            "g": 7,
+            "h": 8
+        }
+
+        ch1 = c1[0]
+        ch2 = c2[0]
+
+        n1 = c1[1]
+        n2 = c2[1]
+
+        rem1 = (m[ch1] + int(n1)) % 2
+
+        rem2 = (m[ch2] + int(n2)) % 2
+
+        if rem1 == rem2:
+            return True
+        return False  
+--
+
+==========================================================================================================================
