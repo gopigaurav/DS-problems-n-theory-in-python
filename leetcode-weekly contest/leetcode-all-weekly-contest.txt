@@ -289,3 +289,60 @@ class Solution:
 --
 
 ==============================================================================================================================
+
+-- Select cells in grid with maximum score
+
+
+--https://leetcode.com/problems/select-cells-in-grid-with-maximum-score/description/
+--
+
+
+--
+class Solution:
+    def __init__(self):
+        self.a = []
+        self.dp = []
+
+    def calc(self, n, mask):
+        if n == 0:
+            return 0
+        if self.dp[n][mask] != -1:
+            return self.dp[n][mask]
+        
+        # Compute the result by skipping the current number n
+        ans = self.calc(n - 1, mask)
+        
+        # Try including the number n in various rows
+        for x in self.a[n]:
+            if mask & (1 << x):
+                continue
+            ans = max(ans, n + self.calc(n - 1, mask | (1 << x)))
+        
+        self.dp[n][mask] = ans
+        return ans
+
+    def maxScore(self, grid):
+        n = len(grid)
+        m = len(grid[0])
+        
+        # Initialize DP table and row usage lists
+        self.dp = [[-1] * (1 << n) for _ in range(101)]
+        self.a = [[] for _ in range(101)]
+        
+        # Determine the maximum number in the grid
+        maxi = 0
+        
+        # Fill the list `a` where a[i] stores the rows where number i appears
+        # listing out the numbers as keys and index as the values
+        # { 1: [0, 1]} number 1 is found in index 0 and index 1
+        for i in range(n):
+            for j in range(m):
+                self.a[grid[i][j]].append(i)
+                maxi = max(maxi, grid[i][j])
+        
+        return self.calc(maxi, 0)
+
+--
+
+
+============================================================================================================================
