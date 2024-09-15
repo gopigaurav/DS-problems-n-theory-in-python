@@ -209,7 +209,7 @@ class Solution:
 
 
 
-========================== 413 ================================================================================================================
+############################### 413 ##############################################################################################
 
 
 -- Check if two chessboard squares have the same color
@@ -249,3 +249,43 @@ class Solution:
 --
 
 ==========================================================================================================================
+
+
+-- kth nearest obstacel qurries
+
+
+-- https://leetcode.com/problems/k-th-nearest-obstacle-queries/
+--
+
+
+--
+from heapq import heappop, heappush
+
+class Solution:
+    def resultsArray(self, a: List[List[int]], k: int) -> List[int]:
+        res = []
+        maxheap = []
+
+        for i in range(len(a)):
+            # Compute the sum of absolute values
+            total_sum = abs(a[i][0]) + abs(a[i][1])
+            
+            # Use negative values to simulate a max-heap (Python has min-heap by default)
+            heappush(maxheap, -total_sum)
+            
+            # If we haven't processed 'k' points yet, append -1
+            if i + 1 < k:
+                res.append(-1)
+            else:
+                # When the heap has more than 'k' elements, remove the largest (negative smallest)
+                if len(maxheap) > k:
+                    heappop(maxheap)
+                
+                # The root of the max-heap will be the k-th largest (smallest k-th sum)
+                res.append(-maxheap[0])
+
+        return res
+
+--
+
+==============================================================================================================================
