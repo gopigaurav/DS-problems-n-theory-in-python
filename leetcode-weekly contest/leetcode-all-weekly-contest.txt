@@ -1,0 +1,36 @@
+
+====================================================================================================
+-- 414
+
+
+-- COnvert date to binary 
+
+
+-- https://leetcode.com/problems/convert-date-to-binary/submissions/1390638305/
+--
+
+
+--
+class Solution:
+    def convertDateToBinary(self, date: str) -> str:
+
+        def num_to_binary(n):
+            num = int(n)
+            ans = ""
+            while num:
+                if num & 1:
+                    ans += "1"
+                else:
+                    ans += "0"
+                num = num >> 1
+            return ans[::-1]
+        
+        year = date[:4]
+        month = date[5:7]
+        day = date[8:]
+
+        return num_to_binary(year) + "-" + num_to_binary(month) + "-" + num_to_binary(day)
+--
+
+
+==============================================================================================================
