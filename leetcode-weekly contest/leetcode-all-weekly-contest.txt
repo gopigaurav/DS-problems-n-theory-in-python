@@ -768,4 +768,148 @@ class Solution:
 
 =====================================================================================================================
 
--- 
+-- Guess the number higher or lower
+
+
+-- https://leetcode.com/problems/guess-number-higher-or-lower/
+--
+
+
+--
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if num is higher than the picked number
+#          1 if num is lower than the picked number
+#          otherwise return 0
+# def guess(num: int) -> int:
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        low, high = 1, n
+    
+        while low <= high:
+            mid = low + (high - low) // 2  # Calculate mid to avoid overflow
+            result = guess(mid)
+            
+            if result == 0:
+                return mid  # Found the correct number
+            elif result == -1:
+                high = mid - 1  # Guess is too high, reduce the upper bound
+            else:
+                low = mid + 1
+        
+--
+
+
+============================================================================================================================
+
+
+--Third maximum number
+
+
+-- https://leetcode.com/problems/third-maximum-number/
+--
+
+-
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        n = len(nums)
+        result = 0
+
+        Max = max(nums)
+        secondMax = min(nums) # get the min value to get the maximum for now
+        thirdMax = float("-inf")
+
+        for i in range(n):
+            if nums[i] < Max and nums[i]  > secondMax:
+                thirdMax = secondMax
+                secondMax = nums[i]
+            elif nums[i] < secondMax and nums[i] > thirdMax:
+                thirdMax = nums[i]
+            else:
+                pass
+
+        if len(set(nums)) >= 3:
+            result = thirdMax
+        else:
+            result = Max
+        return result
+
+        
+-
+
+=======================================================================================================================
+
+
+-- Add string
+
+
+--
+-- https://leetcode.com/problems/add-strings/
+
+
+--
+class Solution:
+    def addStrings(self, num1: str, num2: str) -> str:
+        
+
+        carry = 0
+
+        n1 = len(num1)
+        n2 = len(num2)
+        i = n1 - 1
+        j = n2 - 1
+        res = ""
+
+        while i >= 0 and j >= 0:
+            x1 = int(num1[i])
+            x2 = int(num2[j])
+            temp_sum = x1 + x2 + carry
+
+            print(temp_sum, x1, x2)
+
+            carry = temp_sum // 10  # Update carry
+            res += str(temp_sum % 10)
+            i -= 1
+            j -= 1
+
+        while i >= 0:
+            temp_sum = int(num1[i]) + carry
+            carry = temp_sum // 10
+            res += str(temp_sum % 10)
+            i -= 1
+        
+        while j >= 0:
+            temp_sum = int(num2[j]) + carry
+            carry = temp_sum // 10
+            res += str(temp_sum % 10)
+            j -= 1
+
+        if carry:
+            res += str(carry)
+
+        return res[::-1]
+
+
+
+--
+
+
+================================================================================================================================
+
+
+-- Number of segments in a string
+
+
+--
+--
+
+
+--
+--
+
+
+
+============================================================================================================================
+
+
