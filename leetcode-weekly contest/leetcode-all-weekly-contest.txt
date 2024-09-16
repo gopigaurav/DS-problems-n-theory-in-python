@@ -717,3 +717,55 @@ class Solution:
 
 
 ==================================================================================================================
+
+
+-- Ransom Note
+
+
+--
+-- https://leetcode.com/problems/ransom-note/
+
+--
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        m = {}
+
+        for i in magazine:
+            m[i] = m.get(i, 0) + 1
+
+        for ch in ransomNote:
+            if ch not in m:
+                return False
+            m[ch] -= 1
+            if m[ch] == 0:
+                del m[ch]
+        return True
+--
+
+
+======================================================================================================================
+
+-- First unique character in a string
+
+
+-- https://leetcode.com/problems/first-unique-character-in-a-string/submissions/1392061101/
+--
+
+
+--
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        m = {}
+
+        for j in s:
+            m[j] = m.get(j, 0) + 1
+        
+        for i, ch in enumerate(s):
+            if m[ch] == 1:
+                return i
+        return -1
+--
+
+=====================================================================================================================
+
+-- 
