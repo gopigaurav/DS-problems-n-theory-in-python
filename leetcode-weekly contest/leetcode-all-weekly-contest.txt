@@ -416,7 +416,304 @@ class Solution:
 
 
 --
+class Solution:
+    def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:
+        n = len(nums)
+        while k:
+            index = 0
+            val = nums[0]
+            for i in range(1, n):
+                if nums[i] < val:
+                    index = i
+                    val = nums[i]
+            
+            nums[index] *= multiplier
+
+            k -= 1
+        
+        return nums
 --
 
 
 ==========================================================================================================
+
+
+-- Count Amost Equal Pairs I
+
+
+-- https://leetcode.com/problems/count-almost-equal-pairs-i/description/
+-- https://www.youtube.com/watch?v=HY46DPDmJXo
+
+
+--
+from typing import List
+
+class Solution:
+    def countPairs(self, nums: List[int]) -> int:
+        # Find the maximum number in the array
+        n = len(nums)
+        maxi = max(nums)
+        
+        # Determine the number of digits of the maximum number
+        digits = len(str(maxi))
+
+        # Pad numbers with leading zeros to match the length of the largest number
+        def make_digits(num, max_digits):
+            num_str = str(num)
+            return num_str.zfill(max_digits)
+
+        # Generate all possible swaps of digits in the number
+        def make_swap(num_str):
+            s = set()
+            num_list = list(num_str)  # Convert string to list for swapping
+            s.add(num_str)
+
+            for i in range(len(num_list)):
+                for j in range(i + 1, len(num_list)):
+                    if num_list[i] != num_list[j]:
+                        # Swap the digits
+                        num_list[i], num_list[j] = num_list[j], num_list[i]
+                        s.add("".join(num_list))  # Add the new combination as a string
+                        # Swap back to revert to the original state
+                        num_list[j], num_list[i] = num_list[i], num_list[j]
+
+            return s
+
+        # Pad all numbers in the array
+        arr = [make_digits(num, digits) for num in nums]
+
+        ans = 0
+        # Check for each pair (i, j)
+        for i in range(len(arr)):
+            for j in range(i + 1, len(arr)):
+                swapped_set = make_swap(arr[j])
+
+                # If the swapped set contains the i-th number, we count it as a valid pair
+                if arr[i] in swapped_set:
+                    ans += 1
+
+        return ans
+
+--
+
+
+============================================================================================================
+
+-- Final Array State AFter K multiplication
+
+
+-- https://leetcode.com/problems/final-array-state-after-k-multiplication-operations-ii/description/
+--
+
+
+--
+class Solution:
+    def getFinalState1(self, nums: List[int], k: int, multiplier: int) -> List[int]:
+        n = len(nums)
+        while k:
+            index = 0
+            val = nums[0]
+            for i in range(1, n):
+                if nums[i] < val:
+                    index = i
+                    val = nums[i]
+            
+            nums[index] *= multiplier
+
+            k -= 1
+        
+        for i in range(n):
+            nums[i] = nums[i] % (10**9 + 7)
+        
+        return nums
+
+    def getFinalState2(self, nums: List[int], k: int, multiplier: int) -> List[int]:
+        MOD = 10**9 + 7
+        
+        # Perform k operations
+        for _ in range(k):
+            # Find the minimum value and its index
+            min_index = nums.index(min(nums))
+            # Replace it with its value multiplied by the multiplier
+            nums[min_index] *= multiplier
+        
+        # Apply modulo to all elements
+        nums = [num % MOD for num in nums]
+        
+        return nums
+
+    import heapq
+
+    def getFinalState(self, A: List[int], K: int, M: int) -> List[int]:
+        if M == 1: return A
+
+        MOD = 10 ** 9 + 7
+        N = len(A)
+        
+        # create the array with (num, index) of Array A
+        B = [[x, i] for i,x in enumerate(A)]
+
+        # heapify B
+        heapify(B)
+        count = [0] * N
+        
+
+        while K and B[0][0] <= 1e9:
+            K -= 1
+            b, i = heappop(B)
+            count[i] += 1
+            heappush(B, [b * M, i])
+        
+        q, r = divmod(K, N)
+        B.sort()
+        for ix, (b, i) in enumerate(B):
+            count[i] += q + (ix < r)
+        
+        for i, c in enumerate(count):
+            A[i] *= pow(M, c, MOD)
+            A[i] %= MOD
+        
+        return A
+--
+
+
+===========================================================================================================
+
+-- Find the diff 
+
+
+-- https://leetcode.com/problems/find-the-difference/submissions/1391983785/
+--
+
+
+--
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        m = {}
+
+        for c in t:
+            m[c] = m.get(c, 0) + 1
+        
+        for c in s:
+            m[c] -= 1
+            if m[c] == 0:
+                del m[c]
+        
+        return list(m.keys())[0]
+--
+
+
+============================================================================================================
+
+-- Is Subsequence
+
+
+-- https://leetcode.com/problems/is-subsequence/
+--
+
+
+--
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        
+        i = 0
+        j = 0
+
+        n = len(s)
+        m = len(t)
+        while i < n and j < m:
+            if s[i] == t[j]:
+                i += 1
+                j += 1
+            else:
+                j += 1
+        
+        if i < n:
+            return False
+        return True
+
+                
+--
+
+============================================================================================================
+
+-- Binary watch
+
+
+-- https://leetcode.com/problems/binary-watch/
+--
+
+--
+class Solution:
+    def readBinaryWatch(self, num: int) -> List[str]:
+        return ['%d:%02d' % (h, m)
+                for h in range(12) for m in range(60)
+                if (bin(h) + bin(m)).count('1') == num]
+--
+
+
+===============================================================================================================
+
+
+-- Sum of left
+
+
+--
+-- https://leetcode.com/problems/sum-of-left-leaves/submissions/1392030096/
+
+--
+class Solution:
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+
+        def dfs(node, is_left):
+            if not node:
+                return 0
+
+            if not node.left and not node.right and is_left:
+                return node.val
+            
+            left = dfs(node.left, True)
+            right = dfs(node.right, False)
+
+            return left + right
+        
+        return dfs(root, False)
+--
+
+
+===================================================================================================================
+
+-- Convert a number to hexadecimal
+
+
+-- https://leetcode.com/problems/convert-a-number-to-hexadecimal/
+--
+
+--
+class Solution:
+    def toHex(self, num: int) -> str:
+        # If the input number is zero, return '0'
+        if num == 0:
+            return '0'
+        # If the input number is negative, convert it to its corresponding positive value using two's complement
+        if num < 0:
+            num = (1 << 32) + num
+        
+        hex_digits = '0123456789abcdef'  # The hexadecimal digits
+        
+        hex_num = ''  # Initialize an empty string to store the hexadecimal representation of the input number
+        
+        # Repeatedly divide the input number by 16 and convert the remainder to its corresponding hexadecimal digit until the quotient becomes zero
+        while num > 0:
+            digit = num % 16  # Get the remainder of dividing the input number by 16
+            hex_digit = hex_digits[digit]  # Convert the remainder to its corresponding hexadecimal digit
+            hex_num = hex_digit + hex_num  # Add the hexadecimal digit to the beginning of the hexadecimal representation
+            num //= 16  # Update the input number by dividing it by 16
+        
+        return hex_num
+
+        
+--
+
+
+==================================================================================================================
