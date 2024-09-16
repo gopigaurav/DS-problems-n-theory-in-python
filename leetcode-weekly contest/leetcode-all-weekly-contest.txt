@@ -901,15 +901,48 @@ class Solution:
 -- Number of segments in a string
 
 
---
+-- https://leetcode.com/problems/number-of-segments-in-a-string/
 --
 
 
 --
+import re
+class Solution:
+    def countSegments(self, s: str) -> int:
+        segments = [segment for segment in s.split(' ') if segment]
+        return len(segments)
 --
 
 
 
 ============================================================================================================================
 
+-- Arranging Coins
 
+
+-- https://leetcode.com/problems/arranging-coins/
+--
+
+--
+class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        left,right=1,n
+        while left<=right:
+            mid=(right+left)//2
+            num=(mid/2)*(mid+1)
+            if num<=n:
+                left=mid+1
+            else:
+                right=mid-1
+        return right
+--
+
+--
+class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        # Using the quadratic formula to solve for k
+        k = (-1 + math.sqrt(1 + 8 * n)) // 2
+        return int(k)
+--
+
+===========================================================================================================================
