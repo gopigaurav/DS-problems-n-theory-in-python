@@ -1058,4 +1058,58 @@ class Solution:
 ===============================================================================================================================
 
 
--- 
+-- Island Perimeter
+
+
+-- https://leetcode.com/problems/island-perimeter/description/
+--
+
+--
+class Solution:
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+
+        # first check the cell if cell is 1 add 4 as perimeter
+        # if 1 -> check for the the adjacent cells as well only for left and up that too only in two direction
+
+        n = len(grid)
+        m = len(grid[0])
+
+        perimeter = 0
+
+        for i in range(n):
+            for j in range(m):
+
+                if grid[i][j] == 1:
+                    perimeter += 4
+
+                    # check for the upper cell 
+                    if i > 0 and grid[i - 1][j] == 1:
+                        perimeter -= 2
+                    
+                    if j > 0 and grid[i][j - 1] == 1:
+                        perimeter -= 2
+                
+        return perimeter
+--
+
+
+=======================================================================================================================
+
+
+-- Number complement
+
+-- https://leetcode.com/problems/number-complement/submissions/1393379936/
+--
+
+-
+class Solution:
+    def findComplement(self, num: int) -> int:
+        # first get a new number with all the bit set to 1
+
+        bit_length = num.bit_length()
+
+        # Create a mask with all bits set to 1, which has the same length as the binary representation of num
+        new = (1 << bit_length) - 1
+        return new ^ num-
+
+===========================================================================================================================
