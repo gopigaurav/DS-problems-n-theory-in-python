@@ -1113,3 +1113,32 @@ class Solution:
         return new ^ num-
 
 ===========================================================================================================================
+
+
+-- License key formatting
+
+
+-- https://leetcode.com/problems/license-key-formatting/submissions/1393422186/
+--
+
+-
+class Solution:
+    def licenseKeyFormatting(self, s: str, k: int) -> str:
+        
+        s = s.replace('-', '').upper()
+        
+        # Find out how many characters will be in the first group
+        first_group_len = len(s) % k or k  # If len(s) % k == 0, first group has k characters
+
+        # Start by creating the first group
+        formatted = [s[:first_group_len]]
+
+        # Process the rest of the groups of size k
+        for i in range(first_group_len, len(s), k):
+            formatted.append(s[i:i + k])
+
+        # Join all the groups with dashes
+        return '-'.join(formatted)
+-
+
+============================================================================================================================
