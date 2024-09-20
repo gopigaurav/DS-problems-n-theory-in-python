@@ -1271,3 +1271,33 @@ class Solution:
 
 
 ==============================================================================================================================
+
+
+-- Teemo attacking
+
+
+-- https://leetcode.com/problems/teemo-attacking/
+--
+
+
+--
+class Solution:
+    def findPoisonedDuration(self, t: List[int], d: int) -> int:
+        total = 0
+        poison_end = 0
+
+        if len(t) == 1:
+            return d
+
+        for i in range(len(t) - 1):
+            poison_end = t[i] + d - 1
+            total += d
+
+            if poison_end >= t[i + 1]:
+                total -= poison_end - t[i + 1] + 1
+        return total + d
+
+
+--
+
+=============================================================================================================================
