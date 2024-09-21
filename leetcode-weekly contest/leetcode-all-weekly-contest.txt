@@ -1486,4 +1486,73 @@ class Solution:
 
 ============================================================================================================================
 
+-- Palindromic substrings
 
+
+-- https://leetcode.com/problems/palindromic-substrings/
+--
+
+
+-- count the palindromic length
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+
+        # take the every element as center and go outwords from there to count
+
+        n = len(s)
+
+        def is_palindrome(left, right):
+            len_count = 0
+
+            while left >= 0 and right < n and s[left] == s[right]:
+                left -= 1
+                right += 1
+                len_count += 1
+            return len_count
+        
+        count = 0
+        for i in range(n):
+
+            # first is odd length
+            count += is_palindrome(i, i)
+
+            # second if even length
+            count += is_palindrome(i, i + 1)
+        
+        return count
+--
+
+============================================================================================================================
+
+
+-- Replace words
+
+
+-- https://leetcode.com/problems/replace-words/
+--
+
+--
+class Solution:
+    def replaceWords(self, d: List[str], sent: str) -> str:
+        
+        s = set(d)
+        res = []
+        spit_string = sent.split()
+
+        def word_split(word):
+            for i in range(len(word)):
+                prefix = word[:i]
+
+                if prefix in s:
+                    return prefix
+            return word
+
+        for string in spit_string:
+            res.append(word_split(string))
+
+        return " ".join(res)
+          
+--
+
+
+===========================================================================================================================
