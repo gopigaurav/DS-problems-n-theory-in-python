@@ -1,0 +1,42 @@
+
+Dota2 senate
+
+-- https://leetcode.com/problems/dota2-senate/
+--
+
+
+--
+from collections import deque
+class Solution:
+    def predictPartyVictory(self, senate: str) -> str:
+        radiant = deque()
+        dire = deque()
+
+        # Once the senator casts an vote just eliminate the other team member and push back to the queue at the end
+        
+        # Fill the queues with the indices of the senators
+        for i, s in enumerate(senate):
+            if s == 'R':
+                radiant.append(i)
+            else:
+                dire.append(i)
+        
+        n = len(senate)
+        
+        while radiant and dire:
+            r_index = radiant.popleft()
+            d_index = dire.popleft()
+            
+            if r_index < d_index:
+                # Radiant senator bans Dire senator
+                radiant.append(r_index + n)
+            else:
+                # Dire senator bans Radiant senator
+                dire.append(d_index + n)
+        
+        return "Radiant" if radiant else "Dire"
+        
+--
+
+
+=========================================================================================
