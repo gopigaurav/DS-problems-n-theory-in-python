@@ -1300,4 +1300,190 @@ class Solution:
 
 --
 
+
 =============================================================================================================================
+
+
+-- Keyboard row
+
+
+-- https://leetcode.com/problems/keyboard-row/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def findWords(self, words: List[str]) -> List[str]:
+        up = set("qwertyuiop")
+        mid = set("asdfghjkl")
+        down = set("zxcvbnm")
+        res = []
+
+        for word in words:
+            # Convert word to lowercase for case-insensitive comparison
+            lower_word = word.lower()
+
+            # Determine which row the first character belongs to
+            if lower_word[0] in up:
+                row = up
+            elif lower_word[0] in mid:
+                row = mid
+            elif lower_word[0] in down:
+                row = down
+            else:
+                continue
+
+            # Check if all characters in the word belong to the same row
+            if all(char in row for char in lower_word):
+                res.append(word)
+
+        return res
+--
+
+
+
+=================================================================================================================================
+
+-- Diagonal Traverse
+
+
+-- https://leetcode.com/problems/diagonal-traverse/
+--
+
+
+--
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+
+        if len(mat) == 1:
+            return mat[0]
+
+        i = 0
+        m = len(mat)
+        n = len(mat[0])
+        row = 0
+        col = 0
+        up = True
+        res = []
+        while i < m * n:
+            res.append(mat[row][col])
+            if up:
+                if col == n - 1:
+                    row += 1
+                    up = False
+                elif row == 0:
+                    col += 1
+                    up = False
+                else:
+                    row -= 1
+                    col += 1
+            else:
+                if row == m - 1:
+                    col += 1
+                    up = True
+                elif col == 0:
+                    row += 1
+                    up = True
+                else:
+                    row += 1
+                    col -= 1
+
+            i += 1
+        
+        return res
+--
+
+
+===============================================================================================================================
+
+
+-- Most frequent subtree sum
+
+
+
+-- https://leetcode.com/problems/most-frequent-subtree-sum/submissions/1397338178/
+--
+
+
+--
+class Solution:
+    def findFrequentTreeSum(self, root: Optional[TreeNode]) -> List[int]:
+        m = {}
+        maximum = [0]
+        res = []
+
+        def dfs(node):
+            if not node:
+                return 0
+
+            left = dfs(node.left)
+            right = dfs(node.right)
+
+            cur = left + right + node.val
+            m[cur] = m.get(cur, 0) + 1
+            maximum[0] = max(maximum[0], m[cur])
+
+            return cur
+
+        dfs(root)
+
+        for i in m:
+            if m[i] == maximum[0]:
+                res.append(i)
+
+        return res
+--
+
+
+==============================================================================================================================
+
+-- Find the bottom left tree value
+
+
+-- https://leetcode.com/problems/find-bottom-left-tree-value/
+--
+
+
+-- Use the queue approach (2nd solution)
+class Solution:
+    def findBottomLeftValue1(self, root: Optional[TreeNode]) -> int:
+
+        def dfs(node, depth):
+            if not node:
+                return (0, depth)
+
+            if not node.left and not node.right:
+                return (node.val, depth)
+
+            left = dfs(node.left, depth + 1)
+            right = dfs(node.right, depth + 1)
+
+            if left[1] >= right[1]:
+                return left
+            else:
+                return right
+
+        return dfs(root, 0)[0] if dfs(root, 0)[0] == None else 1
+
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        queue = []
+        current = root
+        queue.append(current)
+
+        while queue:
+            current = queue[0]
+            queue = queue[1:]
+
+            if current.right:
+                queue.append(current.right)
+            if current.left:
+                queue.append(current.left)
+        return current.val 
+--
+
+
+============================================================================================================================
+
+
