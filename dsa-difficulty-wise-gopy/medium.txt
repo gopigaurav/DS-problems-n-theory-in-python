@@ -167,3 +167,118 @@ class Solution:
 
 
 ========================================================================================================
+
+
+-- Accounts merge
+
+
+-- https://leetcode.com/problems/accounts-merge/submissions/1400878057/
+--
+
+--
+from collections import defaultdict
+
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+
+        g = defaultdict(list)
+
+        for i, account in enumerate(accounts):
+            for j in range(1, len(account)):
+
+                email = account[j]
+                g[email].append(i) # storing the index for the email 
+
+
+        vis = [False] * len(accounts)
+
+
+        def dfs(index, emails):
+            if vis[index] == True:
+                return
+            vis[index] = True
+            
+            for j in range(1, len(accounts[index])):
+                email = accounts[index][j]
+                emails.add(email)
+                for neighbor in g[email]:
+                    if not vis[neighbor]:
+                        dfs(neighbor, emails)
+
+
+
+        res = []
+        for i, account in enumerate(accounts):
+            if not vis[i]:
+                name = account[0]
+                emails = set()
+                dfs(i, emails)
+                res.append([name] + sorted(emails))
+        
+        return res
+
+        
+--
+
+
+===============================================================================================================
+
+
+--  Remove comments
+
+
+--
+--
+
+
+--
+class Solution:
+    def removeComments(self, source: List[str]) -> List[str]:
+
+        res = []
+        n = len(source)
+        block_comment = False
+
+        new_line = ""
+        
+        for char_arr in source:
+            i = 0
+
+            if not block_comment:
+                new_line = ""
+
+            while i < len(char_arr):
+
+                if not block_comment and i + 1 < len(char_arr) and char_arr[i] == '/' and char_arr[i + 1] == '*':
+                    block_comment = True
+                    i = i + 2
+                
+                elif block_comment and i + 1 < len(char_arr) and char_arr[i] == '*' and char_arr[i + 1] == '/':
+                    block_comment = False
+                    i = i + 2
+
+                elif not block_comment and i + 1 < len(char_arr) and char_arr[i] == '/' and char_arr[i + 1] == '/':
+                    break
+                
+                elif not block_comment:
+                    new_line += char_arr[i]
+                    i = i + 1
+
+                # if the block_comment is True
+                else:
+                    i += 1
+                
+            if not block_comment and new_line:
+                res.append(new_line)
+            
+        
+        return res
+        return "".join(res)            
+--
+
+
+===================================================================================================================
+
+
+
+
