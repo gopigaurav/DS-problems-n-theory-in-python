@@ -279,6 +279,181 @@ class Solution:
 
 ===================================================================================================================
 
+-- Split Linked list in Parts
 
 
+--
+-- https://leetcode.com/problems/split-linked-list-in-parts/
 
+
+--
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
+        total_nodes = 0
+        current = head
+        while current:
+            total_nodes += 1
+            current = current.next
+        
+        # Step 2: Calculate the base size of each part and the extra nodes
+        base_size = total_nodes // k
+        extra_nodes = total_nodes % k
+        
+        # Step 3: Split the list
+        parts = []
+        current = head
+        for i in range(k):
+            part_size = base_size + (1 if i < extra_nodes else 0)  # Calculate the size of the current part
+            if part_size == 0:
+                parts.append(None)  # If the part size is 0, append None
+            else:
+                part_head = current
+                for j in range(part_size - 1):
+                    if current:
+                        current = current.next
+                next_part = None
+                if current:
+                    next_part = current.next
+                    current.next = None  # Break the list
+
+                parts.append(part_head) # important code which is used to get the list in linked lists to array
+                current = next_part  # Move to the next part
+        
+        return parts
+--
+
+
+==============================================================================================================================
+
+
+-- My Calender I
+
+
+--
+-- https://leetcode.com/problems/my-calendar-i/
+
+
+--
+class MyCalendar:
+    def __init__(self):
+        # Initialize an empty list to store the events
+        self.events = []
+
+    def book(self, start: int, end: int) -> bool:
+        # Iterate over the list of events
+        for event_start, event_end in self.events:
+            # Check if the new event overlaps with an existing event
+            if not (end <= event_start or start >= event_end):
+                # If there is an overlap, return False (booking fails)
+                return False
+        # If no overlap is found, add the event to the calendar
+        self.events.append((start, end))
+        # Return True indicating successful booking
+        return True
+
+--
+
+
+===================================================================================================================
+
+
+-- NUMBER OF BURGERS with no waste of ingrediants
+
+
+-- https://leetcode.com/problems/number-of-burgers-with-no-waste-of-ingredients/solutions/4840518/easy-beginner-friendly-solution-in-cpp-0ms-beats-100-0-1-solution/
+--
+
+
+--class Solution:
+    def numOfBurgers(self, to: int, ch: int) -> List[int]:
+
+        if ch > to:
+            return []
+        else:
+            if (to > ch * 4) and (to < ch * 2):
+                return []
+            else:
+                if to % 2 == 0:
+                    x = to - (2 * ch)
+                    y = x // 2
+                    z = ch - y
+                    return [y, z]
+                
+                else:
+                    return []
+--
+
+
+=======================================================================================================================
+
+
+-- Count the servers that communicate
+
+
+-- https://leetcode.com/problems/count-servers-that-communicate/
+--
+
+
+--
+class Solution:
+    def countServers(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+
+        row = [0] * m
+        col = [0] * n
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    row[i] += 1
+                    col[j] += 1
+        
+        res = 0
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] and (row[i] > 1 or col[j] > 1):
+                    res += 1
+        
+        return res
+        
+--
+
+==============================================================================================================================
+
+
+-- Search Suggestions
+
+
+-- https://leetcode.com/problems/search-suggestions-system/
+--
+
+--class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        products.sort()
+
+        prefix = ""
+        res = []
+
+        for i in searchWord:
+            prefix += i
+            suggestions = []
+
+            for j in range(len(products)):
+                if products[j].startswith(prefix):
+                    suggestions.append(products[j])
+                    if len(suggestions) == 3:
+                        break
+            
+            res.append(suggestions)
+        
+        return res
+--
+
+====================================================================================================================
