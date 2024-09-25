@@ -457,3 +457,36 @@ class Solution:
 --
 
 ====================================================================================================================
+
+
+-- Count squares submatrices with all ones
+
+
+-- https://leetcode.com/problems/count-square-submatrices-with-all-ones/submissions/
+--
+
+-
+class Solution:
+    def countSquares(self, mp: List[List[int]]) -> int:
+        m = len(mp)
+        n = len(mp[0])
+
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        total_squares = 0
+
+        for i in range(m):
+            for j in range(n):
+
+                if mp[i][j] == 1:
+                    if i == 0 or j == 0:
+                        dp[i][j] = 1
+                    
+                    else:
+                        dp[i][j] = min(dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1]) + 1
+                total_squares += dp[i][j]
+        
+        return total_squares
+-
+
+
+=============================================================================================================================
