@@ -554,3 +554,29 @@ class Solution:
 
 
 ============================================================================================================================
+
+-- Remove covered intervals
+
+
+-- https://leetcode.com/problems/remove-covered-intervals/
+--
+
+
+--
+class Solution:
+    def removeCoveredIntervals(self, inter: List[List[int]]) -> int:
+        cnt = 0
+        inter.sort(key=lambda x:(x[0], -x[1]))
+
+        ending_time = 0
+
+        for i in range(len(inter)):
+            if ending_time < inter[i][1]:
+                cnt += 1
+                ending_time = inter[i][1]
+
+        return cnt
+--
+
+
+==========================================================================================================================
