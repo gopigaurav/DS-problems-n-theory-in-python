@@ -490,3 +490,67 @@ class Solution:
 
 
 =============================================================================================================================
+
+
+-- Group the people given the group size
+
+
+-- https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/
+--
+
+
+--
+from collections import defaultdict
+
+class Solution:
+    def groupThePeople(self, gs: List[int]) -> List[List[int]]:
+        m = defaultdict(list)
+
+        for i, num in enumerate(gs):
+            m[num].append(i)
+
+        res = []
+        for group_size, people in m.items():
+            for i in range(0, len(people), group_size):
+                res.append(people[i: i + group_size])
+
+        return res
+
+--
+
+
+==========================================================================================================================
+
+-- Find the smallest divisor given a threshold
+
+
+-- https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/
+--
+
+--
+class Solution:
+    def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        left = 1  # Smallest divisor should start from 1
+        right = max(nums)  # Largest possible divisor can be the maximum element in the array
+
+        def check(num):
+            csum = 0
+            for i in nums:
+                csum += ceil(i / num)  # Use ceil to simulate rounding up the division result
+            return csum
+
+        ans = float("inf")
+        while left <= right:
+            mid = (left + right) // 2
+
+            if check(mid) > threshold:
+                left = mid + 1
+            else:
+                ans = min(ans, mid)
+                right = mid - 1
+        
+        return ans
+--
+
+
+============================================================================================================================
