@@ -1038,3 +1038,46 @@ class Solution:
 --
 
 ========================================================================================================================
+
+
+-- Matrix block sum
+
+
+-- https://leetcode.com/problems/matrix-block-sum/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def matrixBlockSum(self, mat: List[List[int]], k: int) -> List[List[int]]:
+        m = len(mat)
+        n = len(mat[0])
+
+        # Step 1: Build prefix sum array with extra row and column
+        prefix = [[0] * (n + 1) for _ in range(m + 1)]
+
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                prefix[i][j] = mat[i - 1][j - 1] + prefix[i - 1][j] + prefix[i][j - 1] - prefix[i - 1][j - 1]
+
+        # Step 2: Calculate the block sum using the prefix sum
+        def get_sum(r1, c1, r2, c2):
+            r1, c1 = max(0, r1), max(0, c1)  # handle boundaries
+            r2, c2 = min(m, r2), min(n, c2)  # handle boundaries
+            return prefix[r2][c2] - prefix[r1][c2] - prefix[r2][c1] + prefix[r1][c1]
+
+        result = [[0] * n for _ in range(m)]
+
+        for i in range(m):
+            for j in range(n):
+                r1, c1 = i - k, j - k
+                r2, c2 = i + k + 1, j + k + 1
+                result[i][j] = get_sum(r1, c1, r2, c2)
+
+        return result
+
+--
+
+============================================================================================================================
