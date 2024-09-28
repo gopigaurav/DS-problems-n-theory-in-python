@@ -886,3 +886,73 @@ class Solution:
 
 
 ==========================================================================================================================
+
+-- Jump game 3
+
+
+-- https://leetcode.com/problems/jump-game-iii/submissions/1405149002/
+--
+
+
+--
+class Solution:
+    def canReach(self, arr: List[int], start: int) -> bool:
+
+        # Using queue and BFS to get the solution since you can jump to i - arr[i] or i - arr[i]
+
+
+        q = []
+        q.append(start)
+        vis = [0] * len(arr)
+        n = len(arr)
+
+        while q:
+
+            index = q.pop(0)
+
+            vis[index] = 1
+ 
+            if arr[index] == 0:
+                return True
+
+            left = index - arr[index]
+
+            if left >= 0 and not vis[left]:
+                q.append(left)
+            
+            right = index + arr[index]
+            if right < n and not vis[right]:
+                q.append(right)
+        
+        return False
+--
+
+
+==============================================================================================================================
+
+
+-- Xor queries of a subarrya
+
+
+-- https://leetcode.com/problems/xor-queries-of-a-subarray/
+--
+
+--
+class Solution:
+    def xorQueries(self, arr: List[int], queries: List[List[int]]) -> List[int]:
+
+        prefix = [0] * (len(arr) + 1)
+
+        for i in range(1, len(arr) + 1):
+            prefix[i] = prefix[i - 1] ^ arr[i - 1]
+
+        result = []
+        for left, right in queries:
+            result.append(prefix[left] ^ prefix[right + 1])
+        
+        return result
+        
+--
+
+
+============================================================================================================================
