@@ -956,3 +956,85 @@ class Solution:
 
 
 ============================================================================================================================
+
+-- Subarray with given sum
+
+
+-- https://www.geeksforgeeks.org/problems/subarray-with-given-sum-1587115621/1?page=1&sortBy=submissions
+--
+
+
+-
+class Solution:
+    def subArraySum(self,arr, n, s): 
+       #Write your code 
+       
+        left = 0
+       
+        for right in range(n):
+           
+            cur_sum += arr[right]
+           
+            if cur_sum == s:
+                return [left + 1, right + 1]
+           
+            while cur_sum > s and left <= right:
+                cur_sum -= arr[left]
+                left += 1
+            
+            if cur_sum == s and s != 0:
+                return [left + 1, right + 1]
+        
+        return [-1]
+-
+
+
+======================================================================================================================
+
+-- Get watched by your friends
+
+
+-- https://leetcode.com/problems/get-watched-videos-by-your-friends/
+--
+
+--
+class Solution:
+    def watchedVideosByFriends(self, w: List[List[str]], f: List[List[int]], id: int, level: int) -> List[str]:
+
+        q = []
+
+        # node and the depth
+        q.append((id, 0))
+        vis = [0] * len(w)
+        vis[id] = 1
+        res = []
+
+        while q:
+            node, cur_level = q.pop(0)
+
+            if cur_level == level:
+                res.append(node)
+            elif cur_level < level:
+                for i in f[node]:
+                    if not vis[i]:
+                        vis[i] = 1
+                        q.append((i, cur_level + 1))
+        
+        m = {}
+        
+        # Count the frequency of videos watched by friends at the target level
+        for index in res:
+            for v in w[index]:
+                if v in m:
+                    m[v] += 1
+                else:
+                    m[v] = 1
+
+        return sorted(m.keys(), key=lambda x: (m[x], x))
+
+            
+
+        
+--
+
+========================================================================================================================
