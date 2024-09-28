@@ -704,12 +704,127 @@ class Solution:
 
 
 -- https://leetcode.com/problems/maximum-number-of-occurrences-of-a-substring/description/
---
+-- https://leetcode.com/problems/maximum-number-of-occurrences-of-a-substring/submissions/1404853330/
 
 
 --
+from collections import defaultdict
+class Solution:
+    def maxFreq(self, s: str, maxLetters: int, minSize: int, maxSize: int) -> int:
+        string_count = defaultdict(int)
+        ans = 0
+        for i in range(len(s) - minSize + 1):
+            string = s[i : i + minSize]
+            unique_string = set(string)
+            
+            # since the length is used you can use length to get the maximum unique letters
+            if len(unique_string) <= maxLetters:
+                string_count[string] += 1
+                ans = max(ans, string_count[string])
+
+        return ans
 --
 
 
 
 ===============================================================================================================================
+
+-- Sum of Mutated Array Closest to Target
+
+
+-
+- https://leetcode.com/problems/sum-of-mutated-array-closest-to-target/description/
+
+--
+class Solution:
+    def findBestValue(self, arr: List[int], target: int) -> int:        
+        
+        arr.sort()
+
+        prefix_sum = [0]
+        for num in arr:
+            prefix_sum.append(prefix_sum[-1] + num)
+
+        def helper(arr, value):
+            left, right = 0, len(arr) - 1
+
+            while left <= right:
+                mid = (left + right)// 2
+
+                if arr[mid] > value:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+                
+            return left
+
+
+        left = 0
+        right = max(arr)
+        closest_sum_diff = float('inf')
+        best_value = right
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            index = helper(arr, mid)
+
+            # get the total sum after replacing the number with the mid
+            curr_sum = prefix_sum[index] + (len(arr) - index) * mid
+            diff = abs(curr_sum - target)
+
+            if diff < closest_sum_diff or (diff == closest_sum_diff and mid < best_value):
+                best_value = mid
+                closest_sum_diff = diff
+            
+            if curr_sum < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        
+        return best_value
+--
+
+===============================================================================================================================
+
+-- Deepest leaves sum
+
+
+-- https://leetcode.com/problems/deepest-leaves-sum/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
+
+        # returning the array with depth and the node
+        def dfs(node, depth):
+            if not node:
+                return (0, 0)
+
+            if not node.left and not node.right:
+                return (node.val, depth)
+            
+            left = dfs(node.left, depth + 1)
+            right = dfs(node.right, depth + 1)
+
+            if left[1] > right[1]:
+                return left
+            elif right[1] > left[1]:
+                return right
+            else:
+                return (left[0] + right[0], left[1])
+        
+        return dfs(root, 0)[0]
+--
+
+
+=============================================================================================================================
