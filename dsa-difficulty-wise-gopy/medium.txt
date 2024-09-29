@@ -1393,3 +1393,95 @@ class Solution:
 
 
 ===================================================================================================================================
+
+
+-- Number of subarrys of size k and average greater than or equal to threshold
+
+
+-- https://leetcode.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/
+--
+
+
+--
+class Solution:
+    def numOfSubarrays(self, arr: List[int], k: int, threshold: int) -> int:
+        n = len(arr)
+        left = 0
+        right = 0
+        cur_sum = 0
+        cnt = 0
+
+        while right < n:
+            cur_sum += arr[right]
+
+            if right - left + 1 < k:
+                right += 1
+                continue
+            else:
+                if (cur_sum // k)  >= threshold:
+                    cnt += 1
+                
+                cur_sum -= arr[left]
+                
+                right += 1
+                left += 1 
+        
+        return cnt
+            
+        
+--
+
+===========================================================================================================================
+
+-- Angle between hands of a clock
+
+
+-- https://leetcode.com/problems/minimum-number-of-steps-to-make-two-strings-anagram/submissions/1406105855/
+--
+
+
+--
+from collections import defaultdict
+
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+        map_s = defaultdict(int)
+        map_t = defaultdict(int)
+        n = len(s)
+        m = len(t)
+        i = 0
+        j = 0
+
+        while i < n or j < m:
+            if i < n:
+                map_s[s[i]] += 1
+            if j < n:
+                map_t[t[i]] += 1
+            i += 1
+            j += 1
+        
+
+        cnt = 0
+
+        for char in map_s:
+            if map_s[char] > map_t[char]:
+                cnt += map_s[char] - map_t[char]
+
+        return cnt       
+
+        
+--
+
+
+====================================================================================================================
+
+
+-- Tweet Counts per Frequency
+
+-- https://leetcode.com/problems/tweet-counts-per-frequency/description/
+
+
+--
+--
+
+============================================================================================================================
