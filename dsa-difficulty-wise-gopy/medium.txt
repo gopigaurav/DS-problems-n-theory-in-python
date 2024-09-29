@@ -1145,3 +1145,198 @@ class Solution:
 
 
 ========================================================================================================================
+
+-- Print words vertically
+
+
+-- https://leetcode.com/problems/print-words-vertically/
+--
+
+--
+class Solution:
+    def printVertically(self, s: str) -> List[str]:
+        split_arr = s.split()
+        max_str_len = max(len(word) for word in split_arr)
+
+
+        res = []
+
+        i = 0
+        while i < max_str_len:
+            string_len = ""
+
+            for word in split_arr:
+                if i < len(word):
+                    string_len += word[i]
+                else:
+                    string_len += " "
+            res.append(string_len.rstrip())
+            i += 1
+
+        return res     
+--
+
+
+============================================================================================================================
+
+-- Delete leaves with a given value
+
+
+-- https://leetcode.com/problems/delete-leaves-with-a-given-value/
+--
+
+
+--
+class Solution:
+    def removeLeafNodes(self, root: Optional[TreeNode], target: int) -> Optional[TreeNode]:
+        temp = root
+
+        def dfs(node, target):
+
+            if not node:
+                return None
+
+            node.left = dfs(node.left, target)
+            node.right = dfs(node.right, target)
+
+            if not node.left and not node.right and node.val == target:
+                return None
+            return node
+        
+        return dfs(root, target)
+--
+
+===========================================================================================================================
+
+-- break a Palindrome (Important)
+
+
+-- https://leetcode.com/problems/break-a-palindrome/description/
+--
+
+
+--
+class Solution:
+    def breakPalindrome(self, palindrome: str) -> str:
+        n = len(palindrome)
+        if n <= 1:
+            return ""
+
+        # Traverse the string untill the half length 
+        # if the character is "a" is not found at that position, replace and return
+        # else if all the characters are "a" then replace the last element with next character "b"
+
+        res = list(palindrome)
+
+        for i in range(len(res) // 2):
+            if palindrome[i] != 'a':
+                res[i] = 'a'
+                return "".join(res)
+        
+        res[-1] = 'b'
+        return "".join(res)
+--
+
+
+=====================================================================================================================
+
+
+-- Sort the matrix diagonally
+
+
+-- https://leetcode.com/problems/sort-the-matrix-diagonally/
+--
+
+
+--
+from collections import defaultdict
+
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+
+        diagonals = defaultdict(list)
+        
+        m, n = len(mat), len(mat[0])
+        
+        # Step 1: Group elements by diagonals and push into heaps
+        # for the diagonals the i - j has the same slope for diagonal elements
+        for i in range(m):
+            for j in range(n):
+                heapq.heappush(diagonals[i - j], mat[i][j])
+        
+        # Step 2: Replace matrix elements with the sorted diagonal elements from the heap
+        for i in range(m):
+            for j in range(n):
+                mat[i][j] = heapq.heappop(diagonals[i - j])
+        
+        return mat
+--
+
+
+===============================================================================================================================
+
+
+-- Filter restaurents by vegan friendly price and distance
+
+
+-- https://leetcode.com/problems/filter-restaurants-by-vegan-friendly-price-and-distance/submissions/1405999741/
+--
+
+
+--
+class Solution:
+    def filterRestaurants(self, restaurants: List[List[int]], veganFriendly: int, maxPrice: int, maxDistance: int) -> List[int]:
+        n = len(restaurants)
+        res = []
+        for i in range(n):
+            if (veganFriendly == 0 or restaurants[i][2] == veganFriendly) and restaurants[i][3] <= maxPrice and restaurants[i][4] <= maxDistance:
+                res.append((restaurants[i][1], restaurants[i][0]))
+
+        res.sort(reverse=True,key=lambda x:(x[0], x[1]))
+
+        return [v for u, v in res]
+--
+
+
+===========================================================================================================================
+
+-- Reduce array size to the half
+
+
+-- https://leetcode.com/problems/reduce-array-size-to-the-half/
+--
+
+
+--
+from heapq import heappop, heappush
+from collections import defaultdict
+class Solution:
+    def minSetSize(self, arr: List[int]) -> int:
+        m = defaultdict(int)
+
+        n = len(arr)
+
+        for i in range(n):
+            m[arr[i]] += 1
+        
+        # m now has the freqeuncy array
+        m = sorted(m.values(), reverse=True)
+        cnt = 0
+        removed_el = 0
+
+        # iterate through the frequency array reduce that frequency amount and increment the count
+        for i in m:
+            removed_el += i
+            cnt += 1
+
+            if removed_el >= n // 2:
+                break
+
+        return cnt
+            
+--
+
+
+==================================================================================================================================
+
+
