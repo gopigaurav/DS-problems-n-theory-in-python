@@ -1339,4 +1339,57 @@ class Solution:
 
 ==================================================================================================================================
 
+-- Maximum prodcut of splitted binary tree
 
+
+-- https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxProduct(self, root: Optional[TreeNode]) -> int:
+        MOD = 10**9 + 7  # To return the result modulo 10^9 + 7
+        total_sum = 0  # To store the total sum of the tree
+        max_product = 0  # To store the maximum product
+
+        # First, get the total sum of the entire tree
+        def get_total_sum(node):
+            if not node:
+                return 0
+            return node.val + get_total_sum(node.left) + get_total_sum(node.right)
+
+        # Second, calculate the max product by finding each subtree's sum
+        def get_subtree_sum(node):
+            nonlocal max_product
+            if not node:
+                return 0
+
+            # Get the sum of the current subtree
+            left_sum = get_subtree_sum(node.left)
+            right_sum = get_subtree_sum(node.right)
+            subtree_sum = node.val + left_sum + right_sum
+
+            # Calculate product of splitting the tree at this subtree
+            max_product = max(max_product, (total_sum - subtree_sum) * subtree_sum)
+
+            return subtree_sum
+
+        # Step 1: Calculate the total sum of the tree
+        total_sum = get_total_sum(root)
+
+        # Step 2: Traverse again to calculate the max product
+        get_subtree_sum(root)
+
+        # Return the maximum product modulo 10^9 + 7
+        return max_product % MOD
+--
+
+
+===================================================================================================================================
