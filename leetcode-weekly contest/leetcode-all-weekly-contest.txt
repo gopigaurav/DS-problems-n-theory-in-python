@@ -1,3 +1,43 @@
+-- 417 
+
+
+
+-- Find the kth character
+
+
+--
+--
+
+
+-
+class Solution:
+    def kthCharacter(self, k: int) -> str:
+        times = 1
+        length = 1
+
+        while length <= k:
+            times += 1
+            length = (1 << times)
+        
+
+        i = 0
+        word = "a"
+        prev = "a"
+
+        while i <= times:
+            string = prev
+            for ch in prev:
+                next_num = ord(ch) + 1 if i != "z" else 0
+                next_char = chr(next_num)
+                string += next_char
+            prev = string
+            i += 1
+
+        return prev[k - 1]        
+-
+
+=========================================================================================================
+
 
 ====================================================================================================
 -- 414 (https://www.youtube.com/watch?v=2x1k09K4oeg)
