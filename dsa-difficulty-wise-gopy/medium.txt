@@ -1485,3 +1485,57 @@ class Solution:
 --
 
 ============================================================================================================================
+
+
+-- Maximum number of events that can be attended
+
+
+-- https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/
+--
+
+
+--
+from heapq import heappush, heappop
+
+class Solution:
+    def maxEvents(self, events: List[List[int]]) -> int:
+        
+        events.sort()
+        n = len(events)
+
+        current_day = 0
+        event_count = 0
+        i = 0
+
+        heap = []
+
+        while i < n or heap:
+            
+            # is not heap move the next available date of start date
+            if not heap:
+                current_day = events[i][0]
+            
+            # add all the events which is on the current day
+            while i < n and events[i][0] <= current_day:
+                heappush(heap, events[i][1])
+                i += 1
+            
+            # Remove events from the heap that have already ended
+            while heap and heap[0] < current_day:
+                heappop(heap)
+
+            if heap:
+                heappop(heap)
+                event_count += 1
+        
+            current_day += 1
+
+        return event_count
+
+            
+
+        
+--
+
+
+=============================================================================================================================
