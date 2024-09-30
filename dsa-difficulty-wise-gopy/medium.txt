@@ -1578,3 +1578,70 @@ class Solution:
 
 
 ==============================================================================================================================
+
+-- Validate binary tree nodes
+
+-- https://leetcode.com/problems/validate-binary-tree-nodes/
+--
+
+
+--
+class Solution:
+    def validateBinaryTreeNodes(self, n: int, left: List[int], right: List[int]) -> bool:
+
+        indegree = [0] * n
+
+        i = 0
+
+        while i < n:
+            if left[i] != -1:
+                indegree[left[i]] += 1
+            if right[i] != -1:
+                indegree[right[i]] += 1
+
+            i += 1
+
+        # root count should be equal to 1 if not return False
+        root_count = 0
+        root = -1
+        for i in range(n):
+            if indegree[i] == 0:
+                root_count += 1
+                root = i
+        
+        # If there's not exactly one root, it's not a valid binary tree
+        if root_count != 1:
+            return False
+        
+        vis = [0] * n
+        cycle = True
+        def dfs(node, vis):
+            nonlocal cycle
+            if node == -1:
+                return
+
+            if vis[node]: # there is a cycle in the binary tree
+                cycle = False
+                return 
+
+            vis[node] = 1
+
+            dfs(left[node], vis)
+            dfs(right[node], vis)
+
+        # dfs to check all the nodes to be connected or not
+        dfs(root, vis)
+        return all(vis) and cycle
+    
+        
+--
+
+
+==========================================================================================================================
+
+-- 
+
+
+
+
+
