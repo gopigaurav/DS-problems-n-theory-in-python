@@ -1539,3 +1539,42 @@ class Solution:
 
 
 =============================================================================================================================
+
+
+-- Number of substrings containing all three characters
+
+
+--
+--
+
+--
+from collections import defaultdict
+class Solution:
+    def numberOfSubstrings(self, s: str) -> int:
+        char_count = defaultdict(int)
+        n = len(s)
+
+        i = 0
+        j = 0
+        k = 3
+        cnt = 0
+        
+        while j < n:
+            char_count[s[j]] += 1
+
+            while len(char_count) == 3:
+
+                cnt += len(s) - j
+                char_count[s[i]] -= 1
+
+                if char_count[s[i]] == 0:
+                    del char_count[s[i]]
+                i += 1
+            j += 1
+        
+        return cnt
+
+--
+
+
+==============================================================================================================================
