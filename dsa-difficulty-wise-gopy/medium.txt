@@ -1639,9 +1639,107 @@ class Solution:
 
 ==========================================================================================================================
 
--- 
+-- Closest divisers 
+
+
+-- https://leetcode.com/problems/closest-divisors/submissions/1407425844/
+--
 
 
 
+--
+import math
+class Solution:
+    def closestDivisors(self, num: int) -> List[int]:
+        
+        def find_closest_product(n):
+            for i in range(int(math.sqrt(n)), 0, -1):
+                if n % i == 0:
+                    return [i, n // i]
 
+        num1_divisor = find_closest_product(num + 1)
+        num2_divisor = find_closest_product(num + 2)
+
+        if abs(num1_divisor[0] - num1_divisor[1]) > abs(num2_divisor[0] - num2_divisor[1]):
+            return num2_divisor
+        else:
+            return num1_divisor
+        
+--
+
+
+====================================================================================================================================
+
+
+-- Rank team by votes  (Imp)
+
+
+-- https://leetcode.com/problems/rank-teams-by-votes/submissions/1407807178/
+--
+
+
+--
+class Solution:
+    def rankTeams(self, votes: List[str]) -> str:
+        
+        teams = len(votes[0])
+        d = {}
+
+        for vote in votes:
+            for i, char in enumerate(vote):
+                if char not in d:
+                    d[char] = [0] * len(vote)
+                d[char][i] += 1
+
+        voted_name = sorted(d.keys())
+        print(voted_name, d)
+
+        return "".join(sorted(voted_name, key=lambda x:d[x], reverse=True))
+--
+
+
+================================================================================================================================
+
+-- Linked list in a binary tree
+
+
+-- https://leetcode.com/problems/linked-list-in-binary-tree/
+--
+
+
+--
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
+
+        def dfs(listnode, treenode):
+            if not listnode:  # If we've reached the end of the list, it's a match
+                return True
+            if not treenode:  # If the tree node is None, no match
+                return False
+            if listnode.val != treenode.val:  # If values don't match, return False
+                return False
+            # Recursively check both left and right subtrees
+            return dfs(listnode.next, treenode.left) or dfs(listnode.next, treenode.right)
+
+
+        if not root:
+            return False
+        
+        return dfs(head, root) or self.isSubPath(head, root.left) or self.isSubPath(head, root.right)
+
+--
+
+
+==================================================================================================================
 
