@@ -1743,3 +1743,46 @@ class Solution:
 
 ==================================================================================================================
 
+
+-- Find the longest substring containing vowels in even counts
+
+
+-- https://leetcode.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/
+--
+
+
+--
+class Solution:
+    def findTheLongestSubstring(self, s: str) -> int:
+        # Map vowels to their bit positions
+        vowels = {'a': 1, 'e': 2, 'i': 4, 'o': 8, 'u': 16}
+        
+        # Bitmask to track the parity of vowel counts
+        bitmask = 0
+        
+        # Dictionary to store the first occurrence of each bitmask
+        position_map = {0: -1}
+        
+        # Variable to store the maximum length of the valid substring
+        max_len = 0
+        
+        for i, char in enumerate(s):
+            # If the character is a vowel, flip the corresponding bit
+            if char in vowels:
+                bitmask ^= vowels[char]
+            
+            # If the current bitmask has been seen before
+            if bitmask in position_map:
+                # Update max_len with the distance between current index and previous occurrence of the same bitmask
+                max_len = max(max_len, i - position_map[bitmask])
+            else:
+                # Otherwise, store the first occurrence of this bitmask
+                position_map[bitmask] = i
+        
+        return max_len
+
+--
+
+
+========================================================================================================================
+
