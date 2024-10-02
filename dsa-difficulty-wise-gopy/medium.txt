@@ -1963,3 +1963,138 @@ class Solution:
 
 
 ==========================================================================================================================
+
+-- Sort the integers by the power value
+
+
+-- 
+-- https://leetcode.com/problems/sort-integers-by-the-power-value/
+
+
+--
+class Solution:
+    def getKth(self, lo: int, hi: int, k: int) -> int:
+
+        def get_power_value(x):
+            steps = 0
+
+            while x > 1:
+                if x % 2 == 0:
+                    x = x // 2
+                else:
+                    x = x * 3 + 1
+                steps += 1
+            return steps
+
+        res = []
+        for i in range(lo, hi + 1):
+            res.append((get_power_value(i), i))
+        
+        res.sort(key=lambda x:x[0])
+
+        return res[k - 1][1]
+            
+
+        
+--
+
+
+==========================================================================================================================
+
+
+-- Count the number of teams
+
+
+-- https://leetcode.com/problems/count-number-of-teams/submissions/1409330184/
+--
+
+
+--
+class Solution:
+    def numTeams(self, rating: List[int]) -> int:
+        n = len(rating)
+        if n < 3:
+            return 0
+        
+        # Initialize arrays to count smaller and larger soldiers to the left and right
+        left_smaller = [0] * n
+        left_larger = [0] * n
+        right_smaller = [0] * n
+        right_larger = [0] * n
+        
+        # Calculate the left_smaller and left_larger for each soldier
+        for i in range(n):
+            for j in range(i):
+                if rating[j] < rating[i]:
+                    left_smaller[i] += 1
+                elif rating[j] > rating[i]:
+                    left_larger[i] += 1
+        
+        # Calculate the right_smaller and right_larger for each soldier
+        for i in range(n):
+            for j in range(i + 1, n):
+                if rating[j] > rating[i]:
+                    right_larger[i] += 1
+                elif rating[j] < rating[i]:
+                    right_smaller[i] += 1
+        
+        # Calculate the number of valid teams
+        total_teams = 0
+        for i in range(n):
+            # Increasing triplets
+            total_teams += left_smaller[i] * right_larger[i]
+            # Decreasing triplets
+            total_teams += left_larger[i] * right_smaller[i]
+        
+        return total_teams
+
+
+        
+--
+
+
+==============================================================================================================================
+
+-- Contruct k paindrome strings
+
+
+-- https://leetcode.com/problems/construct-k-palindrome-strings/submissions/1409350280/
+--
+
+
+--
+class Solution:
+    def canConstruct(self, s: str, k: int) -> bool:
+        if len(s) < k:
+            return False
+
+        n = len(s)
+        m = {}
+        
+        for i in s:
+            m[i] = m.get(i, 0) + 1
+        
+        # the frequency of the character is greter than k then it is impossible to form the palindromic string 
+        # else it is true
+        odd_count = sum(1 for count in m.values() if count % 2 != 0)
+
+        return odd_count <= k 
+
+        
+--
+
+=============================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
