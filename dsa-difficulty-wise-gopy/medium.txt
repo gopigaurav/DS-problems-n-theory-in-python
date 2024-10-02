@@ -2086,14 +2086,148 @@ class Solution:
 =============================================================================================================================
 
 
+-- Number of steps to reduce in binary representation to one
 
 
 
+--
+-- https://leetcode.com/problems/number-of-steps-to-reduce-a-number-in-binary-representation-to-one/
+
+
+--
+class Solution:
+    def numSteps(self, s: str) -> int:
+        steps = 0
+        
+        while s != "1":
+            if s[-1] == "0":
+                s = s[:-1]
+            else:
+                # convert the string to decimal increment and then convert back to binary eg "0b1110"
+                s = bin(int(s, 2) + 1)[2:]
+            steps += 1
+
+        return steps
+        
+--
+
+===============================================================================================================================
+
+
+-- Longest happy string
+
+
+-- https://leetcode.com/problems/longest-happy-string/submissions/1409397836/
+--
+
+
+--
+from collections import Counter
+
+class Solution:
+    def longestDiverseString(self, a: int, b: int, c: int) -> str:
+        m = Counter({"a": a, "b": b, "c": c})
+        res = ["#"]
+
+        while True:
+            (a1, count1), (a2, count2) = m.most_common(2)
+
+            if a1 == res[-1] == res[-2]:
+                a1 = a2 # if 2 char is already present in the response array just use the second character
+
+            if not m[a1]:
+                break
+            res.append(a1)
+            m[a1] -= 1
+            
+        
+        return "".join(res[1:])
+--
+
+
+========================================================================================================================
+
+-- Queries on a permutaion with key (Imp)
 
 
 
+-- https://leetcode.com/problems/queries-on-a-permutation-with-key/
+--
 
 
+--
+class Solution: 
+    def processQueries(self, queries: List[int], m: int) -> List[int]:
+        result = []
+        
+        m = [x for x in range(1, m + 1)]
+        
+        for x in queries:
+            result.append(m.index(x))  # get the index of the q
+            m.remove(x) # remove the element from that index
+            m.insert(0, x) # inser the element at the start
+        
+        return result
+--
+
+
+=============================================================================================================================
+
+
+-- Html entity parser
+
+
+-- https://leetcode.com/problems/html-entity-parser/
+--
+
+
+--
+class Solution:
+    def entityParser(self, text: str) -> str:
+        m = {
+            '&quot;': '"',
+            '&apos;': '\'',
+            '&amp;': '&',
+            '&gt;': '>',
+            '&lt;': '<',
+            '&frasl;': '/'
+        }
+
+        # minlen = 6, maxlen = 4
+
+
+        def checker(start):
+            # Try to find the longest possible entity from the current position
+            for length in range(4, 8):  # Entities have lengths between 4 and 6
+                candidate = text[start:start + length]
+                if candidate in m:
+                    return m[candidate], length  # Return the entity replacement and its length
+            return False, 1
+
+
+        n = len(text)
+        i = 0
+        res = ""
+        while i < n:
+
+            if text[i] != "&":
+                res += text[i]
+                i += 1
+            else:
+                found, length = checker(i)
+                if found:
+                    res += found
+                    i += length
+                else:
+                    res += text[i]
+                    i += 1
+        return res
+
+
+        
+--
+
+============================================================================================================================
 
 
 
