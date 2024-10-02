@@ -2353,7 +2353,39 @@ class Solution:
 
 ============================================================================================================================
 
+-- Diagonal traversal
 
+
+
+-- https://leetcode.com/problems/diagonal-traverse-ii/
+--
+
+
+--
+from collections import defaultdict
+
+class Solution:
+    def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
+        diagonals = defaultdict(list)
+        
+        m, n = len(nums), len(nums[0])
+        
+        # Step 1: Group elements by diagonals and push into heaps
+        # for the diagonals the i + j has the same slope for diagonal elements
+        for i in range(len(nums)):
+            for j in range(len(nums[i])):
+                diagonals[i + j].append(nums[i][j])
+
+        res = []
+        # Step 2: Append elements in the order of diagonals
+        for k in sorted(diagonals.keys()):
+            res.extend(reversed(diagonals[k]))  # Reversed to maintain the correct diagonal order
+
+        return res
+--
+
+
+===============================================================================================================================
 
 
 
