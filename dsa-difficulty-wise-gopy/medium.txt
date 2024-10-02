@@ -2230,5 +2230,130 @@ class Solution:
 ============================================================================================================================
 
 
+-- Find the minimum number of fibonacci whose sum is k
+
+
+
+--
+-- https://leetcode.com/problems/find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k/submissions/1409497619/
+
+
+--
+class Solution:
+    def findMinFibonacciNumbers(self, k: int) -> int:
+        
+        # the idea here is to subtract from the largest fib from the end of the array
+
+        fib = [1, 1]
+
+        while fib[-1] <= k:
+            fib.append(fib[-1] + fib[-2])
+        
+        index = len(fib) - 1
+        cnt = 0
+
+        while k > 0:
+            if fib[index] <= k:
+                k -= fib[index]
+                cnt += 1
+            index -= 1
+        
+        return cnt 
+
+
+
+        
+--
+
+
+===========================================================================================================================
+
+
+-- Four divisors
+
+
+-- https://leetcode.com/problems/four-divisors/
+--
+
+
+--
+class Solution:
+    def sumFourDivisors(self, nums: List[int]) -> int:
+
+        def divisors(num):
+            div = set()
+
+            for i in range(1, int(math.sqrt(num)) + 1):
+                if num % i == 0:
+                    div.add(i)
+                    div.add(num // i)
+            if len(div) == 4:
+                
+                return sum(div)
+            return False
+        
+        n = len(nums)
+        cnt = 0
+
+        for i in range(n):
+            c = divisors(nums[i])
+            if c:
+                cnt += c
+        
+        return cnt
+--
+
+======================================================================================================================================
+
+
+-- Check if there is a Valid path in a grid
+
+
+--
+-- https://leetcode.com/problems/minimum-number-of-frogs-croaking/submissions/1409685642/
+
+
+--
+class Solution:
+    def minNumberOfFrogs(self, croakOfFrogs: str) -> int:
+        c = r = o = a = k = 0
+        frogs = 0 
+        max_frogs = 0 
+
+        for char in croakOfFrogs:
+            if char == 'c':
+                c += 1
+                frogs += 1  # A new frog starts croaking
+                max_frogs = max(max_frogs, frogs)  # Update maximum active frogs
+            elif char == 'r':
+                r += 1
+                if r > c:
+                    return -1  # More 'r' than 'c', invalid sequence
+            elif char == 'o':
+                o += 1
+                if o > r:
+                    return -1  # More 'o' than 'r', invalid sequence
+            elif char == 'a':
+                a += 1
+                if a > o:
+                    return -1  # More 'a' than 'o', invalid sequence
+            elif char == 'k':
+                k += 1
+                if k > a:
+                    return -1  # More 'k' than 'a', invalid sequence
+                frogs -= 1 
+
+        # After processing, all counts should be equal
+        if c == r == o == a == k:
+            return max_frogs
+        else:
+            return -1 
+--
+
+
+============================================================================================================================
+
+
+
 
 
