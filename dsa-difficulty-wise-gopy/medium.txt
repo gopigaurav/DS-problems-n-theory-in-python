@@ -1786,3 +1786,95 @@ class Solution:
 
 ========================================================================================================================
 
+-- Longest zig zag path in a binary tree
+
+
+-- https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/
+--
+
+
+--
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        ans = 0
+        def traverse(node, cnt, prev):
+            nonlocal ans
+            if not node:
+                ans = max(ans, cnt)
+                return
+            if prev:
+                traverse(node.left, cnt+1, 0)
+                traverse(node.right, 0, 1)
+            else:
+                traverse(node.right, cnt+1, 1)
+                traverse(node.left, 0, 0)
+        traverse(root.left, 0, 0)
+        traverse(root.right, 0, 1)
+        return ans
+--
+
+
+=====================================================================================================================
+
+-- Number of times binary string is prefix aligned
+
+
+-- https://leetcode.com/problems/number-of-times-binary-string-is-prefix-aligned/
+--
+
+
+--
+class Solution:
+    def numTimesAllBlue(self, flips: List[int]) -> int:
+        max_flipped = 0
+
+        cnt = 0
+
+        for i, flip in enumerate(flips, 1): # 1 at the end make it 1 index
+            max_flipped = max(max_flipped, flip)
+
+            if max_flipped == i:
+                cnt += 1
+        
+        return cnt
+--
+
+
+=============================================================================================================================
+-- Time needed to inform all employees
+
+
+-- https://leetcode.com/problems/time-needed-to-inform-all-employees/
+--
+
+
+--
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+        
+        # construct the graph from the given node
+
+        g = defaultdict(list)
+
+        for i, emp in enumerate(manager):
+            if emp != -1:
+                g[emp].append(i)
+    
+
+        def dfs(node):
+            if node not in g:
+                return 0
+            max_time = 0
+
+            for i in g[node]:
+                max_time = max(dfs(i), max_time)
+            return max_time + informTime[node]
+
+
+
+        return dfs(headID)
+--
+
+
+=================================================================================================================================
+
