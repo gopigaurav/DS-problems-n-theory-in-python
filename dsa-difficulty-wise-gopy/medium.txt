@@ -1744,7 +1744,7 @@ class Solution:
 ==================================================================================================================
 
 
--- Find the longest substring containing vowels in even counts
+-- Find the longest substring containing vowels in even counts (Imp)
 
 
 -- https://leetcode.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/
@@ -1878,3 +1878,88 @@ class Solution:
 
 =================================================================================================================================
 
+-- Balanace a binary tree
+
+
+-- https://leetcode.com/problems/balance-a-binary-search-tree/submissions/1409087547/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def balanceBST(self, root: TreeNode) -> TreeNode:
+        # for the bst given get eh elements in the binary search tree to an array through inorder traversal
+        # get the root and the left part comes to the left side and right part comes to right side of the root
+
+        arr = []
+
+        def inorder(node):
+            if not node:
+                return
+            
+            inorder(node.left)
+            arr.append(node.val)
+            inorder(node.right)
+
+        inorder(root)
+
+        def dfs(left, right):
+            if left > right:
+                return None
+
+            mid = (left + right) // 2
+
+            node = TreeNode(arr[mid])
+
+            node.left = dfs(left, mid - 1)
+            node.right = dfs(mid + 1, right)
+
+            return node
+
+        
+        return dfs(0, len(arr) - 1)
+
+--
+
+
+=============================================================================================================================
+
+
+
+-- Cinema seat allocation
+
+
+--
+--
+
+
+--
+class Solution:
+	def maxNumberOfFamilies(self, n: int, reservedSeats: List[List[int]]) -> int:
+		seats = collections.defaultdict(set)
+
+		for i,j in reservedSeats:
+			if j in [2,3,4,5]:
+				seats[i].add(0)
+			if j in [4,5,6,7]:
+				seats[i].add(1)
+			if j in [6,7,8,9]:
+				seats[i].add(2)
+		res = 2*n
+		for i in seats:
+			if len(seats[i]) == 3:
+				res -= 2
+			else:
+				res -= 1
+
+		return res
+--
+
+
+==========================================================================================================================
