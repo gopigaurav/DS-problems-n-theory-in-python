@@ -2388,4 +2388,81 @@ class Solution:
 ===============================================================================================================================
 
 
+-- Max diff you can get from changing an integer
 
+
+-- https://leetcode.com/problems/max-difference-you-can-get-from-changing-an-integer/submissions/1410678378/
+--
+
+
+--
+class Solution:
+    def maxDiff(self, num: int) -> int:
+        num_str = str(num)
+
+        max_a = num_str
+        for i in num_str:
+            if i != "9":
+                max_a = num_str.replace(i, "9")
+                break
+        
+        max_a = int(max_a)
+
+
+        min_b = num_str
+        if min_b[0] != "1":
+            min_b = min_b.replace(min_b[0], "1")
+        else:
+            for i in num_str[1:]:
+                if i != "0" and i != "1":
+                    min_b = num_str.replace(i, "0")
+                    break
+        min_b = int(min_b)
+        return max_a - min_b
+
+--
+
+
+=============================================================================================================================
+
+
+-- Check if a string can break another string
+
+
+--
+--
+
+
+--
+class Solution:
+    def checkIfCanBreak(self, s1: str, s2: str) -> bool:
+        count1 = [0] * 26
+        count2 = [0] * 26
+        
+        for c in s1:
+            count1[ord(c) - ord('a')] += 1
+        for c in s2:
+            count2[ord(c) - ord('a')] += 1
+        
+        s1_breaks_s2 = True
+        s2_breaks_s1 = True
+        
+        cumulative_s1 = 0
+        cumulative_s2 = 0
+        
+	# if the cumulative is less than the other it wont break the other
+        for i in range(26):
+            cumulative_s1 += count1[i]
+            cumulative_s2 += count2[i]
+            
+            if cumulative_s1 < cumulative_s2:
+                s1_breaks_s2 = False
+            if cumulative_s2 < cumulative_s1:
+                s2_breaks_s1 = False
+        
+        return s1_breaks_s2 or s2_breaks_s1
+
+--
+
+
+==============================================================================================================================
