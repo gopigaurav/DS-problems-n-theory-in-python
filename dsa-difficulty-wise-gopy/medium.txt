@@ -2519,3 +2519,28 @@ class Solution:
 
 ===============================================================================================================================
 
+
+-- Circle and rectangle overlapping
+
+
+
+-- https://leetcode.com/problems/circle-and-rectangle-overlapping/
+--
+
+
+--
+class Solution:
+    def checkOverlap(self, radius: int, xCenter: int, yCenter: int, x1: int, y1: int, x2: int, y2: int) -> bool:
+        nearest_x = max(x1, min(x2, xCenter))
+        nearest_y = max(y1, min(y2, yCenter))
+
+        # Use Euclidean formula to get the Euclidean dist between circle and rectangle
+
+        disx = nearest_x - xCenter
+        disy = nearest_y - yCenter
+
+        return disx ** 2 + disy ** 2 <= radius ** 2
+--
+
+
+===============================================================================================================================
