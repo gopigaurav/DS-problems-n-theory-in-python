@@ -2588,3 +2588,95 @@ class Solution:
 ================================================================================================================================
 
 
+-- Display table of food orders in a restaurant
+
+
+-- https://leetcode.com/problems/sum-of-absolute-differences-in-a-sorted-array/submissions/1411790865/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def getSumAbsoluteDifferences(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        ans = []
+
+        pre = [0] * n
+        suf = [0] * n
+        pre[0] = nums[0]
+        suf[n - 1] = nums[n - 1]
+
+        for i in range(1, n):
+            pre[i] = pre[i - 1] + nums[i]
+
+        for i in range(n - 2, -1, -1):
+            suf[i] = suf[i + 1] + nums[i]
+
+        for i in range(n):
+            temp = (i + 1) * nums[i] - pre[i]
+            temp += (suf[i] - (n - i) * nums[i])
+            ans.append(temp)
+
+        return ans
+
+--
+
+
+================================================================================================================================
+
+
+-- Longest Continuous subarray with absolute diff less than or equal to limit (Neetcode) (Imp)
+
+
+-- https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        # using monotonic queue to get the solution
+        # Use 2 queues, max queue and min queue
+
+        min_queue = deque() # monotonically increasing
+        max_queue = deque() # monotonically decrease
+        n = len(nums)
+
+        left = 0
+        right = 0
+        res = 0
+
+        for right in range(n):
+            while min_queue and nums[right] < min_queue[-1]:
+                min_queue.pop()
+
+            while max_queue and nums[right] > max_queue[-1]:
+                max_queue.pop()
+
+            max_queue.append(nums[right])
+            min_queue.append(nums[right])
+
+            while max_queue[0] - min_queue[0] > limit:
+                if nums[left] == max_queue[0]:
+                    max_queue.popleft()
+                if nums[left] == min_queue[0]:
+                    min_queue.popleft()
+                left += 1
+            
+            res = max(res, right - left + 1)
+    
+        return res
+--
+
+
+=============================================================================================================================
+
+
+-- 
+
+
+
+
