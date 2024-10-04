@@ -2544,3 +2544,47 @@ class Solution:
 
 
 ===============================================================================================================================
+
+-- The kth lexicographical string of all strings
+of length k
+
+
+
+-- https://leetcode.com/problems/the-k-th-lexicographical-string-of-all-happy-strings-of-length-n/submissions/1411165093/
+--
+
+
+--
+class Solution:
+    def getHappyString(self, n: int, k: int) -> str:
+        string = "abc"
+        cnt = [0]
+        res = []
+
+        def backtrack(current, n):
+            if len(current) == n:
+                cnt[0] += 1
+                if cnt[0] == k:
+                    res.append(current)
+                return
+            
+            for i in 'abc':
+                if not current or current[-1] != i:
+                    backtrack(current + i, n)
+                
+                    if res:
+                        return
+        
+        backtrack("", n)
+    
+        # If we found the k-th happy string, return it, otherwise return an empty string
+        return res[0] if res else ""
+
+
+
+        
+--
+
+================================================================================================================================
+
+
