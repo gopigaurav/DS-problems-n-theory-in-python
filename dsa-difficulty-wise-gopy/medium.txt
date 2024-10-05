@@ -2675,8 +2675,84 @@ class Solution:
 =============================================================================================================================
 
 
--- 
+-- Build an array with stack
+
+
+--
+--
+
+
+--
+class Solution:
+    def buildArray(self, target: List[int], n: int) -> List[str]:
+        stack = []
+        current = 1
+
+        for num in target:
+
+            while current < num:
+                stack.append("Push")
+                stack.append("Pop")
+                current += 1
+            
+            stack.append("Push")
+            current += 1
+        
+        return stack
+--
+
+===============================================================================================================================
+
+-- Simplified fractions
 
 
 
+-- https://leetcode.com/problems/simplified-fractions/
+--
+
+
+--
+class Solution:
+    def simplifiedFractions(self, n: int) -> List[str]:
+        if n == 1:
+            return []
+
+        res = set()
+        ans = []
+        
+        for i in range(2, n + 1):
+            for j in range(1, i):
+                if j / i in res:
+                    continue
+                
+                temp = str(j) + '/' + str(i)
+                ans.append(temp)
+                res.add(j / i)  # Add the fraction tuple to the set
+        return ans
+--
+
+
+--
+from math import gcd
+from typing import List
+
+class Solution:
+    def simplifiedFractions(self, n: int) -> List[str]:
+        if n == 1:
+            return []
+        
+        ans = []
+        
+        for i in range(2, n + 1):
+            for j in range(1, i):
+                # Check if the fraction is in its simplest form using GCD
+                if gcd(j, i) == 1:
+                    ans.append(f"{j}/{i}")
+        
+        return ans
+
+--
+
+
+============================================================================================================================
 
