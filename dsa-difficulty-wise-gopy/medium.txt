@@ -2824,3 +2824,40 @@ class Solution:
 
 
 ================================================================================================================================
+
+--  Count triplets that can form two arrays of equal xor
+
+
+--
+-- https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/
+
+
+--
+class Solution:
+    def countTriplets(self, arr: List[int]) -> int:
+        n = len(arr)
+        prefixXor = 0
+        count = 0
+        freq = {0: 1}
+        total = {0: 0}
+        
+        for i in range(n):
+            prefixXor ^= arr[i]
+            
+            if prefixXor in freq:
+                count += freq[prefixXor] * i - total[prefixXor]
+            
+            freq[prefixXor] = freq.get(prefixXor, 0) + 1
+            total[prefixXor] = total.get(prefixXor, 0) + i + 1
+        
+        return count
+--
+
+
+=======================================================================================================================================
+
+
+
+
+
+
