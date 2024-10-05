@@ -3143,3 +3143,25 @@ class Solution:
 ===============================================================================================================================
 
 
+-- The k strongest values in a array
+
+
+-- https://leetcode.com/problems/the-k-strongest-values-in-an-array/
+--
+
+--
+class Solution:
+    def getStrongest(self, arr: List[int], k: int) -> List[int]:
+        arr.sort()
+        n =len(arr)
+        median = arr[(n - 1) // 2]
+
+        # Step 2: Sort the array based on strength
+        arr.sort(key=lambda x: (abs(x - median), x), reverse=True)
+
+        # Step 3: Return the first k strongest elements
+        return arr[:k]
+--
+
+
+=========================================================================================================================
