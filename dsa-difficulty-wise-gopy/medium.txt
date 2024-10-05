@@ -2856,8 +2856,106 @@ class Solution:
 
 =======================================================================================================================================
 
+-- Maximum number of vowels ina  substring
 
 
+-- https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/
+--
 
 
+--
+from collections import defaultdict
 
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        cnt = 0
+        left = 0
+        right = 0
+        n = len(s)
+        ans = 0
+
+        while right < n:
+            if s[right] in "aeiou":
+                cnt += 1
+
+            if right - left + 1 < k:
+                right += 1
+
+            elif right - left + 1 == k:
+                ans = max(ans, cnt)
+                
+                if s[left] in "aeiou":
+                    cnt -= 1
+
+                left += 1
+                right += 1
+
+        return ans
+
+--
+
+
+=========================================================================================================================
+
+
+-- Check if a string contains all binary codes of size k
+
+
+-- https://leetcode.com/problems/check-if-a-string-contains-all-binary-codes-of-size-k/
+--
+
+-
+class Solution:
+    def hasAllCodes(self, s: str, k: int) -> bool:
+        unique_substrings = set()
+        n = len(s)
+        
+        for i in range(n - k + 1):
+            substring = s[i:i + k]
+            unique_substrings.add(substring)
+        
+        total_binary_codes = 2 ** k
+        
+        # you can also check that if the len of unique substrings equal to total binary codes
+        return len(unique_substrings) == total_binary_codes
+
+-
+
+=============================================================================================================================
+
+-- Pseudo palindromic path in a binary tree
+
+
+--
+-- https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:k
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
+        def dfs(node, path):
+            if not node:
+                return 0
+            
+            path ^= (1 << node.val)
+            
+            if not node.left and not node.right:
+                if path & (path - 1) == 0:
+                    return 1
+                else:
+                    return 0
+            
+            return dfs(node.left, path) + dfs(node.right, path)
+        
+        return dfs(root, 0)
+        
+--
+
+
+========================================================================================================================
