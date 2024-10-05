@@ -3109,3 +3109,37 @@ class Solution:
 
 
 =============================================================================================================================
+
+-- Reorder to make all paths lead to the city zero
+
+
+
+-- https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/
+--
+
+
+--
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        adj = defaultdict(list)
+    
+        for a, b in connections:
+            adj[a].append((b, 1))  # road from a to b needs to be reordered
+            adj[b].append((a, 0))  # road from b to a is fine as it is
+        
+        def dfs(node, parent):
+            changes = 0
+            for neighbor, needs_reorder in adj[node]:
+                if neighbor == parent:
+                    continue
+                changes += needs_reorder
+                changes += dfs(neighbor, node)
+            return changes
+        
+        return dfs(0, -1)
+--
+
+
+===============================================================================================================================
+
+
