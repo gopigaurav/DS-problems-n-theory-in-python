@@ -3448,3 +3448,143 @@ class Solution:
 --
 
 =========================================================================================================================
+
+-- Longest subarray of 1s after deleting one element 
+
+
+-- https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/submissions/1413535232/
+--
+
+
+--
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        left = 0
+        zero_count = 0
+        max_len = 0
+        n = len(nums)
+
+        for right in range(n):
+            if nums[right] == 0:
+                zero_count += 1
+
+            while zero_count > 1:
+                if nums[left] == 0:
+                    zero_count -= 1
+                left += 1
+            
+            # right - left instead of right - left + 1 coz you are requried to delete one element in the array
+            
+            max_len = max(max_len, right - left)
+
+        return max_len
+--
+
+
+============================================================================================================================
+
+
+-- Number of subsequence that satify the given sum condition
+
+
+-- https://leetcode.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/submissions/1413648296/
+--
+
+
+--
+class Solution:
+    def numSubseq(self, nums: List[int], target: int) -> int:
+        # in a sorted array number of subsequence formed is 2^(j - i)
+        # and the numbers between i and j can either be included or be excluded in the subsequence
+
+        # if num[i] + num[j] <= target then we add 2^(j - i) to the count
+
+        # if the num[i] + num[j] > target, then move j to left
+
+        i = 0
+        MOD = 10**9 + 7
+        n = len(nums)
+        j = n - 1
+        nums.sort()
+
+        power_of_two = [1] * n
+        for i in range(1, n):
+            power_of_two[i] = (power_of_two[i - 1] * 2) % MOD
+
+        i =0
+        cnt = 0
+        while i <= j:
+            if nums[i] + nums[j] <= target:
+                cnt = (cnt + power_of_two[j - i]) % MOD
+                i += 1
+            else:
+                j -= 1
+        
+        return cnt
+
+        
+--
+
+
+=============================================================================================================================
+
+
+-- Sentence Similarity III
+
+
+--
+-- https://leetcode.com/problems/sentence-similarity-iii/?envType=daily-question&envId=2024-10-06
+
+
+--
+class Solution:
+    def areSentencesSimilar(self, sentence1: str, sentence2: str) -> bool:
+        words1 = sentence1.split(" ")
+        words2 = sentence2.split(" ")
+
+
+        if len(words1) > len(words2):
+            words1, words2 = words2, words1
+
+        # Match words from the start and end
+        i = 0
+        while i < len(words1) and words1[i] == words2[i]:
+            i += 1
+        
+        j = 0
+        while j < len(words1) - i and words1[-(j+1)] == words2[-(j+1)]:
+            j += 1
+        
+        # If the remaining middle part (if any) is matched, return True
+        return i + j >= len(words1)
+
+        
+--
+
+
+=============================================================================================================================
+
+
+-- Append characters to string to make subsequence
+
+
+-- https://leetcode.com/problems/append-characters-to-string-to-make-subsequence/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def appendCharacters(self, s: str, t: str) -> int:
+        i = 0
+        j = 0
+
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                j += 1
+            i += 1
+
+        return len(t) - j
+--
+
+===========================================================================================================================
