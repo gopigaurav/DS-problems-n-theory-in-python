@@ -3211,3 +3211,120 @@ class Solution:
 
 
 ========================================================================================================================
+
+
+-- Least number of unique integers after k removals
+
+
+-- https://leetcode.com/problems/least-number-of-unique-integers-after-k-removals/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
+        m = defaultdict(int)
+
+        for i in arr:
+            m[i] += 1
+        
+        sorted_list = sorted(m.values())
+        cnt = len(sorted_list)
+
+        for i in sorted_list:
+            if i <= k:
+                cnt -= 1
+                k -= i
+            else:
+                break
+        
+        return cnt
+
+        
+--
+
+
+===========================================================================================================================
+
+
+-- Kth factor of n submissions
+
+
+
+-- https://leetcode.com/problems/the-kth-factor-of-n/submissions/1412939794/
+--
+
+--
+class Solution:
+    def kthFactor(self, n: int, k: int) -> int:
+
+        def divisors(num):
+            div = []
+
+            for i in range(1, num // 2 + 1):
+                if num % i == 0:
+                    div.append(i)
+            div.append(num)
+            return div
+        
+        arr = divisors(n)
+
+        if len(arr) < k:
+            return -1
+        
+        return arr[k - 1]
+--
+
+========================================================================================================================
+
+-- Remove methods from projext
+
+
+-- https://leetcode.com/contest/weekly-contest-418/problems/remove-methods-from-project/
+--
+
+
+
+--
+from collections import defaultdict
+class Solution:
+    def remainingMethods(self, n: int, k: int, edges: List[List[int]]) -> List[int]:
+        g = defaultdict(list)
+
+        for u, v in edges:
+            g[u].append(v)
+        
+        # from kth node traverse to all the neighbouring nodes and mark them as visited
+
+        vis = [False] * n
+
+        def dfs(node):
+            if vis[node]: return
+            vis[node] = True
+
+            for neighbour in g[node]:
+                    dfs(neighbour)
+        
+        # no we have marked all the suspicious edges or falty edges 
+        dfs(k)
+
+        # we now have to check if the non falty edges are connected to the visited ones if yes then take 
+        # all the nodes from 0 to n - 1 else take only the ones that are non visited
+        take_all = False
+        for u, v in edges:
+            if not vis[u] and vis[v]:
+                take_all = True
+
+        res = []
+        for i in range(n):
+            if take_all or not vis[i]:
+                res.append(i)
+
+        return res 
+--
+
+
+=======================================================================================================================
+
+
