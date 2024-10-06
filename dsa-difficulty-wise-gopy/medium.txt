@@ -3327,4 +3327,124 @@ class Solution:
 
 =======================================================================================================================
 
+--  Construct 2d gird matching graph layout (Incomplete) (Imp)
 
+
+-- https://leetcode.com/contest/weekly-contest-418/problems/construct-2d-grid-matching-graph-layout/
+--
+
+--
+from collections import deque, defaultdict
+from typing import List
+
+class Solution:
+    def constructGridLayout(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        # Helper function to handle dimension and find path
+        def handleDimension(adj):
+            n = len(adj)
+            src, dest = -1, -1
+            
+            for i in range(n):
+                if len(adj[i]) > 1:
+                    continue
+                if src == -1:
+                    src = i
+                elif dest == -1:
+                    dest = i
+            
+            if dest == -1:
+                return []
+
+            path = getPath(src, dest, adj)
+            return path
+
+        # BFS function to get path from src to dest
+        def getPath(src, dest, adj):
+            n = len(adj)
+            
+            def bfs(src):
+                dist = [-1] * n
+                from_node = [-1] * n
+                q = deque([src])
+                dist[src] = 0
+                
+                while q:
+                    u = q.popleft()
+                    
+                    for v in adj[u]:
+                        if dist[v] == -1:  # Not visited
+                            dist[v] = dist[u] + 1
+                            from_node[v] = u
+                            q.append(v)
+                
+                return from_node
+            
+            from_node = bfs(src)
+            path = []
+            
+            node = dest
+            while node != -1:
+                path.append(node)
+                node = from_node[node]
+            
+            path.reverse()  # Reverse to get the path from src to dest
+            return path
+
+        # Build adjacency list
+        adj = defaultdict(list)
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        
+        # Check for the edge case.
+        path = handleDimension(adj)
+        print(path)
+        if path:
+            return []
+
+        # Find all corners (nodes with only 2 edges)
+        corners = []
+        for i in range(n):
+            if len(adj[i]) == 2:
+                corners.append(i)
+
+        if len(corners) < 4:
+            return []  # Not enough corners to form a grid
+
+        # Find the minimum path size between corners
+        paths_size = [
+            len(getPath(corners[0], corners[1], adj)),
+            len(getPath(corners[0], corners[2], adj)),
+            len(getPath(corners[0], corners[3], adj))
+        ]
+        
+        min_index = paths_size.index(min(paths_size))
+        cols = paths_size[min_index]
+        rows = n // cols
+        
+        # Fill the first row of the matrix
+        ans = [[-1 for _ in range(cols)] for _ in range(rows)]
+        ans[0] = getPath(corners[0], corners[min_index + 1], adj)
+
+        # Fill the grid with remaining nodes
+        for r in range(rows):
+            for c in range(cols):
+                # Find the neighbors that have already been placed.
+                neighbors = set()
+                if r > 0:
+                    neighbors.add(ans[r-1][c])  # Above
+                if c > 0:
+                    neighbors.add(ans[r][c-1])  # Left
+                
+                # Place the neighbor that has not been placed yet.
+                u = ans[r][c]
+                for v in adj[u]:
+                    if v not in neighbors:
+                        ans[r][c] = v
+                        break
+        print(ans)
+        return [[]]
+
+--
+
+=========================================================================================================================
