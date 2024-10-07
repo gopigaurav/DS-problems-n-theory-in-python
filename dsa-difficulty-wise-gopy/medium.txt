@@ -3656,3 +3656,50 @@ class Solution:
 --
 
 =======================================================================================================================
+
+
+
+-- Minimum jumps to reach home (BFS/ DFS) (Imp)
+
+
+-- https://leetcode.com/problems/minimum-jumps-to-reach-home/
+--
+
+
+--
+class Solution:
+    def minimumJumps(self, forbidden: List[int], a: int, b: int, x: int) -> int:
+        from collections import deque
+
+        max_limit = 6000  # Upper bound for search (arbitrary large value to prevent infinite loops)
+        forbidden_set = set(forbidden)
+        
+        # Queue will store (position, last_jump_was_backward, jumps_count)
+        queue = deque([(0, False, 0)])  # Start from position 0, not backward jump, 0 jumps so far
+        visited = set([(0, False)])  # Track visited positions with the direction
+        
+        while queue:
+            pos, last_backward, jumps = queue.popleft()
+            
+            # If we reached home, return the number of jumps
+            if pos == x:
+                return jumps
+            
+            # Move forward
+            new_pos_forward = pos + a
+            if new_pos_forward not in forbidden_set and new_pos_forward <= max_limit and (new_pos_forward, False) not in visited:
+                visited.add((new_pos_forward, False))
+                queue.append((new_pos_forward, False, jumps + 1))
+            
+            # Move backward (only if the last jump was not backward)
+            new_pos_backward = pos - b
+            if not last_backward and new_pos_backward >= 0 and new_pos_backward not in forbidden_set and (new_pos_backward, True) not in visited:
+                visited.add((new_pos_backward, True))
+                queue.append((new_pos_backward, True, jumps + 1))
+        
+        # If we exhaust the queue and didn't reach x, return -1
+        return -1
+
+--
+
+=============================================================================================================================
