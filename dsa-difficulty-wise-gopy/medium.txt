@@ -3613,3 +3613,46 @@ class Solution:
 
 ==========================================================================================================================
 
+
+
+-- Minimum operations to reduce x to zero
+
+
+--
+-- https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/
+
+
+
+--
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        # instead of removing from the ends we can frind out the middle ones which should not be considered
+        # We need to find the maximum length subarray which sum equals sum(arr) - x
+        target = sum(nums) - x
+        if target < 0: # if target is less than 0 then x is greater than sum(arr)
+            return -1
+        if target == 0: # if x is qual to sum(arr) then return len(nums) 
+            return len(nums)
+
+        
+
+        left = 0
+
+        ans = -1
+        csum = 0
+
+        for right in range(len(nums)):
+            csum += nums[right]
+
+            while csum > target:
+                csum -= nums[left]
+                left += 1
+
+            if csum == target:
+                ans = max(ans, right - left + 1)
+
+        return len(nums) - ans if ans != -1 else -1
+        
+--
+
+=======================================================================================================================
