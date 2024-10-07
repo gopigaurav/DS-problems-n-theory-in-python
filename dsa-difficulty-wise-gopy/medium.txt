@@ -3588,3 +3588,27 @@ class Solution:
 --
 
 ===========================================================================================================================
+
+
+-- determine if two strings are close
+
+
+-- https://leetcode.com/problems/determine-if-two-strings-are-close/submissions/1415047021/
+--
+
+
+--
+from collections import defaultdict, Counter
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        if set(word1) != set(word2):
+            return False
+        m1 = Counter(word1)
+        m2 = Counter(word2)
+        
+        return sorted(m1.values()) == sorted(m2.values())
+        
+--
+
+
+==========================================================================================================================
