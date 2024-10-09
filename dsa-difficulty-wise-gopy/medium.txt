@@ -3703,3 +3703,206 @@ class Solution:
 --
 
 =============================================================================================================================
+
+
+-- Minimum deltions to make string balanced
+
+
+
+-- https://leetcode.com/problems/minimum-deletions-to-make-string-balanced/submissions/1415395634/
+--
+
+
+--
+class Solution:
+    def minimumDeletions(self, s: str) -> int:
+        minDeletions = 0
+        bcount = 0
+
+        for i in s:
+            if i == 'b':
+                bcount += 1
+            else:
+                minDeletions = min(minDeletions + 1, bcount)
+        return minDeletions
+        
+--
+
+
+===========================================================================================================================
+
+-- Minimum operations to make the integer zero
+
+
+-- https://leetcode.com/problems/minimum-operations-to-make-the-integer-zero/
+--
+
+
+--
+class Solution:
+    def makeTheIntegerZero(self, num1: int, num2: int) -> int:
+        for k in range(61):
+            target = num1 - k * num2
+            if target >= 0 and target.bit_count() <= k <= target:
+                return k
+        return -1
+--
+
+
+======================================================================================================================
+
+
+-- Sell Diminishing valued colored balls
+
+
+
+-- https://leetcode.com/problems/sell-diminishing-valued-colored-balls/
+--
+
+
+--
+class Solution:
+    def maxProfit(self, inventory: List[int], orders: int) -> int:
+        inventory.sort(reverse=True) # inventory high to low 
+        inventory += [0]
+        ans = 0
+        k = 1
+        for i in range(len(inventory)-1): 
+            if inventory[i] > inventory[i+1]: 
+                if k*(inventory[i] - inventory[i+1]) < orders: 
+                    ans += k*(inventory[i] + inventory[i+1] + 1)*(inventory[i] - inventory[i+1])//2 # arithmic sum 
+                    orders -= k*(inventory[i] - inventory[i+1])
+                else: 
+                    q, r = divmod(orders, k)
+                    ans += k*(2*inventory[i] - q + 1) * q//2 + r*(inventory[i] - q)
+                    return ans % 1_000_000_007
+            k += 1
+--
+
+
+=============================================================================================================
+
+
+-- Count zero request servers
+
+
+-- https://www.youtube.com/watch?v=cIHKCWVBqW0
+-- https://leetcode.com/problems/count-zero-request-servers/
+
+
+--
+class Solution:
+    def countServers(self, n: int, logs: List[List[int]], x: int, queries: List[int]) -> List[int]:
+
+        # TLE 
+        cnt = 0
+        res = []
+
+        for query in queries:
+            start = query - x
+            end = query
+            
+            count = 0
+            
+            serverids = set()
+            
+            for id, time in logs:
+                if time >= start and time <= end:
+                    serverids.add(id)
+
+            res.append(n - len(serverids))
+        return res
+    
+    def countServers(self, n: int, logs: List[List[int]], x: int, queries: List[int]) -> List[int]:
+
+        # first push all the queries and logs in one array 
+        # for logs push it with (time, n + i) n -> no. servers
+        # for queries push it as zero based index with server id as 0 based index
+
+        # use queue to sort out the list and remove the intervals which comes before the specified time intervals
+
+        b = []
+
+        for i in range(len(logs)):
+            # push (time, id - 1) 
+            b.append((logs[i][1], logs[i][0] - 1))
+
+        for i in range(len(queries)):
+            # push it as (query, n + i) => n + i determines that it is query and not log in future
+            b.append((queries[i], n + i))
+        
+        # now sort the list out
+        b.sort()
+        from collections import deque
+
+        q = deque()
+        count = 0 # to keep the number of servers which are active at that interval
+        d = {} # d to store the server count
+        m = len(b)
+
+        ans = [0] * len(queries)
+
+        for i in range(m):
+            # this condition tells you that whether the second part is server or the log
+            if b[i][1] >= n:
+
+                # traverse through the queue and get the time intervals in the range (b[i][1] - x) to b[i][1]
+                while q and b[q[0]][0] < b[i][0] - x:
+                    server = b[q[0]][1]
+                    d[server] -= 1
+                    if d[server] == 0:
+                        count -= 1
+                    q.popleft()
+                ans[b[i][1] - n] = n - count
+
+            else:
+                q.append(i) # insert the index to the queue
+                server = b[i][1]
+                d[server] = d.get(server, 0) + 1
+
+                if d[server] == 1:
+                    count += 1
+        return ans
+--
+
+
+============================================================================================================
+
+-- Divide players into teams of equal skill
+
+
+--
+-- https://leetcode.com/problems/divide-players-into-teams-of-equal-skill/
+
+
+--
+class Solution:
+    def dividePlayers(self, skill: List[int]) -> int:
+
+        # 1, 2, 3, 3, 4, 5
+        skill.sort()
+
+        left = 0
+        right = len(skill) - 1  # Set right to point to the last element
+
+        equal_sum = skill[left] + skill[right]
+        ans = [] 
+
+        while left < right: 
+            current_sum = skill[left] + skill[right]
+            if current_sum != equal_sum:
+                return -1 
+            ans.append(skill[left] * skill[right])
+            left += 1
+            right -= 1 
+
+        return sum(ans)
+        
+--
+
+
+==========================================================================================================
+
+
+
+
