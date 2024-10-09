@@ -3958,3 +3958,82 @@ class Solution:
 =========================================================================================================
 
 
+-- Minimum time to repair cars
+
+
+-- https://leetcode.com/problems/minimum-time-to-repair-cars/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def repairCars(self, ranks: List[int], cars: int) -> int:
+        n = len(ranks)
+        
+        # Helper function to check if a given time is sufficient to repair all cars
+        def checker(time):
+            total_cars = 0  # Reset total cars for each check
+            for rank in ranks:
+                max_cars = int((time // rank) ** 0.5)  # Formula to calculate how many cars can be repaired by the mechanic
+                total_cars += max_cars
+                if total_cars >= cars:
+                    return True
+            return False
+
+        # Binary search for the minimum time
+        left, right = 0, max(ranks) * cars * cars
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if checker(mid):
+                right = mid - 1
+            else:
+                left = mid + 1
+
+        # `left` will have the minimum time required to repair the cars
+        return left
+
+--
+
+
+===========================================================================================================
+
+-- Number of even and odd bits
+
+
+-- https://leetcode.com/problems/number-of-even-and-odd-bits/submissions/1417287009/
+--
+
+
+--
+class Solution:
+    def evenOddBit(self, n: int) -> List[int]:
+        even = 0
+        odd = 0
+
+
+        num_str = bin(n)[2:][::-1]  
+        
+        i = 0
+        n = len(num_str)
+        while i < n:
+            if num_str[i] == '1': 
+                if i % 2 == 0:
+                    even += 1
+                else:
+                    odd += 1
+            i += 1
+        return [even, odd]
+
+        
+
+    
+        
+--
+
+
+==============================================================================================================
+
