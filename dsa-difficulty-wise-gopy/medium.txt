@@ -3903,6 +3903,58 @@ class Solution:
 
 ==========================================================================================================
 
+-- Contruct the longest new string
 
+
+-- https://leetcode.com/problems/construct-the-longest-new-string/
+--
+
+
+--
+class Solution:
+    def longestString(self, x: int, y: int, z: int) -> int:
+        
+        # Case 1: If x == y:
+
+        # If the number of "AA" strings is equal to the number of "BB" strings, we can alternate between "AA" and "BB", possibly adding "AB" strings in between.
+        # The total length in this case would be 
+
+
+        # 2(x+y+z)=4x+2z, as each "AA" or "BB" contributes 2 characters, and each "AB" contributes 2 characters.
+
+        # Case 2: If x > y:
+
+        # If there are more "AA" strings than "BB" strings, we should try to alternate as much as possible, but eventually, we will run out of "BB" strings.
+        # Once all "BB" strings are used, we need to ensure that the remaining "AA" strings do not form "AAA".
+        # To do this, we can add an "AB" string in between to break the sequence of "AA"s.
+        # The maximum number of usable "AA" strings without forming "AAA" is 
+        # 2
+        # 𝑦
+        # +
+        # 1
+        # 2y+1 (one more than twice the number of "BB" strings).
+        # The total length in this case would be 
+
+        # 2(2y+1+z)=4y+2+2z.
+        # Case 3: If y > x:
+
+        # Similarly to the previous case, if there are more "BB" strings than "AA" strings, we try to alternate, but once we run out of "AA" strings, we must avoid forming "BBB".
+        # The maximum number of usable "BB" strings without forming "BBB" is 
+
+        # 2x+1.
+        # The total length in this case would be 
+        #2(2x+1+z)=4x+2+2z.
+
+        if x == y:
+            return 4 * x + 2 * z
+        elif x > y:
+            return 4 * y + 2 + 2 * z
+        else:
+            return 4 * x + 2 + 2 * z
+        
+--
+
+
+=========================================================================================================
 
 
