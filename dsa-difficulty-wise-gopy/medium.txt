@@ -4049,3 +4049,44 @@ class Solution:
 
 
 ===============================================================================================================
+
+
+-- Find score of an array after marking all elements
+
+
+
+-- https://leetcode.com/problems/find-score-of-an-array-after-marking-all-elements/submissions/1419529278/
+--
+
+
+--
+class Solution:
+    def findScore(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        sorted_nums = sorted((num, i) for i, num in enumerate(nums))
+        marked = [False] * n
+
+        csum = 0  
+
+        # [1, 2, 2, 3, 3, 5]
+
+        for num, index in sorted_nums:
+            if not marked[index]:
+                csum += num
+
+                if index - 1 >= 0:
+                    marked[index - 1] = True
+                if index + 1 < n:
+                    marked[index + 1] = True
+            
+        return csum
+
+
+
+
+
+--
+
+
+===============================================================================================================
