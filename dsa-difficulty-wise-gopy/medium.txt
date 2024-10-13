@@ -4081,12 +4081,44 @@ class Solution:
                     marked[index + 1] = True
             
         return csum
-
-
-
-
-
 --
 
 
 ===============================================================================================================
+
+
+--Maximize greatest of an array
+
+
+--
+-- https://leetcode.com/problems/maximize-greatness-of-an-array/
+
+
+--
+class Solution:
+    def maximizeGreatness(self, nums: List[int]) -> int:
+        sorted_array = sorted(nums)
+
+        perm_sorted = sorted(nums)
+
+        i = 0 # pointing to the numbers in sorted_array
+        j = 0 # pointing to the numbers in perm_sortted
+
+        greatest_flips = 0
+
+        while i < len(sorted_array) and j < len(perm_sorted):
+            if perm_sorted[j] > sorted_array[i]:
+                greatest_flips += 1
+                i += 1
+                j += 1
+            else:
+                j += 1
+        return greatest_flips
+        
+--
+
+
+=================================================================================================================
+
+
+
