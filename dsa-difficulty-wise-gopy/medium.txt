@@ -4121,4 +4121,36 @@ class Solution:
 =================================================================================================================
 
 
+-- Distribute money to maximum children
+
+
+-- https://leetcode.com/problems/distribute-money-to-maximum-children/
+--
+
+
+--
+class Solution:
+    def distMoney(self, money: int, children: int) -> int:
+        #money left after distributing 1$ to each child
+        money=money-children
+        c=0
+        if  money>=0:
+            while money>=7:
+                money-=7 
+                #addition of 7$ more to each child will make it 8$
+                c+=1 
+            if money==3 and c==children-1:
+                c-=1 #because 1+3=4$
+            elif c==children and money>0:
+                c-=1 #all the remaining money is taken up by one child
+            elif c>children:
+                c=children-1 #all the remaining money is given to one child
+            return c
+        else:
+            return -1
+--
+
+
+===================================================================================================================
+
 
