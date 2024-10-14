@@ -4189,3 +4189,33 @@ class Solution:
 
 =================================================================================================================
 
+
+-- Count the ways to group overlapping ranges 
+
+
+-- https://leetcode.com/problems/count-ways-to-group-overlapping-ranges/submissions/1422407210/
+--
+
+
+--
+class Solution:
+    def countWays(self, ranges: List[List[int]]) -> int:
+        ranges.sort()
+
+        prev_end = ranges[0][1]
+        group = 1
+        MOD = 10**9 + 7
+
+        for i in range(len(ranges)):
+            start, end = ranges[i]
+
+            if start <= prev_end:
+                prev_end = max(prev_end, end)
+            else:
+                group += 1
+                prev_end = end
+        
+        return pow(2, group, MOD)
+--
+
+=================================================================================================================
