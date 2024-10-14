@@ -1705,3 +1705,34 @@ class Solution:
 
 
 ===============================================================================================
+
+
+-- Split with minimum sum
+
+
+-- https://leetcode.com/problems/split-with-minimum-sum/
+--
+
+
+--
+class Solution:
+    def splitNum(self, num: int) -> int:
+        # Convert the number to a sorted list of characters (digits)
+        num_str = sorted(str(num))
+        
+        num1 = ""
+        num2 = ""
+
+        # Alternate between two numbers
+        for i in range(len(num_str)):
+            if i % 2 == 0:
+                num1 += num_str[i]
+            else:
+                num2 += num_str[i]
+        
+        # Convert num1 and num2 to integers and return their sum
+        return int(num1) + int(num2)
+
+--
+
+===================================================================================================
