@@ -1736,3 +1736,37 @@ class Solution:
 --
 
 ===================================================================================================
+
+
+-- Find the maximum number of marked indices
+
+
+-- https://leetcode.com/problems/find-the-maximum-number-of-marked-indices/submissions/1422443885/
+--
+
+
+--
+class Solution:
+    def maxNumOfMarkedIndices(self, nums: List[int]) -> int:
+        nums.sort()
+
+        n = len(nums)
+
+        mid = n // 2
+        i = 0
+        j = mid
+        cnt = 0
+        
+        while i < mid and j < n:
+            if 2* nums[i] <= nums[j]:
+                cnt += 2
+                i += 1
+                j += 1
+            else:
+                j += 1
+
+        return cnt
+--
+
+
+===================================================================================================
