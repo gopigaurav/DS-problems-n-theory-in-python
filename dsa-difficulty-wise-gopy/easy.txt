@@ -1651,3 +1651,29 @@ class Solution:
 
 
 ====================================================================================================
+
+
+-- Count the number of vowel string in range
+
+
+-- https://leetcode.com/problems/count-the-number-of-vowel-strings-in-range/
+--
+
+
+--
+class Solution:
+    def vowelStrings(self, words: List[str], left: int, right: int) -> int:
+        cnt = 0
+        vowel = "aeiou"
+
+        for i, word in enumerate(words):
+            if word[0] in vowel and word[-1] in vowel and i >= left and i <= right:
+                cnt += 1
+        
+        return cnt
+
+--
+
+
+
+================================================================================================
