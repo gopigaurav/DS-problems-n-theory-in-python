@@ -4247,3 +4247,105 @@ class Solution:
 
 
 =======================================================================================================
+
+
+-- Count the number of square free subsets
+
+
+-- https://leetcode.com/problems/count-the-number-of-square-free-subsets/
+--
+
+
+--
+class Solution:
+    def squareFreeSubsets(self, nums: List[int]) -> int:
+        MOD = 10 ** 9 + 7
+        candidates = set([2, 3, 5, 6, 7, 10, 11, 13, 14, 15, 17, 19, 21, 22, 23, 26, 29, 30])
+
+        # get the frequency for the square free numbers
+        cnt = defaultdict(int)
+        for num in nums:
+            if num in candidates:
+                cnt[num] += 1
+        
+        def count(arr):
+            if not arr:
+                return 1
+            arr1 = []
+            for num in arr[1:]:
+                if math.gcd(num, arr[0]) == 1:
+                    arr1.append(num)
+            return (count(arr[1:]) + cnt[arr[0]] * count(arr1)) % MOD
+            
+        ones = nums.count(1)
+        
+        tmp = 1
+        for _ in range(ones):
+            tmp = (tmp * 2) % MOD
+        return (count(list(cnt)) * tmp - 1) % MOD
+--
+
+
+============================================================================================================================
+
+
+-- Minimum operations to reduce an integer to 0
+
+
+
+-- https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/
+--
+
+
+--
+from collections import deque
+
+class Solution:
+    def minOperations(self, n: int) -> int:
+        q = deque()
+
+        # (number, operations count)
+        q.append((n, 0))
+        vis = set()
+        vis.add(n)
+
+        powers_of_2 = [1 << i for i in range(30)]  # Precompute powers of 2 up to 2^29
+
+        while q:
+            num, op = q.popleft()
+
+            if num == 0:
+                return op  # Return the number of operations
+
+            for i in powers_of_2:
+                new_num_add = num + i
+                new_num_sub = num - i
+
+                # Check if we can add or subtract i to get closer to 0
+                if new_num_add not in vis:
+                    vis.add(new_num_add)
+                    q.append((new_num_add, op + 1))
+
+                if new_num_sub not in vis and new_num_sub >= 0:  # Only consider non-negative numbers
+                    vis.add(new_num_sub)
+                    q.append((new_num_sub, op + 1))
+
+        return -1  # If no solution is found (although this should never happen)
+
+--
+
+
+==========================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
