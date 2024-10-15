@@ -1801,3 +1801,62 @@ class Solution:
 --
 
 =====================================================================================================
+
+
+-- Merge two 2d arrays by summing values
+
+
+-- https://leetcode.com/problems/merge-two-2d-arrays-by-summing-values/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def mergeArrays1(self, num1: List[List[int]], num2: List[List[int]]) -> List[List[int]]:
+        d = defaultdict(int)
+
+        for i in num1:
+            d[i[0]] += i[1]
+        for j in num2:
+            d[j[0]] += j[1]
+
+        sorted_keys = sorted(d.keys())
+
+        res = []
+        for i in sorted_keys:
+            res.append([i, d[i]])
+
+        return res
+
+    def mergeArrays(self, nums1: List[List[int]], nums2: List[List[int]]) -> List[List[int]]:
+        i, j = 0, 0
+        result = []
+        
+        while i < len(nums1) and j < len(nums2):
+            if nums1[i][0] == nums2[j][0]:  # ids match
+                result.append([nums1[i][0], nums1[i][1] + nums2[j][1]])
+                i += 1
+                j += 1
+            elif nums1[i][0] < nums2[j][0]:  # id in nums1 is smaller
+                result.append([nums1[i][0], nums1[i][1]])
+                i += 1
+            else:  # id in nums2 is smaller
+                result.append([nums2[j][0], nums2[j][1]])
+                j += 1
+
+        # Append the remaining elements from nums1 or nums2
+        while i < len(nums1):
+            result.append([nums1[i][0], nums1[i][1]])
+            i += 1
+        while j < len(nums2):
+            result.append([nums2[j][0], nums2[j][1]])
+            j += 1
+
+        return result
+
+
+--
+
+
+=====================================================================================================
