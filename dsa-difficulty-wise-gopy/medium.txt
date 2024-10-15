@@ -4219,3 +4219,31 @@ class Solution:
 --
 
 =================================================================================================================
+
+
+--  Find the divisibilyt array of a string
+
+
+--
+-- https://leetcode.com/problems/find-the-divisibility-array-of-a-string/
+
+
+--from typing import List
+
+class Solution:
+    def divisibilityArray(self, word: str, m: int) -> List[int]:
+        res = []
+        current_remainder = 0
+
+        for char in word:
+            current_remainder = (current_remainder * 10 + int(char)) % m # use this method instead of convertiing the huge string to number
+            if current_remainder == 0:
+                res.append(1)
+            else:
+                res.append(0)
+        
+        return res
+--
+
+
+=======================================================================================================
