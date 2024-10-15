@@ -4374,6 +4374,37 @@ class Solution:
 
 ==========================================================================================================================
 
+-- Rearrange array to maximize prefix score
+
+
+-- https://leetcode.com/problems/rearrange-array-to-maximize-prefix-score/description/
+--
+
+--
+class Solution:
+    def maxScore1(self, nums: List[int]) -> int:
+        return sum(n > 0 for n in accumulate(sorted(nums, reverse=True)))
+    
+    def maxScore(self, nums: List[int]) -> int:
+        nums.sort(reverse=True)
+    
+        prefix_sum = 0
+        positive_count = 0
+        
+        # Calculate prefix sums and count how many are positive
+        for num in nums:
+            prefix_sum += num
+            if prefix_sum > 0:
+                positive_count += 1
+            else:
+                break  # Once the prefix sum becomes non-positive, stop counting
+        
+        return positive_count
+--
+
+
+========================================================================================================================
+
 
 
 
