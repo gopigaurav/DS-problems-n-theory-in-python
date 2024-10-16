@@ -4406,10 +4406,10 @@ class Solution:
 ========================================================================================================================
 
 
--- Count the number of beautiful subarrays
+-- Count the number of beautiful subarrays (Imp)
 
 
---
+-- https://leetcode.com/problems/count-the-number-of-beautiful-subarrays/
 --
 
 
@@ -4428,13 +4428,10 @@ class Solution:
             prefix ^= nums[i]
 
             if prefix in xor:
-                ans += 1
+                ans += xor[prefix]
             xor[prefix] = xor.get(prefix, 0) + 1
 
         return ans 
-
-        
-        
         
 --
 
@@ -4443,7 +4440,101 @@ class Solution:
 ========================================================================================================================
 
 
+-- Minimum score by changing two elements
 
 
+-- https://leetcode.com/problems/minimum-score-by-changing-two-elements/
+--
+
+
+--
+class Solution:
+    def minimizeSum(self, nums: List[int]) -> int:
+    # Change the two largest values to the third largest value. Third largest value now becomes the max value.
+    # Change the two smallest values to the third smallest value. Third smallest value now becomes the min value.
+    # Change largest value to second largest value and smallest value to second smallest value. Second largest becomes max value and second smallest becomes min value.
+
+
+        n = len(nums)
+
+        nums.sort()
+        return min(nums[-1] - nums[2], min(nums[n - 2] - nums[1], nums[n - 3] - nums[0]))
+--
+
+
+===========================================================================================================================
+
+
+-- Substring xor queries
+
+
+--
+-- https://leetcode.com/problems/substring-xor-queries/
+
+
+--
+from typing import List
+
+class Solution:
+    def substringXorQueries1(self, s: str, queries: List[List[int]]) -> List[List[int]]:
+        n = len(s)
+
+        def checker(target, prev_start):
+            for start in range(n):
+                val = 0
+                for end in range(start, n):
+                    val = (val << 1) | int(s[end])
+
+                    if val == target:
+                        temp = start
+                        while temp + 1 <= end and int(s[temp + 1: end + 1]) == target:
+                            temp += 1
+                        return ([temp, end], end)  
+
+                    if val > 10**9:
+                        break
+            return False
+
+        ans = []
+        prev = 0 
+        for first, second in queries:
+            target = first ^ second
+            result = checker(target, prev)
+
+            if result:
+                res, new_end = result 
+                prev = new_end
+                ans.append(res)
+            else:
+                ans.append([-1, -1])
+        
+        return ans
+
+    def substringXorQueries(self, s: str, queries: List[List[int]]) -> List[List[int]]:
+        # for every i at amx we can go till 32 length and then get the smallest substring which matches the target
+        # and get the answer for it
+        l=len(s) #get length of the given string
+        d={} #create empty hashmap
+        n=min(32,l) # integer upto 10**9 can be represented within 32 bits, hence we need all substrings upto 32 bits length. Also, length of the given string could be < 32.
+        for i in range(n): # generate all substrings of i+1 length
+            for j in range(l-i): 
+                # l - i because from i to 32 long
+                x=s[j:j+i+1] 
+                if int(x,2) not in d:
+                    d[int(x,2)]=[j,j+i]
+
+
+        ans=[]
+        
+        for q in queries:
+            x=q[0]^q[1] 
+            if x in d:
+                ans.append(d[x])
+            else:
+                ans.append([-1,-1])
+        return ans
+--
+
+=========================================================================================================================
 
 
