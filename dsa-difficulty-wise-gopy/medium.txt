@@ -4406,7 +4406,41 @@ class Solution:
 ========================================================================================================================
 
 
+-- Count the number of beautiful subarrays
 
+
+--
+--
+
+
+--
+class Solution:
+    def beautifulSubarrays(self, nums: List[int]) -> int:
+        prefix = 0
+
+        # cal the prefix xor if the number is already present in the array then the subarry from left to right is subarray
+
+        xor = {0 : 1}
+        n = len(nums)
+        ans = 0
+
+        for i in range(n):
+            prefix ^= nums[i]
+
+            if prefix in xor:
+                ans += 1
+            xor[prefix] = xor.get(prefix, 0) + 1
+
+        return ans 
+
+        
+        
+        
+--
+
+
+
+========================================================================================================================
 
 
 
