@@ -4516,6 +4516,7 @@ class Solution:
         l=len(s) #get length of the given string
         d={} #create empty hashmap
         n=min(32,l) # integer upto 10**9 can be represented within 32 bits, hence we need all substrings upto 32 bits length. Also, length of the given string could be < 32.
+
         for i in range(n): # generate all substrings of i+1 length
             for j in range(l-i): 
                 # l - i because from i to 32 long
@@ -4536,5 +4537,103 @@ class Solution:
 --
 
 =========================================================================================================================
+
+
+-- Count the number of fair pairs (Imp)
+
+
+--
+--
+
+
+
+--
+class Solution:
+    def countFairPairs1(self, nums: List[int], lower: int, upper: int) -> int:
+        nums.sort()
+        n = len(nums)
+        count = 0
+        
+        # Iterate over each element in nums
+        for i in range(n):
+            # Find the lower bound index for nums[i]
+            low_index = bisect.bisect_left(nums, lower - nums[i], i + 1)
+            # Find the upper bound index for nums[i]
+            high_index = bisect.bisect_right(nums, upper - nums[i], i + 1)
+            
+            # Count valid pairs with nums[i]
+            count += (high_index - low_index)
+        
+        return count
+    
+    def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
+        nums.sort()
+
+        # first check for all left and right compare it with upper and lower range
+
+        # and add the pairs to the values if sorted array then right - left gives the number of paires
+        n = len(nums)
+
+        left = 0
+        right = n - 1
+        val1 = 0
+
+        # counting first for upper and then lower
+        while left < right:
+            if nums[left] + nums[right] <= upper:
+                val1 += right - left
+                left += 1
+            else:
+                right -= 1
+        
+
+        # now calculate for the pairs which are less than lower so that at the end you can subtract the sum at the end 
+        left = 0
+        right = n - 1
+        val2 = 0
+
+        while left < right:
+            if nums[left] + nums[right] < lower:
+                val2 += right - left
+                left += 1
+            else:
+                right -= 1
+        return val1 - val2
+--
+
+
+=============================================================================================================================
+
+
+-- Find the array concatenation value
+
+-- https://leetcode.com/problems/find-the-array-concatenation-value/submissions/1425667879/
+--
+
+
+--
+class Solution:
+    def findTheArrayConcVal(self, nums: List[int]) -> int:
+
+        ans = 0
+        left = 0
+        n = len(nums)
+        right = n - 1
+
+        while left <= right:
+            if left == right:
+                ans += nums[left]
+            else:
+                temp = int(str(nums[left]) + str(nums[right]))
+                ans += temp
+            left += 1
+            right -= 1
+        return ans
+--
+
+
+==============================================================================================================================
+
+
 
 
