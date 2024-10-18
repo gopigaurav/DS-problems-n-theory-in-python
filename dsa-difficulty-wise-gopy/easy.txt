@@ -1931,5 +1931,25 @@ class Solution:
 
 ==========================================================================================================
 
--- 
+-- Count the collisions of monkeys on a polygon
+
+-- https://leetcode.com/problems/count-collisions-of-monkeys-on-a-polygon/submissions/1426682906/
+--
+
+
+--
+class Solution:
+    def monkeyMove(self, n: int) -> int:
+        # get the total number of moves the monkey and go
+        MOD = 10**9 + 7
+        total_ways = pow(2, n, MOD)
+
+        # subtract 2 ways where in monkeys does not collide
+        result = (total_ways - 2) % MOD
+        
+        return result
+--
+
+
+==========================================================================================================
 
