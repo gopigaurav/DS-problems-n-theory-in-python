@@ -4668,8 +4668,40 @@ class Solution:
 
 ===============================================================================================================================
 
--- 
+-- Count the vowel strin in ranges
 
+
+-- https://leetcode.com/problems/count-vowel-strings-in-ranges/
+--
+
+
+
+--
+class Solution:
+    def vowelStrings(self, words: List[str], queries: List[List[int]]) -> List[int]:
+        n = len(words)
+        prefix_sum = [0] * n
+        vowels = "aeiou"
+
+        for i in range(n):
+            if words[i] and words[i][0] in vowels and words[i][-1] in vowels:
+                prefix_sum[i] = 1
+
+            if i > 0:
+                prefix_sum[i] += prefix_sum[i - 1]
+        
+        ans = []
+        for l, r in queries:
+            if l > 0:
+                ans.append(abs(prefix_sum[r]  - prefix_sum[l - 1]))
+            else:
+                ans.append(prefix_sum[r])
+
+        return ans 
+--
+
+
+=============================================================================================================================
 
 
 
