@@ -1973,6 +1973,47 @@ class Solution:
 ===============================================================================================================
 
 
+-- Maximum subsequence score
+
+
+--
+-- https://leetcode.com/problems/maximum-subsequence-score/
+
+
+--
+from heapq import heappush, heappop
+
+class Solution:
+    def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
+
+        # zip the both elements in nums1 and nums2
+        # sort the elements in decreasing order with respect num2
+        pairs = sorted(zip(nums1, nums2), key=lambda x:-x[1])
+
+        min_heap = []
+        n = len(pairs)
+        ans = 0
+        csum = 0
+
+        for i in range(n):
+            num1 = pairs[i][0]
+            num2 = pairs[i][1]
+
+            heappush(min_heap, num1)
+            csum += num1
+
+            if len(min_heap) > k:
+                csum -= heappop(min_heap)
+            
+            if len(min_heap) == k:
+                ans = max(ans, csum * num2)
+        
+        return ans
+            
+--
+
+
+===============================================================================================================
 
 
 
