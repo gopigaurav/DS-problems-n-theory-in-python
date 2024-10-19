@@ -1953,5 +1953,40 @@ class Solution:
 
 ==========================================================================================================
 
--- 
+-- Sort the students by their kth submissions
+
+
+--
+-- https://leetcode.com/problems/sort-the-students-by-their-kth-score/submissions/1426972693/
+
+
+--
+from typing import List
+
+class Solution:
+    def sortTheStudents(self, score: List[List[int]], k: int) -> List[List[int]]:
+        # Sort the students based on the k-th score in descending order
+        score.sort(key=lambda x: x[k], reverse=True)
+        return score
+--
+
+===============================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
