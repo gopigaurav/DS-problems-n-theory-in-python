@@ -5264,9 +5264,56 @@ class Solution:
 
 ====================================================================================================================================================
 
+-- Make the number of distinct characters equal
 
 
+-- https://leetcode.com/problems/make-number-of-distinct-characters-equal/submissions/1428539211/
+--
 
+--
+class Solution:
+    def isItPossible(self, word1: str, word2: str) -> bool:
+        cnt1, cnt2 = [0 for i in range(26)], [0 for i in range(26)]
+
+        # count the frequency for word1 and word2
+        for i in range(len(word1)):
+            cnt1[ord(word1[i]) - ord('a')] += 1
+        for i in range(len(word2)):
+            cnt2[ord(word2[i]) - ord('a')] += 1
+
+        # swap the words
+        for i in range(26):
+            for j in range(26):
+                if cnt1[i] != 0 and cnt2[j] != 0:
+                    # Swap
+                    cnt1[j] += 1
+                    cnt2[j] -= 1
+                    cnt1[i] -= 1
+                    cnt2[i] += 1
+                    # Check Validity
+                    if self.isValid(cnt1, cnt2):
+                        return True
+                    # Restore
+                    cnt1[j] -= 1
+                    cnt2[j] += 1
+                    cnt1[i] += 1
+                    cnt2[i] -= 1
+        return False
+    
+    def isValid(self, c1, c2):
+        d1, d2 = 0, 0
+        for i in range(26):
+            if c1[i] != 0:
+                d1 += 1
+            if c2[i] != 0:
+                d2 += 1
+        return d1 == d2
+--
+
+
+==================================================================================================================================================
+
+-- 
 
 
 
