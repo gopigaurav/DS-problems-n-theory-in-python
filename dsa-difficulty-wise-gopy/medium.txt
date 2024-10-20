@@ -4701,8 +4701,223 @@ class Solution:
 --
 
 
-=============================================================================================================================
+===============================================================================================================
 
+
+-- Closest nodes queries in a binary search tree
+
+
+-- https://leetcode.com/problems/closest-nodes-queries-in-a-binary-search-tree/submissions/1427315570/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def closestNodes(self, root: Optional[TreeNode], queries: List[int]) -> List[List[int]]:
+        arr = []            
+        
+        def inorder(node):
+            if not node:
+                return
+            inorder(node.left)
+            arr.append(node.val)
+            inorder(node.right)
+
+        def findmini(num):
+            left = 0
+            right = len(arr) - 1
+            res = -1
+
+            while left <= right:
+                mid = (left + right)//2
+
+                if arr[mid] <= num:
+                    res = arr[mid]
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return res
+        
+        def findmaxi(num):
+            left = 0
+            right = len(arr) - 1
+            res = -1
+
+            while left <= right:
+                mid = (left + right)//2
+
+                if arr[mid] >= num:
+                    res = arr[mid]
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            return res
+    
+        
+        inorder(root)
+        result = []
+        for query in queries:
+            mini = findmini(query)
+            maxi = findmaxi(query)
+            result.append([mini, maxi])
+        
+        return result
+--
+
+
+================================================================================================================ 
+
+-- Number of unequal triplets in a array
+
+
+-- https://leetcode.com/problems/number-of-unequal-triplets-in-array/
+--
+
+
+--
+class Solution:
+    def unequalTriplets(self, nums: List[int]) -> int:
+        n = len(nums)
+        ans = 0
+        for i in range(n):
+            for j in range(i + 1, n):
+                for k in range(j + 1, n):
+                    if nums[i] != nums[j] and nums[j] != nums[k] and nums[k] != nums[i]:
+                        ans += 1
+        return ans
+
+    def unequalTriplets(self, nums: List[int]) -> int:
+        c = Counter(nums)
+        res = 0
+
+        l = 0 
+        r = len(nums)
+
+        for i, f in c.items():
+            r -= f
+            res += l * f * r
+            l += f
+
+        return res
+
+        
+--
+
+==========================================================================================================================================================
+
+-- Most profitable path in a tree
+
+
+-- https://leetcode.com/problems/most-profitable-path-in-a-tree/
+--
+
+
+--
+class Solution:
+    def mostProfitablePath(self, edges: List[List[int]], bob: int, amount: List[int]) -> int:
+        from collections import defaultdict
+        graph = defaultdict(list)
+        for src, des in edges:
+            graph[src].append(des)
+            graph[des].append(src)
+        
+        # bob traversal
+        bobPath = dict()
+        def bobTravel(bob, time):
+            bobPath[bob] = time 
+            if bob == 0: return True
+
+            for neighbor in graph[bob]: # graph[1]
+                if not bobPath.get(neighbor):
+                    if bobTravel(neighbor, time + 1): 
+                        return True
+                    del bobPath[neighbor]
+                        
+                    
+            return False            
+
+
+        # alice traversal
+        # alice traverses each node and collects the reward/price depending
+        # on the node, the amount at each node depends on bob's path
+        # case 1: collision => amount // 2 . node in bob's path and at the same time
+        # case 2: already visited by bob: node in bob's path and it's time more than bob's time
+        # otherwise collect/incur full amount from the gate.
+        # as soon as the traversal reaches the leaf node, make changes to the global max_profit if applicable
+        # and return 
+        bobTravel(bob, 1)
+        max_profit = - float('inf')
+        
+        visited = [0] * len(graph)
+        def aliceTraversal(node, time, amt):
+            nonlocal max_profit 
+            if bobPath.get(node):
+                if time == bobPath[node]:
+                    amt += amount[node] // 2
+                if time < bobPath[node]:
+                    amt += amount[node]
+            else:
+                amt += amount[node]
+            visited[node] = 1
+            cnt = 0
+            for neighbor in graph[node]:
+                if not visited[neighbor]:
+                    cnt += 1
+                    aliceTraversal(neighbor, time + 1, amt)
+            
+            if cnt == 0:
+                max_profit = max(max_profit, amt)
+            
+        aliceTraversal(0, 1, 0)
+        return max_profit
+--
+
+
+==========================================================================================================================================================
+
+
+-- Find the sequence of strings appeared on the screen
+
+
+--
+-- https://leetcode.com/problems/find-the-sequence-of-strings-appeared-on-the-screen/
+
+
+--
+class Solution:
+    def stringSequence(self, target: str) -> List[str]:
+
+        res = []
+
+        i = 0
+        n = len(target)
+        string = ""
+
+        while i < n:
+            for char in range(26):
+                temp = chr(char + ord('a'))
+                print(temp, i, target[i])
+                if target[i] == temp:
+                    string += temp
+                    res.append(string)
+                    i += 1
+                    break
+                else:
+                    string += temp
+                    res.append(string)
+                    string = string[:-1]
+
+        return res
+--
+
+
+==============================================================================================================================================================
 
 
 
