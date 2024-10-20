@@ -4920,5 +4920,311 @@ class Solution:
 ==============================================================================================================================================================
 
 
+-- Count substrings with k frequency (Imp)
+
+
+-- https://leetcode.com/problems/count-substrings-with-k-frequency-characters-i/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def numberOfSubstrings(self, s: str, k: int) -> int:
+        
+        ans = 0
+        l = 0
+        d = {}
+        for c in s:
+            d[c] = d.get(c, 0) + 1
+            while d[c] == k:
+                d[s[l]] -= 1
+                l += 1
+            ans += l
+        return ans
+--
+
+
+============================================================================================================================================================
+
+
+-- Minimum division operations to make array non decreasing
+
+
+-- https://leetcode.com/problems/minimum-division-operations-to-make-array-non-decreasing/
+--
+
+
+--
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        ans = 0
+        for i in range(len(nums) - 1, 0, -1):
+            if nums[i] < nums[i - 1]:
+                nums[i - 1] = self.findNum(nums[i], nums[i - 1])
+                if nums[i - 1] == -1: return -1
+                ans += 1
+        return ans
+    
+    def findNum(self, n1, n2):
+        for i in range(n1, 1, -1):
+            if n2 % i == 0: return i
+        return -1
+--
+
+
+============================================================================================================================================================
+
+-- Count ways to build good strings (Imp)
+
+
+-- https://leetcode.com/problems/count-ways-to-build-good-strings/
+--
+
+
+--
+class Solution:
+    def countGoodStrings1(self, low: int, high: int, zero: int, one: int) -> int:
+        MOD = 10**9 + 7
+    
+        # Initialize dp array for lengths up to high
+        dp = [0] * (high + 1)
+        dp[0] = 1  # There is one way to create an empty string
+
+        # Fill dp array
+        for i in range(1, high + 1):
+            if i - zero >= 0:
+                dp[i] = (dp[i] + dp[i - zero]) % MOD
+            if i - one >= 0:
+                dp[i] = (dp[i] + dp[i - one]) % MOD
+
+        # Count the number of good strings
+        total_good_strings = sum(dp[low:high + 1]) % MOD
+        
+        return total_good_strings
+
+    def countGoodStrings2(self, low: int, high: int, zero: int, one: int) -> int:
+        mod = 10**9 + 7
+        # dp = {0 : 1} # base case length -> number of strings of length 0
+        dp = {}
+
+        def dfs(length):
+            if length > high:
+                return 0
+
+            if dp.get(length, 0):
+                return dp[length]
+
+            for_zero = dfs(length + zero)
+            for_one = dfs(length + one)
+
+            res = 1 if length >= low else 0
+            res += for_zero + for_one
+
+            dp[length] = res % mod
+            return res % mod
+
+        return dfs(0) 
+
+    def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
+        dp = {0: 1} #  base case length -> number of strings of length 0
+        mod = 10**9 + 7
+
+        # using this approach since i got TLE
+
+        for i in range(1, high + 1):
+            dp[i] = (dp.get(i - one, 0) + dp.get(i - zero, 0)) % mod
+        
+        return sum([dp[i] for i in range(low, high + 1)]) % mod
+--
+
+
+==========================================================================================================================================================
+
+-- Total Cost to hire k workers
+
+
+-- https://leetcode.com/problems/total-cost-to-hire-k-workers/submissions/1428245288/
+--
+
+
+--
+from heapq import heappush, heappop
+from typing import List
+
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        n = len(costs)
+        left = 0
+        right = n - 1
+
+        heapl = []
+        heapr = []
+
+        for i in range(candidates):
+            if left <= right:
+                heappush(heapl, (costs[left], left))
+                left += 1
+            if left <= right:
+                heappush(heapr, (costs[right], right))
+                right -= 1
+
+        total = 0
+        # Select the minimum cost for 'k' times
+        for i in range(k):
+            if not heapl:
+                temp = heappop(heapr)
+                total += temp[0]
+            elif not heapr:
+                temp = heappop(heapl)
+                total += temp[0]
+            else:
+                if heapl[0][0] <= heapr[0][0]:
+                    total += heappop(heapl)[0]
+                    if left <= right:
+                        heappush(heapl, (costs[left], left))
+                        left += 1
+                else:
+                    total += heappop(heapr)[0]
+                    if left <= right:
+                        heappush(heapr, (costs[right], right))
+                        right -= 1
+
+        return total
+
+--
+
+
+============================================================================================================================================================
+
+
+-- Maximum sum of distinct subarrays with length k
+
+
+--
+-- https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/
+
+
+--
+class Solution:
+    def maximumSubarraySum(self, nums: List[int], k: int) -> int:
+        left = 0
+        right = 0
+
+        n = len(nums)
+        total = 0
+        ans = 0
+        csum = 0
+        m = {}
+
+        while right < n:
+            csum += nums[right]
+            m[nums[right]] = m.get(nums[right], 0) + 1
+
+            if right - left + 1 < k:
+                right += 1
+
+            elif right - left + 1 == k:
+                if len(m) == k:
+                    ans = max(ans, csum)
+                
+                m[nums[left]] = m.get(nums[left], 0) - 1
+
+                if m[nums[left]] == 0:
+                    del m[nums[left]]
+
+                csum -= nums[left]
+                left += 1
+                right += 1
+
+        return ans
+
+--
+
+
+===========================================================================================================================================================
+
+
+-- Distinct prime facotrs of product of array
+
+
+--
+--
+
+
+--
+class Solution:
+    def distinctPrimeFactors(self, nums: List[int]) -> int:
+
+        # get the prime factors for every number
+        def prime_factor(num):
+            factor = set()
+
+            # first check for the number divisible by 2
+            while num % 2 == 0:
+                factor.add(2)
+                num //= 2
+            
+            for i in range(3, int(num**0.5) + 1, 2):
+                while num % i == 0:
+                    factor.add(i)
+                    num //= i
+            
+            # if num is prime number greater than 2
+            if num > 2:
+                factor.add(num)
+            return factor
+        
+        prime_factors = set()
+
+        for i in nums:
+            prime_factors.update(prime_factor(i))
+
+        return len(prime_factors)
+
+          
+--
+
+==========================================================================================================================================================
+
+
+-- parition string into substrings with values at most k
+
+
+--
+-- https://leetcode.com/problems/partition-string-into-substrings-with-values-at-most-k/
+
+
+--
+class Solution:
+    def minimumPartition(self, s: str, k: int) -> int:
+        current_string = ""
+        count = 0
+
+        for char in s:
+            current_string += char
+
+            if int(current_string) > k:
+                count += 1
+                current_string = char
+
+                if int(current_string) > k:
+                    return -1
+        
+        if current_string:
+            count += 1
+        return count        
+--
+
+
+======================================================================================================================================================
+
+
+
+
+
+
+
+
 
 
