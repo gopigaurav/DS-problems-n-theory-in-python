@@ -5313,8 +5313,45 @@ class Solution:
 
 ==================================================================================================================================================
 
+-- Count the number of good subarrays
+
+
+-- https://leetcode.com/problems/count-the-number-of-good-subarrays/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def countGood(self, nums: List[int], k: int) -> int:
+        m = defaultdict(int)
+        left = 0
+        n = len(nums)
+        good_subarrays = 0
+        result = 0
+        
+        for right in range(n):
+            # calculate all the pairs 
+            good_subarrays += m[nums[right]]
+            m[nums[right]] += 1
+
+            while good_subarrays >= k:
+                # include the subarrays to the result
+                result += n - right
+
+                # from left reduce the window and calculate the subarrays
+                m[nums[left]] -= 1
+                good_subarrays -= m[nums[left]]
+                left += 1
+
+        return result
+            
+                
+--
+
+
+==================================================================================================================================================
+
 -- 
-
-
 
 
