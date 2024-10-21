@@ -5352,6 +5352,49 @@ class Solution:
 
 ==================================================================================================================================================
 
+-- Minimum operations to make array equal II
+
+-- https://leetcode.com/problems/minimum-operations-to-make-array-equal-ii/description/
+--
+
+
+--
+class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        if k == 0:
+            return 0 if nums1 == nums2 else -1
+        
+        total_increase = 0
+        total_decrease = 0
+
+        for i in range(len(nums1)):
+            diff = nums1[i] - nums2[i]
+
+            if diff % k:
+                return -1
+            
+            if diff > 0:
+                # you need to divide the diff with k since the diff can be increased or dcreased in k folds
+                total_increase += diff // k
+            
+            if diff < 0:
+                total_decrease += (-diff) // k
+            
+        if total_increase == total_decrease:
+            return total_increase
+        return -1
+            
+
+
+        
+--
+
+
+==================================================================================================================================================
+
+
 -- 
+
+
 
 
