@@ -5393,8 +5393,63 @@ class Solution:
 ==================================================================================================================================================
 
 
--- 
+-- Maximum tastiness of candy basket 
 
 
+--
+-- https://leetcode.com/problems/maximum-tastiness-of-candy-basket/submissions/1429507557/
+
+
+--
+class Solution:
+    def maximumTastiness(self, price: List[int], k: int) -> int:
+        price.sort()
+
+        def checker(diff):
+            # increase the maximum diff
+            count = 1
+            prev = price[0]
+
+            for i in range(1, len(price)):
+                if price[i] - prev >= diff:
+                    count += 1
+                    prev = price[i]
+                    if count == k:
+                        return True
+            return False
+
+        left = 0
+        # get the right which has maximum diff
+        right = price[-1] - price[0]
+
+        result = 0
+        while left <= right:
+            mid = (left + right) // 2
+
+            if checker(mid):
+                result = mid
+                left = mid + 1
+            else:
+                right = mid - 1
+        return result            
+
+        
+--
+
+
+================================================================================================================================================
+
+
+-- Take k of each char from left and right
+
+
+--
+--
+
+
+--
+--
+
+===============================================================================================================================================
 
 
