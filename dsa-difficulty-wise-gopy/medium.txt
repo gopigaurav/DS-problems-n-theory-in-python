@@ -5475,5 +5475,129 @@ class Solution:
 
 ===============================================================================================================================================
 
--- 
+-- Minimize the maximum of two arrays
+
+
+--
+-- https://leetcode.com/problems/minimize-the-maximum-of-two-arrays/
+
+
+--
+class Solution: 
+	def minimizeSet(self, divisor1: int, divisor2: int, uniqueCnt1: int, uniqueCnt2: int) -> int: 
+		lo, hi = 0, 1<<32-1
+		mult = lcm(divisor1, divisor2)
+
+		while lo < hi: 
+			mid = lo + hi >> 1
+
+            # mid - mid // div1 gives you total number of count which is less than mid
+
+            # un1 + uni2 <= mid - mid //mul gives you total nuumber of elements which is not divisible by either one
+			if uniqueCnt1 <= mid - mid//divisor1 and uniqueCnt2 <= mid - mid//divisor2 and uniqueCnt1+uniqueCnt2 <= mid - mid//mult: 
+                hi = mid
+			else: 
+                lo = mid+1
+		return lo 
+--
+
+
+==============================================================================================================================================
+
+-- Reward top k students
+
+
+-- https://leetcode.com/problems/reward-top-k-students/submissions/1431056624/
+--
+
+
+--
+from collections import defaultdict
+from typing import List
+class Solution:
+    def topStudents(self, positive_feedback: List[str], negative_feedback: List[str], report: List[str], student_id: List[int], k: int) -> List[int]:
+
+        # traverse through the map and check for the feedbacks
+
+        pos = set(positive_feedback)
+        neg = set(negative_feedback)
+
+        student = {}
+
+        for i in range(len(report)):
+            words = report[i].split()
+            _id = student_id[i]
+
+            if _id not in student:
+                student[_id] = 0
+
+            for word in words:
+                if word in pos:
+                    student[_id] += 3
+                elif word in neg:
+                    student[_id] -= 1
+            
+        sorted_values = sorted(student.keys(), key=lambda x:(-student[x], x))
+
+        return sorted_values[:k]
+
+
+--
+
+
+==================================================================================================================================================
+
+-- Maximum enemy forts that can be captured 
+
+
+-- https://leetcode.com/problems/maximum-enemy-forts-that-can-be-captured/
+--
+
+
+--
+class Solution:
+    def captureForts(self, f: List[int]) -> int:
+
+        prevOne = False
+        cnt = 0
+        ans = 0
+
+        n = len(f)
+        for i in range(n):
+            if f[i] == 0 and prevOne:
+                cnt += 1
+            elif f[i] == 1:
+                cnt = 0
+                prevOne = True
+            elif f[i] == -1:
+                prevOne = False
+                ans = max(cnt, ans)
+                cnt = 0
+        
+        prevOne = False
+        cnt = 0
+        for i in range(n - 1, -1, -1):
+            if f[i] == 0 and prevOne:
+                cnt += 1
+            elif f[i] == 1:
+                cnt = 0
+                prevOne = True
+            elif f[i] == -1:
+                prevOne = False
+                ans = max(cnt, ans)
+                cnt = 0
+        
+        return ans
+
+
+
+        
+--
+
+
+======================================================================================================================================================
+
+
+
+
 
