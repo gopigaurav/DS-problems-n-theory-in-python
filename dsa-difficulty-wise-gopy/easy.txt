@@ -2080,12 +2080,125 @@ class Solution:
 =======================================================================================================
 
 
-- 
+-- Maximum value of strings in an array
 
 
+-- https://leetcode.com/problems/maximum-value-of-a-string-in-an-array/
+--
 
 
+--
+class Solution:
+    def maximumValue(self, strs: List[str]) -> int:
+        max_value = 0
+        for s in strs:
+            if s.isdigit():
+                value = int(s)
+            else:
+                value = len(s)
+            max_value = max(max_value, value)
+        return max_value
+--
 
+
+========================================================================================================
+
+
+-- Minimum score of a path between two cities
+
+
+--
+-- https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/submissions/1434101347/
+
+
+--
+from collections import defaultdict
+class Solution:
+    def minScore(self, n: int, roads: List[List[int]]) -> int:
+
+        g = defaultdict(list)
+
+        for u,v,w in roads:
+            g[u].append((v, w))
+            g[v].append((u, w))
+
+        q = []
+        q.append((1))
+        min_score = float('inf')
+        vis = set()
+
+        while q:
+            node = q.pop(0)
+
+            for nei, w in g[node]:
+                min_score = min(min_score, w)
+
+                if nei not in vis:
+                    q.append(nei)
+                    vis.add(nei)
+        
+        return min_score
+        
+--
+
+
+=========================================================================================================
+
+-- Remove Node from linked list
+
+
+--
+--
+
+
+--
+from typing import Optional
+
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        print(head)
+
+        # Reverse the linked list
+        def reverse_head(node):
+            if not node:
+                return None
+
+            cur = node
+            prev = None
+
+            while cur:
+                next_node = cur.next
+                cur.next = prev
+                prev = cur
+                cur = next_node
+            return prev
+
+        rev_head = reverse_head(head)
+        new_head: Optional[ListNode] = None
+        temp_rev_head = rev_head
+        max_element = float("-inf")
+
+        while temp_rev_head:
+            if temp_rev_head.val >= max_element:
+                max_element = temp_rev_head.val
+                new_node = ListNode(temp_rev_head.val)
+                new_node.next = new_head
+                new_head = new_node
+            temp_rev_head = temp_rev_head.next
+
+        return new_head
+
+--
+
+===========================================================================================================
 
 
 

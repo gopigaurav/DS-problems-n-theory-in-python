@@ -5598,6 +5598,87 @@ class Solution:
 ======================================================================================================================================================
 
 
+-- Remove nodes from linked list
+
+
+-- https://leetcode.com/problems/remove-nodes-from-linked-list/
+--
+
+
+--
+from typing import Optional
+
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        # Reverse the linked list
+        def reverse_head(node):
+            if not node:
+                return None
+
+            cur = node
+            prev = None
+
+            while cur:
+                next_node = cur.next
+                cur.next = prev
+                prev = cur
+                cur = next_node
+            return prev
+
+        rev_head = reverse_head(head)
+        cur = rev_head
+        max_element = cur.val
+
+        while cur and cur.next:
+            if cur.next.val < max_element:
+                cur.next = cur.next.next
+            else:
+                max_element = cur.next.val
+                cur = cur.next
+        return reverse_head(rev_head)
+--
+
+
+=====================================================================================================================================================
+
+
+-- Minimum penalty for a shop
 
 
 
+-- https://leetcode.com/problems/minimum-penalty-for-a-shop/submissions/1434224540/
+--
+
+
+--
+class Solution:
+    def bestClosingTime(self, customers: str) -> int:
+        res = 0
+        customer_left = 0
+        
+        for i in range(len(customers)):
+            # if customer is greater than 0 there are still customers inside the shop
+            # so reset the res to i + i coz the current one is Y
+            # if 'N' decreament 1 from customer_left
+            if customers[i] == 'Y':
+                customer_left += 1
+
+                if customer_left > 0:
+                    res = i + 1
+                    customer_left = 0                
+            else:
+                customer_left -= 1
+                    
+        return res
+--
+
+=======================================================================================================================================================
