@@ -5682,3 +5682,68 @@ class Solution:
 --
 
 =======================================================================================================================================================
+
+
+-- Diff between ones and zeros in row and col
+
+
+-- https://leetcode.com/problems/difference-between-ones-and-zeros-in-row-and-column/post-solution/?submissionId=1434246446
+--
+
+
+--
+class Solution:
+    def onesMinusZeros(self, grid: List[List[int]]) -> List[List[int]]:
+        m = len(grid)
+        n = len(grid[0])
+
+        onesRow = [0] * m
+        onesCol = [0] * n
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    onesRow[i] += 1
+                    onesCol[j] += 1
+
+        diff = [[0] * n for _ in range(m)]
+        for i in range(m):
+            for j in range(n):
+                zerosRow = m - onesRow[i]
+                zerosCol = n - onesCol[j]
+
+                diff[i][j] = onesRow[i] + onesCol[j] - zerosRow - zerosCol
+        return diff
+        
+
+--
+
+========================================================================================================================================================
+
+-- Minimum addition to make integer beautiful
+
+
+-- https://leetcode.com/problems/minimum-addition-to-make-integer-beautiful/
+--
+
+
+--
+class Solution:
+    def makeIntegerBeautiful(self, n: int, target: int) -> int:
+
+        sm = lambda n: sum(map(int,list(str(n))))
+
+        zeros, diff = 10, 0                     #  Ex: n = 5617     ; target = 7
+
+        while sm(n + diff) > target:            #   n    zeros   diff  n+diff  sm(n+diff)
+                                                # -----  –––––  –––––  ––––––  –––––––––  
+            diff = zeros - n%zeros              # 5617     10      3    5620     13  
+                                                # 5617    100     83    5700     12
+            zeros*= 10                          # 5617   1000    383    6000      6  <-- less than target
+                                                #                 |
+        return diff  
+--
+
+
+===========================================================================================================================================================
+
