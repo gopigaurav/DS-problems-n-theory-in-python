@@ -5748,7 +5748,59 @@ class Solution:
 ===========================================================================================================================================================
 
 
+-- Most popular video creater
+
+
+--  https://leetcode.com/problems/most-popular-video-creator/
+--
+
+--
+from collections import defaultdict
+class Solution:
+    def mostPopularCreator(self, creators: List[str], ids: List[str], views: List[int]) -> List[List[str]]:
+
+        total_views = defaultdict(int)
+        max_views = defaultdict(lambda: (0, ""))  # (max_view_count, id)
+
+        n = len(creators)
+        
+        for i in range(n):
+            creator = creators[i]
+            video_id = ids[i]
+            view_count = views[i]
+
+            total_views[creator] += view_count
+
+            current_max, current_id = max_views[creator]
+            if view_count > current_max:
+                max_views[creator] = (view_count, video_id)
+            elif view_count == current_max:
+                if video_id < current_id or current_id == "":
+                    max_views[creator] = (current_max, video_id)
+
+        max_popularity = max(total_views.values())
+        result = []
+
+        for creator in total_views:
+            if total_views[creator] == max_popularity:
+                most_viewed_id = max_views[creator][1]
+                result.append([creator, most_viewed_id])
+
+        return result
+
+        
+
+        
+--
+
+
+========================================================================================================================================================
+
+
 -- 
+
+
+
 
 
 
