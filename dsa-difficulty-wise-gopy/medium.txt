@@ -5797,7 +5797,44 @@ class Solution:
 ========================================================================================================================================================
 
 
--- 
+-- Destroy sequential targets
+
+
+--
+-- https://leetcode.com/problems/destroy-sequential-targets/
+
+
+
+--
+from typing import List
+
+class Solution:
+    def destroyTargets(self, nums: List[int], space: int) -> int:
+        m = {}
+
+        for num in nums:
+            reminder = num % space
+            if reminder not in m:
+                m[reminder] = 1
+            else:
+                m[reminder] += 1
+
+        max_target = 0
+        best_seed = float("inf")
+
+        for num in nums:
+            reminder = num % space
+            count = m[reminder]
+
+            if count > max_target or (count == max_target and num < best_seed):
+                best_seed = num
+                max_target = count
+        
+        return best_seed
+
+--
+
+=========================================================================================================================================================
 
 
 
