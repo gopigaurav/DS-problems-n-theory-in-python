@@ -5836,7 +5836,40 @@ class Solution:
 
 =========================================================================================================================================================
 
+-- Words within two edits of dictionary
 
+
+-- https://leetcode.com/problems/words-within-two-edits-of-dictionary/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def twoEditWords(self, queries: List[str], dictionary: List[str]) -> List[str]:
+
+        def is_valid(q, w):
+            count = 0
+            for i in range(len(q)):
+                if q[i] != w[i]:
+                    count += 1
+                if count > 2:
+                    return False
+            return count <= 2
+
+        res = []
+        for q in queries:
+            for d in dictionary:
+                if is_valid(q, d):
+                    res.append(q)
+                    break
+        
+        return res
+
+--
+
+=========================================================================================================================================================
 
 
 
