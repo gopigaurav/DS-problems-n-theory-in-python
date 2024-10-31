@@ -5924,6 +5924,213 @@ class Solution:
 =========================================================================================================================================================
 
 
--- 
+-- Count the number of distince int after reverse operations
+
+
+--
+-- https://leetcode.com/problems/count-number-of-distinct-integers-after-reverse-operations/
+
+
+--
+class Solution:
+    def countDistinctIntegers1(self, nums: List[int]) -> int:
+        s = set()
+        cnt = 0
+
+        for i in nums:
+            temp = int(str(i)[::-1])
+            if i not in s:
+                cnt += 1
+            s.add(i)
+            if temp not in s:
+                cnt += 1
+            s.add(temp)
+        
+        return cnt
+    
+    def countDistinctIntegers(self, nums: List[int]) -> int:
+    
+        unique_integers = set()
+
+        for num in nums:
+            unique_integers.add(num)
+
+        for num in nums:
+            reversed_num = int(str(num)[::-1])
+            unique_integers.add(reversed_num)
+
+        return len(unique_integers)
+            
+     
+--
+
+
+============================================================================================================================================
+ 
+
+-- Minimize maximum of array
+
+
+-- https://leetcode.com/problems/minimize-maximum-of-array/submissions/1438760070/
+--
+
+
+--
+import math
+class Solution:
+    def minimizeArrayValue(self, nums: List[int]) -> int:
+
+        # two approchs 
+            # Binary search
+            # Normal greedy
+
+        # Normal apporach
+
+        cur_sum = 0
+        a = 0  # max_value
+        
+        for ind, num in enumerate(nums):
+            cur_sum += num
+            ceil = math.ceil(cur_sum / (ind + 1))
+            a = max(a, ceil)
+        
+        return a
+
+    def minimizeArrayValue(self, nums: List[int]) -> int:
+        return max(ceil(x / i) for i, x in enumerate(accumulate(nums), 1))
+
+        
+--
+
+
+============================================================================================================================================
+
+
+-- Range porduct querirs of powers
+
+
+-- https://leetcode.com/problems/range-product-queries-of-powers/submissions/1438815532/
+--
+
+
+--
+class Solution:
+    def productQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+
+        def get_minimum_pow(num):
+            powers = 1
+            res = []
+
+            while num:
+                if num & 1:
+                    res.append(powers)
+                powers *= 2
+                num = num >> 1
+        
+            return res
+        
+        powers = get_minimum_pow(n)
+        result = []
+
+        def product_in_range(powers, left, right):
+            MOD = 10**9 + 7
+            result = 1
+            for i in range(left, right + 1):
+                result = (result * powers[i]) % MOD
+            return result
+
+        for left, right in queries:
+            result.append(product_in_range(powers, left, right))
+        return result
+
+
+        
+--
+
+
+==============================================================================================================================================
+
+
+-- Range product queries of powers
+
+
+-- https://leetcode.com/problems/range-product-queries-of-powers/
+--
+
+
+--
+class Solution:
+    def productQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+        # you can use prefix sum to get apporach as well
+        def get_minimum_pow(num):
+            powers = 1
+            res = []
+
+            while num:
+                if num & 1:
+                    res.append(powers)
+                powers *= 2
+                num = num >> 1
+        
+            return res
+        
+        powers = get_minimum_pow(n)
+        result = []
+
+        def product_in_range(powers, left, right):
+            MOD = 10**9 + 7
+            result = 1
+            for i in range(left, right + 1):
+                result = (result * powers[i]) % MOD
+            return result
+
+        for left, right in queries:
+            result.append(product_in_range(powers, left, right))
+        return result
+
+
+        
+--
+
+
+
+==================================================================================================================================================
+
+
+-- Using a robot to print the lexicographically smallesst string
+
+
+-- https://leetcode.com/problems/using-a-robot-to-print-the-lexicographically-smallest-string/
+--
+
+
+--
+class Solution:
+    def robotWithString(self, s: str) -> str:
+        cnt, lo, p, t = Counter(s), 'a', [], []
+        for ch in s:
+            t += ch
+            cnt[ch] -= 1
+            while lo < 'z' and cnt[lo] == 0:
+                lo = chr(ord(lo) + 1)
+            while t and t[-1] <= lo:
+                p += t.pop()
+        return "".join(p) 
+--
+
+
+======================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
 
 
