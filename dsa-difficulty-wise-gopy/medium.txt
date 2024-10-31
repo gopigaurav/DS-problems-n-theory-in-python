@@ -5872,13 +5872,58 @@ class Solution:
 =========================================================================================================================================================
 
 
+-- Number of subarrays with gcd equal to k
 
 
+-- https://leetcode.com/problems/number-of-subarrays-with-gcd-equal-to-k/
+--
 
 
+--
+class Solution:
+    def subarrayGCD(self, nums: List[int], k: int) -> int:
+        count = 0
+        n = len(nums)
+        
+        for i in range(n):
+            current_gcd = 0
+            for j in range(i, n):
+                current_gcd = math.gcd(current_gcd, nums[j])
+                
+                if current_gcd == k:
+                    count += 1
+                elif current_gcd < k:
+                    break
+                    
+        return count
+--
 
 
+========================================================================================================================================================
 
 
+-- Sum of number and its reverse
+
+
+-- https://leetcode.com/problems/sum-of-number-and-its-reverse/
+--
+
+
+--
+    def sumOfNumberAndReverse(self, num: int) -> bool:
+        if num < 2:
+            return num == 0
+        for i in range(num // 2, num):
+            rev = int(str(i)[::-1])
+            if rev + i == num:
+                return True
+        return False
+--
+
+
+=========================================================================================================================================================
+
+
+-- 
 
 
