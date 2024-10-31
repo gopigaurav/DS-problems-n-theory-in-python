@@ -6122,12 +6122,84 @@ class Solution:
 ======================================================================================================================================================
 
 
+-- Minimize xor
 
 
+-- https://leetcode.com/problems/minimize-xor/submissions/1439217586/
+--
 
 
+--
+class Solution:
+    def minimizeXor(self, num1: int, num2: int) -> int:
+        k = bin(num2).count('1') # number of set bits 
+        x = 0
+        for i in range(31, -1, -1):
+            if k == 0:
+                break
+            
+            # check if ith bit of the number is set then or with x
+            if (num1 & (1 << i) != 0):
+                x |= (1 << i)
+                k -= 1
+
+        # this for loop needed when there is not enough set bits in num1
+        for i in range(32):
+            if k == 0:
+                break
+            if (x & (1 << i)) == 0:  # If the bit is not set in x
+                x |= (1 << i)  # Set this bit in x
+                k -= 1
+        
+        return x
+        
+        
+--
 
 
+=====================================================================================================================================================
+
+
+-- Maximum sum of an hourglass
+
+
+--
+-- https://leetcode.com/problems/maximum-sum-of-an-hourglass/
+
+
+--
+class Solution:
+    def maxSum(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+
+        if m <= 2 and n <= 2:
+            return -1
+
+        max_sum = float('-inf')
+
+        # Iterate over possible hourglass centers
+        for i in range(1, m - 1):
+            for j in range(1, n - 1):
+                # Calculate the hourglass sum centered at grid[i][j]
+                hourglass_sum = (
+                    grid[i-1][j-1] + grid[i-1][j] + grid[i-1][j+1] +
+                    grid[i][j] +
+                    grid[i+1][j-1] + grid[i+1][j] + grid[i+1][j+1]
+                )
+                # Update max_sum if the current hourglass_sum is greater
+                max_sum = max(max_sum, hourglass_sum)
+
+        return max_sum
+            
+
+        
+--
+
+
+======================================================================================================================================================
+
+-- 
 
 
 
