@@ -6199,7 +6199,48 @@ class Solution:
 
 ======================================================================================================================================================
 
--- 
+-- Bitwise xor of all pairings
+
+
+-- https://leetcode.com/problems/bitwise-xor-of-all-pairings/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def xorAllNums(self, nums1: List[int], nums2: List[int]) -> int:
+        odd1 = len(nums1) % 2
+        odd2 = len(nums2) % 2
+
+        x1 = 0
+        for i in nums1:
+            x1 ^= i
+        x2 = 0
+        for j in nums2:
+            x2 ^= j
+
+        return (odd1 * x2) ^ (odd2 * x1)
+
+--
+
+
+=================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
