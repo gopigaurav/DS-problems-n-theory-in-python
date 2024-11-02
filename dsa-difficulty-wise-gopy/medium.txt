@@ -6517,3 +6517,108 @@ class Solution:
 ===============================================================================================================================================
 
 
+-- Minimum amount of time to collect garbage
+
+
+-- https://leetcode.com/problems/minimum-amount-of-time-to-collect-garbage/
+--
+
+
+--
+class Solution:
+    def garbageCollection(self, garbage: List[str], travel: List[int]) -> int:
+        m = 0
+        g = 0
+        p = 0
+
+        last_metal = 0
+        last_paper = 0
+        last_glass = 0
+
+        for i, house in enumerate(garbage):
+            a = house.count('M')
+            b = house.count('P')
+            c = house.count('G')
+
+            m += a
+            g += b
+            p += c
+
+            if a:
+                last_metal = i
+            if b:
+                last_paper = i
+            if c:
+                last_glass = i
+        
+        # now calculate the total time taken to reach the last particular garbage index
+        tm = sum(travel[:last_metal])
+        tg = sum(travel[:last_glass])
+        tp = sum(travel[:last_paper])
+
+        return tm + tg + tp + m + p + g
+--
+
+
+==============================================================================================================================================
+
+-- Amount of time for binary tree to be infected
+
+
+--
+-- https://leetcode.com/problems/amount-of-time-for-binary-tree-to-be-infected/
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
+
+        # first calculate the parent array for all the nodes so that the infections can travel in all directions
+
+        adj = {}
+
+        def parent_cal(node, parent):
+            if not node:
+                return
+            
+            if node.val not in adj:
+                adj[node.val] = []
+
+            if parent:
+                adj[node.val].append(parent.val)
+                adj[parent.val].append(node.val)
+
+            parent_cal(node.left, node)
+            parent_cal(node.right, node) 
+        
+        parent_cal(root, None)
+
+        q = [start]
+        cnt = 0
+        vis = set([start])
+
+        while q:
+            for _ in range(len(q)):
+                temp = q.pop(0)
+                for node in adj[temp]:
+                    if node not in vis:
+                        vis.add(node)
+                        q.append(node)
+            if q:
+                cnt += 1
+        
+        return cnt
+        
+--
+
+
+============================================================================================================================================
+
+
+
+
