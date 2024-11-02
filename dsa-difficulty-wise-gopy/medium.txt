@@ -6633,6 +6633,7 @@ class Solution:
         delta = [0] * (n + 1)
         
         for start, end, direction in shifts:
+            # based on direction add and decrease
             if direction == 1:
                 delta[start] += 1
                 if end + 1 < n:
@@ -6656,5 +6657,9 @@ class Solution:
 
 
 ==========================================================================================================================================
+
+
+
+
 
 
