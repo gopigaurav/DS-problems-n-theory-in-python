@@ -6619,7 +6619,7 @@ class Solution:
 
 ============================================================================================================================================
 
--- Shifting letters 2
+-- Shifting letters 2 (Imp)
 
 
 -- https://leetcode.com/problems/shifting-letters-ii/
@@ -6658,6 +6658,76 @@ class Solution:
 
 ==========================================================================================================================================
 
+
+-- Time needed to rearrange a binary string
+
+
+-- https://leetcode.com/problems/time-needed-to-rearrange-a-binary-string/submissions/1440931000/
+--
+
+
+--
+class Solution:
+    def secondsToRemoveOccurrences1(self, s: str) -> int:
+        seconds = 0
+        while '01' in s:
+            s = s.replace('01', '10')
+            seconds += 1
+        return seconds
+
+    def secondsToRemoveOccurrences(self, s: str) -> int:
+        steps, zeroes = 0, 0
+        for ch in s:
+            if ch == '0':
+                zeroes += 1
+            elif zeroes > 0:
+                # Increment steps after counting the necessary steps for '0's before '1'
+                steps = max(steps + 1, zeroes)
+        return steps
+
+        
+--
+
+=======================================================================================================================================
+
+
+-- Construct smallest number from di string
+
+
+-- https://leetcode.com/problems/construct-smallest-number-from-di-string/
+--
+
+
+--
+class Solution:
+    def smallestNumber(self, pattern: str) -> str:
+        stack = []
+        result = []
+        
+        for i in range(len(pattern) + 1):
+            stack.append(str(i + 1))
+            
+            if i == len(pattern) or pattern[i] == 'I':
+                while stack:
+                    result.append(stack.pop())
+        
+        return ''.join(result)
+--
+
+======================================================================================================================================
+
+-- Node with highest edges score
+
+
+--
+-- https://leetcode.com/problems/node-with-highest-edge-score/description/
+
+
+--
+--
+
+
+=======================================================================================================================================
 
 
 
