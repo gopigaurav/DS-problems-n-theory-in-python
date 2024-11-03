@@ -6724,10 +6724,221 @@ class Solution:
 
 
 --
+class Solution:
+    def edgeScore(self, edges: List[int]) -> int:
+        n = len(edges)
+        temp = [0] * n
+
+        for i in range(n):
+            temp[edges[i]] += i
+
+        return temp.index(max(temp))
 --
 
 
 =======================================================================================================================================
+
+
+-- Longest ideal subsequence
+
+
+-- https://leetcode.com/problems/longest-ideal-subsequence/
+--
+
+
+--
+class Solution:
+    def longestIdealString(self, s: str, k: int) -> int:
+        x = [0] * 123
+        for ch in s:
+            i = ord(ch)
+            x[i] = max(x[i - k:i + k + 1]) + 1
+        return max(x)
+--
+
+
+=======================================================================================================================================
+
+-- Check if there is a valid partiiton for the array
+
+
+-- https://leetcode.com/problems/check-if-there-is-a-valid-partition-for-the-array/
+--
+
+--
+from collections import Counter
+
+class Solution:
+    def validPartition1(self, nums: List[int]) -> bool:
+        memo = {}
+        def can_partition(start):
+            if start == len(nums):
+                return True
+            
+            if start in memo:
+                return memo[start]
+
+            result = False
+            
+            # Check for subarray of length 2
+            if start + 1 < len(nums) and nums[start] == nums[start + 1]:
+                result = can_partition(start + 2)
+
+            # Check for subarray of length 3 (equal elements)
+            if not result and start + 2 < len(nums) and nums[start] == nums[start + 1] == nums[start + 2]:
+                result = can_partition(start + 3)
+
+            # Check for subarray of length 3 (consecutive increasing)
+            if not result and start + 2 < len(nums) and nums[start] + 1 == nums[start + 1] and nums[start + 1] + 1 == nums[start + 2]:
+                result = can_partition(start + 3)
+
+            # Store the result in memo
+            memo[start] = result
+            return result
+        return can_partition(0)
+            
+    def validPartition(self, nums: List[int]) -> bool:
+        n = len(nums)
+        dp = [False] * (n + 1)
+        dp[0] = True 
+
+        for i in range(1, n + 1):
+            # Check for last 2 elements
+            if i >= 2 and nums[i - 1] == nums[i - 2]:
+                dp[i] = dp[i] or dp[i - 2]
+
+            # Check for last 3 elements (equal)
+            if i >= 3 and nums[i - 1] == nums[i - 2] == nums[i - 3]:
+                dp[i] = dp[i] or dp[i - 3]
+
+            # Check for last 3 elements (consecutive increasing)
+            if i >= 3 and nums[i - 1] == nums[i - 2] + 1 and nums[i - 2] == nums[i - 3] + 1:
+                dp[i] = dp[i] or dp[i - 3]
+
+        return dp[n]
+
+
+--
+
+=========================================================================================================================================
+
+
+-- Check if there is a valid partition for the array
+
+
+--
+-- https://leetcode.com/problems/check-if-there-is-a-valid-partition-for-the-array/
+
+
+--
+from collections import Counter
+
+class Solution:
+    def validPartition1(self, nums: List[int]) -> bool:
+        memo = {}
+        def can_partition(start):
+            if start == len(nums):
+                return True
+            
+            if start in memo:
+                return memo[start]
+
+            result = False
+            
+            # Check for subarray of length 2
+            if start + 1 < len(nums) and nums[start] == nums[start + 1]:
+                result = can_partition(start + 2)
+
+            # Check for subarray of length 3 (equal elements)
+            if not result and start + 2 < len(nums) and nums[start] == nums[start + 1] == nums[start + 2]:
+                result = can_partition(start + 3)
+
+            # Check for subarray of length 3 (consecutive increasing)
+            if not result and start + 2 < len(nums) and nums[start] + 1 == nums[start + 1] and nums[start + 1] + 1 == nums[start + 2]:
+                result = can_partition(start + 3)
+
+            # Store the result in memo
+            memo[start] = result
+            return result
+        return can_partition(0)
+            
+
+
+    def validPartition(self, nums: List[int]) -> bool:
+        n = len(nums)
+        dp = [False] * (n + 1)
+        dp[0] = True 
+
+        # check for the condition eith subarray ending at index i
+        for i in range(1, n + 1):
+            # Check for last 2 elements
+            if i >= 2 and nums[i - 1] == nums[i - 2]:
+                dp[i] = dp[i] or dp[i - 2]
+
+            # Check for last 3 elements (equal)
+            if i >= 3 and nums[i - 1] == nums[i - 2] == nums[i - 3]:
+                dp[i] = dp[i] or dp[i - 3]
+
+            # Check for last 3 elements (consecutive increasing)
+            if i >= 3 and nums[i - 1] == nums[i - 2] + 1 and nums[i - 2] == nums[i - 3] + 1:
+                dp[i] = dp[i] or dp[i - 3]
+
+        return dp[n]
+
+
+--
+
+
+========================================================================================================================================
+
+
+-- Reachable nodes with restrictions
+
+
+--
+-- https://leetcode.com/problems/reachable-nodes-with-restrictions/solutions/6002020/using-bfs-beats-80/
+
+
+--
+from collections import defaultdict
+class Solution:
+    def reachableNodes(self, n: int, edges: List[List[int]], restricted: List[int]) -> int:
+
+        g = defaultdict(list)
+        s = set(restricted)
+        for u,v in edges:
+            g[u].append(v)
+            g[v].append(u)
+        
+        q = []
+        q.append(0)
+        vis = [False] * n
+        vis[0] = True
+        count = 0
+
+        while q:
+            temp = q.pop(0)
+            count += 1
+
+            for node in g[temp]:
+                if node not in s and not vis[node]:
+                    q.append(node)
+                    vis[node] = True
+
+        return count
+--
+
+
+======================================================================================================================================
+
+
+-- 
+
+
+
+
+
+
 
 
 
