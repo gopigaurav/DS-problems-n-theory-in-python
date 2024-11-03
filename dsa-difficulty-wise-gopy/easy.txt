@@ -2200,5 +2200,52 @@ class Solution:
 
 ===========================================================================================================
 
+-- Number of arthi,etic triplets
 
+
+--
+--
+
+--
+class Solution:
+    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
+        s = set(nums)
+
+        count = 0
+        for num in nums:
+            if (num + diff) in s and (num + 2 * diff) in s:
+                count += 1
+        return count
+--
+
+
+============================================================================================================
+
+
+-- Task scheduler II
+
+-- https://leetcode.com/problems/task-scheduler-ii/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def taskSchedulerII(self, tasks: List[int], space: int) -> int:
+        day = 0
+        m = {}
+
+        for task in tasks:
+            day += 1 
+            if task in m:
+                day = max(day, m[task] + space + 1)
+            m[task] = day 
+
+        return day
+
+--
+
+
+===========================================================================================================
 
