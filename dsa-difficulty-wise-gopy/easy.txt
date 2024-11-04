@@ -2249,3 +2249,48 @@ class Solution:
 
 ===========================================================================================================
 
+
+-- Count the number of bad pairs
+
+
+--
+-- https://leetcode.com/problems/count-number-of-bad-pairs/
+
+
+--
+class Solution:
+    def countBadPairs(self, nums: List[int]) -> int:
+        # the condition can be broken down to 
+        # j - nums[j] != i - nums[i]
+
+        # first calculate all the good pairs and then substract with total number of pairs to get 
+        # bad pairs
+
+        key_count = defaultdict(int)
+        bad_pairs = 0
+        n = len(nums)
+        
+        for j in range(n):
+            key_j = j - nums[j]
+            
+            # Number of pairs (i, j) with i < j is simply j (since j is the count of all prior indices)
+            # Good pairs are the ones with the same key
+            good_pairs = key_count[key_j]
+            bad_pairs += j - good_pairs  # Total pairs - good pairs gives bad pairs
+            
+            # Update the key count with the current key_j
+            key_count[key_j] += 1
+        
+        return bad_pairs
+
+
+        
+--
+
+
+===========================================================================================================
+
+
+-- 
+
+

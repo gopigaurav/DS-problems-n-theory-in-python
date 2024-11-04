@@ -6932,11 +6932,191 @@ class Solution:
 ======================================================================================================================================
 
 
--- 
+-- Maximum number if groups entering a competition
 
 
+-- https://leetcode.com/problems/maximum-number-of-groups-entering-a-competition/
+--
 
 
+--
+class Solution:
+    def maximumGroups(self, grades: List[int]) -> int:
+        n = len(grades)
+        k = 0
+        total_students = 0
+        
+        # find the maximum number of groups
+        while total_students + (k + 1) <= n:
+            k += 1
+            total_students += k
+        
+        return k
+        
+--
+
+
+==========================================================================================================================================
+
+
+-- Make array zero by subtracting equal amounts
+
+
+-- https://leetcode.com/problems/make-array-zero-by-subtracting-equal-amounts/
+--
+
+
+--
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        unique_elements = set(nums)
+    
+        # Remove zero as we only care about positive elements
+        if 0 in unique_elements:
+            unique_elements.remove(0)
+            
+        # The number of unique positive elements is the minimum number of operations
+        return len(unique_elements)
+--
+
+
+===========================================================================================================================================
+
+-- Equal row and column pairs
+
+
+-- https://leetcode.com/problems/equal-row-and-column-pairs/submissions/1441938076/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        # frequency count for rows
+        m = defaultdict(int)
+        cnt = 0
+        
+        for row in grid:
+            m[str(row)] += 1
+        
+        for i in range(len(grid[0])):
+            cols = []
+
+            for j in range(len(grid)):
+                cols.append(grid[j][i])
+            cnt += m[str(cols)]
+        return cnt
+--
+
+
+============================================================================================================================================
+
+-- Number of zero filled subarrays
+
+-- https://leetcode.com/problems/number-of-zero-filled-subarrays/
+--
+
+
+--
+class Solution:
+    def zeroFilledSubarray(self, nums: List[int]) -> int:
+
+        count = 0  # To store the total count of zero-filled subarrays
+        current_zeros = 0  # To count the length of current contiguous zeros
+
+        for num in nums:
+            if num == 0:
+                current_zeros += 1
+                count += current_zeros
+            else:
+                current_zeros = 0  # Reset the zero count if a non-zero element is encountered
+
+        return count
+--
+
+
+==============================================================================================================================================
+
+
+-- Query kth smallest trimmed number
+
+
+--
+-- https://leetcode.com/problems/query-kth-smallest-trimmed-number/
+
+
+--
+class Solution:
+    def smallestTrimmedNumbers(self, nums: List[str], queries: List[List[int]]) -> List[int]:
+        result = []
+    
+        for k, trim in queries:
+            # Trim each number to the rightmost 'trim' digits
+            trimmed_nums = [(num[-trim:], i) for i, num in enumerate(nums)]
+            
+            # Sort the trimmed numbers; Python's sort is stable, so it keeps original order for equal values
+            trimmed_nums.sort()
+            
+            # Get the k-th smallest trimmed number's index (1-indexed query, so k-1)
+            result.append(trimmed_nums[k - 1][1])
+        
+        return result
+            
+--
+
+
+==============================================================================================================================================
+
+
+-- Maximum number of pairs in array
+
+
+-- https://leetcode.com/problems/maximum-number-of-pairs-in-array/description/
+--
+
+
+--
+class Solution:
+    def maximumSum(self, nums: List[int]) -> int:
+        m = {}
+        def get_digit_sum(num):
+            csum = 0
+
+            while num > 0:
+                temp = num % 10
+                csum += temp
+                num //= 10
+            return csum
+
+        ans = -1
+        for num in nums:
+            digits = get_digit_sum(num)
+
+            if digits in m:
+                ans = max(ans, m[digits] + num)
+                m[digits] = max(m[digits], num)
+            else:
+                m[digits] = num
+        return ans
+        
+--
+
+
+=================================================================================================================================================
+
+-- Maximum Number of pairs in an array
+
+
+-- https://leetcode.com/problems/maximum-number-of-pairs-in-array/description/
+--
+
+
+--
+--
+
+
+=================================================================================================================================================
 
 
 
