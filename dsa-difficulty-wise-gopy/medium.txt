@@ -7200,4 +7200,74 @@ class Solution:
 ================================================================================================================================================
 
 
+-- The Latest time to catch a bus
+
+
+-- https://leetcode.com/problems/the-latest-time-to-catch-a-bus/
+--
+
+
+--
+class Solution:
+    def latestTimeCatchTheBus(self, buses: List[int], passengers: List[int], capacity: int) -> int:
+        n, m, i = len(buses), len(passengers), 0
+
+        buses.sort()
+        passengers.sort()
+
+        for t in buses:
+            k = capacity 
+            while k and i < m and passengers[i] <= t:
+                k -= 1 
+                i += 1 
+
+        ans = t if k else passengers[i-1]
+
+        for l in range(i-1,-1,-1):
+            if ans == passengers[l]:
+                ans -= 1 
+            else:
+                break 
+
+        return ans 
+--
+
+
+===================================================================================================================================================
+
+
+-- The latest time to catch a bus
+
+
+-- https://leetcode.com/problems/the-latest-time-to-catch-a-bus/
+--
+
+
+--
+class Solution:
+    def latestTimeCatchTheBus(self, buses: List[int], passengers: List[int], capacity: int) -> int:
+        n, m, i = len(buses), len(passengers), 0
+
+        buses.sort()
+        passengers.sort()
+
+        for t in buses:
+            k = capacity 
+            while k and i < m and passengers[i] <= t:
+                k -= 1 
+                i += 1 
+
+        ans = t if k else passengers[i-1]
+
+        for l in range(i-1,-1,-1):
+            if ans == passengers[l]:
+                ans -= 1 
+            else:
+                break 
+
+        return ans 
+--
+
+
+==================================================================================================================================================
 
