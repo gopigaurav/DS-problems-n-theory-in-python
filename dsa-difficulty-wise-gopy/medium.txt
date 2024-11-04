@@ -7113,14 +7113,91 @@ class Solution:
 
 
 --
+class Solution:
+    def numberOfPairs(self, nums: List[int]) -> List[int]:
+        count = Counter(nums)
+    
+        # Step 2: Calculate pairs and leftovers
+        pairs = 0
+        leftovers = 0
+        for value in count.values():
+            pairs += value // 2       # Number of pairs for this number
+            leftovers += value % 2     # Leftovers for this number
+        
+        # Step 3: Return result as an array [number of pairs, number of leftovers]
+        return [pairs, leftovers]
+        
 --
 
 
 =================================================================================================================================================
 
+-- Move pices to obtain a string
 
 
+-- https://leetcode.com/problems/move-pieces-to-obtain-a-string/
+--
 
+
+--
+class Solution:
+    def canChange(self, start: str, target: str) -> bool:
+        n = len(start)
+        i = j = 0
+        while i < n or j < n:
+            while i < n and start[i] == '_':
+                i += 1
+            while j < n and target[j] == '_':
+                j += 1
+            if n in (i, j):
+                return i == j == n
+            if start[i] != target[j]:
+                return False
+            if start[i] == 'L':
+                if i < j:
+                    return False
+            else:
+                if i > j:
+                    return False
+            i += 1
+            j += 1
+        return True
+        
+--
+
+================================================================================================================================================
+
+
+-- Smallest number in inifinite sets
+
+
+-- https://leetcode.com/problems/smallest-number-in-infinite-set/description/
+--
+
+
+--
+class Solution:
+    def minSumSquareDiff(self, nums1: List[int], nums2: List[int], k1: int, k2: int) -> int:
+        diff = [abs(nums1[i]-nums2[i]) for i in range(len(nums1))]
+        print(diff)
+        bucket = Counter(diff)
+        print(bucket)
+        M = max(diff)
+        k = k1+k2
+        for j in reversed(range(1,M+1)):
+            print(bucket[j])
+            minus = min(k,bucket[j])
+            bucket[j]-=minus
+            bucket[j-1]+=minus
+            print(bucket[j-1])
+            k-=minus
+            if k == 0:
+                break
+        return sum([count*(d**2) for d,count in bucket.items()])
+--
+
+
+================================================================================================================================================
 
 
 
