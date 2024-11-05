@@ -7271,3 +7271,138 @@ class Solution:
 
 ==================================================================================================================================================
 
+-- Evaluate Boolean binary tree
+
+
+-- https://leetcode.com/problems/evaluate-boolean-binary-tree/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def evaluateTree(self, root: Optional[TreeNode]) -> bool:
+        
+        def dfs(node):
+
+            if not node.left and not node.right:
+                return bool(node.val)
+            
+            left = dfs(node.left) if node.left else False
+            right = dfs(node.right) if node.right else False
+
+            if node.val == 2:
+                return left | right
+            else:
+                return left & right
+            return False
+        
+        return True if dfs(root) else False
+            
+--
+
+
+====================================================================================================================================================
+
+
+-- Number if people aware of a secret
+
+
+-- https://leetcode.com/problems/number-of-people-aware-of-a-secret/
+--
+
+
+--
+class Solution:
+    def peopleAwareOfSecret(self, n: int, delay: int, forget: int) -> int:
+        mod = 10**9 + 7  # Common modulus for competitive programming
+        dp = [0] * (n + forget + 1)  # Dynamic programming array sized for necessary days
+        dp[1] = 1  # Day 1 starts with 1 person knowing the secret
+
+        for i in range(1, n + 1):
+            # From day i + delay to min(i + forget, n + forget)
+            for j in range(i + delay, min(i + forget, n + 1)):
+                dp[j] = (dp[j] + dp[i]) % mod
+
+        # Count the people who still know the secret by day n
+        ans = 0
+        for j in range(max(1, n - forget + 1), n + 1):
+            ans = (ans + dp[j]) % mod
+
+        return ans
+
+--
+
+
+=====================================================================================================================================================
+
+
+-- Spiral matrix 4
+
+
+-- https://leetcode.com/problems/spiral-matrix-iv/
+--
+
+--
+from typing import List, Optional
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def spiralMatrix(self, m: int, n: int, head: Optional[ListNode]) -> List[List[int]]:
+        top = 0
+        right = n - 1
+        bottom = m - 1
+        left = 0 
+
+        # Initialize the matrix with -1
+        mat = [[-1] * n for _ in range(m)]
+        temp = head
+
+        # Fill the matrix in a spiral order
+        while top <= bottom and left <= right and temp:
+            # Traverse from left to right along the top boundary
+            for i in range(left, right + 1):
+                if temp:
+                    mat[top][i] = temp.val
+                    temp = temp.next
+            top += 1
+
+            # Traverse from top to bottom along the right boundary
+            for i in range(top, bottom + 1):
+                if temp:
+                    mat[i][right] = temp.val
+                    temp = temp.next
+            right -= 1
+
+            # Traverse from right to left along the bottom boundary
+            for i in range(right, left - 1, -1):
+                if temp:
+                    mat[bottom][i] = temp.val
+                    temp = temp.next
+            bottom -= 1
+
+            # Traverse from bottom to top along the left boundary
+            for i in range(bottom, top - 1, -1):
+                if temp:
+                    mat[i][left] = temp.val
+                    temp = temp.next
+            left += 1
+
+        return mat
+
+--
+
+
+======================================================================================================================================================
+
+
