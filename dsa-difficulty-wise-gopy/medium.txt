@@ -7406,3 +7406,139 @@ class Solution:
 ======================================================================================================================================================
 
 
+-- Count the number of ways to place houses
+
+
+-- https://leetcode.com/problems/count-number-of-ways-to-place-houses/
+--
+
+
+--
+class Solution:
+    def countHousePlacements(self, n: int) -> int:
+        prev, pprev = 2,1
+        for i in range(1,n):
+            temp = pprev+prev
+            pprev= prev
+            prev = temp
+        return (prev**2)%(10**9+7)
+
+class Solution:
+    def countHousePlacements(self, n: int) -> int:
+        @cache
+        def f(i):
+            if i >= n:
+                return 1
+
+            # Don't use i-th plot
+            q1 = f(i+1)
+            # Use i-th plot
+            q2 = f(i+2)
+
+            return (q1 + q2)%(10**9+7)
+        
+        return pow(f(0), 2, 10**9+7)
+--
+
+
+===================================================================================================================================================
+
+
+-- Check if matrix is xmatrix
+
+
+-- https://leetcode.com/problems/check-if-matrix-is-x-matrix/
+--
+
+--
+class Solution:
+    def checkXMatrix(self, grid: List[List[int]]) -> bool:
+
+        n = len(grid)
+        
+        for i in range(n):
+            for j in range(n):
+                # Check if the element is on one of the diagonals
+                # Non diagonal elements
+                if i == j or i + j == n - 1:
+                    # Diagonal element must be non-zero
+                    if grid[i][j] == 0:
+                        return False
+                else:
+                    # Non-diagonal element must be zero
+                    if grid[i][j] != 0:
+                        return False
+        
+        return True
+        
+--
+
+
+==================================================================================================================================================
+
+-- Count the unreachable pairs of nodes in an undirected graph
+
+
+-- https://leetcode.com/problems/count-unreachable-pairs-of-nodes-in-an-undirected-graph/
+--
+
+--
+class Solution:
+    def countPairs(self, n: int, edges: List[List[int]]) -> int:
+
+        graph = defaultdict(list)
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        visited = [False] * n
+        component_sizes = []
+        
+        def dfs(node):
+            stack = [node]
+            size = 0
+            while stack:
+                current = stack.pop()
+                if not visited[current]:
+                    visited[current] = True
+                    size += 1
+                    for neighbor in graph[current]:
+                        if not visited[neighbor]:
+                            stack.append(neighbor)
+            return size
+        
+        for i in range(n):
+            if not visited[i]:
+                component_size = dfs(i)
+                component_sizes.append(component_size)
+        
+        total_pairs = n * (n - 1) // 2
+        
+        reachable_pairs = 0
+        for size in component_sizes:
+            reachable_pairs += size * (size - 1) // 2
+        
+        unreachable_pairs = total_pairs - reachable_pairs
+        
+        return unreachable_pairs
+        
+--
+
+
+=================================================================================================================================================
+
+-- Longest Binary subsequence less than or equal to 
+
+
+--
+--
+
+
+--
+--
+
+
+==============================================================================================================================================
+
+
+

@@ -2250,7 +2250,7 @@ class Solution:
 ===========================================================================================================
 
 
--- Count the number of bad pairs
+-- Count the number of bad pairs (Imp)
 
 
 --
@@ -2291,6 +2291,34 @@ class Solution:
 ===========================================================================================================
 
 
--- 
+-- Decode the message
+
+
+-- https://leetcode.com/problems/decode-the-message/
+--
+
+
+--
+class Solution:
+    def decodeMessage(self, key: str, message: str) -> str:
+
+        dic={}
+        temp=97
+        for i in key:
+            if i!=" " and i not in dic:
+                dic[i]=chr(temp)
+                temp+=1
+        ans=""
+        for i in message:
+            if i ==" ":
+                ans+=" "
+            else:
+                ans+=dic[i]
+        return ans
+            
+--
+
+
+=============================================================================================================
 
 
