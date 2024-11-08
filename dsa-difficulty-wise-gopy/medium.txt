@@ -7535,10 +7535,152 @@ class Solution:
 
 
 --
+class Solution:
+    def longestSubsequence(self, s: str, k: int) -> int:
+        n = len(s)
+        memo = {}
+
+        def dfs(index, current_value, length):
+            # Base case: if index is out of bounds
+            if index >= n:
+                return length
+            
+            # If already computed, return the memoized result
+            if (index, current_value) in memo:
+                return memo[(index, current_value)]
+            
+            # Option 1: Skip the current character
+            max_length = dfs(index + 1, current_value, length)
+            
+            # Option 2: Include the current character, forming a new binary value
+            new_value = (current_value << 1) + int(s[index])
+            if new_value <= k:
+                max_length = max(max_length, dfs(index + 1, new_value, length + 1))
+            
+            # Memoize and return the result
+            memo[(index, current_value)] = max_length
+            return max_length
+        
+        # Start DFS with index 0, initial value 0, and length 0
+        return dfs(0, 0, 0)
+
+    def longestSubsequence(self, s: str, k: int) -> int:
+        # Work through each digit backwards. (Least significant digit first)
+        # With each new digit:
+        # If it's a zero, you can just append it to the beginning of each subsequence. EG what was the minimum value for length 3 is now the minimum value for length 4
+        # If it's 1, you only want to add it to the largest known sequence to get a known sequence one larger. You don't want to add it to any of the smaller sequences.
+
+        dp = [0]
+
+        for c in reversed(s):
+            digit = 0 if c == '0' else 1
+
+            if digit == 0:
+                dp = [0] + dp
+            else:
+                dp.append(dp[-1] + 2 ** (len(dp) - 1))
+            print(dp)
+        
+        for i in range(len(dp)-1, -1, -1):
+            if dp[i] <= k:
+                return i
 --
 
 
 ==============================================================================================================================================
+
+-- Sum of numbers with units digit k (Imp)
+
+
+-- https://leetcode.com/problems/sum-of-numbers-with-units-digit-k/
+--
+
+
+--
+class Solution:
+    def minimumNumbers(self, num: int, k: int) -> int:
+
+        if num == 0:
+            return 0
+        
+        # Try to find the minimum size of the set
+        for n in range(1, 101):
+            if n * k <= num and (num - n * k) % 10 == 0:
+                return n
+        
+        return -1
+
+        
+--
+
+
+===============================================================================================================================================
+
+-- Greatest english letter in upper and lower case
+
+
+-- https://leetcode.com/problems/greatest-english-letter-in-upper-and-lower-case/
+--
+
+
+--
+class Solution:
+    def greatestLetter(self, s: str) -> str:
+
+        # use the set to return it efficiently
+        # Check for both the letters
+
+        letters = set(s)
+        for ch in range(ord('Z'), ord('A') - 1, -1):
+            uppercase = chr(ch)
+            lowercase = chr(ch + 32)  # Corresponding lowercase
+            if uppercase in letters and lowercase in letters:
+                return uppercase
+        return ""
+--
+
+
+================================================================================================================================================
+
+
+-- Fair distribution of cookies
+
+
+-- https://leetcode.com/problems/fair-distribution-of-cookies/
+--
+
+
+--
+class Solution:
+    def distributeCookies(self, cookies: List[int], k: int) -> int:
+        res = float('inf')
+        dist = [0] * k
+
+        cookies.sort(reverse=True)
+
+        def dfs(i):
+            nonlocal res
+            if i == len(cookies):
+                res = min(res, max(dist))
+                return
+            if max(dist) >= res:
+                return
+            for j in range(k):
+                if j > 0 and dist[j] == dist[j - 1]:
+                    continue
+                dist[j] += cookies[i]
+                dfs(i + 1)
+                dist[j] -= cookies[i]
+        
+        dfs(0)
+        return res
+--
+
+
+
+=================================================================================================================================================
+
+
 
 
 
