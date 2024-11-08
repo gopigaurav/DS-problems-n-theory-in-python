@@ -7647,7 +7647,7 @@ class Solution:
 
 
 -- https://leetcode.com/problems/fair-distribution-of-cookies/
---
+-- https://youtube.com/watch?v=vcaAC2fqFpk
 
 
 --
