@@ -7776,15 +7776,214 @@ class Solution:
 ===============================================================================================================================================
 
 
+-- Partition array such that maximum diff is k
+
+
+--
+-- https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/
+
+
+--
+class Solution:
+    def partitionArray(self, nums: List[int], k: int) -> int:
+        nums.sort()
+
+        # choose the element from start and from there check the diff from there to the consecutive elements 
+    
+        count = 0
+        i = 0
+        n = len(nums)
+        
+        # Traverse the sorted array and form subsequences
+        while i < n:
+            # Start a new subsequence from nums[i]
+            start = nums[i]
+            count += 1  # New subsequence
+            
+            # Try to extend this subsequence as much as possible
+            while i < n and nums[i] - start <= k:
+                i += 1  # Move to the next element
+        
+        return count
+        
+--
+
+
+==============================================================================================================================================
+
+
+-- Min max game 
+
+
+--
+-- https://leetcode.com/problems/min-max-game/
+
+
+--
+class Solution:
+    def minMaxGame(self, nums: List[int]) -> int:
+        while len(nums) > 1:
+            newNums = []
+            for i in range(len(nums) // 2):
+                if i % 2 == 0:
+                    newNums.append(min(nums[2 * i], nums[2 * i + 1]))
+                else:
+                    newNums.append(max(nums[2 * i], nums[2 * i + 1]))
+            nums = newNums
+        return nums[0]
+        
+--
+
+
+=============================================================================================================================================
+
+-- Steps to make array non -decreasing
+
+
+--
+-- https://leetcode.com/problems/steps-to-make-array-non-decreasing/
 
 
 
+--
+from typing import List
+from collections import Counter
+
+class Solution:
+    def totalSteps(self, nums: List[int]) -> int:
+        stack = []
+        steps = 0
+
+        # Iterate through the list from left to right
+        for num in nums:
+            max_steps = 0
+
+            # Ensure the stack is in a increasing order
+            while stack and stack[-1][0] <= num:
+                max_steps = max(max_steps, stack.pop()[1])
+
+            # If there are elements left in the stack, it means this `num` requires additional steps
+            if stack:
+                max_steps += 1
+            else:
+                max_steps = 0
+
+            # Update the maximum steps
+            steps = max(steps, max_steps)
+            stack.append((num, max_steps))
+
+        return steps
+
+--
 
 
+============================================================================================================================================
+
+-- Apply discount to prices
+
+ 
+-- https://leetcode.com/problems/apply-discount-to-prices/
+--
 
 
+--
+class Solution:
+    def discountPrices(self, sentence: str, discount: int) -> str:
+
+        _string = sentence.split(" ")
+
+        for i in range(len(_string)):
+
+            if _string[i][0] == '$' and _string[i][1:].isdigit():
+                temp = _string[i][1:]
+                temp = float(_string[i][1:])  # Convert to float
+                temp = temp * (1 - discount / 100)
+                _string[i] = "$" + "{:.2f}".format(temp)
+
+        return " ".join(_string)
+        
+--
 
 
+==============================================================================================================================================
+
+
+-- Maximum total importance of roads
+
+
+-- https://leetcode.com/problems/maximum-total-importance-of-roads/
+--
+
+
+--
+class Solution:
+    def maximumImportance(self, n: int, roads: List[List[int]]) -> int:
+        # construct an indegree array
+        
+        degree = [0] * n
+
+        for u, v in roads:
+            degree[u] += 1
+            degree[v] += 1
+
+        # cities numbers whicha re sorted in descending orders
+        sorted_cities = sorted(range(n), key=lambda x: -degree[x])
+
+        # now assign the number from large numbers which start from n
+        values = [0] * n
+        val = n
+
+        for i in sorted_cities:
+            values[i] = val
+            val -= 1
+        
+        # now cal the edges score by using values array
+        score = 0
+
+        for u, v in roads:
+            score += values[u] + values[v]
+        return score
+        
+--
+
+
+================================================================================================================================================
+
+
+-- Sender With Largest Word Count
+
+-- https://leetcode.com/problems/sender-with-largest-word-count/description/
+--
+
+
+--
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def largestWordCount(self, messages: List[str], senders: List[str]) -> str:
+        n = len(messages)
+        m = defaultdict(int)
+
+        maxi = [0, ""]
+
+        for i in range(n):
+            count = len(messages[i].split())
+            m[senders[i]] += count
+            current_count = m[senders[i]]
+
+            if current_count > maxi[0] or (current_count == maxi[0] and senders[i] > maxi[1]):
+                maxi = [current_count, senders[i]]
+
+        return maxi[1]
+
+--
+
+
+================================================================================================================================================
+
+
+-- 
 
 
 
