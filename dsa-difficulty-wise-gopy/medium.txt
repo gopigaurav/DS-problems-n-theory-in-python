@@ -7680,6 +7680,110 @@ class Solution:
 
 =================================================================================================================================================
 
+-- Minimum path cost in a grid
+
+
+--
+-- https://leetcode.com/problems/minimum-path-cost-in-a-grid/
+
+--
+class Solution:
+    def minPathCost(self, grid: List[List[int]], moveCost: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+
+        dp = [[float('inf')] * n for _ in range(m)]
+
+        for i in range(n):
+            dp[0][i] = grid[0][i]
+
+        
+        for i in range(m - 1):
+            for j in range(n):
+                for k in range(n):
+                    dp[i + 1][k] = min(dp[i + 1][k], dp[i][j] + moveCost[grid[i][j]][k] + grid[i + 1][k])
+
+
+        return min(dp[-1])
+--
+
+
+================================================================================================================================================
+
+
+-- Sucessfull pairs of spells and potions
+
+
+-- https://leetcode.com/problems/successful-pairs-of-spells-and-potions/
+--
+
+
+--
+class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        n = len(potions)
+        potions.sort()
+        
+        def custom_binary(min_pos):
+            left = 0
+            right = n - 1
+
+            while left <= right:
+                mid = left + (right - left) // 2
+
+                if potions[mid] >= min_pos:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            return left
+        
+        res = []
+        for s in spells:
+            min_pos = (success + s - 1) // s
+
+            min_index = custom_binary(min_pos)
+            res.append(n - min_index)
+        return res
+
+--
+
+
+================================================================================================================================================ 
+
+
+-- Replace elements iin a array
+
+
+-- https://leetcode.com/problems/replace-elements-in-an-array/
+--
+
+
+--
+class Solution:
+    def arrayChange(self, nums: List[int], op: List[List[int]]) -> List[int]:
+        n = len(nums)
+        m = {num: i for i, num in enumerate(nums)}
+
+        for i, j in op:
+            index = m[i]
+            nums[index] = j
+            m[j] = index
+            del m[i]
+        return nums
+--
+
+
+===============================================================================================================================================
+
+
+
+
+
+
+
+
+
+
 
 
 
