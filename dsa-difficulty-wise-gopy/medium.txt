@@ -7983,7 +7983,286 @@ class Solution:
 ================================================================================================================================================
 
 
--- 
+-- Maximum consecutive floors without special floors
+
+
+-- https://leetcode.com/problems/maximum-consecutive-floors-without-special-floors/
+--
+
+--
+class Solution:
+    def maxConsecutive1(self, b: int, t: int, special: List[int]) -> int:
+        s = set(special)
+        max_count = 0
+        cnt = 0
+        for i in range(b, t + 1):
+            if i not in s:
+                cnt += 1
+                max_count = max(max_count, cnt)
+            else:
+                cnt = 0
+        return max_count
+
+    def maxConsecutive(self, b: int, t: int, special: List[int]) -> int:
+        special.sort()
+
+        max_gap = 0
+        max_gap = max(max_gap, special[0] - b)
+
+        for i in range(1, len(special)):
+            max_gap = max(max_gap, special[i] - special[i - 1] - 1)
+            
+        max_gap = max(max_gap, t - special[-1])
+        return max_gap
+--
+
+
+=================================================================================================================================================
+
+
+-- Maximum white tiles covered by a carpet
+
+
+-- https://leetcode.com/problems/maximum-white-tiles-covered-by-a-carpet/
+--
+
+
+--
+class Solution1:
+    def maximumWhiteTiles(self, tiles: List[List[int]], carpetLen: int) -> int:
+        # Step 1: Sort the tiles by their starting position
+        tiles.sort()
+        
+        # Step 2: Calculate prefix sum of tile lengths
+        prefix_sum = [0] * (len(tiles) + 1)
+        for i in range(len(tiles)):
+            l, r = tiles[i]
+            prefix_sum[i + 1] = prefix_sum[i] + (r - l + 1)
+        
+        max_cover = 0
+        j = 0  # Start of the window
+
+        # Step 3: Use a sliding window to calculate max coverage
+        for i in range(len(tiles)):
+            # Carpet starts at tiles[i][0] and ends at tiles[i][0] + carpetLen - 1
+            start = tiles[i][0]
+            end = start + carpetLen - 1
+
+            # Move j to find the interval where the carpet end can cover
+            while j < len(tiles) and tiles[j][1] <= end:
+                j += 1
+            
+            # Total coverage in the fully covered part of the range
+            total_cover = prefix_sum[j] - prefix_sum[i]
+            
+            # If the carpet partially covers the next interval
+            if j < len(tiles) and tiles[j][0] <= end:
+                total_cover += end - tiles[j][0] + 1
+            
+            # Update maximum coverage
+            max_cover = max(max_cover, total_cover)
+        
+        return max_cover
 
 
 
+from typing import List
+
+class Solution:
+    # Time Complexity: O(NlogN)
+    # Space Complexity: O(N)
+    def maximumWhiteTiles(self, tiles: List[List[int]], carpetLen: int) -> int:
+        ans = 0
+        n = len(tiles)
+
+        # Sort the tiles by their starting points
+        tiles.sort()
+
+        # Prepare prefix sum array to store total white tiles count for each segment
+        arr = [0] * n
+        for i in range(n):
+            arr[i] = tiles[i][1] - tiles[i][0] + 1
+            if i > 0:
+                arr[i] += arr[i - 1]
+
+        # Iterate through each tile as the starting point
+        for i in range(n):
+            leftEnd = tiles[i][0]
+            rightEnd = tiles[i][0] + carpetLen - 1
+
+            # Binary search to find the rightmost tile covered by the carpet
+            l, r = i, n - 1
+            left, right = i, i - 1
+            while l <= r:
+                mid = (l + r) // 2
+                if tiles[mid][1] <= rightEnd:
+                    right = mid
+                    l = mid + 1
+                else:
+                    r = mid - 1
+
+            # Calculate the current number of covered tiles
+            curr = 0
+            if right != i - 1:
+                curr += arr[right]
+                if left > 0:
+                    curr -= arr[left - 1]
+
+            if right + 1 < n:
+                curr += max(0, rightEnd - tiles[right + 1][0] + 1)
+
+            ans = max(ans, curr)
+
+        return ans
+
+
+        
+
+
+
+
+        
+--
+
+
+===================================================================================================================================================
+
+
+-- Count nodes eqaul to average of subtree
+
+
+--
+-- https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def averageOfSubtree(self, root: TreeNode) -> int:
+        cnt = 0
+
+        def dfs(node):
+            nonlocal cnt
+            if not node:
+                return (0, 0)  # (sum, count)
+
+            left_sum, left_count = dfs(node.left)
+            right_sum, right_count = dfs(node.right)
+
+            total_sum = node.val + left_sum + right_sum
+            total_count = 1 + left_count + right_count
+
+            if total_sum // total_count == node.val:
+                cnt += 1
+
+            return (total_sum, total_count)
+
+
+        dfs(root)
+        return cnt
+        
+--
+
+
+====================================================================================================================================================
+
+-- k divisible elements subarrays
+
+
+--
+-- https://leetcode.com/problems/k-divisible-elements-subarrays/
+
+
+--
+class Solution:
+    def countDistinct(self, nums: List[int], k: int, p: int) -> int:
+        distinct_subarrays = set()  # Use a set to store unique subarrays
+    
+        # Generate all subarrays
+        for start in range(len(nums)):
+            count_divisible = 0
+            subarray = []
+            
+            for end in range(start, len(nums)):
+                subarray.append(nums[end])
+                
+                # Check if the current element is divisible by p
+                if nums[end] % p == 0:
+                    count_divisible += 1
+                
+                # Only add the subarray to the set if it has at most k divisible elements
+                if count_divisible <= k:
+                    distinct_subarrays.add(tuple(subarray))
+                else:
+                    break  # Stop further expansion if divisible count exceeds k
+        
+        # The answer is the number of distinct subarrays
+        return len(distinct_subarrays)
+        
+--
+
+
+================================================================================================================================================
+
+
+-- Count unguarded cells in the grid
+
+
+-- https://leetcode.com/problems/count-unguarded-cells-in-the-grid/solutions/6030128/easy-beats-75/
+--
+
+
+--
+class Solution:
+    def countUnguarded(self, m: int, n: int, guards: List[List[int]], walls: List[List[int]]) -> int:
+
+        # contruct the visibility matrix for the guards and place the numbers with they can see that cell
+
+        grid = [[0] * n for _ in range(m)]
+    
+        # Constants for cell state
+        EMPTY = 0
+        GUARD = 1
+        WALL = 2
+        GUARDED = 3
+
+        for i, j in walls:
+            grid[i][j] = WALL
+        for i, j in guards:
+            grid[i][j] = GUARD
+
+        def mark_guarded(r, c, dr, dc):
+            while 0 <= r < m and 0 <= c < n:
+                if grid[r][c] == WALL or grid[r][c] == GUARD:
+                    break
+                if grid[r][c] == EMPTY:
+                    grid[r][c] = GUARDED
+                r += dr
+                c += dc
+            
+        
+
+        for r, c in guards:
+            mark_guarded(r - 1, c, -1, 0)
+            mark_guarded(r + 1, c, 1, 0) 
+            mark_guarded(r, c - 1, 0, -1) 
+            mark_guarded(r, c + 1, 0, 1)
+
+        cnt = 0
+        for r in range(m):
+            for c in range(n):
+                if grid[r][c] == EMPTY:
+                    cnt += 1
+        
+        return cnt
+
+        
+--
+
+
+================================================================================================================================================
