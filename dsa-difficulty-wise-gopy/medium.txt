@@ -8268,9 +8268,81 @@ class Solution:
 ================================================================================================================================================
 
 
--- 
+-- Minimum average diff
 
 
+-- https://leetcode.com/problems/minimum-average-difference/
+--
+
+
+--
+class Solution:
+    def minimumAverageDifference(self, nums: List[int]) -> int:
+        n = len(nums)
+        total_sum = sum(nums)
+        prefix_sum = 0
+        min_diff = float('inf')
+        min_index = -1
+
+        for i in range(n):
+            # Add the current element to the prefix sum
+            prefix_sum += nums[i]
+
+            # Calculate the first part's average
+            left_avg = prefix_sum // (i + 1)
+
+            # Calculate the second part's average
+            if i == n - 1:
+                right_avg = 0  # No elements on the right for the last index
+            else:
+                right_avg = (total_sum - prefix_sum) // (n - i - 1)
+            
+            # Calculate the absolute difference
+            diff = abs(left_avg - right_avg)
+            
+            # Update the minimum difference and index if necessary
+            if diff < min_diff:
+                min_diff = diff
+                min_index = i
+
+        return min_index
+
+
+
+
+--
+
+=============================================================================================================================================
+
+
+-- Count lattice points inside a circle
+
+
+-- https://leetcode.com/problems/count-lattice-points-inside-a-circle/
+--
+
+
+--
+class Solution:
+    def countLatticePoints(self, circles: List[List[int]]) -> int:
+        points = set()
+    
+        # Iterate over each circle
+        for x_center, y_center, radius in circles:
+            # Determine the range of x and y to check around the circle's center
+            for x in range(x_center - radius, x_center + radius + 1):
+                for y in range(y_center - radius, y_center + radius + 1):
+                    # Check if the point (x, y) is inside or on the circle
+                    if (x - x_center) ** 2 + (y - y_center) ** 2 <= radius ** 2:
+                        # Add the point to the set if it is within the circle
+                        points.add((x, y))
+        
+        # The result is the number of unique points in the set
+        return len(points)
+        
+--
+
+==============================================================================================================================================
 
 
 
