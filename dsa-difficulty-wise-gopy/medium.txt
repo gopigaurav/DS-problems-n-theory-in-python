@@ -8345,7 +8345,37 @@ class Solution:
 ==============================================================================================================================================
 
 
+-- Cal digit sum of a string
 
+
+
+--
+-- https://leetcode.com/problems/calculate-digit-sum-of-a-string/
+
+
+
+--
+class Solution:
+    def digitSum(self, s: str, k: int) -> str:
+        while len(s) > k:
+            # Create a new string by processing groups of size k
+            new_s = ""
+            
+            # Process each group of size k
+            for i in range(0, len(s), k):
+                group = s[i:i+k]
+                group_sum = sum(int(char) for char in group)
+                new_s += str(group_sum)
+            
+            # Update s to be the new string
+            s = new_s
+        
+        return s
+        
+--
+
+
+==============================================================================================================================================
 
 
 
