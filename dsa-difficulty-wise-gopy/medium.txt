@@ -8378,7 +8378,26 @@ class Solution:
 ==============================================================================================================================================
 
 
+-- Find closest number to zero
+
+
+-- https://leetcode.com/problems/find-closest-number-to-zero/
 --
+
+
+--
+class Solution:
+    def findClosestNumber(self, nums: List[int]) -> int:
+        closest = float('inf')  # Initialize with a large value
+        for num in nums:
+            # Check if current number is closer to 0, or if it's the same distance but larger
+            if abs(num) < abs(closest) or (abs(num) == abs(closest) and num > closest):
+                closest = num
+        return closest
+--
+
+
+==============================================================================================================================================
 
 
 
