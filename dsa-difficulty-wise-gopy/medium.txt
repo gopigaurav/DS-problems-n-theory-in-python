@@ -8514,12 +8514,12 @@ class Solution:
 -- continuous subarrays 
 
 -- https://leetcode.com/problems/continuous-subarrays/submissions/1453729592/
---
+-- https://www.youtube.com/watch?v=vITY72Cpkbc
 
 
 --
 class Solution:
-    def continuousSubarrays(self, nums: List[int]) -> int:
+    def continuousSubarrays1(self, nums: List[int]) -> int:
         q1 = deque()
         q2 = deque()
         q3 = deque()
@@ -8622,7 +8622,173 @@ class Solution:
             
         return ans
 
+    def continuousSubarrays(self, nums: List[int]) -> int:
+        # using two monotonic queue to store the elment in increasing and decreasing order
+
+        q1 = [] # monotonic decrasing means large element at first
+        q2 = [] # monotonic increasing means small element at first
+
+        left = 0
+        n = len(nums)
+        ans = 0
+
+        for right in range(n):
+
+            while q1 and q1[-1] < nums[right]:
+                q1.pop()
+
+            while q2 and q2[-1] > nums[right]:
+                q2.pop()
+
+            q1.append(nums[right])
+            q2.append(nums[right])
+
+            while q1[0] - q2[0] > 2:
+                if q1[0] == nums[left]:
+                    q1.pop(0)
+                if q2[0] == nums[left]:
+                    q2.pop(0)
+                left += 1
+
+
+            ans += right - left + 1
+
+        return ans
+    
+
 --
 
 
 =================================================================================================================================================
+
+-- Relocate Marbles
+
+
+-- https://leetcode.com/problems/relocate-marbles/
+--
+
+
+--
+class Solution:
+    def relocateMarbles(self, nums: List[int], moveFrom: List[int], moveTo: List[int]) -> List[int]:
+        positions = set(nums)
+        
+        # Process each move
+        for from_pos, to_pos in zip(moveFrom, moveTo):
+            if from_pos in positions:
+                positions.remove(from_pos)
+            positions.add(to_pos) 
+        
+        return sorted(positions)
+--
+
+
+================================================================================================================================================
+
+
+-- Partition string into minimum beautiful substrings
+
+
+-- https://leetcode.com/problems/partition-string-into-minimum-beautiful-substrings/
+--
+
+
+--
+class Solution:
+    def minimumBeautifulSubstrings(self, s: str) -> int:
+        # recursion
+        n = len(s)
+        dp = [-1] * n
+
+        def check_power(num):
+            if num == 0:
+                return False
+            while num % 5 == 0:
+                num //= 5
+            return num == 1
+
+        def dfs(index):
+            if index == n:
+                return 0  # Found a valid partition
+
+            if s[index] == '0':
+                return float('inf')  # Invalid partition
+
+            if dp[index] != -1:
+                return dp[index]
+
+            ans = float('inf')
+            val = 0
+
+            for i in range(index, n):
+                val = val * 2 + int(s[i])
+                if check_power(val):
+                    ans = min(ans, 1 + dfs(i + 1))
+            dp[index] = ans
+            return ans
+
+        ans = dfs(0)
+        return -1 if ans > n else ans
+--
+
+=================================================================================================================================================
+
+
+-- Maximum number of jumps to reach the last index
+
+
+
+-- https://leetcode.com/problems/maximum-number-of-jumps-to-reach-the-last-index/
+--
+
+
+--
+class Solution:
+    def maximumJumps(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        ans = -1
+        dp = [[-1]]
+
+        def dfs(index, steps, target):
+            nonlocal ans
+            if index == n - 1:
+                ans = max(ans, steps)
+                return 
+            
+            if dp[index][steps] != -1:
+                return dp[index][steps]
+            
+            for i in range(index + 1, n):
+                temp = nums[i] - nums[index]
+
+                if temp >= -target and temp <= target:
+                    dfs(i, steps + 1, target) 
+        dfs(0, 0, target)
+        return ans
+
+    
+from typing import List
+
+class Solution:
+    def maximumJumps(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        dp = [-1] * n
+        dp[0] = 0  # Starting index requires 0 jumps
+
+        # Iterate over all pairs of indices to calculate jumps
+        for i in range(n):
+            if dp[i] == -1:
+                continue  # Skip if the current index is unreachable
+
+            for j in range(i + 1, n):
+                if -target <= nums[j] - nums[i] <= target:
+                    dp[j] = max(dp[j], dp[i] + 1)
+
+        return dp[-1]
+
+
+--
+
+
+=================================================================================================================================================
+
