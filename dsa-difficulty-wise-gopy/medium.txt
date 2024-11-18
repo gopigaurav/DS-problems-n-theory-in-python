@@ -8792,3 +8792,92 @@ class Solution:
 
 =================================================================================================================================================
 
+-- Longest non decreasing subarray from two arrays
+
+ 
+-- https://leetcode.com/problems/longest-non-decreasing-subarray-from-two-arrays/
+--
+
+
+--
+class Solution:
+    def maxNonDecreasingLength(self, nums1: List[int], nums2: List[int]) -> int:
+        n = len(nums1)
+        @cache
+        def dp(i, prev):
+            if i == len(nums1):
+                return 0
+            
+            res = 0
+            if not prev:
+                res = dp(i + 1, prev)
+            
+            if prev <= nums1[i]:
+                res = max(res, 1 + dp(i + 1, nums1[i]))
+            if prev <= nums2[i]:
+                res = max(res, 1 + dp(i + 1, nums2[i]))
+            return res
+        return dp(0, 0)
+--
+
+
+================================================================================================================================================== 
+
+
+-- Zero array transformation (Imp)
+
+
+--
+--
+
+
+--
+class Solution:
+    def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
+
+        def checker(k):
+            temp = [0] * (len(nums) + 1)
+            n = len(nums)
+            
+            loop = min(k, len(queries))
+            for i in range(loop):
+                l = queries[i][0]
+                r = queries[i][1]
+                val = queries[i][2]
+
+                temp[l] += val
+
+                if r + 1 < n:
+                    temp[r + 1] -= val
+
+
+            current_decrement = 0
+            nums_copy = nums[:]
+            for i in range(n):
+                current_decrement += temp[i]
+                nums_copy[i] -= current_decrement
+                if nums_copy[i] < 0:
+                    nums_copy[i] = 0
+
+            return all(x == 0 for x in nums_copy)
+
+        left = 0
+        right = len(queries)
+        ans = -1
+        while left <= right:
+            mid = (left + right) // 2
+
+            if checker(mid):
+                ans = mid
+                right = mid - 1
+            else:
+                left = mid + 1
+        return ans
+
+        
+        
+--
+
+
+=================================================================================================================================================
+
