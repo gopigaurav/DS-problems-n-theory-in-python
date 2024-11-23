@@ -8881,7 +8881,7 @@ class Solution:
 
 =================================================================================================================================================
 
---  Continuous subarray sum
+--  Continuous subarray sum (Imp)
 
 
  
@@ -8919,5 +8919,34 @@ class Solution:
 
 
 ==============================================================================================================================================
+
+-- Longest word in dictinary through deleting
+
+
+--
+-- https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/
+
+
+--
+class Solution:
+    def findLongestWord(self, s: str, dictionary: List[str]) -> str:
+
+        dictionary.sort(key=lambda word: (-len(word), word))
+    
+        def canForm(word, s):
+            it = iter(s)
+            return all(char in it for char in word)
+        
+        # Iterate over the sorted dictionary and find the first word that can be formed
+        for word in dictionary:
+            if canForm(word, s):
+                return word
+        
+        return ""
+        
+--
+
+
+===============================================================================================================================================
 
 
