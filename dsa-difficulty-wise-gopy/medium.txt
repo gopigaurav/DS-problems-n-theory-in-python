@@ -8881,3 +8881,43 @@ class Solution:
 
 =================================================================================================================================================
 
+--  Continuous subarray sum
+
+
+ 
+-- https://www.youtube.com/watch?v=OKcrLfR-8mE
+-- https://leetcode.com/problems/continuous-subarray-sum/
+
+
+
+--
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+
+        # calculate the prefix by moding with each element 
+        # if the remainder is already present then the numbers between the index gives the answer
+
+        # store the remainder : index in the map
+
+        prefix_map = {0: -1}
+        prefix = 0
+
+        for i, num in enumerate(nums):
+            prefix += num
+            mod = prefix % k
+
+            if mod < 0:
+                mod += k
+
+            if mod in prefix_map:
+                if i - prefix_map[mod] > 1:
+                    return True
+            else:
+                prefix_map[mod] = i
+        return False
+--
+
+
+==============================================================================================================================================
+
+
