@@ -8983,3 +8983,57 @@ class Solution:
 ================================================================================================================================================
 
 
+-- Min positive sum subarray
+
+
+-- https://leetcode.com/problems/minimum-positive-sum-subarray/
+--
+
+
+--
+class Solution1:
+    def minimumSumSubarray(self, nums: List[int], l: int, r: int) -> int:
+        n = len(nums)
+        minimum_sum = float("inf")
+        
+        for i in range(n):
+            for j in range(i, n):
+                csum = sum(nums[i: j + 1])
+                if j - i + 1 >= l and j - i + 1 <= r and minimum_sum > csum and csum > 0:
+                    minimum_sum = csum 
+        
+        return minimum_sum if minimum_sum != float("inf") else -1
+
+from typing import List
+
+class Solution:
+    def minimumSumSubarray(self, nums: List[int], l: int, r: int) -> int:
+        n = len(nums)
+        min_sum = float('inf')  # Equivalent to INT_MAX in C++
+        found = False
+
+        # for every length l to r take the sum of all subarrays and get the answer if positive
+        for length in range(l, r + 1):
+            current_sum = sum(nums[:length])  # Compute the sum of the first 'length' elements
+
+            if current_sum > 0:
+                min_sum = min(min_sum, current_sum)
+                found = True
+
+            # Slide the window across the array
+            for i in range(length, n):
+                current_sum += nums[i] - nums[i - length]
+
+                if current_sum > 0:
+                    min_sum = min(min_sum, current_sum)
+                    found = True
+
+        return min_sum if found else -1
+--
+
+
+===============================================================================================================================================
+
+
+
+
