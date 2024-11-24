@@ -9035,5 +9035,58 @@ class Solution:
 ===============================================================================================================================================
 
 
+-- Zero Array Transformation III
+
+
+--
+-- https://leetcode.com/problems/zero-array-transformation-iii/
+
+
+--
+class Solution:
+    def maxRemoval(self, nums: List[int], queries: List[List[int]]) -> int:
+        ans = 0
+        q = sorted(queries)
+        e = defaultdict(int)
+        curr = 0
+        for i, num in enumerate(nums):
+
+            if num<=curr:
+                curr -= e[i]
+                continue
+
+            p = []
+            for j, pq in enumerate(q):
+                if pq[0]>i:
+                    break
+                if pq[1]>=i:
+                    p.append((pq[1],j))
+                    
+            p.sort(key = lambda x:-x[0])
+            index = set()
+
+            while p and q and num > curr:
+                ind = p.pop(0)[1]
+                x,y = q[ind]
+                index.add(ind)
+                if x>i:
+                    break
+                if y<i:
+                    continue
+                ans += 1
+                curr += 1
+                e[y] += 1
+            q = [q[i] for i in range(len(q)) if i not in index]
+            if num>curr:
+                return -1
+            curr -= e[i]
+        return len(queries)-ans
+        
+--
+
+
+=================================================================================================================================================
+
+-- 
 
 
