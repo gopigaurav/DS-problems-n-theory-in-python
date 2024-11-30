@@ -9087,6 +9087,217 @@ class Solution:
 
 =================================================================================================================================================
 
--- 
+-- Count k reducible numbers less than n
+
+
+-- https://leetcode.com/problems/count-k-reducible-numbers-less-than-n/
+--
+
+
+--
+class Solution:
+    def countKReducibleNumbers(self, s: str, k: int) -> int:
+        count_1 = s.count("1")
+        
+        @cache
+        def is_count_1_valid(num, limit):
+            if num == 1:
+                return True
+            if limit == 0:
+                return False
+            return is_count_1_valid(bin(num).count("1"), limit - 1)
+        
+        res = 0 
+        MOD = 10 ** 9 + 7
+        for i in range(len(s) - 1, -1, -1):
+            if s[i] == '1':
+                count_1 -= 1
+                length = len(s) - i - 1
+                for j in range(length + 1):
+                    if is_count_1_valid(count_1 + j, k - 1):
+                        res += math.comb(length, j)   ## O(n)
+                        res = res % MOD
+        return res
+--
+
+
+================================================================================================================================================
+
+
+-- Total characters in string after transformations - 1
+
+
+-- https://leetcode.com/problems/total-characters-in-string-after-transformations-i/
+--
+
+--
+
+mod = 1_000_000_007
+
+class Solution:
+    def lengthAfterTransformations(self, s: str, t: int) -> int:
+        queue = deque([0] * 26)   
+        for ch in s: 
+            queue[ord(ch) - ord('a')] += 1
+
+
+        # pop from the left and add it to place of a and b
+        for i in range(t): 
+            queue[0]+= queue[25]
+            queue.appendleft(queue.pop())
+            
+        return sum(queue) %mod  
+--
+
+
+================================================================================================================================================
+
+-- Find the maximum factor score of arrya
+
+
+--
+-- https://leetcode.com/problems/find-the-maximum-factor-score-of-array/submissions/1466476478/
+
+
+
+--
+class Solution:
+    def maxScore(self, nums: List[int]) -> int:
+
+        n, ctr = len(nums), Counter(nums)
+
+        mx = gcd(*nums) * lcm(*nums)
+        if n > 1:
+            for i in range(n):
+                # if the frequency of the that element is greater than 1 then dont consider it at all
+                if ctr[nums[i]] > 1: continue
+
+                arr = nums[:i] + nums[i + 1:]
+                mx = max(mx, gcd(*arr) * lcm(*arr))
+        return mx
+
+--
+
+================================================================================================================================================
+
+
+-- Maximum points tourist can earn
+
+
+
+--
+-- https://leetcode.com/problems/maximum-points-tourist-can-earn/
+
+
+--
+class Solution:
+    def maxScore(self, n: int, k: int, stayScore: List[List[int]], travelScore: List[List[int]]) -> int:
+
+        # take every single choice and go to every city and get the max
+        @cache
+        def fn(current_index, day):
+            if day >= k:
+                return 0
+
+            ans = 0
+
+            for i in range(n):
+                if i == current_index:
+                    ans = max(ans, stayScore[day][current_index] + fn(current_index, day + 1))
+                
+                else:
+                    ans = max(ans, stayScore[day][current_index] + fn(current_index, day + 1), travelScore[current_index][i] + fn(i, day + 1)) # stay or travel
+
+            return ans
+            
+        ans = 0
+        for i in range(n):
+            ans = max(ans, fn(i, 0))
+        
+        return ans
+
+
+class Solution:
+    def maxScore(
+        self, n: int, k: int, stayScore: List[List[int]], travelScore: List[List[int]]
+    ) -> int:
+        dp = [0 for _ in range(n)]
+
+        for i in reversed(range(k)):
+            temp = dp.copy()
+            dp = [
+                max(
+                    stayScore[i][curr] + dp[curr],
+                    max(travelScore[curr][dest] + dp[dest] for dest in range(n)),
+                )
+                for curr in range(n)
+            ]
+
+        return max(dp)
+--
+
+
+================================================================================================================================================
+
+-- Find subtree sizes after changes (Imp)
+
+
+-- https://leetcode.com/problems/find-subtree-sizes-after-changes/
+--
+
+--
+
+
+class Solution:
+    def findSubtreeSizes(self, parent: list[int], s: str) -> list[int]:
+        n = len(parent)
+        children = [[] for _ in range(n)]
+        
+        for i in range(1, n):
+            children[parent[i]].append(i)
+        
+        stack = [[] for _ in range(26)]
+
+        def dfs0(i: int):
+            index = ord(s[i]) - 97
+
+            if len(stack[index]):
+                parent[i] = stack[index][-1]
+
+            stack[index].append(i)
+
+            for j in children[i]:
+                dfs0(j)
+
+            stack[index].pop()
+        
+        dfs0(0)
+        ret = [0] * n
+        children = [[] for _ in range(n)]
+
+        for i in range(1, n):
+            children[parent[i]].append(i)
+
+        def dfs1(i: int) -> int:
+            cnt = 1
+            for j in children[i]:
+                cnt += dfs1(j)
+            ret[i] = cnt
+            return cnt
+        
+        for i in range(n):
+            if ret[i] == 0:
+                dfs1(i)
+        
+        return ret
+--
+
+
+==============================================================================================================================================
+
+
+
+
+
 
 
