@@ -9295,8 +9295,226 @@ class Solution:
 
 ==============================================================================================================================================
 
+-- Find the original typed string I
 
 
+-- https://leetcode.com/problems/find-the-original-typed-string-i/
+--
+
+
+--
+class Solution:
+    def possibleStringCount(self, word: str) -> int:
+        count = 0
+        prev = ""
+        for c in word:
+            if c == prev:
+                count += 1
+            prev = c
+        return count + 1
+            
+--
+
+==============================================================================================================================================
+
+-- kth largest perfect subtree size in a binary tree
+
+
+-- https://leetcode.com/problems/k-th-largest-perfect-subtree-size-in-binary-tree/
+--
+
+
+-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def kthLargestPerfectSubtree(self, root: Optional[TreeNode], k: int) -> int:
+        size = []
+        def fn(node):
+            if not node:
+                # height, isPerfect
+                return (0, True)
+            
+            left_size, left_perfect = fn(node.left)
+            right_size, right_perfect = fn(node.right)
+
+            if left_size == right_size and left_perfect and right_perfect:
+                temp = 2 ** (left_size + 1) - 1
+                size.append(temp)
+                return (left_size + 1, True)
+            return (0, False)
+
+        fn(root)
+        size.sort(reverse=True)
+        print(size)
+        return size[k - 1] if k <= len(size) else -1
+
+        
+-
+
+
+=============================================================================================================================================
+
+
+-- Find x-sum of all k-long subarrays I
+
+
+-- https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-i/description/
+--
+
+
+--
+class Solution:
+    def findXSum(self, nums: List[int], k: int, x: int) -> List[int]:
+        from collections import Counter
+        import heapq
+        
+        def x_sum(subarray):
+            freq = Counter(subarray)
+            # Get the top x most frequent elements
+            most_common = heapq.nlargest(x, freq.items(), key=lambda item: (item[1], item[0]))
+            # Sum of the elements, keeping only top x frequent ones
+            result = sum(value * count for value, count in most_common)
+            return result
+
+        result = []
+        for i in range(len(nums) - k + 1):
+            subarray = nums[i:i + k]
+            result.append(x_sum(subarray))
+
+        return result
+--
+
+
+=============================================================================================================================================
+
+
+-- Identify the largest outlier in a array
+
+
+-- https://leetcode.com/problems/identify-the-largest-outlier-in-an-array/
+--
+
+
+--
+from collections import Counter
+
+class Solution:
+    def getLargestOutlier(self, nums: List[int]) -> int:
+        
+    #         Why it's important: We are given that one element is the sum of the "special numbers" (which are the sum of two other numbers), and another element is an "outlier" (which doesn't fit the other two categories). To figure out which element is the outlier, we need to compare it against the sum of the remaining elements. By having the total sum of the array, we can check for each potential outlier whether the remaining sum is even and fits the criteria for the sum of the special numbers.
+
+    # Why subtracting each number works: The strategy is to remove one element at a time, and the remaining sum must be checked for validity. If the remaining sum is even, we check if it’s double some number, which would correspond to the sum of the two special numbers.
+
+        total_sum = sum(nums)  # Step 1: Calculate the sum of all elements
+        m = defaultdict(list)
+        
+        for index, num in enumerate(nums):
+            m[num].append(index)
+        
+        largest_outlier = None
+
+        print(m)
+        
+        for x in nums:
+            remaining_sum = total_sum - x
+            
+            if remaining_sum % 2 == 0:
+                half_sum = remaining_sum // 2
+                
+                if half_sum in m:
+                    indices = m[half_sum]
+                    
+                    if len(indices) > 1 or (len(indices) == 1 and indices[0] != nums.index(x)):
+                        largest_outlier = max(largest_outlier, x) if largest_outlier is not None else x
+        
+        return largest_outlier
+        
+--
+
+
+==============================================================================================================================================
+
+
+-- Find maximum removals from source string
+
+
+-- https://leetcode.com/problems/find-maximum-removals-from-source-string/
+--
+
+--
+from typing import List
+
+class Solution:
+    def maxRemovals(self, source: str, pattern: str, targetIndices: List[int]) -> int:
+        # Convert targetIndices to a set for quick lookup
+        indx = set(targetIndices)
+        n = len(source)
+        m = len(pattern)
+
+        # dp[i][j] will store the maximum removals we can achieve with source[0:i] and pattern[0:j]
+        dp = [[-1 for _ in range(m + 1)] for _ in range(n + 1)] 
+
+        # DFS function with memoization
+        def dfs(i, j):
+            if i == n:  # If source is exhausted but pattern isn't fully matched
+                if j == m:  # If all characters of pattern are matched
+                    return 0
+                return float('-inf')
+            if dp[i][j] != -1:  # If already computed, return the cached value
+                return dp[i][j]
+
+            # Skip the current character from source string (i.e., do not match)
+            ans = dfs(i + 1, j)
+
+            # If current character in source is to be removed (present in targetIndices)
+            if i in indx:
+                ans = max(ans, 1 + dfs(i + 1, j))
+
+            # If current characters match, move both pointers forward
+            if i < n and j < m and source[i] == pattern[j]:
+                ans = max(ans, dfs(i + 1, j + 1))
+
+            dp[i][j] = ans
+            return ans
+
+        # Start DFS from the beginning of both strings
+        result = dfs(0, 0)
+
+        # If no valid removals can make source match pattern, return 0
+        return result if result >= 0 else 0
+
+
+class Solution:
+    def maxRemovals(self, source: str, pattern: str, targetIndices: List[int]) -> int:
+        n, m = len(source), len(pattern)
+        target_set = set(targetIndices)
+        INF = float('inf')
+        dp = [INF] * (m + 1)
+        dp[0] = 0 
+
+        for i in range(n):
+            for j in range(min(i+1, m)-1, -1, -1):
+                if source[i] == pattern[j]:
+                    cost = dp[j] + (1 if i in target_set else 0)
+                    if dp[j + 1] > cost:
+                        dp[j + 1] = cost
+
+        if dp[m] == INF:
+            return 0  
+        else:
+            return len(targetIndices) - dp[m]
+--
+
+
+=============================================================================================================================================
+
+
+-- 
 
 
 
