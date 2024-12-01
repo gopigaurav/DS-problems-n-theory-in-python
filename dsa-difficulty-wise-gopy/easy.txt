@@ -2321,4 +2321,44 @@ class Solution:
 
 =============================================================================================================
 
+-- Count substrings that satify k constraints
+
+
+-- https://leetcode.com/problems/count-substrings-that-satisfy-k-constraint-i/submissions/1467363043/
+--
+
+
+--
+class Solution:
+    def countKConstraintSubstrings(self, s: str, k: int) -> int:
+        ans = 0
+        left = 0
+        cntz = 0
+        cnto = 0
+        n = len(s)
+        
+        for right in range(n):
+            if s[right] == '0':
+                cntz += 1
+            else:
+                cnto += 1
+
+            while cntz > k and cnto > k:
+                if s[left] == '0':
+                    cntz -= 1
+                else:
+                    cnto -= 1
+                left += 1
+            ans += right - left + 1
+        
+        return ans
+
+        
+--
+
+
+=============================================================================================================
+
+-- 
+
 
