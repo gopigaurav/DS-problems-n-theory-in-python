@@ -9604,6 +9604,231 @@ class Solution:
 ============================================================================================================================================
 
 
--- 
+-- Special permutations
+
+
+-- https://leetcode.com/problems/special-permutations/
+-- https://www.youtube.com/watch?v=c4WRWUuBLBA
+
+-
+class Solution:
+    mod = 10**9 + 7
+    def specialPerm(self, nums: List[int]) -> int:
+        # using bit mask with dp to optimize the code
+        # prevIndex x mask -> mask can go up to 2^14 - 1 since n is 14
+
+        # so the dp will be n x 2^14
+        # mask is the index or bit representing the particular index in nums which is considered or not
+        # ex -> 2, 4, 5 -> 1 0 1 -> in this the num 2 and 5 are considered
+        n = len(nums)
+        
+        def fn(prevIndex, mask, count):
+            if count == len(nums):
+                return 1
+
+            if dp[prevIndex][mask] != -1:
+                return dp[prevIndex][mask]
+
+            ways = 0
+
+            for i in range(len(nums)):
+                # checking if that particular index is already considered when creating permutations
+                if mask & (1 << i):
+                    continue
+
+                if mask == 0 or nums[prevIndex] % nums[i] == 0 or nums[i] % nums[prevIndex] == 0:
+                    ways = (ways + fn(i, mask | (1 << i), count + 1)) % self.mod
+            dp[prevIndex][mask] = ways
+            return ways
+
+
+        dp = [[-1] * (1 << n) for _ in range(n)]
+        # prevIndex, mask, count
+        mask = 0
+        count = 0
+        prev = 0
+        return fn(prev, mask, count)
+
+
+        
+        
+-
+
+
+============================================================================================================================================
+
+
+-- Find the value of the partition
+
+
+-- https://leetcode.com/problems/find-the-value-of-the-partition/
+--
+
+
+--
+class Solution:
+    def findValueOfPartition(self, nums: List[int]) -> int:
+        n = len(nums)
+        nums.sort()
+        res = nums[1] - nums[0]
+        for i in range(1, n-1):
+            if nums[i+1] - nums[i] < res:
+                res = nums[i+1] - nums[i]
+        return res 
+        
+--
+
+
+==========================================================================================================================================
+
+-- Total distance travelled
+
+
+--
+-- https://leetcode.com/problems/total-distance-traveled/
+
+
+--
+class Solution:
+    def distanceTraveled(self, mainTank: int, additionalTank: int) -> int:
+        total_distance = 0
+
+        while mainTank >= 5:
+            total_distance += 50
+            mainTank -= 5
+            if additionalTank > 0:
+                mainTank += 1
+                additionalTank -= 1
+                
+        total_distance += mainTank * 10
+        return total_distance
+        
+--
+
+=======================================================================================================================================
+
+-- Longest palindromic substring (Imp)
+
+
+--
+-- https://leetcode.com/problems/longest-palindromic-substring/?envType=problem-list-v2&envId=954v5ops
+
+
+--
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if not s:
+            return ""
+
+        def expand_around_center(s: str, left: int, right: int):
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return right - left - 1
+
+
+        start = 0
+        end = 0
+
+        for i in range(len(s)):
+            # for odd length expand from middle of the string
+            odd = expand_around_center(s, i, i)
+
+            # for even length expand from the middle but from the i, i+1
+            even = expand_around_center(s, i, i + 1)
+            max_len = max(odd, even)
+            
+            if max_len > end - start:
+                start = i - (max_len - 1) // 2
+                end = i + max_len // 2
+        
+        return s[start:end+1]
+--
+
+
+=======================================================================================================================================
+
+-- String to integer atoi
+
+
+-- https://leetcode.com/problems/string-to-integer-atoi/?envType=problem-list-v2&envId=954v5ops
+--
+
+
+--
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        INT_MAX, INT_MIN = 2**31 - 1, -2**31
+        i, n = 0, len(s)
+        # Step 1: Skip leading whitespace
+        while i < n and s[i] == ' ':
+            i += 1
+
+        # Step 2: Check for optional sign
+        sign = 1
+        if i < n and s[i] == '-':
+            sign = -1
+            i += 1
+        elif i < n and s[i] == '+':
+            i += 1
+
+        # Step 3: Convert digits to integer
+        result = 0
+        while i < n and s[i].isdigit():
+            digit = int(s[i])
+            # Check for overflow
+            if result > (INT_MAX - digit) // 10:
+                return INT_MAX if sign == 1 else INT_MIN
+            result = result * 10 + digit
+            i += 1
+        
+        return sign * result
+--
+
+
+=====================================================================================================================================
+
+
+-- reorganize string
+
+
+-- https://leetcode.com/problems/reorganize-string/?envType=problem-list-v2&envId=954v5ops
+--
+
+
+--
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+        freq_map = Counter(s)
+    
+        # Create a max-heap based on the frequency of characters
+        max_heap = []
+        for char, freq in freq_map.items():
+            heappush(max_heap, (-freq, char))  # Push with negative frequency for max-heap behavior
+        
+        result = []
+        prev_char = None
+        prev_freq = 0  # Track previous character and its remaining frequency
+        
+        while max_heap:
+            freq, char = heappop(max_heap)  # Get the most frequent character
+            
+            # Append the current character to the result
+            result.append(char)
+            
+            # If the previous character has remaining frequency, push it back
+            if prev_freq < 0:
+                heappush(max_heap, (prev_freq, prev_char))
+            
+            # Update prev_char and prev_freq for the next iteration
+            prev_char = char
+            prev_freq = freq + 1  # Decrement frequency (because it was negative)
+        
+        # If the rearranged string's length doesn't match the original, return ""
+        return "".join(result) if len(result) == len(s) else ""
+--
+
+
+======================================================================================================================================
 
 
