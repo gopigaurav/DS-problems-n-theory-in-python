@@ -9832,3 +9832,72 @@ class Solution:
 ======================================================================================================================================
 
 
+-- game of life
+
+
+-- https://leetcode.com/problems/game-of-life/?envType=problem-list-v2&envId=954v5ops
+-
+
+
+--
+class Solution:
+    def gameOfLife(self, b: List[List[int]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        m = len(b)
+        n = len(b[0])
+
+        # you can also do it with another matrix but 
+        # lets not use it
+        # 0 - 0 -> was zero and remains dead
+        # 1 - 1 -> was live and remain live
+        # 1 - (-1) -> alice to dead
+        # 0 - 2 -> dead to live
+        directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1),(1, -1), (1, 0), (1, 1)]
+
+        # count number of live 
+        def fn(r, c):
+            live_neighbors = 0
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < m and 0 <= nc < n and abs(b[nr][nc]) == 1:
+                    live_neighbors += 1
+            return live_neighbors
+
+        for i in range(m):
+            for j in range(n):
+                live_nei = fn(i, j)
+
+                if b[i][j] == 1:
+                    if live_nei < 2 or live_nei > 3:
+                        b[i][j] = -1
+                else:
+                    if live_nei == 3:
+                        b[i][j] = 2
+        
+        for i in range(m):
+            for j in range(n):
+                if b[i][j] > 0:
+                    b[i][j] = 1
+                else:
+                    b[i][j] = 0
+
+        return b
+        
+--
+
+
+=======================================================================================================================================
+
+
+-- 
+
+
+
+
+
+
+
+
+
