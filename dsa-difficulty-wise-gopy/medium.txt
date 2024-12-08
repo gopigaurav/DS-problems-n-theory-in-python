@@ -9891,10 +9891,427 @@ class Solution:
 =======================================================================================================================================
 
 
--- 
+-- Pacific atlantic water flow
+
+
+-- https://leetcode.com/problems/pacific-atlantic-water-flow/?envType=problem-list-v2&envId=954v5ops
+--
+
+
+--
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        if not heights or not heights[0]:
+            return []
+
+        m, n = len(heights), len(heights[0])
+
+        # Helper function to perform DFS
+        def dfs(row, col, visited, prev_height):
+            # Base conditions for DFS
+            if (row < 0 or row >= m or col < 0 or col >= n or
+                    (row, col) in visited or heights[row][col] < prev_height):
+                return
+            visited.add((row, col))
+            # Explore all four directions
+            for dr, dc in directions:
+                dfs(row + dr, col + dc, visited, heights[row][col])
+
+        pacific_reachable = set()
+        atlantic_reachable = set()
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+        # Perform DFS from all cells adjacent to the Pacific and Atlantic oceans
+        for i in range(m):
+            dfs(i, 0, pacific_reachable, heights[i][0])  # Left edge (Pacific)
+            dfs(i, n - 1, atlantic_reachable, heights[i][n - 1])  # Right edge (Atlantic)
+        for j in range(n):
+            dfs(0, j, pacific_reachable, heights[0][j])  # Top edge (Pacific)
+            dfs(m - 1, j, atlantic_reachable, heights[m - 1][j])  # Bottom edge (Atlantic)
+
+        # Find cells that can reach both oceans
+        result = list(pacific_reachable & atlantic_reachable)
+        return result
+--
+
+
+======================================================================================================================================
+
+-- Pacific atlantic water flow
+
+
+--
+-- https://leetcode.com/problems/pacific-atlantic-water-flow/?envType=problem-list-v2&envId=954v5ops
+
+
+--
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        if not heights or not heights[0]:
+            return []
+
+        m, n = len(heights), len(heights[0])
+
+        # Helper function to perform DFS
+        def dfs(row, col, visited, prev_height):
+            # Base conditions for DFS
+            if (row < 0 or row >= m or col < 0 or col >= n or
+                    (row, col) in visited or heights[row][col] < prev_height):
+                return
+            visited.add((row, col))
+            # Explore all four directions
+            for dr, dc in directions:
+                dfs(row + dr, col + dc, visited, heights[row][col])
+
+        pacific_reachable = set()
+        atlantic_reachable = set()
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+        # Perform DFS from all cells adjacent to the Pacific and Atlantic oceans
+        for i in range(m):
+            dfs(i, 0, pacific_reachable, heights[i][0])  # Left edge (Pacific)
+            dfs(i, n - 1, atlantic_reachable, heights[i][n - 1])  # Right edge (Atlantic)
+        for j in range(n):
+            dfs(0, j, pacific_reachable, heights[0][j])  # Top edge (Pacific)
+            dfs(m - 1, j, atlantic_reachable, heights[m - 1][j])  # Bottom edge (Atlantic)
+
+        # Find cells that can reach both oceans
+        result = list(pacific_reachable & atlantic_reachable)
+        return result
+--
+
+
+=====================================================================================================================================
 
 
 
+-- Permutations
+
+
+
+--
+-- https://leetcode.com/problems/permutations/?envType=problem-list-v2&envId=954v5ops
+
+
+--
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        n = len(nums)
+
+        def fn(index, arr):
+            if index == n:
+                res.append(arr[:])
+
+            for i in range(index, n):
+                nums[i], nums[index] = nums[index], nums[i]
+                fn(index + 1, arr + [nums[index]])
+                nums[i], nums[index] = nums[index], nums[i]
+
+            return 
+
+        fn(0, [])
+        return res
+--
+
+
+=======================================================================================================================================
+
+
+-- word searchh
+
+
+-- https://leetcode.com/problems/word-search/submissions/1471206321/?envType=problem-list-v2&envId=954v5ops
+--
+
+--
+class Solution:
+    def exist(self, b: List[List[str]], word: str) -> bool:
+        m = len(b)
+        n = len(b[0])
+        
+        def fn(row, col, i):
+            if i == len(word):
+                return True
+            
+            if row < 0 or row >= m or col < 0 or col >= n or b[row][col] != word[i]:
+                return False
+
+            temp = b[row][col]
+            b[row][col] = '#'
+            
+            found = (fn(row + 1, col, i + 1) or  # Down
+                     fn(row - 1, col, i + 1) or  # Up
+                     fn(row, col + 1, i + 1) or  # Right
+                     fn(row, col - 1, i + 1)) 
+
+            b[row][col] = temp
+            return found
+
+        for i in range(m):
+            for j in range(n):
+                if b[i][j] == word[0] and fn(i, j, 0):
+                    return True
+        return False
+        
+--
+
+
+=====================================================================================================================================
+
+-- Minimum time to break locks 1
+
+
+
+-- https://leetcode.com/problems/minimum-time-to-break-locks-i/submissions/1472807603/
+--
+
+
+
+--
+from typing import List
+import math
+
+class Solution:
+    def findMinimumTime(self, s: List[int], K: int) -> int:
+        res = float('inf')
+        n = len(s)
+        s.sort()
+        
+        def fn(mask, x, k, t):
+            nonlocal res
+            if mask == (1 << n) - 1:
+                res = min(res, t)
+                return time
+
+            if t > res:
+                return 
+
+            result = float('inf')
+            a = 0
+
+            for i in range(len(s)):
+                if mask & (1 << i):
+                    continue
+                a = int(math.ceil(s[i] / x))
+                fn(mask | (1 << i), x + k, k, t + a)
+        fn(0, 1, K, 0)
+        return (res)
+                    
+
+
+--
+
+
+====================================================================================================================================
+
+
+-- digit operations to make two integers equal (Imp)
+
+
+--
+-- https://leetcode.com/problems/digit-operations-to-make-two-integers-equal/
+
+
+--
+from collections import deque
+class Solution:
+    def minOperations(self, n: int, m: int) -> int:
+        def is_prime(x):
+            if x < 2:
+                return False
+            for i in range(2, int(x**0.5)+1):
+                if x % i == 0:
+                    return False
+            return True
+            
+        def helper(curr):
+            neighbors = []
+            s = str(curr)
+            for i in range(len(s)):
+                d = int(s[i])
+                if d != 9:
+                    next = int(s[:i] + str(d+1) + s[i+1:])
+                    if next != 0 and next not in visited and not is_prime(next):
+                        neighbors.append(next)
+                if d != 0:
+                    next = int(s[:i] + str(d-1) + s[i+1:])
+                    if next != 0 and next not in visited and not is_prime(next):
+                        neighbors.append(next)
+            return neighbors
+            
+        if is_prime(n):
+            return -1
+
+        q, visited = [(n,n)], {}
+        while q:
+            cost, curr = heapq.heappop(q)
+            if curr == m:
+                return cost
+            if curr in visited and visited[curr] <= cost:
+                continue 
+            visited[curr] = cost
+            for neighbor in helper(curr):
+                if not is_prime(neighbor):
+                    heapq.heappush(q,(cost+neighbor, neighbor))
+
+        return -1            
+--
+
+
+======================================================================================================================================
+
+
+-- Subarray sums divisible by k
+
+
+-- https://leetcode.com/problems/subarray-sums-divisible-by-k/
+--
+
+
+--
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        # https://leetcode.com/problems/subarray-sums-divisible-by-k/solutions/5291715/o-n-prefix-sum-with-counter/
+        res = 0
+
+        prefix = 0
+        n = len(nums)
+        m = defaultdict(int)
+        m[0] = 1
+
+        for i in range(n):
+            prefix = (prefix + nums[i]) % k
+            m[prefix] += 1
+            res += m[prefix] - 1
+        return res
+        
+--
+
+
+===================================================================================================================================
+
+
+-- Maximum subarray sum with length divisible by k (Imp)
+
+
+
+-- https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k/
+--
+
+
+--
+class Solution:
+    def maxSubarraySum(self, nums, k):
+        n = len(nums)
+        prefix = [0] * (n + 1)
+        
+        for i in range(n):
+            prefix[i + 1] = prefix[i] + nums[i]
+                
+        minPrefix = [float('inf')] * k
+        maxSum = float('-inf')
+        
+        for i in range(n + 1):
+            remainder = i % k
+            if minPrefix[remainder] != float('inf'):
+                maxSum = max(maxSum, prefix[i] - minPrefix[remainder])
+            minPrefix[remainder] = min(minPrefix[remainder], prefix[i])
+        
+        return 0 if maxSum == float('-inf') else maxSum
+
+--
+
+
+=================================================================================================================================
+
+
+-- K closest points to origin 
+
+
+-- https://leetcode.com/problems/k-closest-points-to-origin/
+--
+
+
+--
+import heapq
+from typing import List
+
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        # Min-heap to store distances along with the points
+        heap = []
+
+        for x, y in points:
+            # Calculate the square of the distance to avoid unnecessary sqrt
+            distance = x**2 + y**2
+            # Push distance and point to heap
+            heapq.heappush(heap, (distance, [x, y]))
+
+        # Extract k closest points
+        result = []
+        for _ in range(k):
+            result.append(heapq.heappop(heap)[1])
+
+        return result
+
+--
+
+
+==============================================================================================================================
+
+-- Longest turbulent subarray (Imp)
+
+
+--
+-- https://leetcode.com/problems/longest-turbulent-subarray/
+
+
+--
+class Solution:
+    def maxTurbulenceSize(self, arr: List[int]) -> int:
+        # Handle the case of a single-element array
+        if len(arr) == 1:
+            return 1
+        
+        # Initialize the sign based on the first two elements
+        # get the sign of the first element
+        # 1 or -1
+        sign = 1 if arr[0] > arr[1] else -1
+        
+        # Initialize answer and current streak
+        ans = 1  # Maximum turbulent subarray length
+        streak = 1  # Current turbulent subarray length
+        
+        # Iterate through the array starting from the second element
+        for i in range(1, len(arr)):
+            # Calculate the difference between adjacent elements
+            diff = arr[i-1] - arr[i]
+            diff *= sign  # Adjust the difference based on expected sign
+            
+            if diff > 0:
+                # If the difference matches the expected pattern
+                streak += 1
+                sign *= -1  # Flip the sign for the next comparison
+                ans = max(ans, streak)  # Update the maximum length
+            elif diff < 0:
+                # If the pattern breaks but elements are different
+                streak = 2  # Reset streak to 2 (includes current and previous element)
+            else:
+                # If adjacent elements are equal
+                streak = 1  # Reset streak to 1
+                # Set the sign for the next comparison if possible
+                if i + 1 < len(arr):
+                    sign = 1 if arr[i] > arr[i+1] else -1
+        
+        return ans
+
+
+
+        
+--
+
+=============================================================================================================================
 
 
 
