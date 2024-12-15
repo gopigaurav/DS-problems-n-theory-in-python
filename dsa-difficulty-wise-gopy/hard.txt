@@ -1,0 +1,90 @@
+-- Subarrays with k diff integers (Imp)
+
+
+-- https://leetcode.com/problems/subarrays-with-k-different-integers/
+--
+
+
+--
+class Solution:
+    def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
+        res = 0
+        cnt = [0] * (len(nums) + 1)
+        l = 0
+        r= 0
+        windowCnt = 0  # Current number of valid subarrays in the window
+
+        while r < len(nums):
+            if cnt[nums[r]] == 0:
+                k-=1
+            cnt[nums[r]] += 1
+
+            while k < 0: 
+                cnt[nums[l]] -=1
+                if cnt[nums[l]] == 0:
+                    k+=1
+                l += 1
+                windowCnt = 0
+
+            # this helps you count the number of subarrays 
+            if k == 0:
+                while cnt[nums[l]] > 1:
+                    cnt[nums[l]] -= 1
+                    l+=1
+                    windowCnt += 1
+
+                res += (windowCnt+1)
+
+
+            r +=1
+
+        return res
+--
+
+
+====================================================================================================
+
+
+-- Minimum number of k consecutive bit flips
+
+
+-- https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/
+--
+
+
+--
+class Solution:
+    def minKBitFlips(self, nums: List[int], k: int) -> int:
+        # Keeps track of flipped states
+        flipped = [False] * len(nums)
+
+        # Tracks valid flips within the past window
+        validFlipsFromPastWindow = 0
+
+        # Counts total flips needed
+        flipCount = 0
+
+        for i in range(len(nums)):
+            if i >= k:
+                # Decrease count of valid flips from the past window if needed
+                if flipped[i - k]:
+                    validFlipsFromPastWindow -= 1
+
+            # Check if current bit needs to be flipped
+            if validFlipsFromPastWindow % 2 == nums[i]:
+                # If flipping the window extends beyond the array length,
+                # return -1
+                if i + k > len(nums):
+                    return -1
+
+                # Increment the count of valid flips and
+                # mark current as flipped
+                validFlipsFromPastWindow += 1
+                flipped[i] = True
+                flipCount += 1
+
+        return flipCount
+--
+
+
+================================================================================================================

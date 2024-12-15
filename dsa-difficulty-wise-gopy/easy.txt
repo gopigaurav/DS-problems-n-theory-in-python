@@ -2359,6 +2359,33 @@ class Solution:
 
 =============================================================================================================
 
--- 
+-- FInd the town judge
+
+
+-- https://leetcode.com/problems/find-the-town-judge/
+--
+
+
+--
+class Solution:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        # trust count for evenryone
+        # trusted by count for everyone
+
+        t1 = [0] * (n + 1) # trust count
+        t2 = [0] * (n + 1) # trusted by others
+    
+        for i in trust:
+            t1[i[0]] += 1
+            t2[i[1]] += 1
+
+        for i in range(1, n + 1):
+            if t1[i] == 0 and t2[i] == n - 1:
+                return i
+        return -1
+--
+
+
+=============================================================================================================
 
 
