@@ -2389,3 +2389,120 @@ class Solution:
 =============================================================================================================
 
 
+-- Available captures for rook
+
+
+-- https://leetcode.com/problems/available-captures-for-rook/
+--
+
+
+--
+class Solution:
+    def numRookCaptures(self, board: List[List[str]]) -> int:
+
+        for i in range(8):
+            for j in range(8):
+                if board[i][j] == 'R':
+                    rook_position = (i, j)
+                    break
+        
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        captured_pawns = 0
+        
+        for di, dj in directions:
+            x, y = rook_position
+            while 0 <= x + di < 8 and 0 <= y + dj < 8:
+                x += di
+                y += dj
+                if board[x][y] == 'p':
+                    captured_pawns += 1
+                    break
+                elif board[x][y] == 'B' or board[x][y] == 'p':
+                    break  # Blocked by bishop or pawn
+        
+        return captured_pawns
+
+        
+--
+
+
+=============================================================================================================
+
+
+-- Check if word is valid after substitution
+
+
+-- https://leetcode.com/problems/check-if-word-is-valid-after-substitutions/submissions/1479384615/
+--
+
+
+--
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+    
+        for char in s:
+            stack.append(char)
+            # Check the top 3 characters in the stack
+            if len(stack) >= 3 and stack[-3:] == ['a', 'b', 'c']:
+                stack.pop()  # Remove 'c'
+                stack.pop()  # Remove 'b'
+                stack.pop()  # Remove 'a'
+        
+        # If the stack is empty, the string is valid
+        return len(stack) == 0
+        
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        # stack=[]
+        # for char in s:
+        #     stack.append(char)
+        #     if len(stack)>=3 and "".join(stack[-3:])=="abc":
+        #         stack.pop()
+        #         stack.pop()
+        #         stack.pop()
+        # return not stack
+        target="abc"
+        while target in s:
+            s=s.replace(target,"")
+        if s=="":
+            return True
+        return False
+--
+
+
+============================================================================================================
+
+
+-- Construct Binary Search tree
+
+
+
+--
+-- https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+
+
+
+--
+class Solution:
+    def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
+        if not preorder:
+            return None
+        root = TreeNode(preorder[0])
+        i = 1
+        while i<len(preorder) and  preorder[i] < root.val:
+            i+=1
+        root.left = self.bstFromPreorder(preorder[1:i])
+        root.right = self.bstFromPreorder(preorder[i:])
+        return root
+--
+
+
+==========================================================================================================
+
+
+
+
+
+
