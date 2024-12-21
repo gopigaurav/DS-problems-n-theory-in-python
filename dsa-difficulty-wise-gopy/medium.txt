@@ -10709,6 +10709,191 @@ class Solution:
 ==============================================================================================================================
 
 
+-- Smallest integer divisible by k
+
+
+-- https://leetcode.com/problems/smallest-integer-divisible-by-k/submissions/1479533110/
+--
+
+--
+class Solution:
+    def smallestRepunitDivByK(self, k: int) -> int:
+        if k%2==0 or k%5==0:
+            return -1
+        mod=1
+        for x in range(1,k+1):
+            if mod%k==0:
+                return x
+            mod=(mod*10+1)%k
+--
+
+
+=================================================================================================================================
+
+
+-- Binary string with substrings represting 1 to n
+
+
+-- https://leetcode.com/problems/binary-string-with-substrings-representing-1-to-n/
+--
+
+
+--
+class Solution:
+    def queryString(self, s: str, N: int) -> bool:
+        for num in range(1, N + 1):
+            bin_rep = bin(num)[2:] 
+            if bin_rep not in s:
+                return False
+        return True
+
+--
+
+
+===============================================================================================================================
+
+
+-- Next greater node in linked list
+
+
+-- https://leetcode.com/problems/next-greater-node-in-linked-list/
+--
+
+
+--
+class Solution:
+    def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
+        
+        # Function to reverse the linked list
+        def rev(node):
+            prev = None
+            while node:
+                nxt = node.next
+                node.next = prev
+                prev = node
+                node = nxt
+            return prev
+        
+        # Reverse the linked list
+        cur = rev(head)
+        res = []
+        stack = []
+
+        # Traverse the reversed list
+        while cur:
+            # Pop all smaller elements from the stack
+            while stack and stack[-1] <= cur.val:
+                stack.pop()
+            
+            # If stack is empty, there is no greater element, append 0
+            if stack:
+                res.append(stack[-1])
+            else:
+                res.append(0)
+            
+            # Push the current node's value to the stack
+            stack.append(cur.val)
+            
+            # Move to the next node
+            cur = cur.next
+        
+        # Since we processed the list in reverse order, reverse the result
+        return res[::-1]
+
+--
+
+
+================================================================================================================================
+
+-- Number of enclaves
+
+
+-- https://leetcode.com/problems/number-of-enclaves/
+--
+
+
+--
+class Solution:
+    def numEnclaves(self, grid: List[List[int]]) -> int:
+        # BFS or DFS for the ones at the boundary and then add the sum at the end
+
+        rows, cols = len(grid), len(grid[0])
+    
+        def dfs(r, c):
+            if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == 0:
+                return
+            grid[r][c] = 0  # Mark as visited
+            # Explore all 4 directions
+            dfs(r + 1, c)
+            dfs(r - 1, c)
+            dfs(r, c + 1)
+            dfs(r, c - 1)
+        
+        # Flood fill all land cells connected to the boundary
+        for r in range(rows):
+            for c in [0, cols - 1]:  # First and last column
+                if grid[r][c] == 1:
+                    dfs(r, c)
+        for c in range(cols):
+            for r in [0, rows - 1]:  # First and last row
+                if grid[r][c] == 1:
+                    dfs(r, c)
+        
+        # Count remaining land cells
+        return sum(grid[r][c] == 1 for r in range(rows) for c in range(cols))
+--
+
+
+=================================================================================================================================
+
+
+-- Camel Case matching
+
+
+-- https://leetcode.com/problems/camelcase-matching/
+--
+
+
+--
+class Solution:
+    def camelMatch(self, queries: List[str], pattern: str) -> List[bool]:
+        def isMatch(query, pattern):
+            i, j = 0, 0
+            while i < len(query):
+                if j < len(pattern) and query[i] == pattern[j]:
+                    j += 1  # Match current character
+                elif query[i].isupper():
+                    return False  # Uppercase letter not matching the pattern
+                i += 1
+            return j == len(pattern)  # Check if all of the pattern is matched
+
+        return [isMatch(query, pattern) for query in queries]
+        
+--
+
+
+================================================================================================================================
+
+
+-- Count collisions on a road
+
+
+-- https://leetcode.com/problems/count-collisions-on-a-road/
+--
+
+
+--
+class Solution:
+    def countCollisions(self, directions: str) -> int:
+        directions = directions.lstrip('L').rstrip('R')
+    
+        # Every remaining moving car ('L' or 'R') will collide
+        return sum(1 for c in directions if c != 'S')
+--
+
+
+================================================================================================================================
+
 
 
 
