@@ -10896,11 +10896,154 @@ class Solution:
 
 
 
+-- Count the number of subsequences equals pattern (Imp)
+
+
+--
+--
+
+
+--
+def count_subsequences_recursive(text, pattern):
+    def helper(i, j):
+        # Base cases
+        if j == 0:  # Entire pattern matched
+            return 1
+        if i == 0:  # Text exhausted
+            return 0
+        
+        # Recursive transitions
+        if text[i-1] == pattern[j-1]:
+            # Include or exclude the current character
+            return helper(i-1, j) + helper(i-1, j-1)
+        else:
+            # Exclude the current character
+            return helper(i-1, j)
+    
+    # Start recursion from the end of both strings
+    return helper(len(text), len(pattern))
+
+# Example Usage
+text = "abdcdbc"
+pattern = "ac"
+print(count_subsequences_recursive(text, pattern))  # Output: 4
+
+--
+
+
+====================================================================================================================================
 
 
 
+-- Maximize number of subsequences in a string
 
 
+-- https://leetcode.com/problems/maximize-number-of-subsequences-in-a-string/
+--
+
+
+
+--
+class Solution:
+
+    def maximumSubsequenceCount(self, text, pattern):
+        res = cnt1 = cnt2 = 0
+
+        # count the number of subsequence
+        for c in text:
+            if c == pattern[1]:
+                res += cnt1
+                cnt2 += 1
+            if c == pattern[0]:
+                cnt1 += 1
+        # if you want to add pat[0] add at the beg
+        # or if u want to add pat[1] add at the end
+
+        #get the max of both
+        return res + max(cnt1, cnt2)
+
+
+        
+--
+
+
+
+==================================================================================================================================
+
+
+-- Create binary tree from description
+
+
+--
+-- https://leetcode.com/problems/create-binary-tree-from-descriptions/
+
+
+-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def createBinaryTree(self, descriptions: List[List[int]]) -> Optional[TreeNode]:
+        nodes = {}
+
+        child_set = set()
+
+        for parent, child, isLeft in descriptions:
+
+            if parent not in nodes:
+                nodes[parent] = TreeNode(parent)
+            
+            if child not in nodes:
+                nodes[child] = TreeNode(child)
+
+            if isLeft:
+                nodes[parent].left = nodes[child]
+            else:
+                nodes[parent].right = nodes[child]
+
+            # Track child nodes
+            child_set.add(child)
+
+        # at the end get the node val
+
+        root_val = (set(nodes.keys()) - child_set).pop()
+        return nodes[root_val]
+        
+-
+
+
+==================================================================================================================================
+
+
+
+-- Maximum nuumber of distinct elements after operations (Imp)
+ 
+
+-- https://leetcode.com/problems/maximum-number-of-distinct-elements-after-operations/
+--
+
+--
+class Solution:
+    def maxDistinctElements(self, nums: List[int], k: int) -> int:
+        nums = sorted(nums)
+        start = nums[0]-k
+        bad = 0 
+        for i in range(len(nums)):
+            n = nums[i]
+            if start<n-k:
+                start=n-k
+            if n-k<= start<=n + k:
+                start+=1
+            else:
+                bad+=1
+        return len(nums)-bad
+--
+
+
+=================================================================================================================================
 
 
 
