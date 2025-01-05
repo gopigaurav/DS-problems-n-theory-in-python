@@ -11046,5 +11046,456 @@ class Solution:
 =================================================================================================================================
 
 
+-- Minimum time to complete trips 
 
+
+--
+-- https://leetcode.com/problems/minimum-time-to-complete-trips/submissions/1487866282/
+
+
+--
+class Solution:
+    def minimumTime(self, time: List[int], totalTrips: int) -> int:
+
+        def checker(t):
+            trips = 0
+
+            for bus_time in time:
+                trips += t // bus_time
+                if trips >= totalTrips:
+                    return True
+            return trips >= totalTrips
+        
+        left = 1
+        right = max(time) * totalTrips
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if checker(mid):
+                right = mid - 1
+            else:
+                left = mid + 1
+        return left
+        
+        
+--
+
+
+================================================================================================================================
+
+
+-- Minimum number of steps to make two strings anagarams
+
+
+--
+-- https://leetcode.com/problems/minimum-number-of-steps-to-make-two-strings-anagram-ii/
+
+
+
+--
+from collections import Counter
+
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+        s_count = Counter(s)
+        t_count = Counter(t)
+        
+        steps = 0
+        print(s_count, t_count)
+        
+        for char in set(s + t):
+            # The number of steps required is the absolute difference of counts for each character
+            steps += abs(s_count[char] - t_count[char])
+        
+        return steps
+--
+
+
+===============================================================================================================================
+
+
+-- Construct stirng with repeat limit
+
+
+--
+-- https://leetcode.com/problems/construct-string-with-repeat-limit/submissions/1487940304/
+
+
+--
+import heapq
+from collections import Counter
+
+class Solution:
+    def repeatLimitedString(self, s: str, k: int) -> str:
+        freq = Counter(s)
+        pq = [(-ord(char), count) for char, count in freq.items()]
+        heapq.heapify(pq)
+        
+        res = []
+
+        while pq:
+
+            order, count = heapq.heappop(pq)
+            char = chr(-order)
+
+            use = min(k, count)
+            res.append(char * use)
+            count -= use
+
+            if count > 0:
+                if not pq: break
+                next_order, cnt = heapq.heappop(pq)
+                next_char = chr(-next_order)
+                res.append(next_char)
+                cnt -= 1
+                if cnt > 0:
+                    heapq.heappush(pq, (next_order, cnt))
+                heapq.heappush(pq, (-ord(char), count))
+        
+        return "".join(res)
+
+
+--
+
+
+============================================================================================================================
+
+
+-- Find three consecutive intergers that sum to a given number
+
+
+--
+-- https://leetcode.com/problems/find-three-consecutive-integers-that-sum-to-a-given-number/description/
+
+
+--
+class Solution:
+    def sumOfThree(self, num: int) -> List[int]:
+        if num % 3 != 0:
+            return []
+        x = num // 3
+        return [x - 1, x, x + 1]
+
+--
+
+
+==========================================================================================================================
+
+-- Rremoving minimum number of magic beans
+
+
+-- https://leetcode.com/problems/removing-minimum-number-of-magic-beans/
+--
+
+
+--
+class Solution:
+    def minimumRemoval(self, beans: List[int]) -> int:
+        beans.sort()
+        total_beans = sum(beans)
+        n = len(beans)
+        min_removal = float('inf')
+        
+        for i in range(n):
+            # Beans to keep if the current value is the target
+            # n - i meaning number of bags to keep from x to end of the array
+            target_count = beans[i] * (n - i)
+            # Beans to remove
+            removal = total_beans - target_count
+            # Update the minimum removal
+            min_removal = min(min_removal, removal)
+        
+        return min_removal
+        
+--
+
+==========================================================================================================================
+
+
+-- Minimum operations to make the array alternating
+
+
+-- https://leetcode.com/problems/minimum-operations-to-make-the-array-alternating/
+--
+
+
+--
+from collections import Counter
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        n = len(nums)
+    
+        # Separate even and odd indexed elements
+        even_counts = Counter(nums[i] for i in range(0, n, 2))
+        odd_counts = Counter(nums[i] for i in range(1, n, 2))
+        
+        # Find the most and second-most frequent values for even and odd indices
+        even_most = even_counts.most_common(2)
+        odd_most = odd_counts.most_common(2)
+        
+        # Fill missing second-most if needed
+        if len(even_most) < 2:
+            even_most.append((None, 0))
+        if len(odd_most) < 2:
+            odd_most.append((None, 0))
+        
+        # Extract top values and frequencies
+        even_val1, even_freq1 = even_most[0]
+        even_val2, even_freq2 = even_most[1]
+        odd_val1, odd_freq1 = odd_most[0]
+        odd_val2, odd_freq2 = odd_most[1] if len(odd_most) > 1 else (None, 0)
+        
+        # Case 1: Most frequent values are different
+        if even_val1 != odd_val1:
+            return n - (even_freq1 + odd_freq1)
+        else:
+            # Case 2: Need to pick second-most for one of them
+            change_even = n - (even_freq2 + odd_freq1)
+            change_odd = n - (even_freq1 + odd_freq2)
+            return min(change_even, change_odd)
+        
+--
+
+
+==========================================================================================================================
+
+
+-- K highest ranked items within a price range
+
+
+-- https://leetcode.com/problems/k-highest-ranked-items-within-a-price-range/
+--
+
+
+--
+from collections import deque
+class Solution:
+    def highestRankedKItems(self, grid: List[List[int]], pricing: List[int], start: List[int], k: int) -> List[List[int]]:
+        m, n = len(grid), len(grid[0])
+        low, high = pricing
+        start_row, start_col = start
+        
+        # Directions for BFS
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        
+        # BFS to find distances
+        queue = deque([(start_row, start_col, 0)])  # (row, col, distance)
+        visited = set()
+        visited.add((start_row, start_col))
+        items = []
+        
+        while queue:
+            row, col, dist = queue.popleft()
+            
+            # Check if this cell is an item and within the price range
+            if low <= grid[row][col] <= high:
+                items.append((dist, grid[row][col], row, col))
+            
+            # Traverse neighboring cells
+            for dr, dc in directions:
+                nr, nc = row + dr, col + dc
+                if 0 <= nr < m and 0 <= nc < n and (nr, nc) not in visited and grid[nr][nc] != 0:
+                    visited.add((nr, nc))
+                    queue.append((nr, nc, dist + 1))
+        
+        # Sort the items by (distance, price, row, col)
+        items.sort()
+        
+        # Return the first k items' positions
+        return [[item[2], item[3]] for item in items[:k]]
+        
+--
+
+
+=========================================================================================================================
+
+
+-- Prime subtraction operation
+
+
+-- https://leetcode.com/problems/prime-subtraction-operation/
+--
+
+
+--
+class Solution:
+    def primeSubOperation(self, nums: List[int]) -> bool:
+        # go from left to right and try to minimize each element
+        # always consider the largest prime number to subtract with number you want to reduce
+
+        n = len(nums)
+
+        def is_prime(n: int) -> bool:
+            if n < 2:
+                return False
+            for f in range(2, int(sqrt(n)) + 1):
+                if n % f == 0:
+                    return False
+            return True
+
+        # for every number from 2 to max(nums)
+        prime = [0, 0] # for 0 and 1 is false since its not prime
+        # and then append the prime numbers to the array
+        for i in range(2, max(nums)):
+            if is_prime(i):
+                prime.append(i)
+            else:
+                prime.append(prime[-1])
+            
+        prev = 0
+
+        for num in nums:
+
+            upper_bound = num - prev # getting the number which is to get the strictly increasing
+            largest_num = prime[upper_bound - 1]
+
+            if num - largest_num <= prev: # since upper_bound is non inclusive
+                return False
+            prev = num - largest_num
+
+        return True
+--
+
+
+=======================================================================================================================
+
+-- Minimum operatioons to make all the array elements equal
+
+
+-- https://leetcode.com/problems/minimum-operations-to-make-all-array-elements-equal/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def minOperations(self, nums: List[int], queries: List[int]) -> List[int]:
+        # Sort nums for easier computation
+        nums.sort()
+        n = len(nums)
+        
+        # Build the prefix sum array
+        prefix = [0] * (n + 1)
+        for i in range(1, n + 1):
+            prefix[i] = prefix[i - 1] + nums[i - 1]
+        
+        # Custom binary search to find the lower bound
+        def find_lower_bound(arr, target):
+            left, right = 0, len(arr)
+            while left < right:
+                mid = (left + right) // 2
+                if arr[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid
+            return left
+        
+        def checker(target):
+            # Find the position of the target in nums
+            pos = find_lower_bound(nums, target)
+            # Calculate operations for elements less than target
+            left_sum = prefix[pos]
+            left_operations = target * pos - left_sum
+            # Calculate operations for elements greater than or equal to target
+            right_sum = prefix[n] - left_sum
+            right_operations = right_sum - target * (n - pos)
+            return left_operations + right_operations
+        
+        # Calculate the result for each query
+        result = []
+        for q in queries:
+            result.append(checker(q))
+        
+        return result
+
+--
+
+
+======================================================================================================================
+
+
+-- Maximum coins from k consecutive bags
+
+
+-- https://www.youtube.com/watch?v=avjkhmx42p4
+--
+
+
+--
+class Solution:
+    def maximumCoins(self, A: List[List[int]], k: int) -> int:
+        A.sort()
+        n = len(A)
+        res = 0
+
+        # Start at A[i][0]
+        cur = j = 0
+        for i in range(n):
+            # take the full and partial intervals which comes under that window 
+            # window is left + k - 1
+            while j < n and A[j][1] <= A[i][0] + k - 1:
+                cur += (A[j][1] - A[j][0] + 1) * A[j][2]
+                j += 1
+            if j < n:
+                part = max(0, A[i][0] + k - 1 - A[j][0] + 1) * A[j][2]
+                res = max(res, cur + part)
+
+            # remvoe the contribution of the current window since we are sliding the window
+            cur -= (A[i][1] - A[i][0] + 1) * A[i][2]
+
+        # End at A[i][1]
+        # same way get the max from right right
+        cur = j = 0
+        for i in range(n):
+            cur += (A[i][1] - A[i][0] + 1) * A[i][2]
+            while A[j][1] < A[i][1] - k + 1:
+                cur -= (A[j][1] - A[j][0] + 1) * A[j][2]
+                j += 1
+            part = max(0, A[i][1] - k - A[j][0] + 1) * A[j][2]
+            res = max(res, cur - part)
+
+        return res
+
+        
+--
+
+
+==========================================================================================================================
+
+
+-- Mice and cheese (Imp)
+
+
+--
+-- https://leetcode.com/problems/mice-and-cheese/
+
+
+--
+class Solution:
+    def miceAndCheese(self, reward1: List[int], reward2: List[int], k: int) -> int:
+        n = len(reward1)
+        # Compute the difference array
+        differences = [(reward1[i] - reward2[i], i) for i in range(n)]
+        # Sort by difference in descending order
+        differences.sort(reverse=True, key=lambda x: x[0])
+        
+        # Allocate cheese to the first mouse
+        total_points = 0
+        for i in range(n):
+            if i < k:
+                # Top k differences go to the first mouse
+                total_points += reward1[differences[i][1]]
+            else:
+                # Remaining go to the second mouse
+                total_points += reward2[differences[i][1]]
+        
+        return total_points
+
+        
+--
+
+
+==========================================================================================================================
 

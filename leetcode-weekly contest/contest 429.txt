@@ -1,0 +1,95 @@
+-- Maximum number of distinct elements after operations
+
+
+-- https://www.youtube.com/watch?v=1rZta-kqp4o&list=PLcXpkI9A-RZI6FhydNz3JBt_-p_i25Cbr&index=1
+-- https://leetcode.com/problems/maximum-number-of-distinct-elements-after-operations/description/
+
+
+--
+class Solution:
+    def maxDistinctElements(self, nums: List[int], k: int) -> int:
+        # https://www.youtube.com/watch?v=1rZta-kqp4o&list=PLcXpkI9A-RZI6FhydNz3JBt_-p_i25Cbr&index=1
+        nums.sort()
+        nums[0] -= k
+        n = len(nums)
+        res = n
+
+        for i in range(1, n):
+            if nums[i] + k < nums[i - 1] + 1:
+                nums[i] = nums[i - 1]
+                res -= 1
+            else:
+                nums[i] = max(nums[i - 1] + 1, nums[i] - k)
+        return res
+--
+
+
+===============================================================================================================
+
+
+
+-- The number of beautiful subsets (Imp)
+
+
+--
+-- https://leetcode.com/problems/the-number-of-beautiful-subsets/submissions/1492496323/
+
+
+--
+from collections import Counter
+class Solution:
+    def beautifulSubsets(self, nums: List[int], k: int) -> int:
+        nums.sort()  # Sort to ensure we process elements in order
+        freq = Counter()
+        result = 0
+
+        def backtrack(index):
+            nonlocal result
+            if index == len(nums):
+                return
+
+            # Exclude the current element
+            backtrack(index + 1)
+
+            # Include the current element if it forms a valid subset
+            if freq[nums[index] - k] == 0 and freq[nums[index] + k] == 0:
+                freq[nums[index]] += 1
+                result += 1
+                backtrack(index + 1)
+                freq[nums[index]] -= 1
+
+        backtrack(0)
+        return result
+
+    def beautifulSubsets(self, nums: List[int], k: int) -> int:
+        # using the recursion and bit mask with dp
+        n = len(nums)
+
+        def rec(index, mask):
+            if index == n:
+                return 1 if mask > 0 else 0
+
+            is_beautiful = True
+
+            for i in range(index):
+                if (1 << i) & mask == 0 or abs(nums[i] - nums[index]) != k:
+                    continue
+                else:
+                    is_beautiful = False
+                    break
+
+            skip = rec(index + 1, mask)
+
+            take = rec(index + 1, mask + (1 << index)) if is_beautiful else 0
+            return skip + take
+        return rec(0, 0)
+            
+
+
+
+
+        
+--
+
+
+==============================================================================================================
