@@ -11499,3 +11499,317 @@ class Solution:
 
 ==========================================================================================================================
 
+
+-- Prime in diagonals (Imp) (Prime calculation)
+
+
+-- https://leetcode.com/problems/prime-in-diagonal/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def diagonalPrime(self, nums: List[List[int]]) -> int:
+        n = len(nums)
+        maximum = 0  # Initialize with 0 since we want the maximum prime
+
+        def is_prime(num):
+            if num <= 1:  # Numbers <= 1 are not prime
+                return False
+            if num <= 3:  # 2 and 3 are prime numbers
+                return True
+            if num % 2 == 0 or num % 3 == 0:  # Eliminate multiples of 2 and 3
+                return False
+            # Check divisors from 5 up to sqrt(num)
+            i = 5
+            while i * i <= num:
+                if num % i == 0 or num % (i + 2) == 0:
+                    return False
+                i += 6
+            return True
+
+        for i in range(n):
+            d1 = nums[i][i]  # Primary diagonal element
+            d2 = nums[i][n - i - 1]  # Secondary diagonal element
+
+            if is_prime(d1):
+                maximum = max(maximum, d1)
+            if is_prime(d2):
+                maximum = max(maximum, d2)
+
+        return maximum if maximum > 0 else 0
+
+--
+
+========================================================================================================================
+
+
+-- Sum of distances
+
+
+--
+-- https://leetcode.com/problems/sum-of-distances/
+
+
+--
+class Solution:
+    def distance(self, nums: List[int]) -> List[int]:
+
+        index_groups = defaultdict(list)
+        
+        # Populate the dictionary
+        for i, num in enumerate(nums):
+            index_groups[num].append(i)
+        
+        # Initialize the result array with zeros
+        arr = [0] * len(nums)
+        
+        # Process each group of indices
+        for indices in index_groups.values():
+            n = len(indices)
+            if n == 1:
+                continue  # If there's only one index, the result is already 0
+            
+            # Prefix sum of indices
+            prefix_sum = [0] * (n + 1)
+            for i in range(n):
+                prefix_sum[i + 1] = prefix_sum[i] + indices[i]
+            
+            # Compute the result for each index in the group
+            print(prefix_sum)
+            for i in range(n):
+                print(i, indices[i], prefix_sum[i])
+                left_sum = i * indices[i] - prefix_sum[i]
+                right_sum = (prefix_sum[n] - prefix_sum[i + 1]) - (n - i - 1) * indices[i]
+                arr[indices[i]] = left_sum + right_sum
+        
+        return arr
+        
+--
+
+=========================================================================================================================
+
+
+-- Minimize the maximum difference of pairs (Imp) (Binary Search)
+
+
+--
+-- https://leetcode.com/problems/minimize-the-maximum-difference-of-pairs/
+
+
+--
+class Solution:
+    def minimizeMax(self, nums: List[int], p: int) -> int:
+        nums.sort()
+
+        def checker(num):
+            pairs = 0
+            i = 0
+            while i < len(nums) - 1:
+                if nums[i + 1] - nums[i] <= num:
+                    pairs += 1
+                    i += 1  # Skip the next index to ensure no reuse
+                i += 1
+            return pairs >= p
+        
+
+        left = 0
+        right = nums[-1] - nums[0]
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if checker(mid):
+                right = mid - 1
+            else:
+                left = mid + 1
+        return left
+--
+
+========================================================================================================================
+
+-- Cousins in binary tree
+
+
+-- https://leetcode.com/problems/cousins-in-binary-tree-ii/
+--
+
+
+--
+class Solution:
+    def replaceValueInTree(self, root):
+        if not root:
+            return root
+        node_queue = deque([root])
+        level_sums = []
+
+        # First BFS: Calculate sum of nodes at each level
+        while node_queue:
+            level_sum = 0
+            level_size = len(node_queue)
+            for _ in range(level_size):
+                current_node = node_queue.popleft()
+                level_sum += current_node.val
+                if current_node.left:
+                    node_queue.append(current_node.left)
+                if current_node.right:
+                    node_queue.append(current_node.right)
+            level_sums.append(level_sum)
+
+        # Second BFS: Update each node's value to sum of its cousins
+        node_queue.append(root)
+        level_index = 1
+        root.val = 0  # Root has no cousins
+        while node_queue:
+            level_size = len(node_queue)
+            for _ in range(level_size):
+                current_node = node_queue.popleft()
+
+                sibling_sum = (
+                    current_node.left.val if current_node.left else 0
+                ) + (current_node.right.val if current_node.right else 0)
+
+                if current_node.left:
+                    current_node.left.val = (
+                        level_sums[level_index] - sibling_sum
+                    )
+                    node_queue.append(current_node.left)
+                if current_node.right:
+                    current_node.right.val = (
+                        level_sums[level_index] - sibling_sum
+                    )
+                    node_queue.append(current_node.right)
+            level_index += 1
+
+        return root
+--
+
+
+=======================================================================================================================
+
+
+-- Minimum additions to make valid strings
+
+
+-- https://leetcode.com/problems/minimum-additions-to-make-valid-string/
+--
+
+
+--
+class Solution:
+    def addMinimum(self, word: str) -> int:
+        n = len(word)
+        i = 0
+        res = 0
+        
+        while i < n:
+            count = 0
+            
+            if word[i] == 'a':
+                count += 1
+                i += 1
+             
+            if i < n and word[i] == 'b':
+                count += 1
+                i += 1
+            
+            if i < n and word[i] == 'c':
+                count += 1
+                i += 1
+            
+            res += 3 - count
+        
+        return res
+--
+
+=====================================================================================================================
+
+
+-- Find the prefix common array of two arrays
+
+
+-- https://leetcode.com/problems/find-the-prefix-common-array-of-two-arrays/
+--
+
+
+--
+class Solution:
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        a = set()
+        b = set()
+        ans = []
+        count = 0
+        for i in range(0, len(A)):
+            a.add(A[i])
+            b.add(B[i])
+            if A[i] == B[i]:
+                count += 1
+                ans.append(count)
+                continue
+            if A[i] in b:
+                count += 1
+            if B[i] in a:
+                count += 1
+            ans.append(count)
+        return ans
+--
+
+
+====================================================================================================================
+
+
+-- First completely painted row or col
+
+
+--
+-- https://leetcode.com/problems/first-completely-painted-row-or-column/
+
+
+--
+class Solution:
+    def firstCompleteIndex(self, arr: List[int], mat: List[List[int]]) -> int:
+        m = len(mat)
+        n = len(mat[0])
+
+        # Initialize row and column painted counters
+        rowPainted = [0] * m
+        colPainted = [0] * n
+
+        # Create a dictionary to map values to their row and column positions
+        value_to_position = {}
+        for i in range(m):
+            for j in range(n):
+                value_to_position[mat[i][j]] = (i, j)
+
+        # Iterate through arr
+        for i, num in enumerate(arr):
+            # Find the row and column of the current number
+            row, col = value_to_position[num]
+            
+            # Paint the cell
+            rowPainted[row] += 1
+            colPainted[col] += 1
+
+            # Check if a row or column is completely painted
+            # if the row count is equal to n or m return index
+            if rowPainted[row] == n or colPainted[col] == m:
+                return i
+
+        return -1
+
+        
+--
+
+
+===================================================================================================================
+
+
+
+
+
+
+
+
+

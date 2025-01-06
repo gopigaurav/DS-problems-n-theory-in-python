@@ -2502,8 +2502,87 @@ class Solution:
 ==========================================================================================================
 
 
+-- Sum multiples
 
 
+-- https://leetcode.com/problems/sum-multiples/
+--
+
+--
+class Solution:
+    def sumOfMultiples(self, n: int) -> int:
+        def sum_of_multiples(x):
+            k = n // x
+            return x * k * (k + 1) // 2
+
+        # Individual sums
+        sum3 = sum_of_multiples(3)
+        sum5 = sum_of_multiples(5)
+        sum7 = sum_of_multiples(7)
+        
+        # Pairwise overlaps
+        sum15 = sum_of_multiples(15)  # lcm(3, 5)
+        sum21 = sum_of_multiples(21)  # lcm(3, 7)
+        sum35 = sum_of_multiples(35)  # lcm(5, 7)
+        
+        # Triple overlap
+        sum105 = sum_of_multiples(105)  # lcm(3, 5, 7)
+        
+        # Apply inclusion-exclusion principle
+        total_sum = sum3 + sum5 + sum7 - sum15 - sum21 - sum35 + sum105
+        
+        return total_sum
+        
+--
+
+
+============================================================================================================
+
+-- sliding subarray beauty (Imp)
+
+
+--
+-- https://leetcode.com/problems/sliding-subarray-beauty/
+
+
+--
+from sortedcontainers import SortedList
+from heapq import heappush, heappop
+from typing import List
+
+class Solution:
+    def getSubarrayBeauty(self, nums: List[int], k: int, x: int) -> List[int]:
+        n = len(nums)
+        res = []  # Result array to store the beauty values
+        sorted_neg = SortedList()  # Maintains sorted order of negatives in the current window
+
+        i = 0
+        j = 0
+
+        while j < n:
+            if nums[j] < 0:
+                sorted_neg.add(nums[j])
+            if j - i + 1 < k:
+                j += 1
+            elif j - i + 1 == k:
+                if len(sorted_neg) >= x:
+                    res.append(sorted_neg[x - 1])
+                else:
+                    res.append(0)
+                
+                if nums[i] < 0:
+                    sorted_neg.remove(nums[i])
+                i += 1
+                j += 1
+
+        return res
+
+--
+
+
+=============================================================================================================
+
+-- 
 
 
 
