@@ -11806,7 +11806,73 @@ class Solution:
 ===================================================================================================================
 
 
+-- Minimum cost of a path with special roads
 
+
+--
+-- https://leetcode.com/problems/minimum-cost-of-a-path-with-special-roads/description/
+
+
+--
+class Solution:
+    def minimumCost(self, start: List[int], target: List[int], specialRoads: List[List[int]]) -> int:
+        # Helper function to compute Manhattan distance
+        def manhattan_dist(x1, y1, x2, y2):
+            return abs(x2 - x1) + abs(y2 - y1)
+        
+        # Priority queue for Dijkstra's algorithm
+        pq = []
+        # Distances dictionary to store the minimum cost to each point
+        distances = {}
+        
+        # Add the start point to the priority queue
+        heapq.heappush(pq, (0, start[0], start[1]))  # (cost, x, y)
+        distances[(start[0], start[1])] = 0
+        
+        # All points we consider are start, target, and all special road endpoints
+        points = {(start[0], start[1]), (target[0], target[1])}
+        for road in specialRoads:
+            points.add((road[0], road[1]))
+            points.add((road[2], road[3]))
+        
+        print(points)
+        
+        points = list(points)  # Convert to list for easier indexing
+        
+        # Dijkstra's algorithm
+        while pq:
+            current_cost, x, y = heapq.heappop(pq)
+            
+            # If we've reached the target, return the cost
+            if (x, y) == (target[0], target[1]):
+                return current_cost
+            
+            # If this cost is already greater than the recorded cost, skip
+            if current_cost > distances.get((x, y), float('inf')):
+                continue
+            
+            # Explore all possible neighbors
+            for px, py in points:
+                # Compute normal cost to move to (px, py)
+                normal_cost = current_cost + manhattan_dist(x, y, px, py)
+                if normal_cost < distances.get((px, py), float('inf')):
+                    distances[(px, py)] = normal_cost
+                    heapq.heappush(pq, (normal_cost, px, py))
+            
+            # Explore special roads from the current position
+            for road in specialRoads:
+                if (x, y) == (road[0], road[1]):  # Can take this road
+                    special_cost = current_cost + road[4]
+                    if special_cost < distances.get((road[2], road[3]), float('inf')):
+                        distances[(road[2], road[3])] = special_cost
+                        heapq.heappush(pq, (special_cost, road[2], road[3]))
+        
+        # If we finish and haven't returned, the target is unreachable
+        return -1
+--
+
+
+====================================================================================================================
 
 
 
