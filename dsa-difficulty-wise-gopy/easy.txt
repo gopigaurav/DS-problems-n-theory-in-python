@@ -2582,8 +2582,235 @@ class Solution:
 
 =============================================================================================================
 
--- 
+-- Lexicographically smallest palindrome
 
 
+--
+-- https://leetcode.com/problems/lexicographically-smallest-palindrome/
+
+
+--
+class Solution:
+    def makeSmallestPalindrome(self, s: str) -> str:
+        letters = list(s)
+
+        for i in range(len(s) // 2):
+            letters[i] = letters[~i] = min(letters[i], letters[~i])
+
+        return ''.join(letters)
+--
+
+==============================================================================================================
+
+-- Find the punishments number of an integer (Imp)
+
+
+-- https://leetcode.com/problems/find-the-punishment-number-of-an-integer/
+--
+
+
+
+--
+class Solution:
+    def punishmentNumber(self, n: int) -> int:
+        def can_partition(num_str, target):
+            """Check if num_str can be split into substrings summing to target."""
+            def dfs(index, current_sum):
+                if index == len(num_str):
+                    return current_sum == target
+                
+                for j in range(index + 1, len(num_str) + 1):
+                    substring = num_str[index:j]
+                    current_value = int(substring)
+                    if dfs(j, current_sum + current_value):
+                        return True
+                return False
+
+            return dfs(0, 0)
+
+
+        punishment_sum = 0
+        for i in range(1, n + 1):
+            square = i * i
+            if can_partition(str(square), i):
+                punishment_sum += square
+        return punishment_sum
+        
+--
+
+=============================================================================================================
+
+
+-- Extra characters in a string (Imp) (dp)
+
+
+--
+-- https://leetcode.com/problems/extra-characters-in-a-string/
+
+
+--
+class Solution:
+    def minExtraChar1(self, s: str, dictionary: List[str]) -> int:
+        word_set = set(dictionary)  # Convert list to set for O(1) lookup
+        n = len(s)
+        memo = {}
+
+        def solve(i):
+            if i == n:  # Base case: no characters left
+                return 0
+            if i in memo:  # Return memoized result
+                return memo[i]
+            
+            # Initialize with the worst case: all characters from i to n are extra
+            min_extra = n - i
+            
+            # Try all possible substrings starting from i
+            for j in range(i, n):
+                current_substring = s[i:j+1]
+                extra = 0 if current_substring in word_set else len(current_substring)
+                min_extra = min(min_extra, extra + solve(j + 1))
+            
+            memo[i] = min_extra
+            return min_extra
+
+        return solve(0)
+
+
+    def minExtraChar(self, s: str, dictionary: List[str]) -> int:
+
+        n = len(s)
+        word_set = set(dictionary)  # Convert list to set for O(1) lookup
+        dp = [float('inf')] * (n + 1)  # Initialize DP array with infinity
+        dp[0] = 0  # Base case: no extra characters for empty string
+
+        for i in range(1, n + 1):  # Iterate through all positions in the string
+            for j in range(i):  # Iterate through all possible splits
+                if s[j:i] in word_set:
+                    dp[i] = min(dp[i], dp[j])  # No extra characters if s[j:i] is in dictionary
+                else:
+                    dp[i] = min(dp[i], dp[j] + (i - j))  # Count all as extra otherwise
+
+        return dp[n]  # Final result
+
+        
+--
+
+
+============================================================================================================
+
+
+-- Minimum strngth of a group
+
+
+-- https://leetcode.com/problems/maximum-strength-of-a-group/
+--
+
+
+--
+class Solution:
+    def maxStrength(self, nums: List[int]) -> int:
+        nums.sort()
+        n = len(nums)
+        last_neg = 0
+        neg = 0
+        result = 1
+
+
+
+        if len(nums) == 2:
+            if nums[0] < 0 and nums[1] == 0:
+                return 0
+
+        if len(nums) == 1:
+            return nums[0]
+
+        for i in range(n):
+            if nums[i] < 0:
+                neg += 1
+                last_neg = i
+            if nums[i] != 0:
+                result *= nums[i]
+        
+        if neg % 2 == 0:
+            if max(nums) == 0 and neg == 0:
+                return 0
+            return result
+        else:
+            result = 1
+            found = False
+            for i in range(n):
+                if i != last_neg and nums[i] != 0:
+                    found = True
+                    result *= nums[i]
+
+            return result if found else max(nums)
+
+
+
+            
+        
+--
+
+
+========================================================================================================
+
+
+-- Minimum cost to make all characters equal (Imp) (dp or greedy)
+
+
+-- (refers)  https://www.youtube.com/watch?v=PBE0zGxipc4
+-- https://leetcode.com/problems/minimum-cost-to-make-all-characters-equal/
+
+
+--
+class Solution:
+    def minimumCost(self, s: str) -> int:
+
+        # this can be done using dp or greedy
+        # the intution here is traverse the array from 1, n. if there is a change the
+        # consider the min(i, n - i)
+
+        # If you are using dp traverse through the array 
+        # if there is a change between s[i] and s[i - 1] then you can either flip the bits from 0 to i or from i to n - i (take the min)
+        n = len(s)
+        res = 0
+
+        for i in range(1, n):
+            if s[i] != s[i - 1]:
+                res += min(i, n - i)
+        return res
+
+--
+
+============================================================================================================
+
+-- Check if array is Good
+
+
+-- https://leetcode.com/problems/check-if-array-is-good/description/
+--
+
+
+--
+class Solution:
+    def isGood(self, nums: List[int]) -> bool:    
+        n = max(nums)  # Find the largest number
+        if len(nums) != n + 1:  # Check if length matches n + 1
+            return False
+        
+        # Count the frequency of each number
+        count = Counter(nums)
+        
+        # Validate the frequency of numbers
+        for i in range(1, n):  # Numbers from 1 to n - 1 should appear once
+            if count[i] != 1:
+                return False
+        
+        # The number n should appear exactly twice
+        return count[n] == 2
+        
+--
+
+===========================================================================================================
 
 
