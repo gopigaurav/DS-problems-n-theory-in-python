@@ -2814,3 +2814,61 @@ class Solution:
 ===========================================================================================================
 
 
+
+-- Sort vowels in a string
+
+
+-- https://leetcode.com/problems/sort-vowels-in-a-string/
+--
+
+
+--
+class Solution:
+    def sortVowels(self, s: str) -> str:
+        vowels = "AEIOUaeiou"
+        n = len(s)
+        res = []
+        
+        # Collect vowels from the string
+        vowel_list = [s[i] for i in range(n) if s[i] in vowels]
+        
+        # Sort the vowels
+        vowel_list.sort()
+        
+        # Pointer to iterate through the sorted vowels
+        index = 0
+        # Replace vowels in the original string with sorted vowels
+        for i in range(n):
+            if s[i] in vowels:
+                res.append(vowel_list[index])
+                index += 1
+            else:
+                res.append(s[i])
+                
+        return "".join(res)
+
+
+class Solution:
+    def sortVowels(self, s: str) -> str:
+        vowels = "AEIOUaeiou"
+        # Extract vowels from the string and sort them
+        sorted_vowels = sorted([char for char in s if char in vowels])
+        result = []
+        vowel_index = 0
+
+        # Reconstruct the string, replacing vowels in sorted order
+        for char in s:
+            if char in vowels:
+                result.append(sorted_vowels[vowel_index])
+                vowel_index += 1
+            else:
+                result.append(char)
+
+        return "".join(result)
+
+--
+
+
+==========================================================================================================
+
+

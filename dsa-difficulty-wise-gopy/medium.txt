@@ -12284,5 +12284,182 @@ class Solution:
 
 ========================================================================================================
 
+-- Largest element n an array after merge operations
 
+
+-- https://leetcode.com/problems/largest-element-in-an-array-after-merge-operations/
+--
+
+
+--
+class Solution:
+    def maxArrayValue(self, nums: List[int]) -> int:
+        sum = 0
+
+        # from right to left and get the sum
+        for i in range(len(nums) - 1, -1, - 1):
+            if nums[i] <= sum:
+                sum += nums[i]
+            else:
+                sum = nums[i]
+        return sum
+        
+--
+
+
+
+=======================================================================================================
+
+
+-- Count complete subarrays in an array (Imp)
+
+
+-- https://leetcode.com/problems/count-complete-subarrays-in-an-array/
+--
+
+--
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def countCompleteSubarrays(self, nums: List[int]) -> int:
+        # Determine the total number of distinct elements in the array
+        total_distinct = len(set(nums))
+        
+        n = len(nums)
+        left = 0
+        res = 0
+        count_map = defaultdict(int)
+        
+        # Use a sliding window approach to count complete subarrays
+        for right in range(n):
+            count_map[nums[right]] += 1  # Add the current element to the window
+            
+            # Check if the current window contains all distinct elements
+            while len(count_map) == total_distinct:
+                res += (n - right)  # All subarrays starting at `left` and ending at or after `right` are valid
+                count_map[nums[left]] -= 1  # Shrink the window from the left
+                if count_map[nums[left]] == 0:
+                    del count_map[nums[left]]  # Remove the element if its count becomes zero
+                left += 1
+        
+        return res
+
+--
+
+
+======================================================================================================
+
+
+-- Insert greatest common divisors in linked list
+
+
+-- https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list/
+--
+
+
+--
+from math import gcd
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        current = head
+
+        # for every node in head take the current and current next val and get the gcd
+        while current and current.next:
+            # Calculate GCD of current node and next node values
+            gcd_value = gcd(current.val, current.next.val)
+            
+            # Create a new node with the GCD value
+            new_node = ListNode(gcd_value)
+            
+            # Insert the new node between current and current.next
+            new_node.next = current.next
+            current.next = new_node
+            
+            # Move to the next pair of nodes (skipping the newly inserted node)
+            current = new_node.next
+        
+        return head
+--
+
+
+=====================================================================================================
+
+-- Solving questions with brain power (dp)
+
+
+--
+-- https://leetcode.com/problems/solving-questions-with-brainpower/
+
+
+-- 
+class Solution:
+    def mostPoints1(self, questions: List[List[int]]) -> int:
+        n = len(questions)
+        dp = [-1] * n 
+
+        def dfs(index):
+            if index >= n:
+                return 0
+
+            if dp[index] != -1:
+                return dp[index]
+            
+            pick = questions[index][0] + dfs(index + questions[index][1] + 1)
+            not_pick = dfs(index + 1)
+
+            dp[index] = max(pick, not_pick)
+            return dp[index]
+        return dfs(0)
+
+    def mostPoints(self, questions: List[List[int]]) -> int:
+        n = len(questions)
+        dp = [0] * (n + 1)
+
+        # traverse from right to left and get the maximum of pick and not pick
+        for i in range(n - 1, -1, -1):
+            solve = questions[i][0] + (dp[i + questions[i][1] + 1] if i + questions[i][1] + 1 < n else 0)
+            
+            # Option 2: Skip the current question
+            skip = dp[i + 1]
+            
+            # Take the maximum of solving or skipping
+            dp[i] = max(solve, skip)
+        
+        return dp[0]
+
+--
+
+
+======================================================================================================
+
+
+-- Maximum and Minimum sums of at most size k subsequences
+
+
+--
+-- https://leetcode.com/problems/maximum-and-minimum-sums-of-at-most-size-k-subsequences/
+
+
+--
+class Solution:
+    def minMaxSums(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        total_sums = 0
+        quantity = 1
+        
+        for i in range(len(nums)):
+            total_sums += quantity * (nums[i] + nums[-i - 1])
+            quantity = 2 * quantity - comb(i, k - 1)
+
+        return total_sums % (10 ** 9 + 7)
+--
+
+
+==========================================================================================================
 
