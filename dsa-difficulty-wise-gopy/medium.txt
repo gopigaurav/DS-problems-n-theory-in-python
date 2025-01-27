@@ -12463,3 +12463,119 @@ class Solution:
 
 ==========================================================================================================
 
+
+-- Flip Bianry tree to macth preorder traversal
+
+
+-- https://leetcode.com/problems/flip-binary-tree-to-match-preorder-traversal/description/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def flipMatchVoyage(self, root: Optional[TreeNode], voyage: List[int]) -> List[int]:
+        self.index = 0
+        self.res = []
+
+        def dfs(node):
+            if not node:
+                return True
+            
+            if node.val != voyage[self.index]:
+                return False
+
+            self.index += 1
+            # check if the nodes left child matches the voyage index or not
+            if (node.left and node.left.val != voyage[self.index]):
+                # Flip is required
+                self.res.append(node.val)
+                # Swap left and right children
+                node.left, node.right = node.right, node.left
+            
+            return dfs(node.left) and dfs(node.right)
+        
+        if dfs(root):
+            return self.res
+        else:
+            return [-1]
+        
+--
+
+
+===========================================================================================================
+
+
+-- Two city scheduling
+
+-- https://leetcode.com/problems/two-city-scheduling/
+--
+
+
+--
+class Solution:
+    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        arr = [sorted(inner, key=lambda x: x) for inner in costs]
+        costs.sort(key=lambda cost: cost[0] - cost[1])
+        
+        n = len(costs) // 2
+        total_cost = 0
+        
+        # Send the first n people to city A and the rest to city B
+        # send the first n  to city A cuase while sorting A goes increasing 
+        for i in range(n):
+            total_cost += costs[i][0]  # City A cost
+        for i in range(n, 2 * n):
+            total_cost += costs[i][1]  # City B cost
+        
+        return total_cost
+--
+
+
+================================================================================================================
+
+
+-- Maximum sum if two non overlapping subarrays (Imp)
+
+
+--
+-- https://leetcode.com/problems/maximum-sum-of-two-non-overlapping-subarrays/
+
+
+--
+class Solution:
+    def maxSumTwoNoOverlap(self, nums: List[int], firstLen: int, secondLen: int) -> int:
+        def maxSum(arr, L, M):
+            n = len(arr)
+            prefix = [0] * (n + 1)
+            
+            # Calculate prefix sums
+            for i in range(n):
+                prefix[i + 1] = prefix[i] + arr[i]
+            
+            maxL = maxM = 0
+            result = 0
+            
+            # Iterate to compute the maximum sum
+            for i in range(L + M, n + 1):
+                # Calculate the maximum L-sum up to the (i-M) index
+                # similar to sum = prefix[j + 1] - prefix[i]
+                maxL = max(maxL, prefix[i - M] - prefix[i - M - L])
+                # Calculate the maximum sum of L + M
+                result = max(result, maxL + prefix[i] - prefix[i - M])
+            
+            return result
+        return max(maxSum(nums, firstLen, secondLen), maxSum(nums, secondLen, firstLen))
+        
+--
+
+=================================================================================================================
+
+--
+
+
