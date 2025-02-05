@@ -12653,5 +12653,122 @@ class Solution:
 ==================================================================================================================
 
 
+-- Flower planting with no adjacent
+
+
+-- https://leetcode.com/problems/flower-planting-with-no-adjacent/
+--
+
+
+--
+class Solution:
+    def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
+        # Step 1: Build adjacency list
+        graph = defaultdict(list)
+        for x, y in paths:
+            graph[x].append(y)
+            graph[y].append(x)
+        print(graph)
+
+        # Step 2: Assign flower types
+        flowers = [0] * n  # 0 means unassigned
+
+        for garden in range(1, n + 1):
+            # Get colors used by neighbors
+            used_colors = {flowers[neighbor - 1] for neighbor in graph[garden]}
+
+            # Assign the first available color (1 to 4)
+            for color in range(1, 5):
+                if color not in used_colors:
+                    flowers[garden - 1] = color
+                    break
+        
+        return flowers
+        
+
+class Solution:
+    def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
+        graph = defaultdict(list)
+        # gardens are from node 1 to n
+        for x, y in paths:
+            graph[x].append(y)
+            graph[y].append(x)
+        
+        ans = [0] * (n + 1)
+        for i in range(1, n + 1):
+            available = {1, 2, 3, 4}
+            for nei in graph[i]:
+                if ans[nei] in available:
+                    available.remove(ans[nei])
+            ans[i] = available.pop()
+        return ans[1:]
+--
+
+
+==================================================================================================================
+
+
+-- Partition array for maximum sum
+
+
+-- https://leetcode.com/problems/partition-array-for-maximum-sum/
+--
+
+
+--
+class Solution:
+    def maxSumAfterPartitioning1(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        dp = [-1] * (n + 1)
+        def dfs(index):
+            if index == n:
+                return 0
+            
+            if dp[index] != -1:
+                return dp[index]
+
+            length = 0
+            maxi = float('-inf')
+            max_ans = float('-inf')
+        
+            for j in range(index, min(n, index + k)):
+                length += 1
+                maxi = max(arr[j], maxi)
+
+                csum = length * maxi + dfs(j + 1)
+                max_ans = max(max_ans, csum)
+            dp[index] = max_ans
+            return max_ans
+
+        return dfs(0)
+
+    def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        dp = [0] * (n + 1)
+
+        for i in range(n - 1, -1, -1):
+            length = 0
+            maxi = float('-inf')
+            max_ans = float('-inf')
+
+            for j in range(i, min(n, i + k)):
+                length += 1
+                maxi = max(arr[j], maxi)
+                csum = length * maxi + dp[j + 1]
+                max_ans = max(max_ans, csum)
+            
+            dp[i] = max_ans
+        
+        return dp[0]
+--
+
+
+===================================================================================================================
+
+
 -- 
+
+
+
+
 
