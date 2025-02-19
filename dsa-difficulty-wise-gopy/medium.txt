@@ -13387,6 +13387,78 @@ class ZeroEvenOdd:
 =================================================================================================================
 
 
+-- Lowest common ancestor of deepest leaves
+
+
+-- https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def dfs(node):
+            if not node:
+                return (0, None)  # (depth, LCA)
+            
+            left_depth, left_lca = dfs(node.left)
+            right_depth, right_lca = dfs(node.right)
+            
+            if left_depth > right_depth:
+                return (left_depth + 1, left_lca)
+            elif left_depth < right_depth:
+                return (right_depth + 1, right_lca)
+            else:
+                return (left_depth + 1, node)  # Same depth, so current node is LCA
+        
+        return dfs(root)[1]
+        
+--
+
+
+====================================================================================================================
+
+
+-- Longest well performing interval
+
+
+-- https://leetcode.com/problems/longest-well-performing-interval/
+--
+
+
+--
+class Solution:
+    def longestWPI(self, hours: List[int]) -> int:
+        score = [1 if i > 8 else -1 for i in hours]
+        prefix_sum = 0
+        max_len = 0
+        m = {}
+
+        for i, val in enumerate(score):
+            prefix_sum += val
+
+            if prefix_sum > 0:
+                max_len = i + 1
+            else:
+                if prefix_sum - 1 in m:
+                    max_len = max(max_len, i - m[prefix_sum - 1])
+                else:
+                    m[prefix_sum] = i
+
+        return max_len
+        
+--
+
+
+===================================================================================================================
+
+
 
 
 
