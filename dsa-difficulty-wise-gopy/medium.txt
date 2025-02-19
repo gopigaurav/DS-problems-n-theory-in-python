@@ -13268,7 +13268,7 @@ class Foo:
 ==================================================================================================================
 
 
--- Print Foobar alternatively
+-- Print Foobar alternatively (Threading)
 
 
 -- https://leetcode.com/problems/print-foobar-alternately/
@@ -13341,6 +13341,52 @@ class FooBar:
 
 
 ===================================================================================================================
+
+
+-- Print Zero Even Odd (Threading)
+
+
+-- https://leetcode.com/problems/print-zero-even-odd/description/
+--
+
+
+--
+import threading
+
+class ZeroEvenOdd:
+    def __init__(self, n):
+        self.n = n
+        self.zero_semaphore = threading.Semaphore(1)
+        self.odd_semaphore = threading.Semaphore(0)
+        self.even_semaphore = threading.Semaphore(0)
+
+    def zero(self, printNumber):
+        for i in range(1, self.n + 1):
+            self.zero_semaphore.acquire()
+            printNumber(0)
+            if i % 2 == 1:
+                self.odd_semaphore.release()
+            else:
+                self.even_semaphore.release()
+
+    def even(self, printNumber):
+        for i in range(2, self.n + 1, 2):
+            self.even_semaphore.acquire()
+            printNumber(i)
+            self.zero_semaphore.release()
+
+    def odd(self, printNumber):
+        for i in range(1, self.n + 1, 2):
+            self.odd_semaphore.acquire()
+            printNumber(i)
+            self.zero_semaphore.release()
+
+--
+
+
+=================================================================================================================
+
+
 
 
 

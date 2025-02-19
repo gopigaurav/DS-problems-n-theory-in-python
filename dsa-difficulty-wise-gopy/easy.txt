@@ -2872,3 +2872,40 @@ class Solution:
 ==========================================================================================================
 
 
+-- Relative sort array
+
+
+-- https://leetcode.com/problems/relative-sort-array/submissions/1548647390/
+--
+
+
+--
+class Solution:
+    def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        order_map = {val: idx for idx, val in enumerate(arr2)}  # Map elements of arr2 to their indices
+    
+        return sorted(arr1, key=lambda x: (order_map.get(x, float('inf')), x))
+
+    def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        # first one map to get the freq of arr2
+        freq = {}
+        for num in arr2:
+            freq[num] = 0
+        tail = []
+        for num in arr1:
+            if num in freq:
+                freq[num] += 1
+            else:
+                tail.append(num)
+        res = []
+        for num in arr2:
+            res.extend([num] * freq[num])
+        res.extend(sorted(tail))
+        return res
+--
+
+
+============================================================================================================
+
+
+
