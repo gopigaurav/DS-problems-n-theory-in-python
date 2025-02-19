@@ -12766,9 +12766,581 @@ class Solution:
 ===================================================================================================================
 
 
--- 
+-- Longest string chain
 
 
+--
+-- https://leetcode.com/problems/longest-string-chain/
+
+
+--
+class Solution:
+    def longestStrChain(self, words: List[str]) -> int:
+        words.sort(key=len)  # Step 1: Sort words by length
+        dp = {}  # Dictionary to store longest chain ending at each word
+        max_length = 1  # At least one word forms a chain of length 1
+
+        # for every word check for every i to be removed and check
+        for word in words:
+            dp[word] = 1  # Every word is at least a chain of length 1
+            for i in range(len(word)):  
+                prev = word[:i] + word[i+1:]  # Removing one character
+                if prev in dp:  # Check if the predecessor exists
+                    dp[word] = max(dp[word], dp[prev] + 1)
+            
+            max_length = max(max_length, dp[word])  # Update max chain length
+        
+        return max_length
+--
+
+
+==================================================================================================================
+
+
+
+-- Pervious permutation with one swap
+
+
+--
+-- https://leetcode.com/problems/previous-permutation-with-one-swap/
+
+
+--
+class Solution:
+    def prevPermOpt1(self, arr: List[int]) -> List[int]:
+        n = len(arr)
+    
+        # Step 1: Find the rightmost decreasing element
+        i = n - 2
+        while i >= 0 and arr[i] <= arr[i + 1]:
+            i -= 1
+        
+        # If no such element is found, return the same array
+        if i == -1:
+            return arr
+        
+        # Step 2: Find the largest element to the right of `i` that is smaller than `arr[i]`
+        j = n - 1
+        while j > i and arr[j] >= arr[i]:
+            j -= 1
+
+        # To ensure we pick the rightmost duplicate element
+        while j > 0 and arr[j - 1] == arr[j]:
+            j -= 1
+        
+        # Step 3: Swap `arr[i]` and `arr[j]`
+        arr[i], arr[j] = arr[j], arr[i]
+        
+        return arr
+        
+--
+
+
+===================================================================================================================
+
+
+-- Distant Barcodes
+
+
+-- https://leetcode.com/problems/distant-barcodes/
+--
+
+
+--
+from collections import Counter
+class Solution:
+    def rearrangeBarcodes1(self, barcodes: List[int]) -> List[int]:
+        # Count the frequency of each barcode
+        freq = Counter(barcodes)
+        
+        # Use a max heap (negate the count for max heap simulation)
+        max_heap = [(-count, barcode) for barcode, count in freq.items()]
+        heapq.heapify(max_heap)
+        
+        result = []
+        prev_count, prev_barcode = 0, None  # To store the last placed barcode
+
+        while max_heap:
+            count, barcode = heapq.heappop(max_heap)  # Get most frequent barcode
+            result.append(barcode)
+            
+            # If the previous barcode still has remaining occurrences, push it back
+            if prev_count < 0:
+                heapq.heappush(max_heap, (prev_count, prev_barcode))
+            
+            # Update previous barcode
+            prev_count, prev_barcode = count + 1, barcode  # Reduce frequency by 1
+
+        return result
+        
+    def rearrangeBarcodes(self, b: List[int]) -> List[int]:
+        freq = Counter(b)  # Count frequencies
+        sorted_items = sorted(freq.items(), key=lambda x: -x[1])  # Sort by frequency
+
+        result = [0] * len(b)
+        index = 0  # Start filling from index 0
+
+        for barcode, count in sorted_items:
+            for _ in range(count):
+                if index >= len(b):  
+                    index = 1  # If we reach the end, start from index 1
+                result[index] = barcode
+                index += 2  # Fill every alternate slot
+
+        return result
+
+--
+
+
+===================================================================================================================
+
+
+-- Flip columns for max number of equal of rows
+
+
+--
+-- https://leetcode.com/problems/flip-columns-for-maximum-number-of-equal-rows/submissions/1544075078/
+
+
+--
+from collections import Counter
+class Solution:
+    def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
+        pattern_count = Counter()
+        
+        for row in matrix:
+            # Normalize the row to make the first element 0
+            base_pattern = tuple(x ^ row[0] for x in row)
+            pattern_count[base_pattern] += 1
+        
+        return max(pattern_count.values())
+        
+--
+
+
+==================================================================================================================
+
+
+-- Letter tile possibilities 
+
+
+-- https://leetcode.com/problems/letter-tile-possibilities/
+--
+
+
+--
+class Solution:
+    def numTilePossibilities(self, tiles: str) -> int:
+        count = Counter(tiles)
+
+        def backtrack(counter):
+            total = 0
+            for tile in counter:
+                if counter[tile] > 0:
+                    counter[tile] -= 1  # Choose this tile
+                    total += 1 + backtrack(counter)  # Count this sequence and recurse
+                    counter[tile] += 1  # Backtrack
+            return total
+
+        return backtrack(count)
+
+        
+--
+
+====================================================================================================================
+
+-- Insufficient nodes in root to lead paths
+
+
+--
+-- https://leetcode.com/problems/insufficient-nodes-in-root-to-leaf-paths/
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sufficientSubset(self, root: Optional[TreeNode], limit: int) -> Optional[TreeNode]:
+
+        def dfs(node, current_sum):
+            if not node:
+                return None
+            
+            new_sum = node.val + current_sum
+
+            if not node.left and not node.right:
+                return None if new_sum < limit else node
+            
+            node.left = dfs(node.left, new_sum)
+            node.right = dfs(node.right, new_sum)
+
+            return node if node.right or node.left else None
+        
+        return dfs(root, 0)
+--
+
+
+======================================================================================================================
+
+
+-- Smallest subsequence of distant characters
+
+
+-- https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/
+--
+
+
+--
+from collections import Counter
+class Solution:
+    def smallestSubsequence(self, s: str) -> str:
+        last_occurrence = {char: i for i, char in enumerate(s)}
+        n = len(last_occurrence)
+
+        stack = []
+        seen = set()
+
+        for i, char in enumerate(s):
+            if char in seen:
+                continue
+            
+            while stack and stack[-1] > char and last_occurrence[stack[-1]] > i:
+                removed = stack.pop()
+                seen.remove(removed)
+            stack.append(char)
+            seen.add(char)
+        
+        return "".join(stack)
+            
+
+    
+--
+
+
+======================================================================================================================
+
+
+-- Shortest path in binary matrix
+
+
+-- https://leetcode.com/problems/shortest-path-in-binary-matrix/
+--
+
+
+--
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        from collections import deque
+
+        n = len(grid)
+        
+        # If the start or end cell is blocked, return -1
+        if grid[0][0] != 0 or grid[n-1][n-1] != 0:
+            return -1
+        
+        # 8 possible moves (including diagonals)
+        directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        
+        # BFS queue (row, col, path_length)
+        queue = deque([(0, 0, 1)])
+        visited = set()
+        visited.add((0, 0))
+        
+        while queue:
+            r, c, path_length = queue.popleft()
+            
+            # If we reach the bottom-right cell, return the path length
+            if r == n-1 and c == n-1:
+                return path_length
+            
+            # Explore all 8 directions
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
+                
+                if 0 <= nr < n and 0 <= nc < n and grid[nr][nc] == 0 and (nr, nc) not in visited:
+                    queue.append((nr, nc, path_length + 1))
+                    visited.add((nr, nc))
+        
+        return -1  # No path found
+
+        
+--
+
+
+=======================================================================================================================
+
+
+-- Shortest common supersequence
+
+
+-- https://leetcode.com/problems/shortest-common-supersequence/description/
+--
+
+
+--
+class Solution:
+    def shortestCommonSupersequence(self, str1: str, str2: str) -> str:
+        m, n = len(str1), len(str2)
+        
+        # Step 1: Compute LCS using DP
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+        
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if str1[i - 1] == str2[j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+        # Step 2: Construct SCS using LCS table
+        i, j = m, n
+        result = []
+        
+        while i > 0 and j > 0:
+            if str1[i - 1] == str2[j - 1]:  # If characters match, take it
+                result.append(str1[i - 1])
+                i -= 1
+                j -= 1
+            elif dp[i - 1][j] > dp[i][j - 1]:  # Move towards the larger LCS value
+                result.append(str1[i - 1])
+                i -= 1
+            else:
+                result.append(str2[j - 1])
+                j -= 1
+
+        # Add remaining characters from str1 or str2
+        while i > 0:
+            result.append(str1[i - 1])
+            i -= 1
+        while j > 0:
+            result.append(str2[j - 1])
+            j -= 1
+
+        return ''.join(reversed(result))
+
+--
+
+
+======================================================================================================================
+
+
+-- Car pooling
+
+
+-- https://leetcode.com/problems/car-pooling/
+--
+
+
+--
+class Solution:
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        # Sweep line algo
+        events = []
+        
+        # Convert trips into pickup and drop-off events
+        for numPassengers, fromi, toi in trips:
+            events.append((fromi, numPassengers))  # Pickup
+            events.append((toi, -numPassengers))   # Drop-off
+        
+        # Sort events: First by location, then prioritize drop-offs before pickups
+        events.sort()
+
+        current_passengers = 0
+
+        # Process events
+        for _, passengers in events:
+            current_passengers += passengers
+            if current_passengers > capacity:
+                return False
+        
+        return True
+
+        
+--
+
+
+====================================================================================================================
+
+
+-- Filling bookcase shelves
+
+
+-- https://leetcode.com/problems/filling-bookcase-shelves/
+--
+
+
+--
+class Solution:
+    def minHeightShelves(self, books: List[List[int]], shelfWidth: int) -> int:
+        n = len(books)
+        dp = [float('inf')] * (n + 1)
+        dp[0] = 0  # No books, no height
+
+        for i in range(1, n + 1):
+            width_sum = 0
+            max_height = 0
+            for j in range(i, 0, -1):
+                width_sum += books[j - 1][0]  # Add thickness of book[j-1]
+                if width_sum > shelfWidth:
+                    break  # Shelf width exceeded, stop
+                max_height = max(max_height, books[j - 1][1])  # Max height on the current shelf
+                dp[i] = min(dp[i], dp[j - 1] + max_height)  # Update dp[i]
+
+        return dp[n]
+
+        
+--
+
+
+==================================================================================================================
+
+
+-- Corporate flight bookings (Prefix sum)
+
+
+-- https://leetcode.com/problems/corporate-flight-bookings/
+--
+
+
+--
+class Solution:
+    def corpFlightBookings(self, bookings: List[List[int]], n: int) -> List[int]:
+        answer = [0] * n
+        
+        # Step 1: Apply the difference array concept
+        for first, last, seats in bookings:
+            answer[first - 1] += seats
+            if last < n:
+                answer[last] -= seats
+        
+        # Step 2: Compute the prefix sum to get actual seat reservations
+        for i in range(1, n):
+            answer[i] += answer[i - 1]
+        
+        return answer
+
+
+        
+--
+
+
+=================================================================================================================
+
+-- Print in Order (Python threading concept)
+
+
+--
+-- https://leetcode.com/problems/print-in-order/
+
+
+--
+import threading
+from typing import Callable
+
+class Foo:
+    def __init__(self):
+        self.second_event = threading.Event()
+        self.third_event = threading.Event()
+
+    def first(self, printFirst: Callable[[], None]) -> None:
+        # printFirst() outputs "first". Do not change or remove this line.
+        printFirst()
+        self.second_event.set()  # Allow second() to proceed
+
+    def second(self, printSecond: Callable[[], None]) -> None:
+        self.second_event.wait()  # Wait for first() to complete
+        # printSecond() outputs "second". Do not change or remove this line.
+        printSecond()
+        self.third_event.set()  # Allow third() to proceed
+
+    def third(self, printThird: Callable[[], None]) -> None:
+        self.third_event.wait()  # Wait for second() to complete
+        # printThird() outputs "third". Do not change or remove this line.
+        printThird()
+
+--
+
+
+==================================================================================================================
+
+
+-- Print Foobar alternatively
+
+
+-- https://leetcode.com/problems/print-foobar-alternately/
+--
+
+
+
+-- My code
+
+import threading
+
+class FooBar:
+    def __init__(self, n):
+        self.n = n
+        self.foo_semaphore = threading.Semaphore(1)  # Start with foo
+        self.bar_semaphore = threading.Semaphore(0)  # Bar should wait
+
+    def foo(self, printFoo):
+        for _ in range(self.n):
+            self.foo_semaphore.acquire()
+            printFoo()
+            self.bar_semaphore.release()
+
+    def bar(self, printBar):
+        for _ in range(self.n):
+            self.bar_semaphore.acquire()
+            printBar()
+            self.foo_semaphore.release()
+ 
+
+--
+
+
+
+-- Others code
+class FooBar:
+    def __init__(self, n):
+        self.n = n
+        self.turn_l = threading.Condition()
+        self.turn = 1
+
+
+    def foo(self, printFoo: 'Callable[[], None]') -> None:
+        
+        for i in range(self.n):
+            
+            # printFoo() outputs "foo". Do not change or remove this line.
+            self.turn_l.acquire()
+            if self.turn != 1:
+                self.turn_l.wait()
+            printFoo()
+            self.turn = 2
+            self.turn_l.notify_all()
+            self.turn_l.release()
+
+
+    def bar(self, printBar: 'Callable[[], None]') -> None:
+        
+        for i in range(self.n):
+            
+            # printBar() outputs "bar". Do not change or remove this line.
+            self.turn_l.acquire()
+            if self.turn != 2:
+                self.turn_l.wait()                
+            printBar()
+            self.turn = 1
+            self.turn_l.notify_all()
+            self.turn_l.release()
+--
+
+
+===================================================================================================================
 
 
 
