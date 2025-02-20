@@ -2907,5 +2907,26 @@ class Solution:
 
 ============================================================================================================
 
+-- Distance between bus stops
 
+
+--
+-- https://leetcode.com/problems/distance-between-bus-stops/
+
+
+--
+class Solution:
+    def distanceBetweenBusStops(self, distance: List[int], start: int, destination: int) -> int:
+        if start > destination:
+            start, destination = destination, start  # make sure start < destination
+        
+        clockwise_distance = sum(distance[start:destination])
+        total_distance = sum(distance)
+        counterclockwise_distance = total_distance - clockwise_distance
+
+        return min(clockwise_distance, counterclockwise_distance)
+
+--
+
+===========================================================================================================
 

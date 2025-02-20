@@ -240,4 +240,130 @@ class Solution:
 ===========================================================================================================
 
 
+-- Invalid transactions
+
+
+--
+-- https://leetcode.com/problems/invalid-transactions/
+
+
+--
+class Solution:
+    def invalidTransactions(self, transactions: List[str]) -> List[str]:
+        transaction_data = []
+        invalid = set()
+
+        # Parse transactions
+        for i, transaction in enumerate(transactions):
+            name, time, amount, city = transaction.split(',')
+            transaction_data.append((name, int(time), int(amount), city, i))
+
+        # Check first condition: Amount exceeds $1000
+        for name, time, amount, city, i in transaction_data:
+            if amount > 1000:
+                invalid.add(i)
+
+        # Group transactions by name
+        transactions_by_name = defaultdict(list)
+        for entry in transaction_data:
+            transactions_by_name[entry[0]].append(entry)
+
+        # Check second condition: Same name, different city, within 60 minutes
+        for name, entries in transactions_by_name.items():
+            entries.sort(key=lambda x: x[1])  # Sort by time
+            for i in range(len(entries)):
+                for j in range(i + 1, len(entries)):
+                    if abs(entries[i][1] - entries[j][1]) <= 60 and entries[i][3] != entries[j][3]:
+                        invalid.add(entries[i][4])
+                        invalid.add(entries[j][4])
+
+        return [transactions[i] for i in invalid]
+--
+
+=========================================================================================================
+
+-- Remove zero sum consecutive noddes from linked list (Imp)
+
+
+-- https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/
+--
+
+
+--
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        prefix_sum = 0
+        prefix_map = {0: dummy}
+
+        current = dummy
+        while current:
+            prefix_sum += current.val
+            prefix_map[prefix_sum] = current
+            current = current.next
+        # print(prefix_sum, prefix_map)
+
+        prefix_sum = 0
+        current = dummy
+        while current:
+            prefix_sum += current.val
+            current.next = prefix_map[prefix_sum].next  # Skip nodes summing to zero
+            current = current.next
+
+        return dummy.next
+        
+--
+
+
+========================================================================================================
+
+-- Can make palindrome from substring (Imp)
+
+
+
+--
+-- https://leetcode.com/problems/can-make-palindrome-from-substring/
+
+
+--
+class Solution:
+    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
+        n = len(s)
+        prefix = [[0] * 26 for _ in range(n + 1)]  # 26 for lowercase 'a' to 'z'
+        
+        for i in range(n):
+            prefix[i + 1] = prefix[i][:]  # Copy previous counts
+            prefix[i + 1][ord(s[i]) - ord('a')] += 1  # Increment count of current char
+        
+        res = []
+        
+        # Step 2: Process each query in O(1)
+        for left, right, k in queries:
+            # Step 2a: Get the character frequency in range [left, right]
+            odd_count = 0
+            for j in range(26):
+                if (prefix[right + 1][j] - prefix[left][j]) % 2 == 1:
+                    odd_count += 1  # Count characters with odd frequency
+
+            # Step 2b: Check if k is sufficient to balance odd counts
+            if odd_count // 2 <= k:
+                res.append(True)
+            else:
+                res.append(False)
+        
+        return res
+        
+--
+
+
+=======================================================================================================
+
+
+-- 
 
