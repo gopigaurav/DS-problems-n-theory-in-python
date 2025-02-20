@@ -127,4 +127,48 @@ class Solution:
 ==================================================================================================================
 
 
+-- Maximum level sum of a binary tree
 
+
+-- https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        from collections import deque
+        max_level = 1
+        lvl = 0
+        max_sum = root.val
+        q = deque([root])
+
+        while q:
+            size = len(q)
+            csum = 0
+            lvl += 1
+            for i in range(size):
+                temp = q.popleft()
+                csum += temp.val
+
+                if temp.left:
+                    q.append(temp.left)
+                if temp.right:
+                    q.append(temp.right)
+            
+            if csum > max_sum:
+                max_sum = csum
+                max_level = lvl
+
+        return max_level
+        
+--
+
+
+=============================================================================================================
