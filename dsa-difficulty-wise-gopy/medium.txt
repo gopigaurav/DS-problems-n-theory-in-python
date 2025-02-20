@@ -13458,7 +13458,128 @@ class Solution:
 
 ===================================================================================================================
 
+-- Shortest path with alternating colors
 
 
+-- https://leetcode.com/problems/shortest-path-with-alternating-colors/
+-- https://www.youtube.com/watch?v=69rcy6lb-HQ
 
 
+--
+class Solution:
+    def shortestAlternatingPaths(self, n: int, redEdges: List[List[int]], blueEdges: List[List[int]]) -> List[int]:
+        # we can solve this by taking 2 BFS for this
+
+        graph = {0: defaultdict(list), 1: defaultdict(list)}  # 0: red, 1: blue
+        for u, v in redEdges:
+            graph[0][u].append(v)
+        for u, v in blueEdges:
+            graph[1][u].append(v)
+        
+        # Result array initialized to -1
+        answer = [-1] * n
+        queue = deque([(0, 0, 0), (0, 1, 0)])  # (node, color, distance)
+        visited = set([(0, 0), (0, 1)])  # (node, color)
+        
+        while queue:
+            node, color, dist = queue.popleft()
+            
+            # Update shortest distance
+            if answer[node] == -1:
+                answer[node] = dist
+            
+            # Alternate color: 0 -> 1 (red to blue), 1 -> 0 (blue to red)
+            next_color = 1 - color
+            for neighbor in graph[next_color][node]:
+                if (neighbor, next_color) not in visited:
+                    visited.add((neighbor, next_color))
+                    queue.append((neighbor, next_color, dist + 1))
+        
+        return answer
+
+
+--
+
+
+=================================================================================================================
+
+
+-- Stone game 2
+
+
+-- https://leetcode.com/problems/stone-game-ii/
+--
+
+
+--
+class Solution:
+    def stoneGameII(self, piles: List[int]) -> int:
+        n = len(piles)
+        suffix = [0] * (n + 1)
+
+        # Compute suffix sum
+        for i in range(n - 1, -1, -1):
+            suffix[i] = suffix[i + 1] + piles[i]
+
+        print(suffix)
+
+        # Recursive function without memoization
+        @lru_cache(None)
+        def dp(i, M):
+            if i >= n:
+                return 0  # No more stones to take
+
+            max_stones = 0
+            for X in range(1, 2 * M + 1):  # Alice can take 1 to 2M piles
+                if i + X > n:
+                    break  # Don't go out of bounds
+                max_stones = max(max_stones, suffix[i] - dp(i + X, max(M, X)))
+            
+            return max_stones
+
+        return dp(0, 1)
+        
+--
+
+
+===================================================================================================================
+
+
+-- Decrease elements to make array zigzag
+
+
+-- https://leetcode.com/problems/decrease-elements-to-make-array-zigzag/
+--
+
+
+--
+class Solution:
+    def movesToMakeZigzag(self, nums: List[int]) -> int:
+
+        # two separate moves
+        # 1. Odd moves or Even moves
+        n = len(nums)
+        odd_moves = 0
+        even_moves = 0
+
+        for i in range(n):
+            left = nums[i - 1] if i > 0 else float("inf")
+            right = nums[i + 1] if i < n - 1 else float("inf")
+
+            min_adj = min(left, right)
+
+            if nums[i] >= min_adj:
+                moves = nums[i] - min_adj + 1
+                if i % 2 == 0:
+                    even_moves += moves
+                else:
+                    odd_moves += moves
+        return min(odd_moves, even_moves)
+        
+--
+
+
+==================================================================================================================
+
+
+-- 
