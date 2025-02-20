@@ -13582,4 +13582,51 @@ class Solution:
 ==================================================================================================================
 
 
--- 
+-- Binary tree coloring game
+
+
+-- https://leetcode.com/problems/binary-tree-coloring-game/submissions/1549664062/
+--
+
+
+--
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def btreeGameWinningMove(self, root: Optional[TreeNode], n: int, x: int) -> bool:
+
+        # Three possible cases when x chooses
+        # 1. left subtree of x, 2. right subtree of x, 3. Root of x if its not root
+        # If any of these three regions has more than n/2 nodes, player 2 can pick a node from that region.
+
+        self.left_count = 0  # Stores the size of x's left subtree
+        self.right_count = 0  # Stores the size of x's right subtree
+        
+        # DFS to count subtree sizes
+        def count_nodes(node):
+            if not node:
+                return 0
+            left_size = count_nodes(node.left)
+            right_size = count_nodes(node.right)
+            if node.val == x:
+                self.left_count = left_size
+                self.right_count = right_size
+            return left_size + right_size + 1
+        
+        total_nodes = count_nodes(root)
+        
+        # The remaining nodes outside x's subtree
+        parent_side_count = total_nodes - (self.left_count + self.right_count + 1)
+        
+        # Check if any of the three regions can be greater than half
+        max_partition = max(self.left_count, self.right_count, parent_side_count)
+        
+        return max_partition > n // 2
+        
+--
+
+====================================================================================================================

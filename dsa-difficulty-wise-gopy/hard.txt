@@ -89,17 +89,40 @@ class Solution:
 
 ================================================================================================================
 
+-- Longest chunked palindrome decomposition
 
--- Smallest sufficient Team
+
+-- https://leetcode.com/problems/longest-chunked-palindrome-decomposition/
+--
 
 
 --
--- https://leetcode.com/problems/smallest-sufficient-team/description/
+class Solution:
+    def longestDecomposition(self, text: str) -> int:
+        n = len(text)
+        left, right = 0, n - 1
+        count = 0
+        left_part, right_part = "", ""
+        
+        while left < right:
+            left_part += text[left]
+            right_part = text[right] + right_part  # Prepend to maintain order
+            
+            if left_part == right_part:
+                # print(left_part, right_part)
+                count += 2
+                left_part, right_part = "", ""  # Reset after a valid split
+            
+            left += 1
+            right -= 1
 
-
+        
+        if left_part != right_part or left == right:
+            return count + 1
+        else:
+            return count
+        
 --
---
-
 
 ==================================================================================================================
 
