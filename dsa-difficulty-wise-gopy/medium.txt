@@ -13699,4 +13699,27 @@ class Solution:
 ======================================================================================================================
 
 
+-- remove all adjacent duplicates in string 2 (Imp) (stack which uses count)
+
+
+--
+-- https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/
+
+
+--
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        stack = []
+        for char in s:
+            if stack and stack[-1][0] == char:
+                stack[-1] = (char, stack[-1][1] + 1)  # Increment count
+                if stack[-1][1] == k:
+                    stack.pop()  # Remove if count reaches k
+            else:
+                stack.append((char, 1))
+        return ''.join(char * freq for char, freq in stack)
+--
+
+
+=======================================================================================================================
 
