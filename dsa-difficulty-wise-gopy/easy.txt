@@ -2983,3 +2983,94 @@ class Solution:
 
 ===========================================================================================================
 
+
+-- Check if it is a straight line
+
+
+-- https://leetcode.com/problems/check-if-it-is-a-straight-line/
+--
+
+
+--
+class Solution:
+    def checkStraightLine(self, coordinates: List[List[int]]) -> bool:    
+        x1, y1 = coordinates[0]
+        x2, y2 = coordinates[1]
+
+        for i in range(2, len(coordinates)):
+            x3, y3 = coordinates[i]
+            if (y2 - y1) * (x3 - x2) != (y3 - y2) * (x2 - x1):
+                return False
+        return True
+--
+
+
+=============================================================================================================
+
+
+-- Remove sub folders from the filesystem
+
+
+--
+-- https://leetcode.com/problems/remove-sub-folders-from-the-filesystem/
+
+
+--
+class Solution:
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        folder.sort()
+        result = []
+        
+        for f in folder:
+            # Add to result only if it's not a sub-folder
+            if not result or not f.startswith(result[-1] + '/'):
+                result.append(f)
+                
+        return result
+        
+--
+
+
+=================================================================================================================
+
+-- Replace the substring for balanced string
+
+
+
+--
+-- https://leetcode.com/problems/replace-the-substring-for-balanced-string/
+
+--
+from collections import Counter
+
+class Solution:
+    def balancedString(self, s: str) -> int:
+        n = len(s)
+        count = Counter(s)
+        req = n // 4
+
+        excess = {char: max(0, count[char] - req) for char in "QWER"}
+
+        # If no excess characters, return 0
+        if sum(excess.values()) == 0:
+            return 0
+
+        left = 0
+        min_len = n
+
+        for right in range(n):
+            count[s[right]] -= 1  # Decrease count of the current character
+
+            # Try to shrink the window while keeping the string balanced
+            while all(count[char] <= req for char in "QWER"):
+                min_len = min(min_len, right - left + 1)
+                count[s[left]] += 1  # Move left pointer
+                left += 1
+
+        return min_len
+
+--
+
+================================================================================================================
+
+
