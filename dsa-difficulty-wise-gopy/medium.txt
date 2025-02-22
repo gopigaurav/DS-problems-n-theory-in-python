@@ -13936,4 +13936,63 @@ class Solution:
 ========================================================================================================================
 
 
+-- MInimum sqaps to make strings equal
 
+
+--
+-- https://leetcode.com/problems/minimum-swaps-to-make-strings-equal/
+
+
+--
+class Solution:
+    def minimumSwap(self, s1: str, s2: str) -> int:
+        xy_count, yx_count = 0, 0
+    
+        for a, b in zip(s1, s2):
+            if a == 'x' and b == 'y':
+                xy_count += 1
+            elif a == 'y' and b == 'x':
+                yx_count += 1
+        
+        # If the sum of both counts is odd, it's impossible
+        if (xy_count + yx_count) % 2 != 0:
+            return -1
+        
+        # Each pair of `xy` or `yx` can be swapped in one operation
+        return (xy_count // 2) + (yx_count // 2) + 2 * (xy_count % 2)
+        
+
+class Solution:
+    def minimumSwap(self, s1: str, s2: str) -> int:
+        # Count mismatched pairs
+        xy_count = 0  # count of (x in s1, y in s2) pairs
+        yx_count = 0  # count of (y in s1, x in s2) pairs
+        
+        for i in range(len(s1)):
+            if s1[i] != s2[i]:  # If characters don't match
+                if s1[i] == 'x':
+                    xy_count += 1
+                else:
+                    yx_count += 1
+        
+        # If total mismatches is odd, we can't make strings equal
+        if (xy_count + yx_count) % 2 != 0:
+            return -1
+        
+        # Calculate minimum swaps:
+        # - For every 2 pairs of xy, we need 1 swap
+        # - For every 2 pairs of yx, we need 1 swap
+        # - For 1 xy and 1 yx, we need 2 swaps
+        
+        # Integer division by 2
+        swaps = xy_count // 2 + yx_count // 2
+        
+        # If there are remaining pairs (must be 1 xy and 1 yx)
+        if xy_count % 2 == 1:
+            swaps += 2
+        
+        return swaps
+                
+--
+
+======================================================================================================================
