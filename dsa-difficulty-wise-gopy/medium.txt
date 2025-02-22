@@ -13996,3 +13996,36 @@ class Solution:
 --
 
 ======================================================================================================================
+
+-- Count number of nice subarrays
+
+
+--
+-- https://leetcode.com/problems/count-number-of-nice-subarrays/
+
+
+--
+class Solution:
+    def numberOfSubarrays(self, nums: List[int], k: int) -> int:
+        left = 0
+        res = 0
+        odds = 0
+        window = 0
+        for right in range(len(nums)):
+            if nums[right] % 2 == 1: odds += 1
+
+            if odds == k:
+                window = 0
+                while odds == k:
+                    odds -= nums[left] % 2
+                    window += 1
+                    left += 1
+            res += window
+        return res
+                
+--
+
+
+=====================================================================================================================
+
+
