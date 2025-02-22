@@ -3073,4 +3073,77 @@ class Solution:
 
 ================================================================================================================
 
+-- Cells with odd values in a matrix
+
+
+
+--
+-- https://leetcode.com/problems/cells-with-odd-values-in-a-matrix/
+
+
+--
+class Solution:
+    def oddCells(self, m: int, n: int, indices: List[List[int]]) -> int:
+        row_count = [0] * m
+        col_count = [0] * n
+
+        for r, c in indices:
+            row_count[r] += 1
+            col_count[c] += 1
+
+        odd_rows = sum(1 for x in row_count if x % 2 == 1)
+        odd_cols = sum(1 for x in col_count if x % 2 == 1)
+
+        return odd_rows * (n - odd_cols) + odd_cols * (m - odd_rows)
+--
+
+
+================================================================================================================
+
+-- Reconstruct a 2 row binary matrix (Imp)
+
+
+-- https://leetcode.com/problems/reconstruct-a-2-row-binary-matrix/
+--
+
+
+--
+class Solution:
+    def reconstructMatrix(self, upper: int, lower: int, colsum: List[int]) -> List[List[int]]:
+        n = len(colsum)
+        matrix = [[0] * n for _ in range(2)]
+
+        # Step 1: Assign columns where colsum[i] == 2
+        for i in range(n):
+            if colsum[i] == 2:
+                if upper > 0 and lower > 0:
+                    matrix[0][i] = 1
+                    matrix[1][i] = 1
+                    upper -= 1
+                    lower -= 1
+                else:
+                    return []  # Not enough 1s in upper or lower row
+
+        # Step 2: Assign columns where colsum[i] == 1
+        for i in range(n):
+            if colsum[i] == 1:
+                if upper > 0:
+                    matrix[0][i] = 1
+                    upper -= 1
+                elif lower > 0:
+                    matrix[1][i] = 1
+                    lower -= 1
+                else:
+                    return []  # No place to assign 1
+
+        # Step 3: Check if reconstruction is valid
+        if upper == 0 and lower == 0:
+            return matrix
+        return []
+        
+--
+
+
+============================================================================================================
+
 
