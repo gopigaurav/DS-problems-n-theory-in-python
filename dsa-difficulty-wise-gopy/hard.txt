@@ -662,3 +662,44 @@ class Solution:
 
 ========================================================================================================
 
+-- Queens that can attack the king
+
+
+--
+-- https://leetcode.com/problems/queens-that-can-attack-the-king/
+
+
+--
+class Solution:
+    def queensAttacktheKing(self, queens: List[List[int]], king: List[int]) -> List[List[int]]:
+        queen_set = {(x, y) for x, y in queens}  # Convert to set for O(1) lookup
+        xK, yK = king
+        
+        # Possible directions (dx, dy)
+        directions = [
+            (0, 1), (0, -1),  # Left, Right
+            (1, 0), (-1, 0),  # Down, Up
+            (1, 1), (-1, -1),  # Bottom-right, Top-left diagonal
+            (1, -1), (-1, 1)   # Bottom-left, Top-right diagonal
+        ]
+        
+        result = []
+        
+        # Check each direction
+        for dx, dy in directions:
+            x, y = xK, yK
+            while 0 <= x < 8 and 0 <= y < 8:  # Stay within board limits
+                x += dx
+                y += dy
+                if (x, y) in queen_set:
+                    result.append([x, y])
+                    break  # Stop at the first queen in this direction
+        
+        return result
+        
+--
+
+
+========================================================================================================
+
+
