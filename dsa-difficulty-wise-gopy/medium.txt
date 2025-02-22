@@ -13747,7 +13747,7 @@ class Solution:
 ======================================================================================================================
 
 
--- Path with maximum gold
+-- Path with maximum gold (Imp) (backtracking)
 
 
 --
@@ -13824,3 +13824,27 @@ class Solution:
 
 
 =========================================================================================================================
+
+
+-- Circular permutation in binary representation
+
+
+-- https://leetcode.com/problems/circular-permutation-in-binary-representation/
+--
+
+
+--
+class Solution:
+    def circularPermutation(self, n: int, start: int) -> List[int]:
+
+        grey_code = [i ^ (i >> 1) for i in range(2 ** n)]
+        
+        start_index = grey_code.index(start)
+        return grey_code[start_index:] + grey_code[:start_index]
+--
+
+
+=========================================================================================================================
+
+
+
