@@ -14087,6 +14087,36 @@ class Solution:
 ===================================================================================================================
 
 
+-- Find the longest euqal substring
 
+
+--
+-- https://leetcode.com/problems/find-the-longest-equal-subarray/submissions/1551804691/
+
+
+--
+class Solution:
+    def longestEqualSubarray(self, nums: List[int], k: int) -> int:
+        freq = Counter()
+        n = len(nums)
+        left = 0
+        max_len = 0
+        max_freq = 0
+
+        for right in range(n):
+            freq[nums[right]] += 1
+            max_freq = max(max_freq, freq[nums[right]])
+
+            # check if we can eleminate any numbers which is bigger frequency element
+            while (right - left + 1) - max_freq > k:
+                freq[nums[left]] -= 1
+                left += 1
+            
+            max_len = max(max_len, right - left + 1)
+        return max_freq
+--
+
+
+===================================================================================================================
 
 

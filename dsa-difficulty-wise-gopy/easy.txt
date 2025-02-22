@@ -3147,3 +3147,154 @@ class Solution:
 ============================================================================================================
 
 
+-- Number of closed islands (Imp)
+
+
+-- https://leetcode.com/problems/number-of-closed-islands/
+--
+
+
+--
+class Solution:
+    def closedIsland(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        
+        # DFS to mark the visited land (0 -> 1)
+        # Exploring all the 0's connected
+        def dfs(r, c):
+            if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] == 1:
+                return
+            grid[r][c] = 1  # Mark visited
+            # Explore all 4 directions
+            dfs(r + 1, c)
+            dfs(r - 1, c)
+            dfs(r, c + 1)
+            dfs(r, c - 1)
+            return
+
+        # Step 1: Remove border-connected lands
+        for r in range(rows):
+            for c in range(cols):
+                if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1) and grid[r][c] == 0:
+                    dfs(r, c)
+
+        # Step 2: Count remaining closed islands
+        closed_islands = 0
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 0:
+                    closed_islands += 1
+                    dfs(r, c)  # Mark the entire island as visited
+
+        return closed_islands
+        
+--
+
+
+============================================================================================================
+
+
+-- Shift 2d grid
+
+
+-- https://leetcode.com/problems/shift-2d-grid/
+--
+
+
+--
+class Solution:
+    def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+        
+        # flaten the matrix to 1D
+        # Then rotate the 1D array
+
+        m, n = len(grid), len(grid[0])
+        total = m * n  # Total number of elements
+        k = k % total  # Avoid unnecessary full rotations
+        
+        # Flatten the 2D grid into a 1D list
+        flattened = [grid[i][j] for i in range(m) for j in range(n)]
+
+        # Rotate the flattened list
+        rotated = flattened[-k:] + flattened[:-k]
+        
+        # Convert back to 2D grid
+        return [[rotated[i * n + j] for j in range(n)] for i in range(m)]
+        
+--
+
+
+============================================================================================================
+
+-- gretaest sum divisible by three
+
+
+-- https://leetcode.com/problems/greatest-sum-divisible-by-three/
+--
+
+
+--
+from typing import List
+from functools import lru_cache
+
+class Solution1:
+    def maxSumDivThree(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        @lru_cache(None)
+        def dfs(index, csum):
+            if index == n:  
+                return csum if csum % 3 == 0 else float('-inf')  
+
+            # Case 1: Skip current element
+            skip = dfs(index + 1, csum)
+
+            # Case 2: Pick current element
+            pick = dfs(index + 1, csum + nums[index])
+
+            return max(skip, pick)
+
+        return max(0, dfs(0, 0))
+
+
+from typing import List
+
+class Solution:
+    def maxSumDivThree(self, nums: List[int]) -> int:
+        dp = [0, float('-inf'), float('-inf')]  # Stores max sum for remainder 0, 1, and 2
+
+        for num in nums:
+            temp = dp[:]  # Create a copy of dp to prevent overwriting while iterating
+            for r in dp:  # Iterate over the current state of dp
+                if r != float('-inf'):  # Ignore uninitialized states
+                    new_sum = r + num
+                    temp[new_sum % 3] = max(temp[new_sum % 3], new_sum)
+            dp = temp  # Update the dp array after processing
+
+        return dp[0]  # Return the maximum sum divisible by 3  # Max sum that is divisible by 3
+--
+
+
+=============================================================================================================
+
+
+-- funniest point from origin 
+
+  
+--
+-- https://leetcode.com/problems/furthest-point-from-origin/
+
+
+--
+class Solution:
+    def furthestDistanceFromOrigin(self, moves: str) -> int:
+        left_count = moves.count('L')
+        right_count = moves.count('R')
+        wildcard_count = moves.count('_')
+        
+        return abs(left_count - right_count) + wildcard_count
+        
+--
+
+
+==============================================================================================================
