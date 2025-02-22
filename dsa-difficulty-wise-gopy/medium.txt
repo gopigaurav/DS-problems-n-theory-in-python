@@ -14120,4 +14120,109 @@ class Solution:
 ===================================================================================================================
 
 
+-- Maximum sum of almost unique subarray
+
+
+-- https://leetcode.com/problems/maximum-sum-of-almost-unique-subarray/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int], m: int, k: int) -> int:
+        csum = 0
+        left = 0
+        n = len(nums)
+        max_sum = 0
+        freq = {}  # Dictionary to track occurrences of numbers
+        right = 0  # Initialize right pointer
+
+        while right < n:
+            # Add current number to sum and update frequency map
+            csum += nums[right]
+            freq[nums[right]] = freq.get(nums[right], 0) + 1
+
+            # Ensure window size is maintained
+            if right - left + 1 > k:
+                csum -= nums[left]
+                freq[nums[left]] -= 1
+                if freq[nums[left]] == 0:
+                    del freq[nums[left]]  # Remove element from frequency map if count is 0
+                left += 1  # Move left pointer
+
+            # Check if window size is exactly `k` and unique elements count is `m`
+            if right - left + 1 == k and len(freq) >= m:
+                max_sum = max(max_sum, csum)
+
+            right += 1  # Move right pointer
+
+        return max_sum
+--
+
+===================================================================================================================
+
+
+-- Count of interesting subarrays
+
+
+
+-- https://leetcode.com/problems/count-of-interesting-subarrays/
+--
+
+
+--
+class Solution:
+    def countInterestingSubarrays(self, nums: List[int], modulo: int, k: int) -> int:
+        prefix_count = defaultdict(int)  # Hashmap to store prefix sum frequencies
+        prefix_count[0] = 1  # Base case: an empty prefix with remainder 0
+
+        cnt_mod = 0  # This keeps track of the cnt % modulo
+        interesting_count = 0  # Final count of interesting subarrays
+
+        for num in nums:
+            # Increment cnt_mod if nums[i] % modulo == k
+            if num % modulo == k:
+                cnt_mod += 1
+            
+            # Compute current cnt_mod % modulo
+            remainder = cnt_mod % modulo
+            
+            # Find how many times (cnt_mod - k) % modulo appeared before
+            target = (remainder - k) % modulo
+            interesting_count += prefix_count[target]
+
+            # Update the prefix sum frequency
+            prefix_count[remainder] += 1
+
+        return interesting_count
+--
+
+
+=================================================================================================================
+
+-- Determine if a acell is reachable at a given time
+
+
+-- https://leetcode.com/problems/determine-if-a-cell-is-reachable-at-a-given-time/
+--
+
+--
+class Solution:
+    def isReachableAtTime(self, sx: int, sy: int, fx: int, fy: int, t: int) -> bool:
+        # cal vertical and horizontal distance
+        x_dist = abs(sx - fx)
+        y_dist = abs(sy - fy)
+
+        if x_dist == 0 and y_dist == 0:
+            return t != 1
+
+        return x_dist <= t and y_dist <= t 
+--
+
+
+====================================================================================================================
+
+
 
