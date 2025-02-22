@@ -14029,3 +14029,64 @@ class Solution:
 =====================================================================================================================
 
 
+-- Minimum remove to make valid parenthesis
+
+
+-- https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/description/
+--
+
+
+--
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        stack = [] # to store the index of the 
+
+        for i in range(len(s)):
+            if s[i] == '(':
+                stack.append(i)
+            elif s[i] == ')':
+                if stack and s[stack[-1]] == "(":
+                    stack.pop()
+                else:
+                    stack.append(i)
+        
+        res = ""
+
+        for i in range(len(s)):
+            if i not in stack:
+                res += s[i]
+        
+        return res
+
+    def minRemoveToMakeValid2(self, s: str) -> str:
+        res = []
+        cnt = 0 # count of open parenthesis
+
+        for i in range(len(s)):
+            if s[i] == "(":
+                res.append(s[i])
+                cnt += 1
+            elif s[i] == ")" and cnt > 0:
+                res.append(s[i])
+                cnt -= 1
+            elif s[i] != ")":
+                res.append(s[i])
+        
+        result = ""
+
+        for i in res[::-1]:
+            if i == '(' and cnt > 0:
+                cnt -= 1
+            else:
+                result += i
+        
+        return result[::-1]
+     
+--
+
+===================================================================================================================
+
+
+
+
+
