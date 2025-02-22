@@ -13847,4 +13847,90 @@ class Solution:
 =========================================================================================================================
 
 
+-- Maximuum length of a concatenated string with unique characters (Imp)
 
+
+--
+-- https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/
+
+
+--
+class Solution:
+    # first solution normal dp
+    def maxLength1(self, arr: List[str]) -> int:
+        n = len(arr)
+        def dfs(index, string):
+            m = Counter(string)
+            if len(m) != len(string):
+                return 0
+
+            if index >= n:
+                return len(string)
+            
+            best = len(string)
+
+            best = max(best, dfs(index + 1, string + arr[index]))
+            best = max(best, dfs(index + 1, string))
+
+            return best
+        
+        return dfs(0, "")
+
+    
+    # second solution - Backtrack
+    def maxLength2(self, arr: List[str]) -> int:
+        n = len(arr)
+        def back(index, string):
+            m = Counter(string)
+            if len(m) != len(string):
+                return 0
+
+            if index >= n:
+                return len(string)
+            
+            best = len(string)
+            best = max(best, back(index + 1, string + arr[index]))
+            best = max(best, back(index + 1, string))
+
+            return best
+        
+        return back(0, "")
+
+    # bit masking
+    def maxLength(self, arr: List[str]) -> int:
+
+        unique_strings = []
+        for s in arr:
+            if len(set(s)) == len(s):  # Ensure all characters are unique
+                unique_strings.append(s)
+
+        def backtrack(index, bitmask, length):
+            if index == len(unique_strings):
+                return length
+
+            best = length
+            curr_string = unique_strings[index]
+            curr_mask = 0
+
+            # Create bitmask for the current string
+            for c in curr_string:
+                bit = 1 << (ord(c) - ord('a'))
+                if curr_mask & bit:  # If duplicate character found, skip
+                    return best  
+                curr_mask |= bit  
+
+            # Include current string if no overlap
+            if (bitmask & curr_mask) == 0:
+                best = max(best, backtrack(index + 1, bitmask | curr_mask, length + len(curr_string)))
+
+            # Exclude current string
+            best = max(best, backtrack(index + 1, bitmask, length))
+
+            return best
+        return backtrack(0, 0, 0)
+
+        
+--
+
+
+========================================================================================================================
