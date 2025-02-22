@@ -13747,4 +13747,80 @@ class Solution:
 ======================================================================================================================
 
 
+-- Path with maximum gold
 
+
+--
+-- https://leetcode.com/problems/path-with-maximum-gold/
+
+
+--
+class Solution:
+    def getMaximumGold(self, grid: List[List[int]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+        
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        m = len(grid)
+        n = len(grid[0])
+        # usng backtracking with DFS
+
+        def dfs(i, j):
+            if i < 0 or i >= m or j < 0 or j >= n or grid[i][j] == 0:
+                return 0
+
+            gold = grid[i][j]
+            max_g = float("-inf")
+            grid[i][j] = 0
+
+            for nx, ny in directions:
+                new_x = i + nx
+                new_y = j + ny
+                max_g = max(max_g, gold + dfs(new_x, new_y))
+
+            grid[i][j] = gold
+            return max_g
+
+        max_gold = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] > 0:
+                    max_gold = max(max_gold, dfs(i, j))
+
+        return max_goldclass Solution:
+    def getMaximumGold(self, grid: List[List[int]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+        
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        m = len(grid)
+        n = len(grid[0])
+        # usng backtracking with DFS
+
+        def dfs(i, j):
+            if i < 0 or i >= m or j < 0 or j >= n or grid[i][j] == 0:
+                return 0
+
+            gold = grid[i][j]
+            max_g = float("-inf")
+            grid[i][j] = 0
+
+            for nx, ny in directions:
+                new_x = i + nx
+                new_y = j + ny
+                max_g = max(max_g, gold + dfs(new_x, new_y))
+
+            grid[i][j] = gold
+            return max_g
+
+        max_gold = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] > 0:
+                    max_gold = max(max_gold, dfs(i, j))
+
+        return max_gold
+--
+
+
+=========================================================================================================================
