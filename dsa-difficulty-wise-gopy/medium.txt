@@ -13723,3 +13723,28 @@ class Solution:
 
 =======================================================================================================================
 
+-- Longest aithmetic subsequence of given diff (Imp)
+
+
+-- https://leetcode.com/problems/longest-arithmetic-subsequence-of-given-difference/submissions/1551463378/
+--
+
+
+--
+class Solution:
+    def longestSubsequence(self, arr: List[int], diff: int) -> int:
+        dp = {}
+        max_length = float("-inf")
+
+        for num in arr:
+            dp[num] = dp.get(num - diff, 0) + 1
+            max_length = max(max_length, dp[num])
+
+        return max_length
+--
+
+
+======================================================================================================================
+
+
+
