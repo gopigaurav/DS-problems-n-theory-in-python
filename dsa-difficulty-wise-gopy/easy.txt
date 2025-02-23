@@ -3649,3 +3649,46 @@ class Solution:
 
 
 ============================================================================================================
+
+-- Minimum sum of mountain triplets 1 (Imp)
+
+
+-- https://leetcode.com/problems/minimum-sum-of-mountain-triplets-i/
+--
+
+-
+class Solution:
+    def minimumSum(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n < 3:
+            return -1  # Not enough elements for a triplet
+
+        left_min = [inf] * n
+        right_min = [inf] * n
+
+        # Compute left minimums
+        min_val = inf
+        for i in range(n):
+            left_min[i] = min_val
+            min_val = min(min_val, nums[i])
+
+        # Compute right minimums
+        min_val = inf
+        for i in range(n - 1, -1, -1):
+            right_min[i] = min_val
+            min_val = min(min_val, nums[i])
+
+        # Find the minimum mountain sum
+        min_sum = inf
+        for j in range(1, n - 1):
+            if left_min[j] < nums[j] and right_min[j] < nums[j]:  # Valid peak condition
+                min_sum = min(min_sum, left_min[j] + nums[j] + right_min[j])
+
+        return min_sum if min_sum != inf else -1
+-
+
+
+============================================================================================================
+
+
+
