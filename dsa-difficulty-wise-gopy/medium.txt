@@ -14709,3 +14709,86 @@ class Solution:
 
 =======================================================================================================================
 
+-- Find indices with inde and value diff
+
+
+-- https://leetcode.com/problems/find-indices-with-index-and-value-difference-ii/submissions/1552891749/
+--
+
+
+--
+class Solution:
+    def findIndices(self, nums: List[int], id: int, vd: int) -> List[int]:
+        # take min and max index and then compare them with the array elements
+        # id - index diff
+        # vd - value diff
+
+        maxi = mini = 0
+
+        for i in range(id, len(nums)):
+            # update the minimum first
+            if nums[i - id] < nums[mini]:
+                mini = i - id
+            
+            # update the maximum
+            if nums[i - id] > nums[maxi]:
+                maxi = i - id
+
+            # check the condition
+
+            if abs(nums[i] - nums[mini]) >= vd:
+                return [mini, i]
+            
+            if abs(nums[i] - nums[maxi]) >= vd:
+                return [maxi, i]
+
+        return [-1, -1]
+--
+
+
+=========================================================================================================================
+
+
+-- Construct product matrix
+
+
+-- https://leetcode.com/problems/construct-product-matrix/submissions/1552911572/
+--
+
+
+--
+class Solution:
+    def constructProductMatrix(self, grid: List[List[int]]) -> List[List[int]]:
+        rows = len(grid)
+        cols = len(grid[0])
+        
+        mod = 12345
+        result = [[0] * cols for _ in range(rows)]
+        
+        prev_cal = 1
+        
+        # prefix multiplication
+        for i in range(rows):
+            for j in range(cols):
+                result[i][j] = prev_cal
+                prev_cal = (prev_cal * grid[i][j]) % mod
+        
+        prev_cal = 1
+
+        # suffix mulitplication
+        for i in range(rows - 1, -1, -1):
+            for j in range(cols - 1, -1, -1):
+                result[i][j] = (result[i][j] * prev_cal) % mod
+                prev_cal = (prev_cal * grid[i][j]) % mod
+        return result
+        
+--
+
+
+====================================================================================================================
+
+
+
+
+
+
