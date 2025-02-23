@@ -14508,7 +14508,108 @@ class Solution:
 ============================================================================================================================
 
 
--- 
+-- Minimum processing time
+
+
+
+--
+-- https://leetcode.com/problems/minimum-processing-time/
+
+
+--
+class Solution:
+    def minProcessingTime(self, processorTime: List[int], tasks: List[int]) -> int:
+        processorTime.sort()
+    
+        # Sort tasks in descending order
+        tasks.sort(reverse=True)
+        
+        min_time = 0
+        index = 0
+        
+        # Assign 4 tasks to each processor greedily
+        for time in processorTime:
+            max_task_time = max(tasks[index:index+4])  # The slowest task assigned to this processor
+            min_time = max(min_time, time + max_task_time)  # Update minimum completion time
+            index += 4  # Move to the next set of tasks
+
+        return min_time
+--
+
+============================================================================================================================
+
+
+--Apply operations to make two strings equal (Imp) (Dp)
+
+
+-- https://leetcode.com/problems/apply-operations-to-make-two-strings-equal/description/
+--
+
+
+--
+class Solution:
+    def minOperations(self, s1: str, s2: str, x: int) -> int:
+        from functools import lru_cache
+
+        def solve(l, r, a, x):
+            if l >= r:
+                return 0
+            
+            if dp[l][r] != -1:
+                return dp[l][r]
+            
+            ans = min(
+                min(x, a[l+1] - a[l]) + solve(l+2, r, a, x),
+                min(x, a[r] - a[l]) + solve(l+1, r-1, a, x),
+                min(x, a[r] - a[r-1]) + solve(l, r-2, a, x)
+            )
+            
+            dp[l][r] = ans
+            return ans
+
+        n = len(s1)
+        a = [i for i in range(n) if s1[i] != s2[i]]
+        
+        if len(a) % 2:
+            return -1
+        if not a:
+            return 0
+        
+        global dp
+        dp = [[-1] * 501 for _ in range(501)]
+        
+        return solve(0, len(a)-1, a, x)
+
+
+class Solution:
+    def minOperations(self, s1: str, s2: str, x: int) -> int:
+        index_to_flip = []
+
+        n = len(s1)
+        for i in range(n):
+            if s1[i] != s2[i]:
+                index_to_flip.append(i)
+        n1 = len(index_to_flip)
+        
+        if n1 % 2:
+            return -1
+        
+        if not n1:
+            return 0
+        
+        if x == 1:
+            return n1 // 2
+
+        dp = [0 for _ in range(n1)]
+        dp[0] = x
+        for i in range(1, n1):
+            dp[i] = min((index_to_flip[i] - index_to_flip[i-1])*2 + dp[i-2], dp[i-1] + x)
+
+        return dp[-1] // 2
+--
+
+
+=============================================================================================================================
 
 
 
