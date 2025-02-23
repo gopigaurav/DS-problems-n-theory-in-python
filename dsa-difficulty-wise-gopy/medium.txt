@@ -14453,4 +14453,65 @@ class Solution:
 =============================================================================================================================
 
 
+-- Minimum size subarray in inifinite array
+
+
+-- https://leetcode.com/problems/minimum-size-subarray-in-infinite-array/
+--
+
+--
+class Solution:
+    def minSizeSubarray(self, A: List[int], target: int) -> int:
+        sumA = sum(A)
+        n = len(A)
+        k = target // sumA
+        target %= sumA
+        if target == 0:
+            return k * n
+
+        dp = {0: -1}
+        su = 0
+        res = inf
+        for i,a in enumerate(A + A):
+            su += a
+            if su - target in dp:
+                res = min(res, i - dp.get(su - target))
+            dp[su] = i
+        return res + k * n if res < inf else -1
+        
+class Solution:
+    def minSizeSubarray(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        sum_nums = sum(nums)
+        covered_by_multiples_of_nums = n * (target // sum_nums)
+        target %= sum_nums
+        additional_count_nums_needed = n
+        current_sum = 0
+        index = 0
+        for second_index in range(n):
+            while target > current_sum:
+                current_sum += nums[index % n]
+                index += 1
+            if target == current_sum:
+                additional_count_nums_needed = min(
+                    additional_count_nums_needed, index - second_index
+                )
+            current_sum -= nums[second_index]
+        return (
+            (covered_by_multiples_of_nums + additional_count_nums_needed)
+            if additional_count_nums_needed != n
+            else -1
+        )
+--
+
+
+============================================================================================================================
+
+
+-- 
+
+
+
+
+
 
