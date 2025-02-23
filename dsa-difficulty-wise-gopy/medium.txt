@@ -14811,5 +14811,130 @@ class Solution:
 =================================================================================================================
 
 
+-- Length of the longest subsequence that sums to target
 
+
+-- https://leetcode.com/problems/length-of-the-longest-subsequence-that-sums-to-target/
+--
+
+
+--
+from typing import List
+
+class Solution1:
+    def lengthOfLongestSubsequence(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        dp = {}
+
+        def dfs(index, temp):
+            if temp == target:
+                return 0  # Found a valid subsequence
+            
+            if temp > target or index >= n:
+                return float('-inf')  # Invalid case
+            
+            if (index, temp) in dp:
+                return dp[(index, temp)]
+            
+            # Two choices: include nums[index] or skip it
+            take = 1 + dfs(index + 1, temp + nums[index])  # Include current number
+            skip = dfs(index + 1, temp)  # Skip current number
+
+            dp[(index, temp)] = max(take, skip)
+            return dp[(index, temp)]
+        
+        result = dfs(0, 0)
+        return result if result != float('-inf') else -1  # Return -1 if no valid subsequence is found
+
+
+from typing import List
+
+class Solution:
+    def lengthOfLongestSubsequence(self, nums: List[int], target: int) -> int:
+        dp = [-1] * (target + 1)  # dp[i] stores the max subsequence length to reach sum `i`
+        dp[0] = 0  # Base case: sum 0 requires 0 elements
+
+        for num in nums:
+            for t in range(target, num - 1, -1):  # Traverse backwards to prevent overwriting
+                if dp[t - num] != -1:  # If sum `t - num` is reachable
+                    dp[t] = max(dp[t], dp[t - num] + 1)
+
+        return dp[target] if dp[target] != -1 else -1  # If target sum is not achievable, return -1
+
+--
+
+
+===================================================================================================================
+
+
+-- Minimum equal sum of two arrays after replacing zeros
+
+
+-- https://leetcode.com/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros/submissions/1553050632/
+--
+
+
+--
+class Solution:
+    def minSum(self, nums1, nums2):
+        sum1, cnt1 = 0, 0
+        sum2, cnt2 = 0, 0
+
+        for ele in nums1:
+            if ele != 0:
+                sum1 += ele
+            else:
+                sum1 += 1
+                cnt1 += 1
+
+        for ele in nums2:
+            if ele != 0:
+                sum2 += ele
+            else:
+                sum2 += 1
+                cnt2 += 1
+
+        if sum1 == sum2:
+            return sum1
+        elif sum1 > sum2:
+            if cnt2 == 0:
+                return -1
+            return sum1
+
+        if cnt1 == 0:
+            return -1
+        return sum2
+
+
+--
+
+
+=================================================================================================================
+
+-- Minimum increament operations to make array beautiful
+
+
+--
+-- https://leetcode.com/problems/minimum-increment-operations-to-make-array-beautiful/
+
+--
+class Solution:
+    def minIncrementOperations(self, nums: List[int], k: int) -> int:
+        
+        n = len(nums)
+        
+        dp = [0] * n
+        dp[0] = max(0, k - nums[0])
+        dp[1] = max(0, k - nums[1])
+        dp[2] = max(0, k - nums[2])
+        
+        for i in range(3, n):
+            dp[i] = min(dp[i - 3 : i]) + max(0, k - nums[i])
+
+        return min(dp[n - 3 : ])
+        
+--
+
+
+===============================================================================================================
 
