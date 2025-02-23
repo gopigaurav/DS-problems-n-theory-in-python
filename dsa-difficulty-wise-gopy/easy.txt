@@ -3461,3 +3461,51 @@ class Solution:
 
 ============================================================================================================
 
+-- Maximum odd binary numbers
+
+
+-- https://leetcode.com/problems/maximum-odd-binary-number/
+--
+
+
+--
+class Solution:
+    def maximumOddBinaryNumber(self, s: str) -> str:
+        count_ones = s.count('1')
+        count_zeros = s.count('0')
+
+        # Construct the maximum odd binary number
+        return '1' * (count_ones - 1) + '0' * count_zeros + '1'
+        
+--
+
+=============================================================================================================
+
+
+-- Minimum operations to collect telements
+
+
+
+--
+-- https://leetcode.com/problems/minimum-operations-to-collect-elements/
+
+
+--
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        collected = set()
+        operations = 0
+
+        # from right side
+        for i in range(len(nums) - 1, -1, -1):
+            operations += 1
+            if 1 <= nums[i] <= k:
+                collected.add(nums[i])
+            if len(collected) == k:
+                return operations
+
+        return operations
+--
+
+=============================================================================================================
+

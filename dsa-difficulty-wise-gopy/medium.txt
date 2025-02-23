@@ -14291,3 +14291,166 @@ class Solution:
 ========================================================================================================================
 
 
+-- Minimum array length after pair removals
+
+
+-- https://leetcode.com/problems/minimum-array-length-after-pair-removals/
+--
+
+
+--
+class Solution:
+    def minLengthAfterRemovals(self, nums: List[int]) -> int:
+        n = len(nums)  # Total number of elements in the array.
+        mid = n // 2    # The number of elements we want to keep.
+
+        i = n - 1     # Pointer to the end of the array.
+        j = mid - 1   # Pointer to the middle of the array.
+        removals = 0  # Count of elements to remove.
+
+        # Iterate from the end of the array towards the middle.
+        while j >= 0:
+            if nums[i] > nums[j]:
+                removals += 2  # If nums[i] > nums[j], we need to remove two elements.
+                i -= 1
+            j -= 1
+
+        # Remaining length will be the total length minus removed elements in pairs.
+        return n - removals
+
+--
+
+
+==========================================================================================================================
+
+
+-- Happy students
+
+
+-- https://leetcode.com/problems/happy-students/
+-- https://www.youtube.com/watch?v=v76lLIn0zsI
+
+
+--
+class Solution:
+    def countWays(self, nums: List[int]) -> int:
+        nums.sort()
+        n = len(nums)
+        count = 0
+
+        # Case 1: If selecting 0 students is valid
+        if nums[0] > 0:
+            count += 1
+
+        for i in range(n - 1):
+            # If it's the last student OR the next student's requirement is different
+            if i >= nums[i] and i + 1 < nums[i + 1]:
+                count += 1
+        if n - 1 >= nums[n - 1]: count += 1
+
+        return count
+--
+
+
+============================================================================================================================
+
+
+-- Maximum number of alloys
+
+
+-- https://leetcode.com/problems/maximum-number-of-alloys/submissions/1552572076/
+--
+
+
+--class Solution:
+    def maxNumberOfAlloys(self, n: int, k: int, budget: int, composition: List[List[int]], stock: List[int], cost: List[int]) -> int:
+        def can_produce(machine_idx, num_alloys):
+            total_cost = 0
+            for metal in range(n):
+                required = composition[machine_idx][metal] * num_alloys  # Total metal required
+                if required > stock[metal]:  # Need to buy extra metal
+                    total_cost += (required - stock[metal]) * cost[metal]
+                if total_cost > budget:  # Stop early if over budget
+                    return False
+            return total_cost <= budget
+
+        max_alloys = 0
+        for machine in range(k):  # Try each machine
+            left, right = 0, 10**9  # Setting an upper bound estimation
+            while left <= right:
+                mid = (left + right) // 2
+                if can_produce(machine, mid):
+                    max_alloys = max(max_alloys, mid)
+                    left = mid + 1  # Try producing more
+                else:
+                    right = mid - 1  # Reduce the amount
+        return max_alloys
+--
+
+
+==============================================================================================================================
+
+
+-- Beautiful towers 1
+
+
+-- https://leetcode.com/problems/beautiful-towers-i/
+--
+
+
+--
+class Solution:
+    def maximumSumOfHeights(self, maxHeights):
+        n = len(maxHeights)
+        prevsmall = [-1] * n
+        nextsmall = [n] * n
+        leftsum = [0] * n
+        rightsum = [0] * n
+        leftsum[0] = maxHeights[0]
+        st = []
+        st.append(0)
+
+        # Calculate prevSmall
+        for i in range(1, n):
+            while st and maxHeights[st[-1]] >= maxHeights[i]:
+                st.pop()
+            if st:
+                prevsmall[i] = st[-1]
+            prev = prevsmall[i]
+            count = i - prev
+            leftsum[i] += count * maxHeights[i]
+            if prev != -1:
+                leftsum[i] += leftsum[prev]
+            st.append(i)
+
+        while st:
+            st.pop()
+        st.append(n - 1)
+
+        # Calculate nextsmall;
+        rightsum[n - 1] = maxHeights[n - 1]
+        for i in range(n - 2, -1, -1):
+            while st and maxHeights[st[-1]] >= maxHeights[i]:
+                st.pop()
+            if st:
+                nextsmall[i] = st[-1]
+            next_ = nextsmall[i]
+            count = next_ - i
+            rightsum[i] += count * maxHeights[i]
+            if next_ != n:
+                rightsum[i] += rightsum[next_]
+            st.append(i)
+
+        maxcount = 0
+        for i in range(n):
+            maxcount = max(maxcount, leftsum[i] + rightsum[i] - maxHeights[i])
+
+        return maxcount
+        
+--
+
+
+=============================================================================================================================
+
+
+
