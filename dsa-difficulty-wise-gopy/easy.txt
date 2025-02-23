@@ -3428,3 +3428,36 @@ class Solution:
 
 
 =============================================================================================================
+
+-- Minimum right shifts to sort the array
+
+
+--
+-- https://leetcode.com/problems/minimum-right-shifts-to-sort-the-array/submissions/1552513779/
+
+
+--
+class Solution:
+    def minimumRightShifts(self, nums: List[int]) -> int:
+        n = len(nums)
+        count = 0
+        index = -1  # To track the drop point
+        
+        for i in range(n - 1):
+            if nums[i] > nums[i + 1]:  # Detect drop
+                count += 1
+                index = i  # Store the drop index
+                
+        if count == 0:  
+            return 0  # Already sorted
+        
+        if count > 1 or nums[n - 1] > nums[0]:  
+            return -1  # More than one drop means it's not a rotated sorted list
+        
+        return n - index - 1
+        
+--
+
+
+============================================================================================================
+

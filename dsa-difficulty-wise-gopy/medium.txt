@@ -14209,6 +14209,24 @@ class Solution:
 --
 
 --
+Detailed Explanation:
+Take input parameterssx,sy,fx,fy, andt, representing the starting point(sx, sy), the target point(fx, fy), and the time limitt.
+
+Compute the horizontal distance between the starting and target points:
+
+Calculate the absolute difference betweensxandfxand store it in the variablexDist.
+Compute the vertical distance between the starting and target points:
+
+Calculate the absolute difference betweensyandfyand store it in the variableyDist.
+Check if the starting and target points are the same:
+
+IfxDistandyDistare both equal to 0, it means the starting and target points coincide. In this case, returnt != 1. This implies that the points are considered reachable if the time limit is not exactly 1 unit. Iftis equal to 1, the points are not reachable.
+Check if the distances can be covered within the given time limit:
+
+IfxDistis less than or equal totandyDistis less than or equal tot, returntrue. This means that the points can be reached within the specified time constraint.
+--
+
+--
 class Solution:
     def isReachableAtTime(self, sx: int, sy: int, fx: int, fy: int, t: int) -> bool:
         # cal vertical and horizontal distance
@@ -14224,5 +14242,52 @@ class Solution:
 
 ====================================================================================================================
 
+
+-- Minimum moves to spread stones over grid  (Imp)
+
+
+-- https://www.youtube.com/watch?v=Ew3C223hd-E
+-- https://leetcode.com/problems/minimum-moves-to-spread-stones-over-grid/submissions/1552508484/
+
+
+--
+class Solution:
+    def minimumMoves(self, grid: List[List[int]]) -> int:
+        zero = []
+        extra = []
+        res = float("inf")
+
+
+
+        def solve(index, count):
+            nonlocal res
+            if index >= len(zero):
+                res = min(res, count)
+                return
+            
+            for k in range(len(extra)):
+                if extra[k][2] == 0:
+                    continue
+                extra[k][2] -= 1
+                solve(index + 1, abs(extra[k][0] - zero[index][0]) + abs(extra[k][1] - zero[index][1]) + count)
+                extra[k][2] += 1
+
+        for i in range(3):
+            for j in range(3):
+                if grid[i][j] == 0:
+                    zero.append([i, j])
+                elif grid[i][j] > 1:
+                    extra.append([i, j, grid[i][j] - 1])
+        
+        if not zero:
+            return 0
+        solve(0, 0)
+
+        return res
+        
+--
+
+
+========================================================================================================================
 
 
