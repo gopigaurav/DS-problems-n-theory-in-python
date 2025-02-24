@@ -14938,3 +14938,187 @@ class Solution:
 
 ===============================================================================================================
 
+
+-- Find champion 2
+
+
+--
+-- https://leetcode.com/problems/find-champion-ii/
+
+
+--
+from collections import defaultdict
+class Solution:
+    def findChampion(self, n: int, edges: List[List[int]]) -> int:
+
+        ind = [0] * n
+
+        for u, v in edges:
+            ind[v] += 1
+
+        cnt = 0
+        index = -1
+        for i in range(len(ind)):
+            if ind[i] == 0:
+                cnt += 1
+                index = i
+        
+        if cnt > 1:
+            return -1
+        return index
+
+        
+        
+from typing import List
+
+def findChampion(n: int, edges: List[List[int]]) -> int:
+    in_degree = [0] * n  # Track in-degree of each node
+
+    # Compute in-degree for each node
+    for u, v in edges:
+        in_degree[v] += 1
+
+    # Find nodes with in-degree 0
+    champions = [i for i in range(n) if in_degree[i] == 0]
+
+    # There should be exactly one champion
+    return champions[0] if len(champions) == 1 else -1
+
+# Example Usage:
+n = 4
+edges = [[0, 1], [1, 2], [2, 3]]
+print(findChampion(n, edges))  # Output: 0
+
+--
+
+
+=============================================================================================================
+
+
+-- Maximum score after appplying operations on a tree
+
+
+-- https://leetcode.com/problems/maximum-score-after-applying-operations-on-a-tree/
+--
+
+
+--
+class Solution:    
+    def maximumScoreAfterOperations(self, edges: 
+                       List[List[int]], values: List[int]) -> int:
+
+        def dfs(node: int, par = -1, sm = 0) -> int:
+            if node and g[node] == [par]: return values[node]
+
+            for child in g[node]:
+                if child != par: 
+                    sm += dfs(child, node)
+            
+            return min(sm, values[node])
+
+
+        g = defaultdict(list)
+        for a, b in edges:
+            g[a].append(b)
+            g[b].append(a)
+
+        return sum(values) - dfs(0)
+--
+
+
+===========================================================================================================
+
+-- Distribute candies among children 2 & 1
+
+
+--
+-- https://www.youtube.com/watch?v=A0oJd4PYXsU
+
+
+--
+class Solution:
+    def distributeCandies(self, n: int, limit: int) -> int:
+        ans = 0
+
+        first_min = max(0, n - 2 * limit)
+        first_max = min(limit, n)
+
+        for i in range(first_min, first_max + 1):
+
+            sec_min = max(0, n - i - limit)
+            sec_max = min(limit, n - i)
+
+            ans += sec_max - sec_min + 1
+
+        return ans
+        
+--
+
+
+==========================================================================================================
+
+
+-- Number of strings which can be rearranged to contain substring
+
+
+-- https://leetcode.com/problems/number-of-strings-which-can-be-rearranged-to-contain-substring/
+--
+
+--
+class Solution:
+    def stringCount(self, n: int) -> int:
+        mod = 10 ** 9 + 7
+        return (
+            + pow(26, n, mod)
+            - (n + 75) * pow(25, n - 1, mod)
+            + (2 * n + 72) * pow(24, n - 1, mod)
+            - (n + 23) * pow(23, n - 1, mod)
+        ) % mod
+--
+
+
+==========================================================================================================
+
+-- High access employees
+
+
+-- https://leetcode.com/problems/high-access-employees/
+--
+
+
+--
+class Solution:
+    def findHighAccessEmployees(self, access_times: List[List[str]]) -> List[str]:
+
+        from collections import defaultdict
+
+        access_dict = defaultdict(list)
+        
+        # Convert access times to minutes and store in dictionary
+        for employee, time in access_times:
+            # converting to minutes
+            minutes = int(time[:2]) * 60 + int(time[2:])  # Convert HHMM to minutes
+            access_dict[employee].append(minutes)
+        
+        high_access_employees = set()
+
+        print(access_dict)
+        
+        for employee, times in access_dict.items():
+            times.sort()  # Sort access times for each employee
+            
+            # Sliding window approach to check if 3 accesses fall within a one-hour window
+            for i in range(len(times) - 2):
+                if times[i + 2] - times[i] < 60:
+                    high_access_employees.add(employee)
+                    break  # No need to check further for this employee
+        
+        return list(high_access_employees)
+        
+--
+
+
+=========================================================================================================
+
+
+

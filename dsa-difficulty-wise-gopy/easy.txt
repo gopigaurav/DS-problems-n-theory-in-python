@@ -3752,3 +3752,80 @@ class Solution:
 ============================================================================================================
 
 
+-- Maximum strong Pair Xor 1
+
+
+--
+--
+
+-
+class Solution1:
+    def maximumStrongPairXor(self, nums: List[int]) -> int:
+        max_xor = 0  # Initialize the maximum XOR value
+        
+        for i in range(len(nums)):
+            for j in range(i, len(nums)):
+                # Check the strong pair condition
+                if abs(nums[i] - nums[j]) <= min(nums[i], nums[j]):
+                    # Calculate XOR for the pair and update max_xor
+                    max_xor = max(max_xor, nums[i] ^ nums[j])
+        
+        return max_xor
+
+
+from typing import List
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def insert(self, num: int):
+        node = self.root
+        for i in range(31, -1, -1):  # 32-bit numbers
+            bit = (num >> i) & 1
+            if bit not in node.children:
+                node.children[bit] = TrieNode()
+            node = node.children[bit]
+    
+    def max_xor(self, num: int) -> int:
+        node = self.root
+        max_xor = 0
+        for i in range(31, -1, -1):  # 32-bit numbers
+            bit = (num >> i) & 1
+            opposite_bit = 1 - bit
+            if opposite_bit in node.children:
+                max_xor |= (1 << i)
+                node = node.children[opposite_bit]
+            else:
+                node = node.children.get(bit, node)
+        return max_xor
+
+class Solution:
+    def maximumStrongPairXor(self, nums: List[int]) -> int:
+        nums.sort()  # Sort to facilitate strong pair condition checking
+        max_xor = 0
+        trie = Trie()
+        
+        left = 0
+        for right in range(len(nums)):
+            # Maintain the sliding window where nums[right] is a strong pair with nums[left]
+            while nums[right] - nums[left] > nums[left]:  
+                trie.insert(nums[left])
+                left += 1
+            
+            # Insert current number into Trie
+            trie.insert(nums[right])
+            
+            # Compute max XOR with any number seen so far
+            max_xor = max(max_xor, trie.max_xor(nums[right]))
+        
+        return max_xor
+
+-
+
+
+================================================================================================================
