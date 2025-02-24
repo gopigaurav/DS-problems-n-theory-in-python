@@ -746,5 +746,55 @@ class Solution:
 ====================================================================================================
 
 
--- 
+-- Maimum point after coletiong coins from all nodes (Imp) 
+
+
+
+-- https://leetcode.com/problems/maximum-points-after-collecting-coins-from-all-nodes/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def maximumPoints(self, edges: List[List[int]], coins: List[int], k: int) -> int:
+
+        n = len(edges)
+        g = defaultdict(list)
+
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+        
+        memo = {}
+
+        def dfs(node, count, parent):
+
+            if (node, count) in memo:
+                return memo[(node, count)]
+
+            # consider first choice
+            ans1 = 0
+            # consider second choice
+            ans2 = 0
+
+            for nei in g[node]:
+                if nei != parent:
+                    ans1 += dfs(nei, count, node)
+
+                    if count <= 13:
+                        ans2 += dfs(nei, count + 1, node)
+
+            cur_val = coins[node]
+            cur_val /= pow(2, count)
+
+            memo[(node, count)] = max(cur_val - k + ans1, cur_val // 2 + ans2)
+            return memo[(node, count)]
+        
+        return int(dfs(0, 0, -1))
+
+--
+
+
+====================================================================================================
 
