@@ -15121,4 +15121,128 @@ class Solution:
 =========================================================================================================
 
 
+-- Minimum operations to maximize last elements in arrays (Imp)
+
+
+--
+-- https://leetcode.com/problems/minimum-operations-to-maximize-last-elements-in-arrays/
+
+
+--
+class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -> int:
+
+        hi, lo = max(nums1[-1], nums2[-1]), min(nums1[-1], nums2[-1])
+        n = len(nums1)
+
+        a = 0 
+        # don't flip last digit 
+        for i in range(n - 1): 
+            if nums1[i] > nums1[-1] or nums2[i] > nums2[-1]: 
+                # can't flip i to satisfy constraint
+                if nums2[i] > nums1[-1] or nums1[i] > nums2[-1]: 
+                    a = math.inf 
+                    break 
+                # flip 
+                a += 1
+        
+        
+        # flip last digit 
+        b = 1 
+        for i in range(n - 1): 
+            if nums1[i] > nums2[-1] or nums2[i] > nums1[-1]: 
+                # can't flip i to satisfy constraint
+                if nums2[i] > nums2[-1] or nums1[i] > nums1[-1]: 
+                    b = math.inf 
+                    break 
+                # flip 
+                b += 1
+
+        return min(a, b) if min(a, b) != math.inf else -1 
+            
+--
+
+
+===========================================================================================================
+
+
+-- Longest  unequal adjacent groups subsequence 2
+
+
+
+--
+-- https://leetcode.com/problems/longest-unequal-adjacent-groups-subsequence-ii/
+
+
+--
+class Solution2:
+    def getWordsInLongestSubsequence(n, words, groups):
+        n = len(words)
+        def is_valid_transition(word1, word2):
+            if len(word1) != len(word2):
+                return False
+            return sum(1 for a, b in zip(word1, word2) if a != b) == 1
+        
+        memo = {}
+
+        def dfs(index, visited):
+            if index in memo:
+                return memo[index]
+            
+            if index in visited:  # Prevent cycles
+                return []
+
+            visited.add(index)
+            best_sequence = [words[index]]
+
+            for next_index in range(index, n):
+                if (next_index not in visited and 
+                    groups[next_index] != groups[index] and 
+                    is_valid_transition(words[index], words[next_index])):
+                    
+                    candidate = [words[index]] + dfs(next_index, visited.copy())  # Copy visited to avoid side effects
+                    
+                    if len(candidate) > len(best_sequence):
+                        best_sequence = candidate
+            
+            memo[index] = best_sequence
+            return best_sequence
+
+        best_result = []
+        for i in range(n):
+            candidate = dfs(i, set())  # Pass a fresh set for each call
+            if len(candidate) > len(best_result):
+                best_result = candidate
+        
+        return best_result
+
+class Solution:
+    def getWordsInLongestSubsequence(n, words, groups):
+        n = len(words)
+        def is_valid_transition(word1, word2):
+            if len(word1) != len(word2):
+                return False
+            return sum(1 for a, b in zip(word1, word2) if a != b) == 1
+
+        # Initialize dp table: each word is a sequence of length 1 initially
+        dp = [[word] for word in words]
+
+        # Bottom-up computation
+        for i in range(n):
+            for j in range(i, n):
+                if i != j and groups[i] != groups[j] and is_valid_transition(words[i], words[j]):
+                    # If appending words[j] extends the sequence at words[i]
+                    if len(dp[i]) + 1 > len(dp[j]):
+                        dp[j] = dp[i] + [words[j]]
+
+        # Find the longest sequence from dp table
+        return max(dp, key=len)
+
+--
+
+
+===========================================================================================================
+
+
+-- 
 
