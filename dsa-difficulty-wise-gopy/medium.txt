@@ -15244,5 +15244,303 @@ class Solution:
 ===========================================================================================================
 
 
--- 
+-- Separate black and white balls
 
+
+
+-- https://leetcode.com/problems/separate-black-and-white-balls/
+--
+
+
+--
+class Solution:
+    def minimumSteps(self, s: str) -> int:
+        white_position = 0
+        total_swaps = 0
+
+        # Iterate through each ball in the string
+        for current_pos, char in enumerate(s):
+            if char == "0":
+                # Calculate the number of swaps needed
+                total_swaps += current_pos - white_position
+
+                # Move the next available position for a white ball one step to the right
+                white_position += 1
+
+        return total_swaps
+--
+
+
+==============================================================================================================
+
+
+-- Minimum number of coins for fruits
+
+
+
+-- https://leetcode.com/problems/minimum-number-of-coins-for-fruits/
+--
+
+
+--
+class Solution1:
+    def __init__(self):
+        self.dp = {}
+
+    def solve(self, prices, i):
+        if i >= len(prices):
+            return 0
+        if i in self.dp:
+            return self.dp[i]
+
+        res = float('inf')
+        for j in range(i + 1, min(len(prices), 2 * i + 2) + 1):  
+            res = min(res, self.solve(prices, j))
+
+        self.dp[i] = res + prices[i]
+        return self.dp[i]
+
+    def minimumCoins(self, prices):
+        return self.solve(prices, 0)
+
+
+from functools import lru_cache
+
+class Solution:
+    def minimumCoins(self, prices):
+        n = len(prices)
+
+        @lru_cache(None)  # Memoization to optimize recursion
+        def solve(i):
+            if i >= n:
+                return 0  # Base case: No more fruits to buy
+            res = float('inf')
+            for j in range(i + 1, min(n, 2 * i + 2) + 1):
+                res = min(res, solve(j))
+            return prices[i] + res
+
+        return solve(0)
+--
+
+
+=============================================================================================================
+
+
+-- Cont beautifl substrings 2
+
+
+- https://leetcode.com/problems/count-beautiful-substrings-ii/
+-
+
+--
+class Solution1:
+    def beautifulSubstrings(self, s: str, k: int) -> int:
+        from collections import defaultdict
+
+        grps = defaultdict(list)
+        grps[0].append(0)  # Prefix sum starts with 0 at index 0
+
+        vowels = "aeiou"
+        presum = 0  # Prefix sum to track vowel-consonant balance
+
+        for i, char in enumerate(s):
+            presum += 1 if char in vowels else -1
+            grps[presum].append(i + 1)  # Store index+1 for easier calculations
+        
+        x = 1
+        while x <= k and (x * x) % k != 0:
+            x += 1
+        x *= 2  # Final x value for modular calculations
+
+        ans = 0
+        for grp in grps.values():
+            mod = [0] * x
+            for i in grp:
+                ans += mod[i % x]
+                mod[i % x] += 1
+        return ans
+
+
+
+--
+
+
+============================================================================================================
+
+
+-- Cont subarrays where max element appears at least k times
+
+
+-- https://leetcode.com/problems/count-subarrays-where-max-element-appears-at-least-k-times/
+-
+
+
+--
+from collections import Counter
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        max_element = max(nums)
+        left = 0
+        n = len(nums)
+        max_count = 0
+        res = 0
+
+        for right in range(n):
+            if max_element == nums[right]:
+                max_count += 1
+            
+            while max_count >= k:
+                print(nums[left:right + 1], n - right)
+                res += n - right
+                if nums[left] == max_element:
+                    max_count -= 1
+                left += 1
+            
+        return res
+
+--
+
+
+============================================================================================================
+
+
+-- Count of interesting subarrays (IMP)
+
+
+--
+-- https://leetcode.com/problems/count-of-interesting-subarrays/
+
+
+--
+class Solution:
+    def countInterestingSubarrays(self, nums: List[int], modulo: int, k: int) -> int:
+        prefix_count = defaultdict(int)  # Hashmap to store prefix sum frequencies
+        prefix_count[0] = 1  # Base case: an empty prefix with remainder 0
+
+        cnt_mod = 0  # This keeps track of the cnt % modulo
+        interesting_count = 0  # Final count of interesting subarrays
+
+        for num in nums:
+            # Increment cnt_mod if nums[i] % modulo == k
+            if num % modulo == k:
+                cnt_mod += 1
+            
+            # Compute current cnt_mod % modulo
+            remainder = cnt_mod % modulo
+            
+            # Find how many times (cnt_mod - k) % modulo appeared before
+            target = (remainder - k) % modulo
+            interesting_count += prefix_count[target]
+
+            # Update the prefix sum frequency
+            prefix_count[remainder] += 1
+
+        return interesting_count
+
+
+
+
+--
+
+
+==============================================================================================================
+
+-- Minimum number of coins to be added (Imp)
+
+
+--
+--
+
+
+--
+class Solution:
+    def minimumAddedCoins(self, coins: List[int], target: int) -> int:
+        coins.sort()
+        miss = 1
+        added = 0
+        i = 0
+
+        while miss <= target:
+            if i < len(coins) and coins[i] <= miss:
+                miss += coins[i]
+                i += 1
+            else:
+                # Add coin of value `miss`
+                miss += miss
+                added += 1
+
+        return added
+        
+--
+
+
+============================================================================================================
+
+
+
+-- Remove adjacent almost qual characters (Imp)
+
+
+-- https://leetcode.com/problems/remove-adjacent-almost-equal-characters/
+--
+
+
+--
+class Solution:
+    def removeAlmostEqualCharacters(self, word: str) -> int:
+        def is_almost_equal(a, b):
+            return a == b or abs(ord(a) - ord(b)) == 1
+
+        word = list(word)
+        count = 0
+
+        for i in range(1, len(word)):
+            if is_almost_equal(word[i], word[i - 1]):
+                count += 1
+                # simulate change by setting word[i] to a dummy character
+                # that won't interfere with next comparison
+                word[i] = '#'  # '#' is not a lowercase letter, so it's safe
+
+        return count
+        
+--
+
+==============================================================================================================
+
+
+-- Length of Longest Subarray With at Most K Frequency
+
+
+-- https://leetcode.com/problems/length-of-longest-subarray-with-at-most-k-frequency/description/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def maxSubarrayLength(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        m = defaultdict(int)
+        res = 0
+        left = 0
+
+        for right in range(n):
+            m[nums[right]] += 1
+
+            while m[nums[right]] > k:
+                m[nums[left]] -= 1
+                left += 1
+            
+            res = max(res, right - left + 1)
+
+        return res
+
+        
+--
+
+
+==============================================================================================================
+
+
+
+-- 
