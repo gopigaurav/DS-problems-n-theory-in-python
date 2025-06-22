@@ -903,4 +903,711 @@ class Solution:
 ======================================================================================================= 
 
 
--- 
+-- Count the number of good partitions (Imp)
+
+
+-- https://leetcode.com/problems/count-the-number-of-good-partitions/submissions/1621872412/
+--
+
+
+--
+from collections import defaultdict
+class Solution:
+    def numberOfGoodPartitions(self, nums: List[int]) -> int:
+        
+        # use map to store the numbers with the last index of the particular number
+        # use i, j and iterate over the nums and partition the arrays with 2 choices whether to divide there or not
+        # at the end send the total number of possible continuous subarrays
+        
+        m = defaultdict(int)
+        n = len(nums)
+        mod = 10**9 + 7
+        
+        for i in range(n):
+            m[nums[i]] = i
+        res = 1
+        i = 0
+        j = max(i, m[nums[0]])
+
+        while i < n:
+            if i > j:
+                res = (res * 2) % mod
+            j = max(j, m[nums[i]])
+            i += 1
+        return res
+
+--
+
+======================================================================================================
+
+
+
+-- apply operations to maximize frequency score (Imp)
+
+
+-- https://www.youtube.com/watch?v=Iaz-8ZQYUvs
+-- https://leetcode.com/problems/apply-operations-to-maximize-frequency-score/
+
+
+--
+from collections import Counter
+class Solution:
+    def maxFrequencyScore(self, nums: List[int], k: int) -> int:
+        # Using binary search on the answer
+        # the min score or answer we can get from is 1 and max_Score we can get is n
+        # using this we can perform extra check on the sorted input which every possible 1 to n window 
+        # if the elements in them made equal or not
+        # also prefix sum to get the window sum to check whether it can be equal or not.
+
+        nums.sort()
+        n = len(nums)
+        prefix = [0] * n
+        prefix[0] = nums[0]
+
+        for i in range(1, n):
+            prefix[i] = prefix[i - 1] + nums[i]
+
+        min_score = 1
+        max_score = n
+        ans = 0
+
+        def checker(window):
+            
+            i = 0
+            j = window - 1
+
+            while j < n:
+                target_ind = i + (j - i) // 2
+                target = nums[target_ind]
+
+                left_sum = prefix[target_ind - 1] - (prefix[i - 1] if i > 0 else 0)
+                right_sum = prefix[j] - (prefix[target_ind])
+
+                operations_left = abs(((target_ind - i) * target - left_sum) if target_ind > 0 else 0)
+                operations_right = abs(((j - target_ind) * target - right_sum) if target_ind < n else 0)
+
+                if operations_left + operations_right <= k:
+                    return True
+                j += 1
+                i += 1
+                
+            return False
+
+
+        while min_score <= max_score:
+            mid = (max_score + min_score) // 2
+
+            if checker(mid):
+                ans = mid
+                min_score = mid + 1
+            else:
+                max_score = mid - 1
+        return ans
+
+
+
+--
+
+
+===========================================================================================================
+
+
+-- Find number of coins to place in tree nodes
+
+
+
+-- https://leetcode.com/problems/find-number-of-coins-to-place-in-tree-nodes/
+--
+
+
+--
+from typing import List
+
+NO_VALUE = int(1e9)
+
+class Solution:
+    def __init__(self):
+        self.n = 0
+        self.g = []
+        self.cost = []
+        self.val = []
+        self.coins = []
+
+    def CalculateCoins(self, src: int, par: int):
+        child_val = [self.cost[src]]
+        
+        for i in self.g[src]:
+            if i == par:
+                continue
+
+            self.CalculateCoins(i, src)
+            for v in self.val[i]:
+                child_val.append(v)
+        
+        child_val.sort()
+
+        if len(child_val) < 3:
+            self.coins[src] = 1
+            self.val[src] = child_val
+        else:
+            n = len(child_val)
+            max_product = float('-inf')
+            max_product = max(max_product, child_val[0] * child_val[1] * child_val[n-1])
+            max_product = max(max_product, child_val[n-1] * child_val[n-2] * child_val[n-3])
+
+            self.coins[src] = 0 if max_product < 0 else max_product
+
+            if len(child_val) < 6:
+                self.val[src] = child_val
+            else:
+                self.val[src] = [child_val[0], child_val[1], child_val[n-3], child_val[n-2], child_val[n-1]]
+
+    def placedCoins(self, edges: List[List[int]], _cost: List[int]) -> List[int]:
+        self.n = len(_cost)
+        self.g = [[] for _ in range(self.n)]
+        self.cost = _cost
+        self.val = [[] for _ in range(self.n)]
+        self.coins = [0] * self.n
+
+        for e in edges:
+            self.g[e[0]].append(e[1])
+            self.g[e[1]].append(e[0])
+
+        self.CalculateCoins(0, -1)
+        return self.coins
+
+--
+
+
+================================================================================================
+
+
+-- Minimum cost to convert string 1
+
+
+-- https://leetcode.com/problems/minimum-cost-to-convert-string-i/
+--
+
+
+--
+class Solution:
+    def minimumCost(self, source: str, target: str, original: List[str], changed: List[str], cost: List[int]) -> int:
+        from collections import defaultdict
+        import math
+
+        # Step 1: Initialize cost matrix
+        INF = math.inf
+        minCost = [[INF] * 26 for _ in range(26)]
+
+        for i in range(26):
+            minCost[i][i] = 0
+
+        for o, c, z in zip(original, changed, cost):
+            from_char = ord(o) - ord('a')
+            to_char = ord(c) - ord('a')
+            minCost[from_char][to_char] = min(minCost[from_char][to_char], z)
+
+        # Step 2: Floyd-Warshall to get all-pairs shortest transformation cost
+        for k in range(26):
+            for i in range(26):
+                for j in range(26):
+                    if minCost[i][k] != INF and minCost[k][j] != INF:
+                        minCost[i][j] = min(minCost[i][j], minCost[i][k] + minCost[k][j])
+
+        # Step 3: Calculate total cost to transform source to target
+        total_cost = 0
+        n = len(source)
+        for i in range(n):
+            s = ord(source[i]) - ord('a')
+            t = ord(target[i]) - ord('a')
+            if minCost[s][t] == INF:
+                return -1
+            total_cost += minCost[s][t]
+
+        return total_cost
+        
+--
+
+
+=================================================================================================
+
+
+-- Minimum cost to convert to string 2
+
+
+
+--
+-- https://leetcode.com/problems/minimum-cost-to-convert-string-ii/
+
+
+--
+class Solution(object):
+    def minimumCost(self, source, target, original, changed, cost):
+        index = {}
+        for o in original:
+            if o not in index:
+                index[o] = len(index)
+        for c in changed:
+            if c not in index:
+                index[c] = len(index)
+
+        n = len(index)
+        dis = [[float('inf')] * n for _ in range(n)]
+
+        for i in range(len(cost)):
+            dis[index[original[i]]][index[changed[i]]] = min(dis[index[original[i]]][index[changed[i]]], cost[i])
+
+        for k in range(n):
+            for i in range(n):
+                if dis[i][k] < float('inf'):
+                    for j in range(n):
+                        if dis[k][j] < float('inf'):
+                            dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j])
+
+        substr_lengths = set(len(o) for o in original)
+
+        print(index)
+        print(dis)
+
+        dp = [float('inf')] * (len(target) + 1)
+        dp[0] = 0
+
+        for i in range(len(target)):
+            if dp[i] == float('inf'):
+                continue
+
+            if target[i] == source[i]:
+                dp[i + 1] = min(dp[i + 1], dp[i])
+
+            for t in substr_lengths:
+                if i + t >= len(dp):
+                    continue
+
+                sub_source = source[i:i + t]
+                sub_target = target[i:i + t]
+
+                c1 = index[sub_source] if sub_source in index else -1
+                c2 = index[sub_target] if sub_target in index else -1
+
+                if c1 >= 0 and c2 >= 0 and dis[c1][c2] < float('inf'):
+                    dp[i + t] = min(dp[i + t], dp[i] + dis[c1][c2])
+
+        return dp[-1] if dp[-1] != float('inf') else -1
+        
+--
+
+
+================================================================================================
+
+
+
+-- Find longest specialsubsring that occurs thrice 1 & 2
+
+
+-- https://leetcode.com/problems/find-longest-special-substring-that-occurs-thrice-i/
+--
+
+
+--
+class Solution:
+    def maximumLength1(self, s: str) -> int:
+        from collections import defaultdict
+        # brute force
+
+        # get all substrings
+        # find the special substrings
+        # find the longest substring
+        m = defaultdict(int)
+        n = len(s)
+        for i in range(n):
+            curr = ""
+            for j in range(i, n): 
+                if not curr or curr[-1] == s[j]:
+                    curr += s[j]
+                    m[(s[j], len(curr))] += 1
+                else:
+                    break
+
+        # iterate through the map and get the substring with longest one with frequency more than 3
+        result = 0
+        for key in m:
+            string = key[1]
+
+            if m[key] >= 3 and string > result:
+                result = string        
+        return result if result else -1
+
+
+    def maximumLength(self, s: str) -> int:
+
+        # Another approach using matrix
+        # x axis - 0 - 25 representing letters
+        # 0 to n representing the len if the characters that can be repeated
+        
+        # for the cumulative sum go from right to left and as soon the freq hits more than 3 return that len
+        n = len(s)
+        mat = [[0] * (n + 1) for _ in range(26)]
+        prev_char = ""
+        lenght = 0
+
+        for i in range(n):
+            if prev_char == s[i]:
+                length += 1
+            else:
+                length = 1
+                prev_char = s[i]
+            mat[ord(s[i]) - ord('a')][length] += 1
+
+        result = 0
+        for i in range(26):
+            c_sum = 0
+            for j in range(n, 0, -1):
+                c_sum += mat[i][j]
+
+                if c_sum >= 3:
+                    result = max(result, j)
+        
+        return result if result else -1
+
+
+
+                    
+
+
+--
+
+
+===============================================================================================
+
+-- Palindrome rearrangement queries (Imp)
+
+
+-- https://leetcode.com/problems/palindrome-rearrangement-queries/description/
+--
+
+--
+class Solution:
+    def canMakePalindromeQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
+        
+        n = len(s) // 2
+        s1, s2 = s[0:n], s[n:2*n][::-1]
+        
+        pos_len = [0] * n
+        pre = 0
+        for j in range(n+1):
+            if j == n or s1[j] != s2[j]:
+                for i in range(pre, j):
+                    pos_len[i] = j-i
+                pre = j+1
+        
+        def get_psum(s):
+            psum = [None] * n
+            cur_cnt = [0] * 26
+            for i in range(n):
+                cur_cnt[ord(s[i]) - ord('a')] += 1
+                psum[i] = cur_cnt.copy()
+            return psum
+        
+        psum1 = get_psum(s1)
+        psum2 = get_psum(s2)
+        
+        def p(a, b):
+            # if s1[a..b] == s2[a..b]
+            if a > b:
+                return True
+            return pos_len[a] >= b-a+1
+        
+        def f(a, b, ps1, c, d, ps2):
+            # compare letter count of s1[a..b] and s2[c..d]. return >=0 if former covers latter.
+            # return 0 if all letters have the same count; 1 if counts in ps1 all > ps2; -1 if s1[a..b] does not cover s2[c..d]
+            all_eq = 1
+            for i in range(26):
+                c1 = ps1[b][i] - (0 if a == 0 else ps1[a-1][i])
+                c2 = ps2[d][i] - (0 if c == 0 else ps2[c-1][i])
+                if c1 < c2:
+                    return -1
+                if c1 > c2:
+                    all_eq = 0
+            return 0 if all_eq else 1
+        
+        res = []
+        for a, b, c, d in queries:
+            c, d = 2*n-1-d, 2*n-c-1
+            if a > c:
+                a, b, c, d = c, d, a, b
+                ps1, ps2 = psum2, psum1
+            else:
+                ps1, ps2 = psum1, psum2
+                
+            if c > b:
+                res.append( p(0, a-1) and p(b+1, c-1) and p(d+1, n-1) 
+                           and f(a, b, ps1, a, b, ps2) == 0 
+                           and f(c, d, ps1, c, d, ps2) == 0 )
+            elif d > b:
+                res.append( p(0, a-1) and p(d+1, n-1) 
+                           and (a > c-1 or f(a, b, ps1, a, c-1, ps2) > 0 )
+                           and (b+1 > d or f(c, d, ps2, b+1, d, ps1) > 0 )
+                           and f(a, d, ps1, a, d, ps2) == 0 )
+            else:
+                res.append( p(0, a-1) and p(b+1, n-1) 
+                           and (a > c-1 or f(a, b, ps1, a, c-1, ps2) > 0)
+                           and (d+1 > b or f(a, b, ps1, d+1, b, ps2) > 0)
+                           and f(a, b, ps1, a, b, ps2) == 0 )
+
+        
+        return res
+--
+
+
+================================================================================================
+
+
+-- Minimum cost to make array equal
+
+
+-- https://leetcode.com/problems/minimum-cost-to-make-array-equal/
+--
+
+
+--
+class Solution:
+    def minCost(self, nums: List[int], cost: List[int]) -> int:
+        n = len(nums)
+        def cost_checker(val):
+            csum = 0
+            for i in range(n):
+                csum += abs(nums[i] - val) * cost[i]
+            return csum
+
+        right = max(nums)
+        left = min(nums)
+
+        res = float("inf")
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            a = cost_checker(mid)
+            b = cost_checker(mid + 1)
+
+            res = min(a, b)
+
+            if b > a:
+                right = mid - 1
+            else:
+                left = mid + 1
+        return res if res != float('inf') else 0
+--
+
+
+===============================================================================================
+
+-- Minimum number of operations
+
+
+-- https://leetcode.com/problems/minimum-number-of-operations-to-make-arrays-similar/
+--
+
+
+--
+class Solution:
+    def makeSimilar(self, nums: List[int], target: List[int]) -> int:
+        nums.sort()
+        target.sort()
+
+        on, ot, en, et = [], [] , [], []
+        n = len(nums)
+
+        for i in range(n):
+            if nums[i] % 2 == 0:
+                en.append(nums[i])
+            else:
+                on.append(nums[i])
+
+            if target[i] % 2 == 0:
+                et.append(target[i])
+            else:
+                ot.append(target[i])
+        
+        c = 0
+        for i in range(len(en)):
+            c += (abs(en[i] - et[i])) // 2
+        
+        for i in range(len(on)):
+            c += (abs(on[i] - ot[i])) // 2
+
+        return c // 2
+--
+
+
+=================================================================================================
+
+
+-- Next greater element 4 (Imp)
+
+
+-- https://leetcode.com/problems/next-greater-element-iv/
+--
+
+
+--
+class Solution:
+    def secondGreaterElement(self, A: List[int]) -> List[int]:
+        res, s1, s2 = [-1] * len(A), [], []
+        for i,a in enumerate(A):
+            while s2 and A[s2[-1]] < a:
+                res[s2.pop()] = a
+            tmp = []
+            while s1 and A[s1[-1]] < a:
+                tmp.append(s1.pop())
+            s2 += tmp[::-1]
+            s1.append(i)
+        return res
+--
+
+
+=================================================================================================
+
+
+
+-- Height of the binary tree after subtree removal queries  (Imp)
+
+
+--
+--
+
+
+--
+class Solution:
+    def __init__(self):
+        self.level = [0] * 1000001  # level of each node
+        self.height = [0] * 100001  # height of each node
+        self.levelMaxHt = [0] * 100001  # max height at each level
+        self.levelSecondMaxHt = [0] * 100001  # second max height at each level
+
+    def findHeight(self, root, l):
+        if not root:
+            return 0
+
+        self.level[root.val] = l
+
+        left_ht = self.findHeight(root.left, l + 1)
+        right_ht = self.findHeight(root.right, l + 1)
+
+        self.height[root.val] = max(left_ht, right_ht) + 1
+
+        h = self.height[root.val]
+
+        if self.levelMaxHt[l] < h:
+            self.levelSecondMaxHt[l] = self.levelMaxHt[l]
+            self.levelMaxHt[l] = h
+        elif self.levelSecondMaxHt[l] < h:
+            self.levelSecondMaxHt[l] = h
+
+        return h
+
+    def treeQueries(self, root, queries):
+        self.findHeight(root, 0)
+
+        print(self.level, self.height,self.levelSecondMaxHt, self.levelMaxHt)
+
+        result = []
+        for node in queries:
+            L = self.level[node]
+            H = self.height[node]
+
+            if self.levelMaxHt[L] == H:
+                max_other = self.levelSecondMaxHt[L]
+            else:
+                max_other = self.levelMaxHt[L]
+
+            result.append(L + max_other - 1)
+
+        return result
+
+--
+
+===================================================================================================
+
+
+-- Minimum total distance Traveled
+
+
+-- https://leetcode.com/problems/minimum-total-distance-traveled/
+--
+
+
+--
+from functools import lru_cache
+class Solution:
+    def minimumTotalDistance(self, robot: List[int], factory: List[List[int]]) -> int:
+        n = len(factory)
+        robot.sort()
+        # factory.sort(key=lambda x: x[0])
+        factory.sort()
+
+        new_arr = [] # convert the factory limit into the new array
+        # ex -> [[2, 2]] -> converted to [2, 2] meaning there are 2 factories at the same position making it much easier for computation 
+
+        # using dp for take and skip policy for robot picking factories
+        
+        for i in range(n):
+            limit = factory[i][1]
+            pos = factory[i][0]
+            new_arr += ([pos] * limit)
+        
+        dp = [[0] 
+
+        @lru_cache(None)
+        def fn(i, j):
+            if i >= len(robot):
+                return 0  # All robots are placed
+
+            if j >= len(new_arr):
+                return float('inf')  # No more factories to assign
+
+            take = abs(robot[i] - new_arr[j]) + fn(i + 1, j + 1)
+            skip = fn(i, j + 1)
+
+            return min(take, skip)
+
+        res = fn(0, 0)
+        return res if res != float('inf') else -1
+
+
+from typing import List
+
+class Solution:
+    def minimumTotalDistance(self, robot: List[int], factory: List[List[int]]) -> int:
+        robot.sort()
+        factory.sort()  # sort by position
+
+        # Flatten the factory list into new_arr with repeated positions based on their limits
+        new_arr = []
+        for pos, limit in factory:
+            new_arr.extend([pos] * limit)
+
+        m, n = len(robot), len(new_arr)
+
+        # Initialize dp table with inf; dp[i][j] = min cost to assign first i robots to first j factories
+        dp = [[float('inf')] * (n + 1) for _ in range(m + 1)]
+        dp[0][0] = 0  # base case: 0 robots, 0 cost
+
+        # Fill dp table
+        for i in range(m + 1):  # number of robots assigned
+            for j in range(n):  # current factory index
+                # Skip assigning this factory (carry forward previous min cost)
+                dp[i][j + 1] = min(dp[i][j + 1], dp[i][j])
+
+                # Take this factory if there's a robot to assign
+                if i < m:
+                    cost = abs(robot[i] - new_arr[j])
+                    dp[i + 1][j + 1] = min(dp[i + 1][j + 1], dp[i][j] + cost)
+
+        return min(dp[m]) if min(dp[m]) != float('inf') else -1
+
+
+--
+
+
+====================================================================================================

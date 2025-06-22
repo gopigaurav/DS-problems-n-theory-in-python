@@ -3829,3 +3829,37 @@ class Solution:
 
 
 ================================================================================================================
+
+
+-- Odd string diff
+
+
+--
+-- https://leetcode.com/problems/odd-string-difference/submissions/1671836330/
+
+
+--
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def oddString(self, words: List[str]) -> str:
+        def diff_cal(string):
+            return tuple(ord(string[i+1]) - ord(string[i]) for i in range(len(string) - 1))
+        
+        m = defaultdict(list)
+
+        for i, word in enumerate(words):
+            diff = diff_cal(word)
+            m[diff].append(i)
+        
+        for indices in m.values():
+            if len(indices) == 1:
+                return words[indices[0]]
+        
+        return ""
+
+--
+
+
+===============================================================================================================
