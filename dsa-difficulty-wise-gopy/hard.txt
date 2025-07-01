@@ -1611,3 +1611,128 @@ class Solution:
 
 
 ====================================================================================================
+
+
+-- Maximum strong pair xor 2
+
+
+--
+-- https://leetcode.com/problems/maximum-strong-pair-xor-ii/
+
+
+--
+class Solution:
+    def maximumStrongPairXor(self, nums: List[int]) -> int:
+        t = XorTrie()
+        nums.sort()
+        j = 0
+        res = 0
+        for i in range(len(nums)):
+            t.insert(nums[i])
+            while nums[j] * 2 < nums[i]:
+                t.remove(nums[j])
+                j += 1
+            res = max(res, t.max_xor(nums[i]))
+        return res
+
+        
+
+class XorTrie:
+    def __init__(self):
+        self.p = [None, None]
+
+    max_b = 1 << 19
+
+    def insert(self, n):
+        r = self
+        b = XorTrie.max_b
+        while b > 0:
+            bit = (n & b) > 0
+            if r.p[bit] is None:
+                r.p[bit] = XorTrie()
+            r = r.p[bit]
+            b >>= 1
+
+    def remove(self, n, b=None):
+        if b is None:
+            b = XorTrie.max_b
+        if b == 0:
+            return True
+        bit = (n & b) > 0
+        if self.p[bit] is not None and self.p[bit].remove(n, b >> 1):
+            self.p[bit] = None
+        return self.p[0] is None and self.p[1] is None
+
+    def max_xor(self, n):
+        res = 0
+        r = self
+        b = XorTrie.max_b
+        while b > 0:
+            bit = (n & b) > 0
+            if r.p[not bit] is not None:
+                res += b
+                r = r.p[not bit]
+            else:
+                r = r.p[bit]
+            b >>= 1
+        return res
+
+--
+
+
+===================================================================================================
+
+
+-- Find building where lice and bob can meet
+
+
+--
+-- https://leetcode.com/problems/find-building-where-alice-and-bob-can-meet/
+
+
+--
+from typing import List
+
+class Solution:
+    def binarySearch(self, height: int, st: List[tuple]) -> int:
+        l, r = 0, len(st) - 1
+        ans = -1
+        while l <= r:
+            mid = l + (r - l) // 2
+            if st[mid][0] > height:
+                ans = mid
+                l = mid + 1
+            else:
+                r = mid - 1
+        return ans
+
+    def leftmostBuildingQueries(self, heights: List[int], queries: List[List[int]]) -> List[int]:
+        st = []
+        answer = [-1] * len(queries)
+        newQueries = [[] for _ in range(len(heights))]
+
+        for i, (a, b) in enumerate(queries):
+            if a > b:
+                a, b = b, a
+            if heights[b] > heights[a] or a == b:
+                answer[i] = b
+            else:
+                newQueries[b].append((heights[a], i))
+
+        for i in range(len(heights) - 1, -1, -1):
+            for h, idx in newQueries[i]:
+                pos = self.binarySearch(h, st)
+                if pos != -1:
+                    answer[idx] = st[pos][1]
+            while st and st[-1][0] <= heights[i]:
+                st.pop()
+            st.append((heights[i], i))
+
+        return answer
+
+--
+
+
+=================================================================================================
+
+
