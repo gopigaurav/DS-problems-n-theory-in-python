@@ -1735,4 +1735,182 @@ class Solution:
 
 =================================================================================================
 
+-- Minimum difficulty of a job schedule
+
+
+--
+-- https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/
+
+
+--
+# from typing import List
+
+# class Solution:
+#     def minDifficulty(self, job: List[int], d: int) -> int:
+#         n = len(job)
+#         if n < d:
+#             return -1  # Not enough jobs for the number of days
+
+#         # dp[day][index] -> min difficulty to finish job[index:] in 'day' days
+#         dp = [[-1] * n for _ in range(d + 1)]
+
+#         def rec(day: int, index: int) -> int:
+#             if day == 1:
+#                 return max(job[index:])  # Only one day left, do all remaining jobs
+
+#             if dp[day][index] != -1:
+#                 return dp[day][index]
+
+#             maxD = 0
+#             res = float('inf')
+
+#             # i -> split point: job[index:i+1] is today's job, rec(...) handles the rest
+#             for i in range(index, n - day + 1):
+#                 maxD = max(maxD, job[i])
+#                 result = maxD + rec(day - 1, i + 1)
+#                 res = min(res, result)
+
+#             dp[day][index] = res
+#             return res
+
+#         return rec(d, 0)
+
+
+from typing import List
+
+class Solution:
+    def minDifficulty(self, job: List[int], d: int) -> int:
+        n = len(job)
+        if n < d:
+            return -1  # Not enough jobs
+
+        # dp[day][i] = min difficulty to schedule first i+1 jobs in 'day' days
+        dp = [[float('inf')] * n for _ in range(d + 1)]
+
+        # Base case: day = 1 → max of first i+1 jobs
+        maxD = 0
+        for i in range(n):
+            maxD = max(maxD, job[i])
+            dp[1][i] = maxD
+
+        # Fill DP table
+        for day in range(2, d + 1):
+            for i in range(day - 1, n):  # At least `day` jobs to schedule `day` days
+                maxD = 0
+                for k in range(i, day - 2, -1):  # Reverse to maintain correct partition
+                    maxD = max(maxD, job[k])
+                    dp[day][i] = min(dp[day][i], dp[day - 1][k - 1] + maxD)
+
+        return dp[d][n - 1]
+
+--
+
+
+====================================================================================================
+
+-- Arithmetic slices 2 subsequences (dp) (IMP)
+
+
+-- https://leetcode.com/problems/arithmetic-slices-ii-subsequence/
+-- https://www.youtube.com/watch?v=cau0JE1q_ZA&list=PLpIkg8OmuX-L_QqcKB5abYynQbonaNcq3&index=6
+
+
+--
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [defaultdict(int) for _ in range(n)]
+        result = 0
+
+        for i in range(n):
+            for j in range(i):
+                diff = nums[i] - nums[j]
+                
+                count_at_j = dp[j][diff]  # automatically 0 if diff not present
+                dp[i][diff] += count_at_j + 1
+
+                result += count_at_j  # only count subsequences of length >= 3
+
+        return result
+
+--
+
+
+
+===================================================================================================
+
+
+-- Find the  longest valid obstacle course at each position
+
+
+-- 
+-- https://leetcode.com/problems/find-the-longest-valid-obstacle-course-at-each-position/submissions/1696109487/
+
+
+--
+class Solution:
+    def longestObstacleCourseAtEachPosition(self, nums: List[int]) -> List[int]:
+        lis = []
+        for i, x in enumerate(nums):
+            if len(lis) == 0 or lis[-1] <= x:  # Append to LIS if new element is >= last element in LIS
+                lis.append(x)
+                nums[i] = len(lis)
+            else:
+                idx = bisect_right(lis, x)  # Find the index of the smallest number > x
+                lis[idx] = x  # Replace that number with x
+                nums[i] = idx + 1
+        return nums
+--
+
+
+====================================================================================================
+
+
+-- Maximum number of non overlapping palindrome substrings
+
+
+
+-- https://leetcode.com/problems/maximum-number-of-non-overlapping-palindrome-substrings/
+--
+
+
+--
+class Solution:
+    def maxPalindromes(self, s: str, k: int) -> int:
+        n = len(s)
+    
+        # Step 1: Precompute all palindromic substrings
+        is_pal = [[False] * n for _ in range(n)]
+        
+        for i in range(n):
+            is_pal[i][i] = True  # Single character
+        for i in range(n-1):
+            is_pal[i][i+1] = (s[i] == s[i+1])  # Two characters
+        
+        for length in range(3, n+1):
+            for i in range(n - length + 1):
+                j = i + length - 1
+                is_pal[i][j] = (s[i] == s[j]) and is_pal[i+1][j-1]
+        
+        # Step 2: Greedy + DP
+        dp = [0] * (n + 1)
+        
+        for i in range(1, n + 1):
+            # By default, skip this character
+            dp[i] = dp[i-1]
+            for j in range(i - k, -1, -1):
+                if is_pal[j][i-1]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+                    break  # Stop at first valid one for greedy (earliest)
+        
+        return dp[n]
+--
+
+
+=====================================================================================================
+
+
 

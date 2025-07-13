@@ -15644,5 +15644,512 @@ class Solution:
 ============================================================================================================
 
 
+-- Minimum falling path sum
 
+
+-- https://leetcode.com/problems/minimum-falling-path-sum/
+--
+
+--
+class Solution:
+    def minFallingPathSum(self, mat: List[List[int]]) -> int:
+        n = len(mat)
+        dp = [[0 for _ in range(n)] for _ in range(n)]
+
+        # Initialize first row
+        for j in range(n):
+            dp[0][j] = mat[0][j]
+
+        for i in range(1, n):
+            for j in range(n):
+                # Get the three possible previous positions: top-left, top, top-right
+                top_left = dp[i-1][j-1] if j > 0 else float('inf')
+                top = dp[i-1][j]
+                top_right = dp[i-1][j+1] if j < n - 1 else float('inf')
+
+                dp[i][j] = mat[i][j] + min(top_left, top, top_right)
+
+        return min(dp[n - 1])
+
+--
+
+
+==========================================================================================================
+
+
+-- Longest common subsequence (Imp)
+
+
+-- https://leetcode.com/problems/longest-common-subsequence/
+--
+
+
+--
+class Solution(object):
+    def longestCommonSubsequence1(self, A, B):
+        # longest common letter between two string which is non-continuous
+        # if A[] == B[] then increase length
+        # else max( f(A[:], B[:-1]), f(A[:-1], B[:])
+        
+        # if n==0 and m==0 then return 0
+        l1 = len(A)
+        l2 = len(B)
+        dp = [[-1]*(l2+1) for _ in range(l1+1)]
+        
+        # initialise first row and first column with 0
+        for i in range(l1+1):
+            dp[i][0] = 0
+        for j in range(l2+1):
+            dp[0][j] = 0
+            
+        # apply from 1 to n
+        for i in range(1, l1+1):
+            for j in range(1, l2+1):
+                if A[i-1] == B[j-1]:
+                    dp[i][j] = 1+dp[i-1][j-1]
+                else:
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        
+        return dp[l1][l2] 
+    
+    
+    # shortest common supersequence code
+    def longestCommonSubsequence2(self, s1, s2):
+        l1 = len(s1)
+        l2 = len(s2)
+        dp = [[0]*(l2+1) for _ in range(l1+1)]
+
+            # Initialise dp
+            # If length of any substring is 0 then length of LCS will be zero
+            # So dp[0][i] and dp[j][0] will be zero
+            # if s1[i] == s2[j] then increase by 1 else search in i-1 and j or i and j-1
+        for i in range(l1 + 1):
+            for j in range(l2 + 1):
+         
+                    # Below steps follow recurrence relation
+                if i == 0:
+                    dp[i][j] = 0
+                elif j == 0:
+                    dp[i][j] = 0
+                elif s1[i - 1] == s2[j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+        return dp[l1][l2]
+
+    def longestCommonSubsequence3(self, s1, s2):
+        n1 = len(s1)
+        n2 = len(s2)
+        from functools import lru_cache
+
+        @lru_cache(None)
+        def rec(i, j):
+            if i == n1 or j == n2:
+                return 0  # base case
+            
+            if s1[i] == s2[j]:
+                return 1 + rec(i + 1, j + 1)
+            else:
+                return max(rec(i + 1, j), rec(i, j + 1))
+        
+        return rec(0, 0)
+
+
+    def longestCommonSubsequence(self, s1, s2):
+        n1 = len(s1)
+        n2 = len(s2)
+        from functools import lru_cache
+
+        @lru_cache(None)
+        def rec(i, j):
+            if i == 0 or j == 0:
+                return 0  # base case
+            
+            if s1[i - 1] == s2[j - 1]:
+                return 1 + rec(i - 1, j - 1)
+            else:
+                return max(rec(i - 1, j), rec(i, j - 1))
+        
+        return rec(n1, n2)
+
+--
+
+==========================================================================================================
+
+
+-- Best time to buy and sell stock with cooldown
+
+
+--
+-- https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/submissions/1687523544/
+
+
+--
+from typing import List
+from functools import lru_cache
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+
+        @lru_cache(None)
+        def rec(i: int, holding: bool) -> int:
+            if i >= n:
+                return 0
+
+            if holding:
+                # You can sell or skip
+                sell = prices[i] + rec(i + 2, False)
+                skip = rec(i + 1, True)
+                return max(sell, skip)
+            else:
+                # You can buy or skip
+                buy = -prices[i] + rec(i + 1, True)
+                skip = rec(i + 1, False)
+                return max(buy, skip)
+
+        return rec(0, False)
+
+--
+
+===========================================================================================================
+
+
+-- Domino and tromino tiling
+
+
+-- https://www.youtube.com/watch?v=Iwmn-gFL3c0&list=PLpIkg8OmuX-L_QqcKB5abYynQbonaNcq3&index=12
+-- https://leetcode.com/problems/domino-and-tromino-tiling/
+
+
+--
+class Solution:
+    def numTilings(self, n: int) -> int:
+
+        # this is a mathemetical problem
+        dp = [0 for i in range(n + 1)]
+
+        if n in [1, 2]:
+            return n
+
+        dp[0] = 0
+        dp[1] = 1
+        dp[2] = 2
+        dp[3] = 5
+
+
+        for i in range(4, n + 1):
+            dp[i] += (2 * dp[i - 1] + dp[i - 3]) % (10**9 + 7)
+        
+        return dp[n]
+--
+
+
+============================================================================================================
+
+
+-- Jump Game (Imp) (dp)
+
+
+-- https://leetcode.com/problems/jump-game/
+-- https://www.youtube.com/watch?v=pvg0yrD-E5w&list=PLpIkg8OmuX-L_QqcKB5abYynQbonaNcq3&index=13
+
+
+--
+class Solution:
+    def canJump1(self, nums: List[int]) -> bool:
+        n = len(nums)
+        memo = [-1] * n
+        def dfs(index):
+            if index >= n - 1:
+                return True
+
+            if memo[index] != -1:
+                return memo[index]
+            
+            for i in range(1, nums[index] + 1):
+                if dfs(index + i):
+                    memo[index] = 1
+                    return True
+
+            memo[index] = 0
+            return False
+
+        return dfs(0)
+
+    def canJump2(self, nums: List[int]) -> bool:
+        n = len(nums)
+
+        dp = [False] * (n)
+        dp[0] = True
+
+        for i in range(1, n):
+            for j in range(i - 1, -1, -1):
+                if dp[j] and j + nums[j] >= i:
+                    dp[i] = True
+                    break
+
+        return dp[n - 1]
+
+    def canJump(self, nums: List[int]) -> bool:
+        n = len(nums)
+        max_reach = nums[0]
+
+        for i in range(1, n):
+            if max_reach < i:
+                return False
+
+            max_reach = max(max_reach, i + nums[i])
+            
+        return True
+    
+--
+
+
+===========================================================================================================
+
+- flips string to monotone increasing
+
+
+--
+--
+
+
+--
+class Solution:
+    def minFlipsMonoIncr(self, s: str) -> int:
+        n = len(s)
+        from functools import lru_cache
+
+        @lru_cache(None)
+        def rec(i, prev):
+            if i == n:
+                return 0
+
+            flips = float('inf')
+            no_flips = float('inf')
+
+            if s[i] == '0':
+                if prev == 1:
+                    flips = 1 + rec(i + 1, 1)
+                else:
+                    flips = 1 + rec(i + 1, 1)
+                    no_flips = rec(i + 1, 0)
+            else:
+                if prev == 1:
+                    no_flips = rec(i + 1, 1)
+                else:
+                    flips = 1 + rec(i + 1, 0)
+                    no_flips = rec(i + 1, 1)
+            return min(flips, no_flips)
+
+        return rec(0, 0)
+        
+    def minFlipsMonoIncr(self, s: str) -> int:
+        n = len(s)
+--
+
+===========================================================================================================
+
+
+-- Reducing dishes
+
+
+-- https://leetcode.com/problems/reducing-dishes/
+-- https://www.youtube.com/watch?v=JIdXXP9VjDE&list=PLpIkg8OmuX-L_QqcKB5abYynQbonaNcq3&index=18
+
+
+--
+class Solution:
+    def maxSatisfaction1(self, s: List[int]) -> int:
+        dp = {}
+
+        n = len(s)
+        s.sort()
+
+        def dfs(i, time):
+            if i == n:
+                return 0
+
+            if (i, time) in dp:
+                return dp[(i, time)]
+
+            take = time * s[i] + dfs(i + 1, time + 1)
+            ntake = dfs(i + 1, time)
+
+            dp[(i, time)] = max(take, ntake)
+            return max(take, ntake)
+
+        return dfs(0, 1)
+
+
+    def maxSatisfaction2(self, s: List[int]) -> int:
+        n = len(s)
+        s.sort()
+
+        # dp[i][time]: max satisfaction from index i onward, starting at given time
+        dp = [[0 for _ in range(n + 2)] for _ in range(n + 1)]
+
+        for i in range(n - 1, -1, -1):  # go backwards
+            for time in range(1, n + 1):  # time starts from 1
+                # Take current dish
+                take = s[i] * time + dp[i + 1][time + 1]
+                # Don't take current dish
+                skip = dp[i + 1][time]
+                dp[i][time] = max(take, skip)
+
+        return dp[0][1]
+
+
+    def maxSatisfaction(self, s: List[int]) -> int:
+        s.sort()
+        n = len(s)
+
+        # Initialize with -inf since we're maximizing
+        dp = [[float('-inf') for _ in range(n + 2)] for _ in range(n + 1)]
+        
+        # Base case: 0 satisfaction with 0 dishes used
+        for i in range(n + 1):
+            dp[i][0] = 0
+
+        for i in range(1, n + 1):
+            for time in range(1, n + 1):
+                # Don't take current dish
+                dp[i][time] = dp[i - 1][time]
+                # Take current dish at this time slot
+                dp[i][time] = max(dp[i][time], dp[i - 1][time - 1] + s[i - 1] * time)
+
+        return max(dp[n])g
+
+
+        
+--
+
+
+===========================================================================================================
+
+
+-- Number of ways of cutting a pizza  (Imp)
+
+
+--
+-- https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/submissions/1688636603/
+
+
+--
+class Solution:
+    def ways(self, pizza: List[str], K: int) -> int:
+        m, n, MOD = len(pizza), len(pizza[0]), 10 ** 9 + 7
+        preSum = [[0] * (n + 1) for _ in range(m + 1)]
+        for r in range(m - 1, -1, -1):
+            for c in range(n - 1, -1, -1):
+                preSum[r][c] = preSum[r][c + 1] + preSum[r + 1][c] - preSum[r + 1][c + 1] + (pizza[r][c] == 'A')
+
+        @lru_cache(None)
+        def dp(k, r, c):
+            if preSum[r][c] == 0: return 0
+            if k == 0: return 1
+            ans = 0
+            # cut horizontally
+            for nr in range(r + 1, m):
+                if preSum[r][c] - preSum[nr][c] > 0:
+                    ans = (ans + dp(k - 1, nr, c)) % MOD
+            # cut vertically                    
+            for nc in range(c + 1, n):
+                if preSum[r][c] - preSum[r][nc] > 0:
+                    ans = (ans + dp(k - 1, r, nc)) % MOD
+            return ans
+
+        return dp(K - 1, 0, 0)
+        
+--
+
+
+==========================================================================================================
+
+
+-- Root to leaf node path sum equal to the parent node
+
+
+--
+--
+
+
+--
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+def findMatchingNodes(root):
+    result = []
+
+    def dfs(node):
+        if not node:
+            return []
+
+        # Leaf node: return 0 to allow matching at parent
+        if not node.left and not node.right:
+            return [0]
+
+        left_sums = dfs(node.left)
+        right_sums = dfs(node.right)
+
+        all_sums = left_sums + right_sums
+        new_sums = []
+
+        for s in all_sums:
+            total = s + (node.left.val if node.left and s in left_sums else 0) + \
+                        (node.right.val if node.right and s in right_sums else 0)
+            # Add current node's val
+            total_sum = s + node.val
+            new_sums.append(total_sum)
+
+            if total_sum == node.val:
+                result.append(node.val)
+                break
+
+        return new_sums
+
+    dfs(root)
+    return result
+
+--
+
+
+===========================================================================================================
+
+
+-- Bulls and cows
+
+
+
+--
+-- https://leetcode.com/problems/bulls-and-cows/submissions/1696556507/
+
+
+--
+class Solution:
+    def getHint(self, secret: str, guess: str) -> str:
+        farr1 = [0]*10
+        farr2 = [0]*10
+        bulls = 0
+        for i, j in zip(secret, guess):
+            if i == j:
+                bulls += 1
+            else:
+                farr1[int(i)] += 1
+                farr2[int(j)] += 1 
+        cows = 0
+        for k in range(10):
+            cows += min(farr1[k], farr2[k])
+        ans = f"{bulls}A{cows}B"
+        return ans
+        
+--
+
+
+============================================================================================================
 
