@@ -1913,4 +1913,398 @@ class Solution:
 =====================================================================================================
 
 
+-- Process String with special operations II
+
+
+-- https://leetcode.com/problems/process-string-with-special-operations-ii/
+--
+
+
+--
+class Solution:
+    def processStr(self, s: str, k: int) -> str:
+        length = 0
+        for c in s:
+            if c.islower():
+                length += 1
+            elif c == '*' and length > 0:
+                length -= 1
+            elif c == '#':
+                length *= 2
+        
+        if k >= length:
+            return '.'
+
+        for i in range(len(s) - 1, -1, -1):
+            c = s[i]
+            if c.islower():
+                if k == length - 1:
+                    return c
+                length -= 1
+            elif c == '*':
+                length +=
+                 1
+            elif c == '#':
+                length //= 2
+                if k >= length:
+                    k -= length
+            elif c == '%':
+                k = length - 1 - k
+
+        return '.'
+--
+
+
+====================================================================================================
+
+
+-- Longest palindromic path in graph  (Dp with bitmasking)
+
+
+-- https://leetcode.com/problems/longest-palindromic-path-in-graph/
+--
+
+
+
+--
+    def maxLen(self, n: int, edges: List[List[int]], label: str) -> int:
+        # first adj list for graph
+        # for the label with the same characters you need to expan from there to check the palindrome
+        # if a and b are equal meaning they are at the mid of the palindrome
+        dp = [[[-1] * (1 << n) for _ in range(n)] for _ in range(n)]
+
+        g = defaultdict(list)
+
+        for u, v in edges:
+            g[u].append(v)
+            g[v].append(u)
+
+        def dfs(a, b, mask):
+            if dp[a][b][mask] != -1:
+                return dp[a][b][mask]
+            
+            if a == b:
+                # means they are at the end of the palindrome
+                return 1
+
+            ans = -1000
+
+            if b in g[a]:
+                ans = 2
+
+            for nei_a in g[a]:
+                if (1 << nei_a) & mask: continue
+                for nei_b in g[b]:
+                    if (1 << nei_b) & mask: continue
+                    
+                    if label[nei_a] != label[nei_b]: continue
+                    new_mask = mask | (1 << nei_a) | (1 << nei_b)
+                    ans = max(ans, 2 + dfs(nei_a, nei_b, new_mask))
+
+            dp[a][b][mask] = ans
+            return ans
+
+        ans = 1
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                if label[i] == label[j]:
+                    mask = (1 << i) | (1 << j)
+                    ans = max(ans, dfs(i, j, mask))
+
+        return ans
+--
+
+
+=====================================================================================================
+
+
+-- Minimum moves to reach target in grid (Imp)
+
+
+-- https://leetcode.com/problems/minimum-moves-to-reach-target-in-grid/
+--
+
+
+--
+class Solution:
+    def minMove1s(self, sx: int, sy: int, tx: int, ty: int) -> int:
+        visited = set()
+        q = deque()
+        q.append((sx, sy, 0))  # (x, y, steps)
+        visited.add((sx, sy))
+
+        while q:
+            x, y, steps = q.popleft()
+
+            if x == tx and y == ty:
+                return steps
+
+            m = max(x, y)
+
+            # Try to move to (x + m, y)
+            if x + m <= tx and (x + m, y) not in visited:
+                visited.add((x + m, y))
+                q.append((x + m, y, steps + 1))
+
+            # Try to move to (x, y + m)
+            if y + m <= ty and (x, y + m) not in visited:
+                visited.add((x, y + m))
+                q.append((x, y + m, steps + 1))
+
+        return -1  # Impossible
+
+    def minMoves(self, sx: int, sy: int, x: int, y: int) -> int:
+        cnt = 0
+        while x > sx or y > sy:
+            cnt += 1
+
+            if x < y or x == y and sx > sy:
+                x, y, sx, sy = y, x, sy, sx
+
+            if x >= 2 * y:
+                if x % 2:
+                    return -1
+                x //= 2
+            else:
+                x -= y
+
+        return cnt if x == sx and y == sy else -1
+
+--
+
+
+==================================================================================================
+
+
+-- Minimum time for k - connected components
+
+
+--
+-- https://leetcode.com/problems/minimum-time-for-k-connected-components/
+
+
+--
+class Union:
+    def __init__(self, n):
+        self.par = list(range(n))
+    
+    def find(self, x):
+        if self.par[x] != x:
+            self.par[x] = self.find(self.par[x])
+        return self.par[x]
+
+    def union(self, x, y):
+        x = self.find(x)
+        y = self.find(y)
+
+        if x == y: # already connected
+            return False
+
+        self.par[x] = y
+        return True
+    
+
+class Solution:
+    def minTime(self, n: int, edges: List[List[int]], k: int) -> int:
+        # use union find to check for the number of connected components 
+        # use binary search for the time to check for the min time the connected components are at least k
+        
+        edges.sort(key = lambda e: -e[2])
+        count = n
+        uf = Union(n)
+
+        for u, v, t in edges:
+            if uf.union(u, v):
+                count -= 1
+            if count < k:
+                return t
+        return 0
+--
+
+==================================================================================================
+
+
+-- Maximize spanning tree stability with upgrades (Imp) (Union find)
+
+
+
+--
+https://leetcode.com/problems/maximize-spanning-tree-stability-with-upgrades/
+--
+
+
+--
+class Solution:
+    def maxStability(self, N, edges, K):
+        used = 0
+        ans = inf
+        dsu = DSU(N)
+
+        for u, v, s, m in edges:
+            if m:
+                if not dsu.union(u, v):
+                    return -1
+                used += 1
+                ans = min(ans, s)
+        
+        edges.sort(key=lambda e: -e[2])
+        print(edges)
+        weights = []
+        for u, v, s, m in edges:
+            if m == 0:
+                if dsu.union(u, v):
+                    used += 1
+                    weights.append(s)
+
+        print(weights)
+        for i in range(min(K, len(weights))):
+            weights[~i] *= 2
+
+        print(weights)
+
+        if used != N - 1:
+            return -1
+        return min((ans, *weights))
+
+
+class DSU:
+    def __init__(self, N):
+        self.par = list(range(N))
+        self.sz = [1] * N
+
+    def find(self, x):
+        if self.par[x] != x:
+            self.par[x] = self.find(self.par[x])
+        return self.par[x]
+
+    def union(self, x, y):
+        xr, yr = self.find(x), self.find(y)
+        if xr == yr:
+            return False
+        if self.sz[xr] < self.sz[yr]:
+            xr, yr = yr, xr
+        self.par[yr] = xr
+        self.sz[xr] += self.sz[yr]
+        return True
+--
+
+
+==================================================================================================
+
+
+-- Partition of the array to minimize xor
+
+
+--
+--
+
+
+--
+class Solution:
+    def minXor(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+
+        @lru_cache(None)
+        def dp(i: int, k: int) -> int:
+            if k == 0 and i == n:
+                return 0  # valid partitioning done
+            if k == 0 or i == n:
+                return float('inf')  # invalid
+
+            res = float('inf')
+            xor_sum = 0
+
+            for j in range(i, n):
+                xor_sum ^= nums[j]
+                next_part = dp(j + 1, k - 1)
+                res = min(res, max(xor_sum, next_part))
+
+            return res
+
+        return dp(0, k)
+
+
+class Solution:
+    def minXor(self, nums: List[int], k: int) -> int:
+
+        xors = lambda x, y: xorAcc[x] ^ xorAcc[y]
+        
+        @lru_cache(None)
+        def dp(i: int, k: int)-> int:
+
+            if i == n: return inf
+            if k == 1: return xors(i, -1)
+            res = inf
+            
+
+            for j in range(i + 1, n - k + 2):
+
+                mx = max(xorAcc[j] ^ xorAcc[i], dp(j, k - 1))
+                res = min(res, mx)
+            return res
+
+
+        n = len(nums)
+        xorAcc = list(accumulate(nums, xor, initial = 0))
+        return dp(0, k)
+        
+        
+--
+
+
+================================================================================================
+
+
+-- Longest common prefix between adjacent strings after removals
+
+
+--
+-- https://leetcode.com/problems/longest-common-prefix-between-adjacent-strings-after-removals/submissions/1712872399/
+
+
+--
+from typing import List
+
+class Solution:
+    def longestCommonPrefix(self, words: List[str]) -> List[int]:
+        n = len(words)
+
+        def lcp(a: str, b: str) -> int:
+            i = 0
+            while i < len(a) and i < len(b) and a[i] == b[i]:
+                i += 1
+            return i
+
+        # Only store direct adjacent LCPs
+        left = [0] * n
+        right = [0] * n
+
+        for i in range(1, n):
+            left[i] = max(left[i - 1], lcp(words[i - 1], words[i]))
+
+        for j in range(n - 2, -1, -1):
+            right[j] = max(right[j + 1], lcp(words[j], words[j + 1]))
+
+        ans = [0] * n
+
+        for i in range(n):
+            left_max = left[i - 1] if i - 1 >= 0 else 0
+            right_max = right[i + 1] if i + 1 < n else 0
+
+            adj_max = 0
+
+            if i - 1 >= 0 and i + 1 < n:
+                adj_max = lcp(words[i - 1], words[i + 1])
+                
+            ans[i] = max(left_max, right_max, adj_max)
+
+        return ans
+
+--
+
+
+==============================================================================================
+
+
 

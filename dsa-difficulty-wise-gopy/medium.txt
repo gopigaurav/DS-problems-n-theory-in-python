@@ -16153,3 +16153,991 @@ class Solution:
 
 ============================================================================================================
 
+-- Longest increasing subsequence
+
+
+-- https://leetcode.com/problems/longest-increasing-subsequence/
+--
+
+
+--
+from typing import List
+
+class Solution:
+    def lengthOfLIS1(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = {}
+
+        def dfs(index, prev):
+            if index == n:
+                return 0
+
+            key = (index, prev)
+            if key in dp:
+                return dp[key]
+
+            take = 0
+            if prev == -1 or nums[index] > nums[prev]:
+                take = 1 + dfs(index + 1, index)
+            not_take = dfs(index + 1, prev)
+
+            dp[key] = max(take, not_take)
+            return dp[key]
+
+        return dfs(0, -1)
+
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 0:
+            return 0
+
+        dp = [1] * n  # dp[i] = length of LIS ending at index i
+
+        for i in range(n):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+
+        return max(dp)
+
+--
+
+
+========================================================================================================
+
+
+-- Additve number
+
+
+-- https://leetcode.com/problems/additive-number/
+--
+
+
+--
+class Solution:
+    def isAdditiveNumber(self, num: str) -> bool:
+        n = len(num)
+        
+        # Try all possible first and second numbers
+        for i in range(1, n):
+            for j in range(i+1, n):
+                num1 = num[:i]
+                num2 = num[i:j]
+
+                # Skip if any number has leading zeros (but allow "0")
+                if (len(num1) > 1 and num1[0] == '0') or (len(num2) > 1 and num2[0] == '0'):
+                    continue
+
+                # Start building the additive sequence
+                a, b = int(num1), int(num2)
+                k = j
+                while k < n:
+                    c = a + b
+                    c_str = str(c)
+                    if not num.startswith(c_str, k):
+                        break
+                    k += len(c_str)
+                    a, b = b, c
+                
+                if k == n:
+                    return True
+
+        return False
+--
+
+
+========================================================================================================
+
+
+-- Minimum height of tree
+
+
+
+-- https://leetcode.com/problems/minimum-height-trees/
+--
+
+
+--
+from collections import defaultdict, deque
+
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n <= 2:
+            return [i for i in range(n)] 
+        
+        # if n > 2 and construct the graph and remove the leave nodes one by one
+
+        g = defaultdict(set)
+
+        for u, v in edges:
+            g[u].add(v)
+            g[v].add(u)
+        
+        leaves = deque()
+
+        for node in g:
+            if len(g[node]) == 1:
+                leaves.append(node)
+
+        # at start the remaining nodes will be same as n
+        remaining_node = n
+
+        while remaining_node > 2:
+            leaf_size = len(leaves)
+            remaining_node -= leaf_size
+
+            for _ in range(leaf_size):
+                leaf = leaves.popleft()
+
+                neigh = g[leaf].pop()
+                g[neigh].remove(leaf)
+
+                if len(g[neigh]) == 1:
+                    leaves.append(neigh)
+        
+        return list(leaves)
+--
+
+
+
+=======================================================================================================
+
+
+-- Binary subarrays with sum (Imp)
+
+
+
+-- https://leetcode.com/problems/binary-subarrays-with-sum/submissions/1701598922/
+--
+
+
+--
+class Solution:
+    def numSubarraysWithSum1(self, nums: List[int], goal: int) -> int:
+
+        # using prefix sum and hashmap
+        # using sliding window
+        current_sum = 0
+        total = 0
+        freq = defaultdict(int)
+
+        for num in nums:
+            current_sum += num
+
+            if current_sum == goal:
+                total += 1
+            
+            if current_sum - goal in freq:
+                total += freq[current_sum - goal]
+            
+            freq[current_sum] += 1
+
+        return total
+        
+    def numSubarraysWithSum(self, nums: List[int], g: int) -> int:
+        n = len(nums)
+        
+        def fun(goal):
+            # using sliding window
+            left = 0
+            csum = 0
+            total = 0
+
+            for right in range(n):
+                csum += nums[right]
+                while csum > goal and left <= right:
+                    csum -= nums[left]
+                    left += 1
+                total += right - left + 1
+            return total
+        
+        return fun(g) - fun(g - 1)
+--
+
+
+=========================================================================================================
+
+
+-- Beautiful array  (Imp)
+
+
+--
+-- https://leetcode.com/problems/beautiful-array/
+
+
+--
+class Solution:
+    def beautifulArray(self, n: int) -> List[int]:
+        memo = {}
+        def helper(n):
+            if n in memo:
+                return memo[n]
+            if n == 1:
+                return [1]
+            
+            odd = helper((n + 1) // 2)
+            even = helper(n // 2)
+
+            result = [2 * x - 1 for x in odd] + [2 * x for x in even]
+            memo[n] = result
+            return result
+
+        return helper(n)
+        
+--
+
+
+========================================================================================================
+
+
+-- Shortest bridge
+
+
+
+-- https://leetcode.com/problems/shortest-bridge/submissions/1702642576/
+--
+
+
+--
+class Solution:
+    def shortestBridge(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+
+        # do the dfs on the first island and get the coordinates in the queue 
+        # then do bfs on the queue
+        q = []
+        vis = [[0 for _ in range(n)] for _ in range(m)]
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+        def dfs(i, j):
+            if i < 0 or j < 0 or i >= m or j >= n or vis[i][j] or grid[i][j] == 0:
+                return
+            
+            vis[i][j] = 1
+            q.append((i, j))
+
+            for dx, dy in directions:
+                dfs(i + dx, j + dy)
+
+        found = False
+        for i in range(m):
+            if found:
+                break
+            for j in range(n):
+                if grid[i][j]: 
+                    dfs(i, j)
+                    found = True
+                    break 
+
+        # bfs
+        cnt = 0
+
+        while q:
+            for _ in range(len(q)):
+                x, y = q.pop(0)
+                for dx, dy in directions:
+                    nx = dx + x
+                    ny = dy + y
+                    if 0 <= nx < m and 0 <= ny < n and not vis[nx][ny]:
+                        if grid[nx][ny] == 1:
+                            return cnt
+                        q.append((nx, ny)) 
+                        vis[nx][ny] = 1
+            cnt += 1 
+        
+        return -1
+
+            
+        
+--
+
+
+===================================================================================================
+
+
+
+-- Minimum spanning tree (Kruskals algo)
+
+
+-- https://www.geeksforgeeks.org/problems/minimum-spanning-tree-kruskals-algorithm/1
+--
+
+
+--
+from typing import List
+
+class Union:
+    def __init__(self, n):
+        self.par = list(range(n))
+        
+    def find(self, x):
+        if self.par[x] != x:
+            self.par[x] = self.find(self.par[x]) # path compression O(inverse(n))
+        return self.par[x]
+    
+    def union(self, x, y):
+        x = self.find(x)
+        y = self.find(y)
+        
+        if x == y:
+            return False
+        
+        self.par[x] = y
+        return True
+
+
+class Solution:
+    def kruskalsMST(self, V: int, edges: List[List[int]]) -> int:
+        edges.sort(key=lambda x:x[2])
+        
+        uf = Union(V)
+        mst = []
+        total_wei = 0
+        
+        for u, v, w in edges:
+            if uf.union(u, v):
+                total_wei += w
+        
+        return total_wei
+--
+
+
+====================================================================================================
+
+
+-- Minimize maximum component cost (Imp) (Minimum spanning tree)
+
+
+-- https://leetcode.com/problems/minimize-maximum-component-cost/
+--
+
+
+--
+class Solution:
+    def minCost(self, n: int, edges: List[List[int]], k: int) -> int:
+        # Step 1: Build MST using Kruskal's algorithm
+        edges.sort(key=lambda x: x[2])  # sort by weight
+        uf = UnionFind(n)
+        mst_edges = []
+
+        for u, v, w in edges:
+            if uf.union(u, v):
+                mst_edges.append(w)
+
+        # Step 2: Remove (k - 1) heaviest edges from MST
+        mst_edges.sort()
+        for _ in range(k - 1):
+            if mst_edges:
+                mst_edges.pop()  # remove the heaviest edge
+
+        # Step 3: Return the maximum remaining edge (or 0 if no edges)
+        return max(mst_edges) if mst_edges else 0
+
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, u):
+        if self.parent[u] != u:
+            self.parent[u] = self.find(self.parent[u])
+        return self.parent[u]
+
+    def union(self, u, v):
+        pu, pv = self.find(u), self.find(v)
+        if pu == pv:
+            return False
+        self.parent[pu] = pv
+        return True
+--
+
+
+==================================================================================================
+
+
+-- Detonate the maximum bombs
+
+
+--
+-- https://leetcode.com/problems/detonate-the-maximum-bombs/
+
+
+--
+class Solution:
+    def maximumDetonation(self, bombs: List[List[int]]) -> int:
+        from collections import defaultdict
+        n = len(bombs)
+
+        g = defaultdict(list)
+
+        # we get the euclidean formulae for all the bombs and conenct them
+        # if the formulae satisfies
+        for i in range(n):
+            for j in range(n):
+                if  i == j:
+                    continue
+                
+                x1, y1, r1 = bombs[i]
+                x2, y2, r2 = bombs[j]
+
+                if (x1 - x2) ** 2 + (y1 - y2)**2 <= r1 * r1:
+                    g[i].append(j)
+
+        # then using bfs need to iterate the bombs conencted and then get the max total
+        res = 1
+
+        def bfs(node):
+            vis = set()
+            vis.add(node)
+            total = 0
+            q = deque()
+            q.append(node)
+
+            while q:
+                temp = q.popleft()
+                total += 1
+                for i in g[temp]:
+                    if i not in vis:
+                        q.append(i)
+                        vis.add(i)
+            
+            return total
+            
+        for i in range(n):
+            res = max(res, bfs(i))
+        return res
+   
+--
+
+
+=================================================================================================
+
+
+
+-- Minimum stability factor of an array (Segment Tree, Gcd sparse table, Binary Tree)
+
+
+-- https://leetcode.com/problems/minimum-stability-factor-of-array/solutions/
+-- https://www.youtube.com/watch?v=gh0SophKb28
+
+
+-- 
+import math
+from typing import List
+
+class GCDSparseTable:
+    def __init__(self, a: List[int]):
+        self.n = len(a)
+        max_log = (self.n).bit_length()
+        self.st = [[0] * max_log for _ in range(self.n)]
+        self.logVal = [0] * (self.n + 1)
+
+        for i in range(2, self.n + 1):
+            self.logVal[i] = self.logVal[i // 2] + 1
+
+        for i in range(self.n):
+            self.st[i][0] = a[i]
+
+        for j in range(1, max_log):
+            for i in range(self.n - (1 << j) + 1):
+                self.st[i][j] = math.gcd(self.st[i][j - 1], self.st[i + (1 << (j - 1))][j - 1])
+
+    def getGCD(self, l: int, r: int) -> int:
+        j = self.logVal[r - l + 1]
+        return math.gcd(self.st[l][j], self.st[r - (1 << j) + 1][j])
+
+
+class Solution:
+    def __init__(self):
+        self.a = []
+        self.n = 0
+        self.maxC = 0
+
+    def canBreak(self, maxLen: int, st: GCDSparseTable) -> bool:
+        changes = 0
+        l = 0
+
+        for r in range(self.n):
+            g = st.getGCD(l, r)
+            while l + 1 <= r and g == 1:
+                l += 1
+                g = st.getGCD(l, r)
+            if r - l + 1 > maxLen:
+                l = r + 1
+                changes += 1
+
+        return changes <= self.maxC
+
+    def minStable(self, nums: List[int], _maxC: int) -> int:
+        self.a = nums
+        self.n = len(nums)
+        self.maxC = _maxC
+
+        if nums.count(1) + _maxC >= self.n:
+            return 0
+
+        st = GCDSparseTable(nums)
+        l, r = 0, self.n + 1
+
+        while r > l + 1:
+            mid = (l + r) // 2
+            if self.canBreak(mid, st):
+                r = mid
+            else:
+                l = mid
+
+        return r
+
+--
+
+
+===============================================================================================
+
+
+-- Minimum Time to Reach Dstination in Directed Graph (Imp)
+
+
+
+-- https://leetcode.com/problems/minimum-time-to-reach-destination-in-directed-graph/
+--
+
+
+--
+class Solution:
+    def minTime1(self, n: int, edges: List[List[int]]) -> int:
+        # using dijisktra algo
+        graph = defaultdict(list)
+        for u, v, start, end in edges:
+            graph[u].append((v, start, end))
+        
+        dist = [float('inf')] * n
+        dist[0] = 0
+        
+        queue = deque()
+        queue.append((0, 0))  # (time, node)
+        
+        while queue:
+            time, node = queue.popleft()
+            
+            if time > dist[node]:
+                continue  # Already found a better path
+            
+            # Wait at current node
+            if time + 1 < dist[node]:
+                dist[node] = time + 1
+                queue.append((time + 1, node))
+            
+            # Traverse active edges
+            for nei, start, end in graph[node]:
+                if start <= time <= end:
+                    if time + 1 < dist[nei]:
+                        dist[nei] = time + 1
+                        queue.append((time + 1, nei))
+                elif time < start:
+                    if start + 1 < dist[nei]:
+                        dist[nei] = start + 1
+                        queue.append((start + 1, nei))
+        
+        return dist[n - 1] if dist[n - 1] != float('inf') else -1
+
+
+    def minTime(self, n: int, edges: List[List[int]]) -> int:
+        # using heap
+        graph = defaultdict(list)
+        for u, v, start, end in edges:
+            graph[u].append((v, start, end))
+        
+        heap = [(0, 0)]  # (current_time, current_node)
+        visited = dict()  # node -> earliest_time_reached
+        
+        while heap:
+            time, node = heapq.heappop(heap)
+            if node in visited and visited[node] <= time:
+                continue
+            visited[node] = time
+            
+            if node == n - 1:
+                return time
+            
+            # Wait at current node
+            heapq.heappush(heap, (time + 1, node))
+            
+            # Traverse active edges
+            for nei, start, end in graph[node]:
+                if start <= time <= end:
+                    heapq.heappush(heap, (time + 1, nei))
+                elif time < start:
+                    heapq.heappush(heap, (start + 1, nei))
+        
+        return -1
+        
+--
+
+
+=============================================================================================
+
+
+-- Minimum cost path with alternating directions II (Imp)
+
+
+-- https://leetcode.com/problems/minimum-cost-path-with-alternating-directions-ii/
+--
+
+
+--
+from typing import List
+from functools import lru_cache
+
+class Solution:
+    def minCost(self, m: int, n: int, wait: List[List[int]]) -> int:
+
+        @lru_cache(None)
+        def dp(i: int, j: int, is_even: bool) -> int:
+            if i >= m or j >= n:
+                return float('inf')
+            if i == m - 1 and j == n - 1:
+                return 0  # No cost after reaching destination
+
+            if is_even:
+                # Wait on current cell
+                return wait[i][j] + dp(i, j, False)
+            else:
+                val1 = float('inf')
+                val2 = float('inf')
+                if i + 1 < m:
+                    val1 = (i + 2) * (j + 1) + dp(i + 1, j, True)
+                if j + 1 < n:
+                    val2 = (i + 1) * (j + 2) + dp(i, j + 1, True)
+                return min(val1, val2)
+
+        # Special case for starting cell (0, 0)
+        val1 = float('inf')
+        val2 = float('inf')
+        if m > 1:
+            val1 = 2 * 1 + dp(1, 0, True)
+        if n > 1:
+            val2 = 1 * 2 + dp(0, 1, True)
+        return 1 + min(val1, val2)  # 1*1 for entering (0,0)
+
+
+
+from typing import List
+from functools import lru_cache
+
+class Solution1:
+    def minCost(self, m: int, n: int, waitCost: List[List[int]]) -> int:
+        dp = [[[-1 for _ in range(2)] for _ in range(n)] for _ in range(m)]
+        return self.recur(0, 0, False, waitCost, m, n, dp)
+
+    def recur(self, i, j, is_even, waitCost, m, n, dp):
+        if i >= m or j >= n:
+            return float('inf')
+        if i == m - 1 and j == n - 1:
+            return 0
+        if i == 0 and j == 0 and not is_even:
+            val1 = float('inf')
+            val2 = float('inf')
+            if m > 1:
+                val1 = 2 * 1 + self.recur(1, 0, True, waitCost, m, n, dp)
+            if n > 1:
+                val2 = 1 * 2 + self.recur(0, 1, True, waitCost, m, n, dp)
+            return 1 + min(val1, val2)
+        
+        if dp[i][j][is_even] != -1:
+            return dp[i][j][is_even]
+
+        if is_even:
+            cost = waitCost[i][j] + self.recur(i, j, False, waitCost, m, n, dp)
+        else:
+            val1 = float('inf')
+            val2 = float('inf')
+            if i + 1 < m:
+                val1 = (i + 2) * (j + 1) + self.recur(i + 1, j, True, waitCost, m, n, dp)
+            if j + 1 < n:
+                val2 = (i + 1) * (j + 2) + self.recur(i, j + 1, True, waitCost, m, n, dp)
+            cost = min(val1, val2)
+
+        dp[i][j][is_even] = cost
+        return cost
+--
+
+
+============================================================================================
+
+-- Partition string (Trie) (Imp)
+ 
+
+
+--
+-- https://leetcode.com/problems/partition-string/submissions/1712945826/
+
+
+--
+class Solution:
+    def partitionString(self, s: str) -> List[str]:
+
+        n = len(s)
+        seen = set()
+        i = 0
+        res = []
+
+        while i < n:
+            seg = s[i]
+            if seg not in seen:
+                seen.add(seg)
+                res.append(seg)
+                i += 1
+            else:
+                j = i + 1
+                while j < n:
+                    seg += s[j]
+                    if seg in seen:
+                        j += 1
+                    else:
+                        res.append(seg)
+                        seen.add(seg)
+                        break
+                i = j + 1 if j < n else n
+
+        return res
+
+        
+--
+
+
+
+=========================================================================================
+
+
+-- Partition string
+
+
+-- https://leetcode.com/problems/partition-string/
+--
+
+
+--
+class Solution1:
+    def partitionString(self, s: str) -> List[str]:
+
+        n = len(s)
+        seen = set()
+        i = 0
+        res = []
+
+        while i < n:
+            seg = s[i]
+            if seg not in seen:
+                seen.add(seg)
+                res.append(seg)
+                i += 1
+            else:
+                j = i + 1
+                while j < n:
+                    seg += s[j]
+                    if seg in seen:
+                        j += 1
+                    else:
+                        res.append(seg)
+                        seen.add(seg)
+                        break
+                i = j + 1 if j < n else n
+
+        return res
+
+
+from typing import List
+
+class TrieNode:
+    def __init__(self):
+        self.children = dict()
+        self.is_end = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def insert(self, word: str) -> bool:
+        node = self.root
+        for ch in word:
+            if ch not in node.children:
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
+        if node.is_end:
+            return False  # Already inserted
+        node.is_end = True
+        return True
+
+class Solution:
+    def partitionString(self, s: str) -> List[str]:
+        trie = Trie()
+        res = []
+        n = len(s)
+        i = 0
+
+        while i < n:
+            seg = s[i]
+            j = i + 1
+            while j <= n:
+                if trie.insert(seg):  # If seg not seen before, insert it
+                    res.append(seg)
+                    break
+                if j == n:
+                    break
+                seg += s[j]
+                j += 1
+            i = j  # move to next index after current segment
+
+        return res
+        
+--
+
+
+==========================================================================================
+
+-- Minmimum time to transport all individual
+
+
+-- https://leetcode.com/problems/minimum-time-to-transport-all-individuals/
+--
+
+
+--
+class Solution:
+    def minTime2(self, n: int, k: int, m: int, time: List[int], mul: List[float]) -> float:
+        # you can either use Dijikstra or DFS or dynamic programming
+        # Dijikstra is implemented using the queue
+
+
+
+        # mask represents the individuals which are picked
+        # current_state represents the current_state using formule
+        # time taken formulae 
+        
+        # time[r] x mul[current_state] = max(individual) x mul[current_state] ie, current_state will be 0 at start
+        # current_state = current_state + floor(time_taken) % m
+        return
+
+
+    def minTime(self, n: int, k: int, m: int, time: List[int], mul: List[float]) -> float:
+        heap = [(0.0, 0, 0, 0)]
+        seen = dict()
+
+        full_mask = (1 << n) - 1
+
+        while heap:
+            t, p, mask, j = heappop(heap)
+            state = (p, mask, j)
+            if state in seen and seen[state] <= t:
+                continue
+            seen[state] = t
+            if mask == full_mask and p == 1:
+                return round(t, 5)
+
+            if p == 0:
+                # getting the individual who are in the left side
+                camp = [i for i in range(n) if not (mask >> i) & 1]
+                for r in range(1, min(k, len(camp)) + 1):
+                    for group in combinations(camp, r):
+                        cross = max(time[i] for i in group) * mul[j]
+                        new_j = (j + floor(cross)) % m
+                        new_mask = mask
+                        for i in group:
+                            new_mask |= (1 << i)
+                        heappush(heap, (t + cross, 1, new_mask, new_j))
+            else:
+                # on the right hand side
+                dst = [i for i in range(n) if (mask >> i) & 1]
+                for i in dst:
+                    return_time = time[i] * mul[j]
+                    new_j = (j + floor(return_time)) % m
+                    new_mask = mask & ~(1 << i)
+                    heappush(heap, (t + return_time, 0, new_mask, new_j))
+
+        return -1.0
+
+        
+--
+
+
+============================================================================================
+
+
+-- Minimum increaments to equalize leaf paths
+
+
+-- https://leetcode.com/problems/minimum-increments-to-equalize-leaf-paths/
+--
+
+
+--
+class Solution:
+
+    def minIncrease(self, n: int, edges: List[List[int]], cost: List[int]) -> int:
+        G = [[] for i in range(n)]
+        for u, v in edges:
+            G[u].append(v)
+            G[v].append(u)
+        res = [0]
+
+        def dfs(i, par = -1):
+            # traverse among the path and make the children of all the subtree equal
+            seen = []
+            for j in G[i]:
+                if j == par: continue
+                seen.append(dfs(j, i))
+
+            # if seen is empty then its a leaf node
+            if not seen:
+                return cost[i]
+            
+            max_among_child = max(seen)
+
+            # traverse among the child and make it equal to max
+            for v in seen:
+                if max_among_child - v > 0:
+                    res[0] += 1
+            return max_among_child + cost[i]
+        
+        dfs(0)
+        return res[0]
+        
+--
+
+
+==========================================================================================
+
+
+-- Inverse coin change
+
+
+-- https://leetcode.com/problems/inverse-coin-change/
+--
+
+
+--
+class Solution(object):
+    def findCoins(self, numWays):
+        N = len(numWays)                  # Total number of amounts we need to match
+        dp = [0] * (N + 1)                # dp[i] = number of ways to make sum i
+        dp[0] = 1                         # Base case: 1 way to make 0 sum (no coins)
+        
+        coins = []                        # This will store the recovered coin denominations
+
+        for i in range(1, N + 1):
+            target = numWays[i - 1]       # numWays[i-1] = expected number of ways to form sum i
+
+            if dp[i] == target - 1:       # if we are 1 way short, assume 'i' is a coin denomination
+                coins.append(i)           # So add i to our coins
+                for j in range(i, N + 1): # Update dp[] using this new coin
+                    dp[j] += dp[j - i]    # Classic coin change DP recurrence
+
+            if dp[i] != target:           # After updates, if dp[i] doesn't match target, it's invalid
+                return []
+
+        return coins                      # Return the recovered coin denominations
+
+--
+
+
+=========================================================================================
